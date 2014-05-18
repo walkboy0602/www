@@ -1,0 +1,125 @@
+﻿@model App.Ads.Areas.Account.Models.RegisterModel
+@{
+    ViewBag.Title = "Create Account";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="col-sm-12">
+    <h1>Create an account</h1>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <hr>
+        <div class="row">
+            <div class="col-sm-12 col-md-7">
+
+                <div class="form-vertical">
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-sm-12">
+
+                                <div class="well">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Full name</label>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                @Html.DropDownListFor(m => m.Salutation, ViewBag.Salutation as IEnumerable<SelectListItem>, new { @class = "form-control" })
+                                            </div>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", placeholder = "First name" })
+                                                @Html.ValidationMessageFor(model => model.FirstName)
+                                            </div>
+                                            <div class="col-sm-5">
+                                                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", placeholder = "Last Name" })
+                                                @Html.ValidationMessageFor(model => model.LastName)
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Email address</label>
+                                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "E-mail address", autocomplete = "off" })
+                                        @Html.ValidationMessageFor(model => model.Email)
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Make sure your password is longer than 6 characters", autocomplete = "off" })
+                                        @Html.ValidationMessageFor(model => model.Password)
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Confirm password</label>
+                                        @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm Password" })
+                                        @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Mobile</label>
+                                        @Html.TextBoxFor(model => model.Mobile, new { @class = "form-control", placeholder = "E.g. 012-3456789" })
+                                        @Html.ValidationMessageFor(model => model.Mobile)
+                                    </div>
+
+                                    <br>
+                                    @Html.ValidationSummary(true)
+                                    <input type="submit" value="Create account" class="btn-glow primary signup" />
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="col-md-5 col-sm-12 account-sidebar hidden-sm">
+
+                <div class="row">
+                    <div class="col-sm-3" style="text-align: center;">
+                        <img src="http://templates.expresspixel.com/bootlistings/css/images/icons/Crest.png" width="50">
+                    </div>
+                    <div class="col-sm-8">
+                        <h3>Why us?</h3>
+                        <p>We're one of the most recognisable brands, attracting thousands of buyers every month.</p><p>
+                        </p>
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col-sm-3" style="text-align: center;">
+                        <img src="http://templates.expresspixel.com/bootlistings/css/images/icons/Pie-Chart.png" width="40">
+                    </div>
+                    <div class="col-sm-8">
+                        <h3>Magnet for buyers</h3>
+                        <p>We make sure your listings receive maximum exposure and is presented in an engaging way</p>
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col-sm-3" style="text-align: center;">
+                        <img src="http://templates.expresspixel.com/bootlistings/css/images/icons/Search.png" width="40">
+                    </div>
+                    <div class="col-sm-8">
+                        <h3>Focused searches</h3>
+                        <p>Our technology and algorithm matches potential buyers directly to your listings</p>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-3" style="text-align: center;">
+                        <img src="http://templates.expresspixel.com/bootlistings/css/images/icons/Telephone.png" width="40">
+                    </div>
+                    <div class="col-sm-8">
+                        <h3>Mobile web</h3>
+                        <p>Your listings will always be accessible to everyone, even when they are on the move, via our responsive mobile website</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <br>
+
+    }
+</div>

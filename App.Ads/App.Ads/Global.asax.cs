@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using App.Ads.Code.Membership;
 
 namespace App.Ads
 {
@@ -22,7 +23,18 @@ namespace App.Ads
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            Bootstrapper.Initialise();
             AuthConfig.RegisterAuth();
+        }
+
+        protected void Application_PostAuthenticateRequest(object sender, EventArgs e)
+        {
+            if (Request.IsAuthenticated)
+            {
+                var identity = new CustomIdentity(HttpContext.Current.User.Identity);
+                var principal = new CustomPrincipal(identity);
+                HttpContext.Current.User = principal;
+            }
         }
     }
 }

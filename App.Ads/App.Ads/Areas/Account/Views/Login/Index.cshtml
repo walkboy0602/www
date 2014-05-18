@@ -1,0 +1,43 @@
+﻿@model App.Ads.Areas.Account.Models.LoginModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="col-sm-12 login-wrapper">
+    <h1>Sign in to your account</h1>
+    @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+    {
+        @Html.AntiForgeryToken()
+        <hr>
+
+        <div class="row">
+            <div class="col-sm-12 col-md-6 box">
+                @Html.ValidationSummary(true)
+                <div class="content-wrap">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "E-mail address" })
+                        @Html.ValidationMessageFor(m => m.UserName)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Your password" })
+                        @Html.ValidationMessageFor(m => m.Password)
+                    </div>
+                        <a href="#" class="forgot">Forgot password?</a>
+                        <div class="remember">
+                            @Html.CheckBoxFor(m => m.RememberMe)
+                            @Html.LabelFor(m => m.RememberMe, new { @class = "remember-me" })
+                        </div>
+
+                        <input type="submit" value="Log in" class="btn-glow primary login" />
+                    </div>
+            </div>
+        </div>
+    }
+    <div class="no-account">
+        <p>Don't have an account?</p>
+        @Html.ActionLink("Register Now", "index", "register", new { area = "account" }, new { @class = "link-info" })
+    </div>
+</div>

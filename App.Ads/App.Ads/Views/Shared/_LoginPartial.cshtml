@@ -1,14 +1,44 @@
-﻿@if (Request.IsAuthenticated) {
-    <text>
-        Hello, @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
-        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
+﻿@using App.Ads.Code.Membership
+@if (Request.IsAuthenticated)
+{
+    <div class="collapse navbar-collapse">
+        @using (Html.BeginForm("index", "logoff", FormMethod.Post, new { id = "logoutForm", area = "account" }))
+        {
             @Html.AntiForgeryToken()
-            <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+            <ul class="nav navbar-nav navbar-right hidden-xs">
+                <li><a href="listings.html">Listings</a></li>
+                <li class="divider-vertical">|</li>
+                <li>
+                    @*<i class="fa fa-user"></i>*@
+                    @Html.ActionLink(" My Account", "Dashboard", "User", new { area = "" }, new { @class = "fa fa-user" })
+                </li>
+                <li class="divider-vertical">|</li>
+                <li>
+
+                    <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-power-off"></i> Log off</a>
+                </li>
+
+
+            </ul>
         }
-    </text>
-} else {
-    <ul>
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
+    </div>
+
+    //var identity = HttpContext.Current.User.ToCustomPrincipal().CustomIdentity;
+
+}
+else
+{
+
+    <div class="collapse navbar-collapse">
+            @Html.AntiForgeryToken()
+            <div class="nav navbar-nav navbar-right hidden-xs">
+                <div class="row">
+                    @Html.ActionLink("Register", "index", "register", new { area = "account" }, null) |
+                    @Html.ActionLink("Login", "index", "login", new { area = "account" }, null)
+                    <a href="account_ad_create.html" class="btn btn-warning post-ad-btn">Post an ad</a>
+                </div>
+            </div>
+    </div>
+
+
 }

@@ -1,0 +1,8 @@
+.navbar .divider-vertical{
+    padding-top: 21px;
+    padding-bottom: 21px;
+}
+
+.navbar .nav > li > a:hover {
+  color: #00ff90;
+}
