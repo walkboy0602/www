@@ -24,6 +24,7 @@ namespace App.Ads
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             Bootstrapper.Initialise();
+            AutoMapperConfig.Configure();
             AuthConfig.RegisterAuth();
         }
 

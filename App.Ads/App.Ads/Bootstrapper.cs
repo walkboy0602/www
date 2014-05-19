@@ -38,6 +38,7 @@ namespace App.Ads
             container.RegisterType<IListingService, ListingService>();
             container.RegisterType<SmtpClient>(new InjectionConstructor());
 
+
             RegisterTypes(container);
 
             return container;

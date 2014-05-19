@@ -1,6 +1,7 @@
 ﻿using App.Core;
 using App.Core.Data;
 using App.Core.Services;
+using App.Core.ViewModel;
 using App.Ads.Code.Membership;
 using App.Ads.Code.Filters;
 using System;
@@ -64,12 +65,29 @@ namespace App.Ads.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult Save(Listing listing)
+        public ActionResult Save(Listing model)
         {
             identity = User.ToCustomPrincipal().CustomIdentity;
-            
+
+            var listing = listingService.GetListing(model.id, identity.UserId);
+
+            if (listing == null)
+            {
+                return HttpNotFound();
+            }
+
             if (ModelState.IsValid)
             {
+                listing.Title = model.Title;
+                listing.Description = model.Description;
+                listing.Keywords = model.Keywords;
+                listing.Price = model.Price;
+                listing.IsNegotiable = model.IsNegotiable;
+                listing.ContactMethod = model.ContactMethod;
+                listing.LocationId = model.LocationId;
+          
+
+                listingService.Save(listing);
 
                 return RedirectToAction("index");
             }
