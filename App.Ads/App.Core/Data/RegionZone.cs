@@ -15,24 +15,36 @@ namespace App.Core.Data
 using System;
     using System.Collections.Generic;
     
-public partial class UserProfile
+public partial class RegionZone
 {
 
-    public int UserId { get; set; }
+    public RegionZone()
+    {
 
-    public string UserName { get; set; }
+        this.Listings = new HashSet<Listing>();
 
-    public string FirstName { get; set; }
+    }
 
-    public string LastName { get; set; }
 
-    public string Mobile { get; set; }
+    public int id { get; set; }
 
-    public string Identification { get; set; }
+    public int RegionId { get; set; }
 
-    public string IdentificationFile { get; set; }
+    public Nullable<int> ParentId { get; set; }
 
-    public string Salutation { get; set; }
+    public Nullable<double> Lng { get; set; }
+
+    public Nullable<double> Lat { get; set; }
+
+    public string Name { get; set; }
+
+    public Nullable<double> Sort { get; set; }
+
+    public bool isActive { get; set; }
+
+
+
+    public virtual ICollection<Listing> Listings { get; set; }
 
 }
 

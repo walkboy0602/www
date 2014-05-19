@@ -1,0 +1,209 @@
+﻿@using App.Ads.Code.Membership
+@model App.Core.Data.Listing
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@section Style{
+    @Styles.Render("~/Content/css/form")
+}
+
+<div class="col-sm-3">
+    @Html.Partial("~/Views/PartialView/_sidepanel.cshtml")
+</div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    var identity = HttpContext.Current.User.ToCustomPrincipal().CustomIdentity;
+
+    <div class="col-sm-9">
+        <form class="form-vertical" action="">
+            <div class="panel panel-default">
+                <div class="panel-heading">Choose category</div>
+                <div class="panel-body">
+
+                    <div class="form-horizontal">
+                        <div class="col-sm-12 ">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-sm-3 control-label">Category</label>
+                                    <div class="col-sm-6">
+                                        @Html.DropDownListFor(m => m.CategoryId, ViewBag.Categories as IEnumerable<SelectListItem>, "", new { id = "ddlCategory", @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.CategoryId)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Ad details</div>
+                <div class="panel-body">
+
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label>Title </label>
+                                @Html.TextBoxFor(m => m.Title, new { @class = "form-control", placeholder = "Keep it short and simple." })
+                                @Html.ValidationMessageFor(m => m.Title, null, new { @class = "help-inline" })
+                            </div>
+                            <div class="col-sm-12">
+                                <br>
+                                <label>Description </label>
+                                @Html.TextAreaFor(m => m.Description, new { @rows = "6", @class = "form-control col-sm-8 expand", placeholder = "Put your product info, condition and so on." })
+                                @Html.ValidationMessageFor(m => m.Description, null, new { @class = "help-inline" })
+                            </div>
+                            <div class="col-sm-12">
+                                <br>
+                                <label>Keywords</label>
+                                @Html.TextBoxFor(m => m.Keywords, new { @class = "form-control", placeholder = "Enter keywords where how user can find your products." })
+                                @Html.ValidationMessageFor(m => m.Keywords, null, new { @class = "help-inline" })
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Deal methods</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="optionsRadios" id="optionsRadios2" value="option2">
+                                        Cash On Delivery
+                                    </label>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Location of COD.">
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="optionsRadios" id="optionsRadios2" value="option2">
+                                        Postage
+                                    </label>
+                                </div>
+                                <input type="text" class="form-control" placeholder="PostLaju, Fedex and etc.">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Add photos</div>
+                <div class="panel-body">
+                    <div class="no-gallery">
+                        <div class="center">
+                            <img src="http://detail.herokuapp.com/img/no-img-gallery.png" alt="no-gallery">
+                            <p class="no-gallery-label">You don't have any images</p>
+                            <p>Click 'Add Image' to attach photos or drag & drop your photos here.</p>
+                            <a data-toggle="modal" href="#myModal" class="btn-glow primary"><i class="fa fa-plus"></i> Add new image</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Your price</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(m => m.Price, new { @class = "form-control", placeholder = "How much do you want it to be listed for?" })
+                                <small>You can adjust your price anytime you like, even after your listing is published.</small>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="checkbox">
+                                    <label>
+                                        @Html.CheckBoxFor(m => m.IsNegotiable)
+                                        Negotiable
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Your Details</div>
+                <div class="panel-body">
+
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Name</label>
+                            <div class="col-sm-9">
+                                @identity.FirstName
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Contact</label>
+                            <div class="col-sm-9">
+                                012-9044822
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Email</label>
+                            <div class="col-sm-9">
+                                @identity.Email
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Contact Method</label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(m => m.ContactMethod, ViewBag.Contacts as IEnumerable<SelectListItem>, "", new { id = "ddlContact", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Location</label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(m => m.LocationId, ViewBag.RegionZones as IEnumerable<SelectListItem>, "", new { id = "ddlRegion", @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Complete ad</div>
+                <div class="panel-body">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"> I agree to the terms and conditions and regulations.
+                        </label>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-glow">Save draft</button>
+                    <button type="submit" class="btn btn-glow hidden-xs">Preview ad</button>
+                    @*<a href="account_credits.html" class="btn-glow success btn-finish pull-right"><i class="icon-ok"></i>  Publish ad</a>*@
+                    <input type="submit" class="btn-glow success btn-finish pull-right" value="Publish ad" />
+                    <br><p class="pull-right"><small>* payment options will be shown on the next screen</small></p>
+                </div>
+            </div>
+        </form>
+    </div>
+}
+
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#ddlCategory').select2({
+                placeholder: "Select a Category"
+            });
+            $('#ddlRegion').select2({
+                placeholder: "Select a Location"
+            });
+            $('#ddlContact').select2();
+        });
+    </script>
+}

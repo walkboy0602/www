@@ -95,8 +95,7 @@ namespace App.Ads
 
             //Listing e.g- ck editor, file uploader
             bundles.Add(new ScriptBundle("~/bundles/formplugin").Include(
-                "~/Scripts/ckeditor/ckeditor.js",
-                "~/Scripts/select2/select2.js"
+                "~/Scripts/ckeditor/ckeditor.js"
                 ));
 
 
@@ -118,9 +117,15 @@ namespace App.Ads
                         "~/Content/global/elements.css",
                         "~/Content/global/common.css",
                         "~/Content/global/layout.css",
-                        "~/Content/themes/bazaar/signin.css",
-                        "~/Content/themes/bazaar/gallery.css"
+                        "~/Content/themes/bazaar/signin.css"
                         ));
+
+            //Form CSS
+            bundles.Add(new StyleBundle("~/Content/css/form").Include(
+                            "~/Content/libraries/select2.css",
+                            "~/Content/libraries/select2-bootstrap.css",
+                            "~/Content/themes/bazaar/gallery.css"
+                ));
 
             ////Admin Themes
             //bundles.Add(new StyleBundle("~/Content/themes/admin/css").Include(

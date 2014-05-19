@@ -1,9 +1,11 @@
-﻿using System;
+﻿using App.Core.Data;
+using App.Core.Models;
+using App.Core.ViewModel;
+using App.Core.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using App.Core.Data;
-using App.Core.Models;
 using System.Web.Mvc;
 using System.Data;
 using System.Data.Entity;
@@ -19,6 +21,8 @@ namespace App.Core.Services
         RefCategory Find(int id);
         IEnumerable<RefCategory> GetByParentID(int? ParentID);
         string GetParentName(int? ParentID);
+
+        IList<SelectListItem> GetCategories(int? selected = null);
     }
 
     // Add any custom business logic (methods) here
@@ -32,7 +36,12 @@ namespace App.Core.Services
     //}
     public class CategoryService : ICategoryService
     {
-        private ShopDBEntities db = new ShopDBEntities();
+        private AdsDBEntities db;
+
+        public CategoryService()
+        {
+            this.db = new AdsDBEntities();
+        }
 
         void ICategoryService.Create(RefCategory refCategory)
         {
@@ -67,6 +76,66 @@ namespace App.Core.Services
             {
                 db.Dispose();
             }
+        }
+
+        IList<SelectListItem> ICategoryService.GetCategories(int? selected = null)
+        {
+            var list = Grouping(db.RefCategories)
+                               .OfType<CategoryGroup>()
+                               .Where(x => x.Value.isActive == true)
+                               .SelectMany(x => GetNodeAndChildren(x))
+                               .Select(t => new SelectListItem
+                               {
+                                   Text = t.Value.Name,
+                                   Value = t.Value.id.ToString(),
+                                   Selected = t.Value.id == selected ? true : false
+                               }).ToList();
+
+            return list;
+        }
+
+        IEnumerable<CategoryGroup> GetNodeAndChildren(CategoryGroup node, bool checkIsActive = true)
+        {
+            return new[] { node }.Concat(node.Children
+                                            .OfType<CategoryGroup>()
+                                            .WhereIf(checkIsActive, x => x.Value.isActive == true)
+                                            .Select(i => new CategoryGroup
+                                            {
+                                                Children = i.Children,
+                                                Value = new RefCategory
+                                                {
+                                                    id = i.Value.id,
+                                                    ParentID = i.Value.ParentID,
+                                                    //Name = "\u21B3\xA0" + i.Value.Name,
+                                                    Name = "\xA0›\xA0" + i.Value.Name,
+                                                    isActive = i.Value.isActive,
+                                                    Description = i.Value.Description
+                                                }
+                                            })
+                                            .SelectMany(x => GetNodeAndChildren(x)
+                                                .Select(i => new CategoryGroup
+                                                {
+                                                    Children = i.Children,
+                                                    Value = new RefCategory
+                                                    {
+                                                        id = i.Value.id,
+                                                        ParentID = i.Value.ParentID,
+                                                        Name = "\xA0\xA0" + i.Value.Name,
+                                                        isActive = i.Value.isActive,
+                                                        Description = i.Value.Description
+                                                    }
+                                                })
+                                            ));
+        }
+
+        IEnumerable<CategoryGroup> Grouping(IEnumerable<RefCategory> allCategories)
+        {
+            var allNodes = allCategories.Select(team => new CategoryGroup() { Value = team })
+                            .ToList();
+            var lookup = allNodes.ToLookup(team => team.Value.ParentID);
+            foreach (var node in allNodes)
+                node.Children = lookup[node.Value.id];
+            return lookup[null];
         }
 
     }

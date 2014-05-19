@@ -216,6 +216,7 @@
     <Compile Include="Areas\Account\Models\LoginModel.cs" />
     <Compile Include="Areas\Account\Models\RegisterModel.cs" />
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Code\Filters\ValidateOnlyIncomingValuesAttribute.cs" />
     <Compile Include="Code\Membership\CustomIdentity.cs" />
     <Compile Include="Code\Membership\CustomMembershipProvider.cs" />
     <Compile Include="Code\Membership\CustomMembershipUser.cs" />
@@ -266,13 +267,13 @@
     <Content Include="Content\themes\admin\global\table.css" />
     <Content Include="Content\themes\admin\global\ui-elements.css" />
     <Content Include="Content\themes\admin\img\uniform\sprite.png" />
-    <Content Include="Content\themes\admin\libraries\select2-bootstrap.css" />
-    <Content Include="Content\themes\admin\libraries\select2-spinner.gif" />
-    <Content Include="Content\themes\admin\libraries\select2.css" />
-    <Content Include="Content\themes\admin\libraries\select2.png" />
-    <Content Include="Content\themes\admin\libraries\select2x2.png" />
-    <Content Include="Content\themes\admin\libraries\uniform.default.css" />
-    <Content Include="Content\themes\admin\libraries\validationEngine.jquery.css" />
+    <Content Include="Content\libraries\select2-bootstrap.css" />
+    <Content Include="Content\libraries\select2-spinner.gif" />
+    <Content Include="Content\libraries\select2.css" />
+    <Content Include="Content\libraries\select2.png" />
+    <Content Include="Content\libraries\select2x2.png" />
+    <Content Include="Content\libraries\uniform.default.css" />
+    <Content Include="Content\libraries\validationEngine.jquery.css" />
     <Content Include="Content\themes\admin\module\form-showcase.css" />
     <Content Include="Content\themes\bazaar\gallery.css" />
     <Content Include="Content\themes\bazaar\signin.css" />
@@ -662,10 +663,11 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Shared\_LayoutOld.cshtml" />
+    <Content Include="Views\Shared\_zLayout.cshtml" />
     <Content Include="Views\User\Dashboard.cshtml" />
     <Content Include="Scripts\select2\select2.jquery.json" />
-    <Content Include="Views\Listing\Create.cshtml" />
+    <Content Include="Views\Listing\Save.cshtml" />
+    <Content Include="Views\Listing\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -15,12 +15,14 @@ namespace App.Core.Data
 using System;
     using System.Collections.Generic;
     
-public partial class Config
+public partial class Listing_DealMethod
 {
 
-    public string Key { get; set; }
+    public int ListingId { get; set; }
 
-    public string Value { get; set; }
+    public int DealMethodId { get; set; }
+
+    public string Description { get; set; }
 
 }
 

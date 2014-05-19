@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace App.Core.Data
+namespace App.Core.Utility
 {
     public static class LINQExtension
     {

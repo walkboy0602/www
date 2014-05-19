@@ -15,12 +15,16 @@ namespace App.Core.Data
 using System;
     using System.Collections.Generic;
     
-public partial class Config
+public partial class Region
 {
 
-    public string Key { get; set; }
+    public int ID { get; set; }
 
-    public string Value { get; set; }
+    public string CountryCode { get; set; }
+
+    public string Name { get; set; }
+
+    public int Level { get; set; }
 
 }
 

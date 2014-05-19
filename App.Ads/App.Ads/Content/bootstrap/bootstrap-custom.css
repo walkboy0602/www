@@ -1,8 +1,15 @@
-.navbar .divider-vertical{
+.navbar .divider-vertical {
     padding-top: 21px;
     padding-bottom: 21px;
 }
 
+
+.navbar .nav > li div > a:hover,
 .navbar .nav > li > a:hover {
-  color: #00ff90;
+    color: #00ff90;
+}
+
+.navbar-nav > li > div {
+    padding-top: 21px;
+    padding-bottom: 21px;
 }

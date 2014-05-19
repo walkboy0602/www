@@ -4,12 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0fc8f646197d41daad7d37863c2d9961" Name="Diagram1">
+      <Diagram DiagramId="0fc8f646197d41daad7d37863c2d9961" Name="Diagram1" ZoomLevel="89">
         <EntityTypeShape EntityType="AdsDBModel.Membership" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AdsDBModel.UserProfile" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AdsDBModel.Config" Width="1.5" PointX="3.375" PointY="4.75" />
+        <EntityTypeShape EntityType="AdsDBModel.Config" Width="1.5" PointX="2.5" PointY="3.875" />
         <EntityTypeShape EntityType="AdsDBModel.RefCategory" Width="1.5" PointX="5.375" PointY="0.75" />
-      </Diagram>
+        <EntityTypeShape EntityType="AdsDBModel.Region" Width="1.5" PointX="2.75" PointY="6.375" />
+        <EntityTypeShape EntityType="AdsDBModel.RegionZone" Width="1.5" PointX="5.5" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdsDBModel.Listing_DealMethod" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="AdsDBModel.Listing" Width="1.5" PointX="7.75" PointY="3.25" />
+        <AssociationConnector Association="AdsDBModel.FK__Listing__Categor__5BE2A6F2" />
+        <AssociationConnector Association="AdsDBModel.FK__Listing__Locatio__5CD6CB2B" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

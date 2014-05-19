@@ -82,10 +82,9 @@
     .no-gallery .center {
         margin: 0 auto;
         text-align: center;
-        width: 42%;
     }
 
-        .no-gallery .center h6 {
+        .no-gallery .center p.no-gallery-label {
             color: #364453;
             font-weight: 600;
             margin: 30px 0 9px;
@@ -95,6 +94,7 @@
         .no-gallery .center p {
             color: #364453;
             font-size: 13px;
+            margin-bottom: 20px;
         }
 
         .no-gallery .center div {
