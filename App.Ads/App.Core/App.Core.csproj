@@ -36,6 +36,12 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="ExpressiveAnnotations">
+      <HintPath>..\packages\ExpressiveAnnotations.1.1.3\lib\ExpressiveAnnotations.dll</HintPath>
+    </Reference>
+    <Reference Include="ExpressiveAnnotations.MvcUnobtrusiveValidatorProvider">
+      <HintPath>..\packages\ExpressiveAnnotations.1.1.3\lib\ExpressiveAnnotations.MvcUnobtrusiveValidatorProvider.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -93,9 +99,10 @@
       <DependentUpon>AdsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EmailHostModel.cs" />
+    <Compile Include="ViewModel\DisplayListingViewModel.cs" />
+    <Compile Include="ViewModel\EditListingViewModel.cs" />
     <Compile Include="ViewModel\Enum.cs" />
     <Compile Include="Utility\LINQExtension.cs" />
-    <Compile Include="Models\ListingModel.cs" />
     <Compile Include="Models\Membership.cs" />
     <Compile Include="Models\SendEmailModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -135,7 +142,10 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Scripts\expressive.annotations.analysis.js" />
+    <Content Include="Scripts\expressive.annotations.validate.js" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Global.resx" />
   </ItemGroup>

@@ -104,11 +104,12 @@ namespace App.Ads
             //Bootstrap
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
                         "~/Content/bootstrap/bootstrap.css",
-                //"~/Content/bootstrap/bootstrap.datepicker.css",
-                //"~/Content/bootstrap/bootstrap-theme.css",
-                        "~/Content/bootstrap/bootstrap-additions.css",
+                        //"~/Content/bootstrap/bootstrap.datepicker.css",
+                        //"~/Content/bootstrap/bootstrap-theme.css",
+                         "~/Content/bootstrap/bootstrap-additions.css",
+                         "~/Content/bootstrap/bootstrap-style.css",
                          "~/Content/bootstrap/bootstrap-custom.css",
-                        "~/Content/bootstrap/font-awesome.css"
+                         "~/Content/bootstrap/font-awesome.css"
                         ));
 
             //Bazzar Themes

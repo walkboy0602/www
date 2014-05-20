@@ -21,7 +21,7 @@
           <Property Name="Title" Type="nvarchar" MaxLength="100" />
           <Property Name="Description" Type="text" />
           <Property Name="Keywords" Type="nvarchar" MaxLength="50" />
-          <Property Name="Price" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" />
           <Property Name="IsNegotiable" Type="bit" Nullable="false" />
           <Property Name="ContactMethod" Type="int" />
           <Property Name="LocationId" Type="int" />
@@ -30,8 +30,6 @@
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="LastUpdate" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'AdsDB.dbo.Listing_DealMethod' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Listing_DealMethod">
           <Key>
             <PropertyRef Name="ListingId" />
@@ -136,21 +134,27 @@ warning 6002: The table/view 'AdsDB.dbo.Listing_DealMethod' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Listing_DealMethod">
+          <End Role="Listing" Type="Self.Listing" Multiplicity="1" />
+          <End Role="Listing_DealMethod" Type="Self.Listing_DealMethod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Listing">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Listing_DealMethod">
+              <PropertyRef Name="ListingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="AdsDBModelStoreContainer">
           <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Listing" EntityType="Self.Listing" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Listing_DealMethod" EntityType="Self.Listing_DealMethod" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Membership" EntityType="Self.Membership" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RefCategory" EntityType="Self.RefCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Region" EntityType="Self.Region" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RegionZone" EntityType="Self.RegionZone" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Listing_DealMethod" EntityType="Self.Listing_DealMethod" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Listing_DealMethod].[ListingId] AS [ListingId], 
-    [Listing_DealMethod].[DealMethodId] AS [DealMethodId], 
-    [Listing_DealMethod].[Description] AS [Description]
-    FROM [dbo].[Listing_DealMethod] AS [Listing_DealMethod]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK__Listing__Categor__5BE2A6F2" Association="Self.FK__Listing__Categor__5BE2A6F2">
             <End Role="RefCategory" EntitySet="RefCategory" />
             <End Role="Listing" EntitySet="Listing" />
@@ -158,6 +162,10 @@ warning 6002: The table/view 'AdsDB.dbo.Listing_DealMethod' does not have a prim
           <AssociationSet Name="FK__Listing__Locatio__5CD6CB2B" Association="Self.FK__Listing__Locatio__5CD6CB2B">
             <End Role="RegionZone" EntitySet="RegionZone" />
             <End Role="Listing" EntitySet="Listing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Listing_DealMethod" Association="Self.FK_Listing_DealMethod">
+            <End Role="Listing" EntitySet="Listing" />
+            <End Role="Listing_DealMethod" EntitySet="Listing_DealMethod" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -217,6 +225,10 @@ warning 6002: The table/view 'AdsDB.dbo.Listing_DealMethod' does not have a prim
             <End Role="RegionZone" EntitySet="RegionZones" />
             <End Role="Listing" EntitySet="Listings" />
           </AssociationSet>
+          <AssociationSet Name="FK_Listing_DealMethod" Association="AdsDBModel.FK_Listing_DealMethod">
+            <End Role="Listing" EntitySet="Listings" />
+            <End Role="Listing_DealMethod" EntitySet="Listing_DealMethod" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Config">
           <Key>
@@ -270,6 +282,7 @@ warning 6002: The table/view 'AdsDB.dbo.Listing_DealMethod' does not have a prim
           <Property Name="ListingId" Type="Int32" Nullable="false" />
           <Property Name="DealMethodId" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Listing" Relationship="AdsDBModel.FK_Listing_DealMethod" FromRole="Listing_DealMethod" ToRole="Listing" />
         </EntityType>
         <EntityType Name="Listing">
           <Key>
@@ -280,7 +293,7 @@ warning 6002: The table/view 'AdsDB.dbo.Listing_DealMethod' does not have a prim
           <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Keywords" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Price" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="Price" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="IsNegotiable" Type="Boolean" Nullable="false" />
           <Property Name="ContactMethod" Type="Int32" />
           <Property Name="LocationId" Type="Int32" />
@@ -290,6 +303,7 @@ warning 6002: The table/view 'AdsDB.dbo.Listing_DealMethod' does not have a prim
           <Property Name="LastUpdate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="RefCategory" Relationship="AdsDBModel.FK__Listing__Categor__5BE2A6F2" FromRole="Listing" ToRole="RefCategory" />
           <NavigationProperty Name="RegionZone" Relationship="AdsDBModel.FK__Listing__Locatio__5CD6CB2B" FromRole="Listing" ToRole="RegionZone" />
+          <NavigationProperty Name="Listing_DealMethod" Relationship="AdsDBModel.FK_Listing_DealMethod" FromRole="Listing" ToRole="Listing_DealMethod" />
         </EntityType>
         <Association Name="FK__Listing__Categor__5BE2A6F2">
           <End Type="AdsDBModel.RefCategory" Role="RefCategory" Multiplicity="0..1" />
@@ -312,6 +326,18 @@ warning 6002: The table/view 'AdsDB.dbo.Listing_DealMethod' does not have a prim
             </Principal>
             <Dependent Role="Listing">
               <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Listing_DealMethod">
+          <End Type="AdsDBModel.Listing" Role="Listing" Multiplicity="1" />
+          <End Type="AdsDBModel.Listing_DealMethod" Role="Listing_DealMethod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Listing">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Listing_DealMethod">
+              <PropertyRef Name="ListingId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

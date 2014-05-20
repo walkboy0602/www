@@ -24,6 +24,10 @@ public partial class Listing_DealMethod
 
     public string Description { get; set; }
 
+
+
+    public virtual Listing Listing { get; set; }
+
 }
 
 }

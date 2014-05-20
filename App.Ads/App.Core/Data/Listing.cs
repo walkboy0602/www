@@ -18,6 +18,14 @@ using System;
 public partial class Listing
 {
 
+    public Listing()
+    {
+
+        this.Listing_DealMethod = new HashSet<Listing_DealMethod>();
+
+    }
+
+
     public int id { get; set; }
 
     public Nullable<int> CategoryId { get; set; }
@@ -49,6 +57,8 @@ public partial class Listing
     public virtual RefCategory RefCategory { get; set; }
 
     public virtual RegionZone RegionZone { get; set; }
+
+    public virtual ICollection<Listing_DealMethod> Listing_DealMethod { get; set; }
 
 }
 

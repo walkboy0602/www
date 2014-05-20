@@ -17,5 +17,12 @@ namespace App.Core.ViewModel
             Rejected = 400,
             Expired = 500
         }
+
+        public enum DealMethod
+        {
+            COD = 1,
+            Postage = 2,
+            OnlineBanking = 3
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<App.Core.ViewModel.DisplayListingViewModel>
 @{
     ViewBag.Title = "Index";
 }
@@ -25,81 +25,34 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td><img src="http://templates.expresspixel.com/bootlistings/css/images/listings/1.jpg" style="width:75px"></td>
+                                            <td class="main-td">
 
-                                    <tr>
-                                        <td><img src="css/images/listings/1.jpg" style="width:75px"></td>
-                                        <td class="main-td">
+                                                @if (string.IsNullOrEmpty(item.Title))
+                                                {
+                                                    @Html.ActionLink("Untitled", "Save", new { id = item.id })
+                                                }
+                                                else
+                                                {
+                                                    @Html.ActionLink(item.Title, "Save", new { id = item.id })
+                                                }
+                                                @*<a href="account_ad_create.html">BMW 525D SE TOURING SILVER</a>*@
+                                                <a href="#" class="no-views">(11 views)</a>
+                                                <span class="pull-right label label-color-8 label-small">PUBLISHED</span>
+                                                <br>
+                                                <a class="edit-ad" href="account_ad_create.html">Edit ad</a>
+                                                <a class="extend-ad" href="#" data-toggle="tooltip" title="" data-original-title="Extend ad by 30 days">Extend for 30 days</a>
+                                                <a class="remove-ad" href="#">Remove this ad</a>
 
+                                                <p>Alarm, Anti-Lock Brakes (ABS), Driver Airbag, Electronic Stability Program (ESP), Immobiliser, Passenger Airbag, Rear seat belts, Side Airbags Alloy Wheels, Catalytic...</p>
 
-                                            <a href="account_ad_create.html">BMW 525D SE TOURING SILVER</a><a href="#" class="no-views">(11 views)</a><br>
-
-                                            <a class="edit-ad" href="account_ad_create.html">Edit ad</a>
-                                            <a class="extend-ad" href="#" data-toggle="tooltip" title="" data-original-title="Extend ad by 30 days">Extend for 30 days</a>
-                                            <a class="remove-ad" href="#">Remove this ad</a>
-
-                                            <p>Alarm, Anti-Lock Brakes (ABS), Driver Airbag, Electronic Stability Program (ESP), Immobiliser, Passenger Airbag, Rear seat belts, Side Airbags Alloy Wheels, Catalytic...</p>
-
-                                        </td>
-                                        <td>1 day ago</td>
-                                    </tr>
-
-
-                                    <tr>
-                                        <td><img src="css/images/listings/2.jpg" style="width:75px"></td>
-                                        <td>
-                                            <a href="account_ad_create.html">SEAT Leon 1.6 TDI CR S 5dr (2010)</a><a href="#" class="no-views">(22 views)</a><br>
-
-                                            <a class="edit-ad" href="#">Edit ad</a>
-                                            <a class="extend-ad" href="#" data-toggle="tooltip" title="" data-original-title="Extend ad by 30 days">Extend for 30 days</a>
-                                            <a class="remove-ad" href="#">Remove this ad</a>
-                                            <p>Alarm, Anti-Lock Brakes (ABS), Driver Airbag, Electronic Stability Program (ESP), Immobiliser, Passenger Airbag, Rear seat belts, Side Airbags Alloy Wheels, Catalytic...</p>
-
-                                        </td>
-                                        <td>3 days ago</td>
-                                    </tr>
-
-
-                                    <tr>
-                                        <td><img src="css/images/listings/3.jpg" style="width:75px"></td>
-                                        <td>
-                                            <a href="account_ad_create.html">03 PLATE MINI COOPER. *12 MONTHS MOT* STUNNING</a><a href="#" class="no-views">(57 views)</a><br>
-
-                                            <a class="edit-ad" href="#">Edit ad</a>
-                                            <a class="extend-ad" href="#" data-toggle="tooltip" title="" data-original-title="Extend ad by 30 days">Extend for 30 days</a>
-                                            <a class="remove-ad" href="#">Remove this ad</a>
-                                            <p>Alarm, Anti-Lock Brakes (ABS), Driver Airbag, Electronic Stability Program (ESP), Immobiliser, Passenger Airbag, Rear seat belts, Side Airbags Alloy Wheels, Catalytic...</p>
-                                        </td>
-                                        <td>4 days ago</td>
-                                    </tr>
-
-
-                                    <tr>
-                                        <td><img src="css/images/listings/4.jpg" style="width:75px"></td>
-                                        <td>
-                                            <a href="account_ad_create.html">Green renault clio grande</a><a href="#" class="no-views">(98 views)</a><br>
-
-                                            <a class="edit-ad" href="#">Edit ad</a>
-                                            <a class="extend-ad" href="#" data-toggle="tooltip" title="" data-original-title="Extend ad by 30 days">Extend for 30 days</a>
-                                            <a class="remove-ad" href="#">Remove this ad</a>
-                                            <p>Alarm, Anti-Lock Brakes (ABS), Driver Airbag, Electronic Stability Program (ESP), Immobiliser, Passenger Airbag, Rear seat belts, Side Airbags Alloy Wheels, Catalytic...</p>
-                                        </td>
-                                        <td>8 days ago<br>(<a href="#"><i class="fa fa-arrow-up"></i> bump</a>)</td>
-                                    </tr>
-
-
-                                    <tr>
-                                        <td><img src="css/images/listings/5.jpg" style="width:75px"></td>
-                                        <td>
-                                            <a href="account_ad_create.html">2008 Scuderia Spider 16M</a><a href="#" class="no-views">(62 views)</a><br>
-
-                                            <a class="edit-ad" href="#">Edit ad</a>
-                                            <a class="extend-ad" href="#" data-toggle="tooltip" title="" data-original-title="Extend ad by 30 days">Extend for 30 days</a>
-                                            <a class="remove-ad" href="#">Remove this ad</a>
-                                            <p>Alarm, Anti-Lock Brakes (ABS), Driver Airbag, Electronic Stability Program (ESP), Immobiliser, Passenger Airbag, Rear seat belts, Side Airbags Alloy Wheels, Catalytic...</p>
-                                        </td>
-                                        <td>9 days ago<br>(<a href="#"><i class="fa fa-arrow-up"></i> bump</a>)</td>
-                                    </tr>
-
+                                            </td>
+                                            <td>1 day ago</td>
+                                        </tr>
+                                    }
 
                                 </tbody>
                             </table>

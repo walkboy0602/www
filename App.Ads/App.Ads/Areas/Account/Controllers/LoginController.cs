@@ -12,13 +12,13 @@ namespace App.Ads.Areas.Account.Controllers
     {
         //
         // GET: /Account/Login/
-        public ActionResult Index()
+        public ActionResult Index(string returnUrl)
         {
-            //if (Request.IsAuthenticated)
-            //{
-            //    return RedirectToAction("Index", "Home", new { area = "" });
-            //}
-
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("Dashboard", "User", new { area = "" });
+            }
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
@@ -31,7 +31,7 @@ namespace App.Ads.Areas.Account.Controllers
 
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
-                return Url.IsLocalUrl(returnUrl) ? (ActionResult)Redirect(returnUrl) : RedirectToAction("Index", "Home", new { area = "" });
+                return Url.IsLocalUrl(returnUrl) ? (ActionResult)Redirect(returnUrl) : RedirectToAction("Dashboard", "User", new { area = "" });
             }
 
             // If we got this far, something failed, redisplay form

@@ -1,8 +1,8 @@
 ﻿@using App.Ads.Code.Membership
-@model App.Core.Data.Listing
+@model App.Core.ViewModel.EditListingViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "My Ad - OhMyBazaar.com";
 }
 
 @section Style{
@@ -70,27 +70,39 @@
                 </div>
             </div>
             <div class="panel panel-default">
-                <div class="panel-heading">Deal methods</div>
+                <div class="panel-heading">Dealing methods</div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="optionsRadios" id="optionsRadios2" value="option2">
+                                        @Html.CheckBoxFor(m => m.COD)
                                         Cash On Delivery
                                     </label>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Location of COD.">
+                                @Html.TextBoxFor(m => m.CODText, new { @class = "form-control", placeholder = "Where to meet - Mid Valley, Petrol station and etc." })
+                                @Html.ValidationMessageFor(m => m.CODText)
                             </div>
                             <div class="form-group">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="optionsRadios" id="optionsRadios2" value="option2">
+                                        @Html.CheckBoxFor(m => m.Postage)
                                         Postage
                                     </label>
                                 </div>
-                                <input type="text" class="form-control" placeholder="PostLaju, Fedex and etc.">
+                                @Html.TextBoxFor(m => m.PostageText, new { @class = "form-control", placeholder = "PosLaju, Free Delivery, Delivery Fees and etc." })
+                                @Html.ValidationMessageFor(m => m.Postage)
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        @Html.CheckBoxFor(m => m.OnlineBanking)
+                                        Online Banking
+                                    </label>
+                                </div>
+                                @Html.TextBoxFor(m => m.OnlineBankingText, new { @class = "form-control", placeholder = "Your Bank Details." })
+                                @Html.ValidationMessageFor(m => m.OnlineBanking)
                             </div>
                         </div>
                     </div>
@@ -116,7 +128,8 @@
                         <div class="row">
                             <div class="col-sm-9">
                                 @Html.TextBoxFor(m => m.Price, new { @class = "form-control", placeholder = "How much do you want it to be listed for?" })
-                                <small>You can adjust your price anytime you like, even after your listing is published.</small>
+                                @Html.ValidationMessageFor(m => m.Price)
+                                <p><small>You can adjust your price anytime you like, even after your listing is published.</small></p>
                             </div>
                             <div class="col-sm-3">
                                 <div class="checkbox">

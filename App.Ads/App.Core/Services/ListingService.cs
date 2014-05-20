@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Data.Entity;
+using System.Data;
 
 namespace App.Core.Services
 {
@@ -14,7 +15,8 @@ namespace App.Core.Services
     {
         int CreateNew(int UserId);
         int GetNewListing(int UserId);
-        Listing GetListing(int ListingId, int UserId);
+        Listing GetListingById(int ListingId, int UserId);
+        List<Listing> GetListings(int UserId);
         IList<SelectListItem> GetContactMethods(string selected = null);
 
         void Save(Listing listing);
@@ -34,8 +36,15 @@ namespace App.Core.Services
             listing.LastUpdate = DateTime.Now;
             listing.Status = (int)XtEnum.ListingStatus.Pending;
 
-            this.db.Entry(listing).State = EntityState.Modified;
-            this.db.SaveChanges();
+            db.SaveChanges();
+        }
+
+        void InsertDealMethod(ICollection<Listing_DealMethod> dealMethod, int ListingId)
+        {
+            db.Listing_DealMethod.RemoveRange(db.Listing_DealMethod
+                                            .Where(d => d.ListingId == ListingId));
+
+            db.Listing_DealMethod.AddRange(dealMethod);
         }
 
         int IListingService.CreateNew(int UserId)
@@ -60,11 +69,20 @@ namespace App.Core.Services
             return listingId;
         }
 
-        Listing IListingService.GetListing(int ListingId, int UserId)
+        Listing IListingService.GetListingById(int ListingId, int UserId)
         {
             var listing = db.Listings
+                            .Include(l => l.Listing_DealMethod)
                             .Where(l => l.CreateBy == UserId)
-                            .Where(l => l.id == UserId).FirstOrDefault();
+                            .Where(l => l.id == ListingId).FirstOrDefault();
+
+            return listing;
+        }
+
+        List<Listing> IListingService.GetListings(int UserId)
+        {
+            var listing = db.Listings
+                            .Where(l => l.CreateBy == UserId).ToList();
 
             return listing;
         }
