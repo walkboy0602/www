@@ -8,6 +8,10 @@ namespace App.Ads
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254725
         public static void RegisterBundles(BundleCollection bundles)
         {
+
+            #region Script
+
+            
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -98,19 +102,19 @@ namespace App.Ads
                 "~/Scripts/ckeditor/ckeditor.js"
                 ));
 
+            #endregion
 
-            ///CSS 
+
+            #region CSS
 
             //Bootstrap
-            bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
-                        "~/Content/bootstrap/bootstrap.css",
-                        //"~/Content/bootstrap/bootstrap.datepicker.css",
-                        //"~/Content/bootstrap/bootstrap-theme.css",
+            bundles.Add(new StyleBundle("~/Content/common").Include(
+                         "~/Content/bootstrap/bootstrap.css",
                          "~/Content/bootstrap/bootstrap-additions.css",
                          "~/Content/bootstrap/bootstrap-style.css",
-                         "~/Content/bootstrap/bootstrap-custom.css",
-                         "~/Content/bootstrap/font-awesome.css"
-                        ));
+                         "~/Content/bootstrap/bootstrap-custom.css"
+                         ).Include("~/Content/bootstrap/font-awesome.css", new CssRewriteUrlTransform()));
+
 
             //Bazzar Themes
             bundles.Add(new StyleBundle("~/Content/css").Include(
@@ -128,36 +132,9 @@ namespace App.Ads
                             "~/Content/themes/bazaar/gallery.css"
                 ));
 
-            ////Admin Themes
-            //bundles.Add(new StyleBundle("~/Content/themes/admin/css").Include(
-            //            "~/Content/common.css",
-            //            "~/Content/themes/admin/bootstrap-overrides.css",
-            //            "~/Content/themes/admin/libraries/uniform.default.css",
-            //            "~/Content/themes/admin/libraries/select2.css",
-            //            "~/Content/themes/admin/libraries/select2-bootstrap.css",
-            //            "~/Content/themes/admin/libraries/validationEngine.jquery.css",
-            //            "~/Content/themes/admin/global/layout.css",
-            //            "~/Content/themes/admin/global/elements.css",
-            //            "~/Content/themes/admin/global/ui-elements.css",
-            //            "~/Content/themes/admin/global/icons.css",
-            //            "~/Content/themes/admin/global/table.css",
-            //            "~/Content/themes/admin/global/custom.css",
-            //            "~/Content/themes/admin/module/form-showcase.css",
-            //            "~/Content/themes/admin/module/verification.css",
-            //            "~/Content/themes/admin/module/gallery.css",
-            //            "~/Content/fileupload/jquery.fileupload-ui.css",
-            //            "~/Content/fileupload/jquery.fileupload.css"
-            //            ));
+            #endregion
 
-            ////Annomous Themes
-            //bundles.Add(new StyleBundle("~/Content/themes/admin/css/annoymous").Include(
-            //            "~/Content/common.css",
-            //            "~/Content/themes/admin/bootstrap-overrides.css",
-            //            "~/Content/themes/admin/global/layout.css",
-            //            "~/Content/themes/admin/global/elements.css",
-            //            "~/Content/themes/admin/module/signup.css",
-            //            "~/Content/themes/admin/module/signin.css"
-            //    ));
+            BundleTable.EnableOptimizations = true;
         }
     }
 }

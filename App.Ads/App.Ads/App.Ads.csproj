@@ -614,6 +614,8 @@
     <Content Include="Scripts\validation\jquery.validationEngine.js" />
     <Content Include="Scripts\validation\languages\jquery.validationEngine-en.js" />
     <Content Include="Views\PartialView\_sidepanel.cshtml" />
+    <None Include="Properties\PublishProfiles\ohmybazzar - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\ohmybazzar - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\ohmybazzar.pubxml" />
     <Content Include="Scripts\angular\angularstrap\angular-strap.min.js.map" />
     <Content Include="Scripts\angular\angularstrap\angular-strap.tpl.min.js.map" />
@@ -622,6 +624,7 @@
     <Content Include="Scripts\ckeditor\plugins\wsc\LICENSE.md" />
     <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
     <Content Include="Scripts\ckeditor\skins\moonocolor\readme.md" />
+    <None Include="Properties\PublishProfiles\Walkboy.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
