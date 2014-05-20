@@ -2,6 +2,7 @@
 using App.Core.Data;
 using App.Core.Services;
 using App.Core.ViewModel;
+using App.Core.Utility;
 using App.Ads.Code.Membership;
 using App.Ads.Code.Filters;
 using System;
@@ -37,8 +38,17 @@ namespace App.Ads.Controllers
 
             var model = Mapper.Map<List<Listing>, List<DisplayListingViewModel>>(listings);
 
+            foreach (var item in model)
+            {
+                item.Title = string.IsNullOrEmpty(item.Title) ? "Untitled" : item.Title;
+                item.StatusText = Enum.GetName(typeof(XtEnum.ListingStatus), item.Status);
+                item.StatusCss = GetStatusCss(item.Status);
+            }
+
             return View(model);
         }
+
+
 
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Create()
@@ -159,6 +169,40 @@ namespace App.Ads.Controllers
             ViewBag.Contacts = listingService.GetContactMethods();
             ViewBag.Categories = categoryService.GetCategories();
             ViewBag.RegionZones = regionService.GetRegionZone();
+        }
+
+        private string GetStatusCss(int Status)
+        {
+            string cssClass = string.Empty;
+            switch ((XtEnum.ListingStatus)Status)
+            {
+                case XtEnum.ListingStatus.Draft:
+                case XtEnum.ListingStatus.New:
+                    cssClass = "pull-right label label-default";
+                    break;
+
+                case XtEnum.ListingStatus.Expired:
+                    cssClass = "pull-right label label-info";
+                    break;
+
+                case XtEnum.ListingStatus.Pending:
+                    cssClass = "pull-right label label-warning";
+                    break;
+
+                case XtEnum.ListingStatus.Published:
+                    cssClass = "pull-right label label-success";
+                    break;
+
+                case XtEnum.ListingStatus.Rejected:
+                    cssClass = "pull-right label label-danger";
+                    break;
+
+                default:
+                    cssClass = "pull-right label label-default";
+                    break;
+            }
+
+            return cssClass;
         }
 
         #endregion

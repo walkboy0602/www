@@ -3533,6 +3533,7 @@
   font-weight: bold;
 }
 .label-big {
+  text-transform: uppercase;
   padding: 5px 10px 6px;
 }
 .badge-big {

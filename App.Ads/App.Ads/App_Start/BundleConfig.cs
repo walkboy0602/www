@@ -112,7 +112,7 @@ namespace App.Ads
                          "~/Content/bootstrap/bootstrap.css",
                          "~/Content/bootstrap/bootstrap-additions.css",
                          "~/Content/bootstrap/bootstrap-style.css",
-                         "~/Content/bootstrap/bootstrap-custom.css"
+                         "~/Content/bootstrap/bootstrap-overrides.css"
                          ).Include("~/Content/bootstrap/font-awesome.css", new CssRewriteUrlTransform()));
 
 
@@ -122,6 +122,7 @@ namespace App.Ads
                         "~/Content/global/elements.css",
                         "~/Content/global/common.css",
                         "~/Content/global/layout.css",
+                        "~/Content/global/table.css",
                         "~/Content/themes/bazaar/signin.css"
                         ));
 
@@ -134,7 +135,7 @@ namespace App.Ads
 
             #endregion
 
-            BundleTable.EnableOptimizations = true;
+            BundleTable.EnableOptimizations = false;
         }
     }
 }

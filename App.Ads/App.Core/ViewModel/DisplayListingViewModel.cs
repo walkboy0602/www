@@ -18,5 +18,9 @@ namespace App.Core.ViewModel
 
         public int Status { get; set; }
 
+        public string StatusText { get; set; }
+
+        public string StatusCss { get; set; }
+
     }
 }

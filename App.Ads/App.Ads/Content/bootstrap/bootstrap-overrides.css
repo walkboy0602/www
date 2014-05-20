@@ -454,13 +454,13 @@ textarea::-webkit-input-placeholder  {
 
 .table thead {
     
-	border-top: 1px solid #dee3ea;
+	/*border-top: 1px solid #dee3ea;*/
     
 }
 .table-hover tbody tr: hover > td, 
 .table-hover tbody tr:hover > th  {
     
-  background-color:  #f5fafc;
+  /*background-color:  #f5fafc;*/
     
 }
 .table th.sortable  {
@@ -475,7 +475,7 @@ textarea::-webkit-input-placeholder  {
 }
 .table thead th {
     
-	font-weight:  bold;
+	/*font-weight:  bold;
     
 	position:  relative;
     
@@ -489,7 +489,7 @@ textarea::-webkit-input-placeholder  {
     
 	vertical-align:  top !important;
     
-	border-bottom:  0px !important;
+	border-bottom:  0px !important;*/
     
 }
 .table td {
@@ -546,3 +546,20 @@ table th span.line {
   }
 }
 
+/* override navbar */
+
+.navbar .divider-vertical {
+    padding-top: 21px;
+    padding-bottom: 21px;
+}
+
+
+.navbar .nav > li div > a:hover,
+.navbar .nav > li > a:hover {
+    color: #00ff90;
+}
+
+.navbar-nav > li > div {
+    padding-top: 21px;
+    padding-bottom: 21px;
+}

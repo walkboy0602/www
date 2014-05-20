@@ -10,66 +10,188 @@
     <div class="panel panel-default">
         <div class="panel-heading">Manage adverts</div>
         <div class="panel-body">
-            <form class="form-vertical">
-                <fieldset>
 
-                    <div class="row">
-                        <div class="col-sm-12">
+            <div class="table-wrapper">
+                <div class="row">
 
-                            <table class="table edit-listings">
+                    <table class="table table-hover edit-listings">
+                        <thead>
+                            <tr>
+                                <th class="col-md-3"></th>
+                                <th></th>
+                                <th></th>
+                                <th>Date&nbsp;posted</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="img">
+                                            <img src="http://templates.expresspixel.com/bootlistings/css/images/listings/1.jpg" alt="pic">
+                                        </div>
+                                    </td>
+                                    <td class="main-td">
+                                        @Html.ActionLink(item.Title, "Save", new { id = item.id })
+                                        <a href="#" class="no-views">(11 views)</a>
+
+
+                                        <br>
+                                        <a class="edit-ad" href="account_ad_create.html">Edit ad</a>
+                                        <a class="extend-ad" href="#" data-toggle="tooltip" title="" data-original-title="Extend ad by 30 days">Extend for 30 days</a>
+                                        <a class="remove-ad" href="#">Remove this ad</a>
+
+                                        <p>Alarm, Anti-Lock Brakes (ABS), Driver Airbag, Electronic Stability Program (ESP), Immobiliser, Passenger Airbag, Rear seat belts, Side Airbags Alloy Wheels, Catalytic...</p>
+
+                                    </td>
+                                    <td>
+                                        <span class="@item.StatusCss">@item.StatusText</span>
+                                    </td>
+                                    <td>
+                                        <span>
+                                            1 day ago
+                                        </span>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+
+                @*<div class="table-wrapper products-table section">
+                        <div class="row">
+                            <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th></th>
-                                        <th></th>
-                                        <th>Date&nbsp;posted</th>
+                                        <th class="col-md-3">
+                                            Title
+                                        </th>
+                                        <th class="col-md-3">
+                                            <span class="line"></span>Description
+                                        </th>
+                                        <th class="col-md-3">
+                                            <span class="line"></span>Date Posted
+                                        </th>
+                                        <th>
+                                            <span class="line"></span>Status
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        <tr>
-                                            <td><img src="http://templates.expresspixel.com/bootlistings/css/images/listings/1.jpg" style="width:75px"></td>
-                                            <td class="main-td">
-
-                                                @if (string.IsNullOrEmpty(item.Title))
-                                                {
-                                                    @Html.ActionLink("Untitled", "Save", new { id = item.id })
-                                                }
-                                                else
-                                                {
-                                                    @Html.ActionLink(item.Title, "Save", new { id = item.id })
-                                                }
-                                                @*<a href="account_ad_create.html">BMW 525D SE TOURING SILVER</a>*@
-                                                <a href="#" class="no-views">(11 views)</a>
-                                                <span class="pull-right label label-color-8 label-small">PUBLISHED</span>
-                                                <br>
-                                                <a class="edit-ad" href="account_ad_create.html">Edit ad</a>
-                                                <a class="extend-ad" href="#" data-toggle="tooltip" title="" data-original-title="Extend ad by 30 days">Extend for 30 days</a>
-                                                <a class="remove-ad" href="#">Remove this ad</a>
-
-                                                <p>Alarm, Anti-Lock Brakes (ABS), Driver Airbag, Electronic Stability Program (ESP), Immobiliser, Passenger Airbag, Rear seat belts, Side Airbags Alloy Wheels, Catalytic...</p>
-
-                                            </td>
-                                            <td>1 day ago</td>
-                                        </tr>
-                                    }
-
+                                    <!-- row -->
+                                    <tr class="first">
+                                        <td>
+                                            <div class="img">
+                                                <img src="img/table-img.png" alt="pic">
+                                            </div>
+                                            <a href="#" class="name">Toyota Corrola 1994 1.6G </a>
+                                        </td>
+                                        <td class="description">
+                                            if you are going to use a passage of Lorem Ipsum.
+                                        </td>
+                                        <td>
+                                            Jan 03, 2013
+                                        </td>
+                                        <td>
+                                            <span class="label label-success">Active</span>
+                                            <ul class="actions">
+                                                <li><a class="edit-ad" href="#">Edit</a></li>
+                                                <li class="last"><a href="#">Delete</a></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <!-- row -->
+                                    <tr>
+                                        <td>
+                                            <div class="img">
+                                                <img src="img/table-img.png" alt="pic">
+                                            </div>
+                                            <a href="#" class="name">Internet tend</a>
+                                        </td>
+                                        <td class="description">
+                                            There are many variations of passages.
+                                        </td>
+                                        <td>
+                                            Jan 03, 2013
+                                        </td>
+                                        <td>
+                                            <ul class="actions">
+                                                <li><a href="#">Edit</a></li>
+                                                <li class="last"><a href="#">Delete</a></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <!-- row -->
+                                    <tr>
+                                        <td>
+                                            <div class="img">
+                                                <img src="img/table-img.png" alt="pic">
+                                            </div>
+                                            <a href="#" class="name">Generate Lorem </a>
+                                        </td>
+                                        <td class="description">
+                                            if you are going to use a passage of Lorem Ipsum.
+                                        </td>
+                                        <td>
+                                            Jan 03, 2013
+                                        </td>
+                                        <td>
+                                            <ul class="actions">
+                                                <li><a href="#">Edit</a></li>
+                                                <li class="last"><a href="#">Delete</a></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <!-- row -->
+                                    <tr>
+                                        <td>
+                                            <div class="img">
+                                                <img src="img/table-img.png" alt="pic">
+                                            </div>
+                                            <a href="#" class="name">Internet tend</a>
+                                        </td>
+                                        <td class="description">
+                                            There are many variations of passages.
+                                        </td>
+                                        <td>
+                                            Jan 03, 2013
+                                        </td>
+                                        <td>
+                                            <span class="label label-info">Standby</span>
+                                            <ul class="actions">
+                                                <li><a href="#">Edit</a></li>
+                                                <li class="last"><a href="#">Delete</a></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="img">
+                                                <img src="img/table-img.png" alt="pic">
+                                            </div>
+                                            <a href="#" class="name">Generate Lorem </a>
+                                        </td>
+                                        <td class="description">
+                                            if you are going to use a passage of Lorem Ipsum.
+                                        </td>
+                                        <td>
+                                            Jan 03, 2013
+                                        </td>
+                                        <td>
+                                            <span class="label label-success">Active</span>
+                                            <ul class="actions">
+                                                <li><a href="#">Edit</a></li>
+                                                <li class="last"><a href="#">Delete</a></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
+                    </div>*@
+            </div>
 
-
-
-
-                    </div>
-
-                </fieldset>
-            </form>
         </div>
-
-
-
-
-
     </div>
-</div>

@@ -39,14 +39,6 @@ namespace App.Core.Services
             db.SaveChanges();
         }
 
-        void InsertDealMethod(ICollection<Listing_DealMethod> dealMethod, int ListingId)
-        {
-            db.Listing_DealMethod.RemoveRange(db.Listing_DealMethod
-                                            .Where(d => d.ListingId == ListingId));
-
-            db.Listing_DealMethod.AddRange(dealMethod);
-        }
-
         int IListingService.CreateNew(int UserId)
         {
             Listing listing = new Listing();
