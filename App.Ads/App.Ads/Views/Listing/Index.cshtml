@@ -12,54 +12,55 @@
         <div class="panel-body">
 
             <div class="table-wrapper">
-                <div class="row">
+                <div class="col-sm-12">
+                    <div class="row">
 
-                    <table class="table table-hover edit-listings">
-                        <thead>
-                            <tr>
-                                <th class="col-md-3"></th>
-                                <th></th>
-                                <th></th>
-                                <th>Date&nbsp;posted</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
+                        <table class="table edit-listings">
+                            <thead>
                                 <tr>
-                                    <td>
-                                        <div class="img">
-                                            <img src="http://templates.expresspixel.com/bootlistings/css/images/listings/1.jpg" alt="pic">
-                                        </div>
-                                    </td>
-                                    <td class="main-td">
-                                        @Html.ActionLink(item.Title, "Save", new { id = item.id })
-                                        <a href="#" class="no-views">(11 views)</a>
-
-
-                                        <br>
-                                        <a class="edit-ad" href="account_ad_create.html">Edit ad</a>
-                                        <a class="extend-ad" href="#" data-toggle="tooltip" title="" data-original-title="Extend ad by 30 days">Extend for 30 days</a>
-                                        <a class="remove-ad" href="#">Remove this ad</a>
-
-                                        <p>Alarm, Anti-Lock Brakes (ABS), Driver Airbag, Electronic Stability Program (ESP), Immobiliser, Passenger Airbag, Rear seat belts, Side Airbags Alloy Wheels, Catalytic...</p>
-
-                                    </td>
-                                    <td>
-                                        <span class="@item.StatusCss">@item.StatusText</span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            1 day ago
-                                        </span>
-                                    </td>
+                                    <th class="col-md-2"></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Date&nbsp;posted</th>
                                 </tr>
-                            }
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="img">
+                                                <img src="http://templates.expresspixel.com/bootlistings/css/images/listings/4.jpg" alt="pic">
+                                            </div>
+                                        </td>
+                                        <td class="main-td">
+                                            @Html.ActionLink(item.Title, "Save", new { id = item.id })
+                                            <a href="#" class="no-views">(11 views)</a>
 
-                        </tbody>
-                    </table>
+                                            <br>
+                                            <a class="edit-ad" href="account_ad_create.html">Edit ad</a>
+                                            <a class="extend-ad" href="#" data-toggle="tooltip" title="" data-original-title="Extend ad by 30 days">Extend for 30 days</a>
+                                            <a class="remove-ad" href="#">Remove this ad</a>
+
+                                            <p>
+                                                @Html.DisplayFor(m => item.Description)
+                                            </p>
+                                            @*<p>Alarm, Anti-Lock Brakes (ABS), Driver Airbag, Electronic Stability Program (ESP), Immobiliser, Passenger Airbag, Rear seat belts, Side Airbags Alloy Wheels, Catalytic...</p>*@
+
+                                        </td>
+                                        <td>
+                                            <span class="@item.StatusCss">@item.StatusText</span>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(m => item.CreateDateText)
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-
                 @*<div class="table-wrapper products-table section">
                         <div class="row">
                             <table class="table table-hover">

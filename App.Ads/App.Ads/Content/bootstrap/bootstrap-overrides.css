@@ -498,7 +498,7 @@ textarea::-webkit-input-placeholder  {
     
 	border-top-color:  #edf2f7 !important;
     
-	vertical-align:  middle !important;
+	/*vertical-align:  middle !important;*/
     
 }
 .table th.align-right, 

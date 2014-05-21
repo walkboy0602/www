@@ -16,6 +16,8 @@ namespace App.Core.ViewModel
 
         public DateTime CreateDate { get; set; }
 
+        public string CreateDateText { get; set; }
+
         public int Status { get; set; }
 
         public string StatusText { get; set; }

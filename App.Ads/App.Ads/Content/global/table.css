@@ -31,7 +31,7 @@
   cursor: pointer;
 }
 .table-wrapper .table .img img {
-  margin-top: 4px;
+  width: 100px;
 }
 .table-wrapper .table tr.first td {
   border-top: 0 none;
@@ -41,8 +41,6 @@
   color: #428bca;
 }
 .table-wrapper .table td a {
-  text-decoration: underline;
-  display: inline-block;
 }
 .table-wrapper .table td.description {
   vertical-align: middle;

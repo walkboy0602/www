@@ -104,7 +104,6 @@ namespace App.Ads
 
             #endregion
 
-
             #region CSS
 
             //Bootstrap

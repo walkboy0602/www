@@ -38,11 +38,21 @@ namespace App.Ads.Controllers
 
             var model = Mapper.Map<List<Listing>, List<DisplayListingViewModel>>(listings);
 
+            int dayDiff;
+
             foreach (var item in model)
             {
                 item.Title = string.IsNullOrEmpty(item.Title) ? "Untitled" : item.Title;
                 item.StatusText = Enum.GetName(typeof(XtEnum.ListingStatus), item.Status);
                 item.StatusCss = GetStatusCss(item.Status);
+                dayDiff = (DateTime.Now - item.CreateDate).Days;
+                item.CreateDateText = dayDiff == 0 ? "Today" : dayDiff + " day ago";
+
+                if (!string.IsNullOrEmpty(item.Description) && item.Description.Length > 167)
+                {
+                    item.Description = item.Description.Substring(0, 167) + "...";
+                }
+
             }
 
             return View(model);
