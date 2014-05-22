@@ -18,7 +18,7 @@
     var identity = HttpContext.Current.User.ToCustomPrincipal().CustomIdentity;
 
     <div class="col-sm-9">
-        <form class="form-vertical" action="">
+        <div class="form-vertical">
             <div class="panel panel-default">
                 <div class="panel-heading">Choose category</div>
                 <div class="panel-body">
@@ -108,17 +108,11 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default">
+            @*@Html.Partial("_gallery", Model);*@
+            <div class="panel panel-default" data-ng-controller="ListingImageCtrl">
                 <div class="panel-heading">Add photos</div>
                 <div class="panel-body">
-                    <div class="no-gallery">
-                        <div class="center">
-                            <img src="http://detail.herokuapp.com/img/no-img-gallery.png" alt="no-gallery">
-                            <p class="no-gallery-label">You don't have any images</p>
-                            <p>Click 'Add Image' to attach photos or drag & drop your photos here.</p>
-                            <a data-toggle="modal" href="#myModal" class="btn-glow primary"><i class="fa fa-plus"></i> Add new image</a>
-                        </div>
-                    </div>
+                    <iframe src="@Url.Action("Image")" width="720" height="400" frameborder="0" scrolling="no"></iframe>
                 </div>
             </div>
             <div class="panel panel-default">
@@ -202,12 +196,13 @@
                     <br><p class="pull-right"><small>* payment options will be shown on the next screen</small></p>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 }
 
 
 @section Scripts {
+    @Scripts.Render("~/bundles/upload")
     <script type="text/javascript">
         $(document).ready(function () {
             $('#ddlCategory').select2({

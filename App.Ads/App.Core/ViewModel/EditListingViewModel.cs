@@ -27,7 +27,7 @@ namespace App.Core.ViewModel
         [StringLength(50, ErrorMessage = "Maximum {1} charaters.")]
         public string Keywords { get; set; }
 
-        [RegularExpression(@"^\d+.\d{0,2}$", ErrorMessage="Price can only accept up to 2 decimal numbers.")]
+        [RegularExpression(@"^\$?\d+(\.(\d{2}))?$", ErrorMessage = "e.g price format - 19.99")]
         [Range(0, 99999999.99, ErrorMessage="Price cannot exceed 8 characters long.")]
         [Required]
         public decimal Price { get; set; }
@@ -62,6 +62,8 @@ namespace App.Core.ViewModel
         [RequiredIf(DependentProperty = "OnlineBanking", TargetValue = true, ErrorMessage = "Please fill in the detail.")]
         public string OnlineBankingText { get; set; }
 
-        public virtual ICollection<Listing_DealMethod> Listing_DealMethod { get; set; }
+        public string CreateDate { get; set; }
+
+        public virtual ICollection<ListingDealMethod> ListingDealMethods { get; set; }
     }
 }

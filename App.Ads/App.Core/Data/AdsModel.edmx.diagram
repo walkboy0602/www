@@ -11,11 +11,13 @@
         <EntityTypeShape EntityType="AdsDBModel.RefCategory" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="AdsDBModel.Region" Width="1.5" PointX="2.75" PointY="6.375" />
         <EntityTypeShape EntityType="AdsDBModel.RegionZone" Width="1.5" PointX="5.5" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="AdsDBModel.Listing_DealMethod" Width="1.5" PointX="8.5" PointY="0.625" />
         <EntityTypeShape EntityType="AdsDBModel.Listing" Width="1.5" PointX="7.75" PointY="3.25" />
         <AssociationConnector Association="AdsDBModel.FK__Listing__Categor__5BE2A6F2" />
         <AssociationConnector Association="AdsDBModel.FK__Listing__Locatio__5CD6CB2B" />
-        <AssociationConnector Association="AdsDBModel.FK_Listing_DealMethod" />
+        <EntityTypeShape EntityType="AdsDBModel.ListingDealMethod" Width="1.5" PointX="10" PointY="3.875" />
+        <EntityTypeShape EntityType="AdsDBModel.ListingImage" Width="1.5" PointX="10" PointY="6.375" />
+        <AssociationConnector Association="AdsDBModel.FK_Listing_DealMethod1" />
+        <AssociationConnector Association="AdsDBModel.FK_Listing_ListingID" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -11,7 +11,7 @@ namespace App.Ads
 
             #region Script
 
-            
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -129,7 +129,9 @@ namespace App.Ads
             bundles.Add(new StyleBundle("~/Content/css/form").Include(
                             "~/Content/libraries/select2.css",
                             "~/Content/libraries/select2-bootstrap.css",
-                            "~/Content/themes/bazaar/gallery.css"
+                            "~/Content/themes/bazaar/gallery.css",
+                            "~/Content/fileupload/jquery.fileupload-ui.css",
+                            "~/Content/fileupload/jquery.fileupload.css"
                 ));
 
             #endregion

@@ -78,7 +78,7 @@ function ListingCreateCtrl($scope, ListingFactory, $filter, $q, ListingManager) 
 
 }
 
-function ListingImageCtrl($scope, $q, ListingFactory, $filter, uploadManager) {
+function ListingImageCtrl($scope, $q, ImageFactory, $filter, uploadManager) {
 
     $scope.files = [];
     $scope.draftFiles = [];
@@ -90,7 +90,7 @@ function ListingImageCtrl($scope, $q, ListingFactory, $filter, uploadManager) {
     $scope.form.CreateDate = $('#CreateDate').val();
 
     //Retrieve Imge
-    $q.all([ListingFactory.getImage($scope.id)]).then(function (results) {
+    $q.all([ImageFactory.get(4)]).then(function (results) {
         var data = results[0].data;
         angular.forEach(data, function (v, k) {
             $scope.files.push({

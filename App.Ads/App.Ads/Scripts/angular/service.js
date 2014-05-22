@@ -2,6 +2,7 @@
     var _files = [];
     return {
         add: function (file) {
+            console.log('d');
             _files.push(file);
             if (file.fileInput) {
                 $rootScope.$broadcast('fileAdded', file.files[0], file.fileInput[0].id);

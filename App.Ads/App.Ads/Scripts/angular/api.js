@@ -4,7 +4,7 @@
 angular.module('shopAPI', [])
     .factory('AccountFactory', ['$http', function ($http) {
         return {
-            emailVerification: function(){
+            emailVerification: function () {
                 return $http.post('/account/verification/sendemail');
             }
         }
@@ -17,6 +17,13 @@ angular.module('shopAPI', [])
             }
         }
 
+    }])
+    .factory('ImageFactory', ['$http', function ($http) {
+        return {
+            get: function (ListingId) {
+                return $http.get('/api/image', { params: { ListingId: ListingId } });
+            }
+        }
     }])
     .factory('ListingFactory', ['$http', function ($http) {
 

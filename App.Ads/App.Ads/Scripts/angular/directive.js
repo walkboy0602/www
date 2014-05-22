@@ -15,7 +15,7 @@ shopApp.directive('fileupload', ['uploadManager', function factory(uploadManager
     return {
         restrict: 'A',
         link: function (scope, element, attrs) {
-
+            console.log('dd');
             $(element).fileupload({
                 dataType: 'json',
                 autoUpload: false,

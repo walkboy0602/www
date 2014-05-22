@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AWSSDK">
+      <HintPath>..\packages\AWSSDK\AWSSDK.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -42,14 +45,20 @@
     <Reference Include="ExpressiveAnnotations.MvcUnobtrusiveValidatorProvider">
       <HintPath>..\packages\ExpressiveAnnotations.1.1.3\lib\ExpressiveAnnotations.MvcUnobtrusiveValidatorProvider.dll</HintPath>
     </Reference>
+    <Reference Include="ImageResizer">
+      <HintPath>..\packages\ImageResizer\ImageResizer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml.Linq" />
@@ -80,7 +89,10 @@
     <Compile Include="Data\Listing.cs">
       <DependentUpon>AdsModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Listing_DealMethod.cs">
+    <Compile Include="Data\ListingDealMethod.cs">
+      <DependentUpon>AdsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ListingImage.cs">
       <DependentUpon>AdsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Membership.cs">
@@ -99,10 +111,11 @@
       <DependentUpon>AdsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EmailHostModel.cs" />
+    <Compile Include="Utility\S3Helper.cs" />
     <Compile Include="ViewModel\DisplayListingViewModel.cs" />
     <Compile Include="ViewModel\EditListingViewModel.cs" />
     <Compile Include="ViewModel\Enum.cs" />
-    <Compile Include="Utility\LINQExtension.cs" />
+    <Compile Include="Utility\LinqExtension.cs" />
     <Compile Include="Models\Membership.cs" />
     <Compile Include="Models\SendEmailModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

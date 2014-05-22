@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="AdsDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AdsDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Config">
           <Key>
             <PropertyRef Name="Key" />
@@ -30,7 +30,7 @@
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="LastUpdate" Type="datetime" />
         </EntityType>
-        <EntityType Name="Listing_DealMethod">
+        <EntityType Name="ListingDealMethod">
           <Key>
             <PropertyRef Name="ListingId" />
             <PropertyRef Name="DealMethodId" />
@@ -38,6 +38,19 @@
           <Property Name="ListingId" Type="int" Nullable="false" />
           <Property Name="DealMethodId" Type="int" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ListingImage">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ListingId" Type="int" Nullable="false" />
+          <Property Name="FileName" Type="varchar" MaxLength="1000" />
+          <Property Name="IsCover" Type="bit" Nullable="false" />
+          <Property Name="Sort" Type="tinyint" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="Src" Type="nvarchar" MaxLength="200" />
+          <Property Name="Description" Type="nvarchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="Membership">
           <Key>
@@ -136,12 +149,24 @@
         </Association>
         <Association Name="FK_Listing_DealMethod">
           <End Role="Listing" Type="Self.Listing" Multiplicity="1" />
-          <End Role="Listing_DealMethod" Type="Self.Listing_DealMethod" Multiplicity="*" />
+          <End Role="ListingDealMethod" Type="Self.ListingDealMethod" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Listing">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Listing_DealMethod">
+            <Dependent Role="ListingDealMethod">
+              <PropertyRef Name="ListingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Listing_ListingID">
+          <End Role="Listing" Type="Self.Listing" Multiplicity="1" />
+          <End Role="ListingImage" Type="Self.ListingImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Listing">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ListingImage">
               <PropertyRef Name="ListingId" />
             </Dependent>
           </ReferentialConstraint>
@@ -149,7 +174,8 @@
         <EntityContainer Name="AdsDBModelStoreContainer">
           <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Listing" EntityType="Self.Listing" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Listing_DealMethod" EntityType="Self.Listing_DealMethod" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ListingDealMethod" EntityType="Self.ListingDealMethod" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ListingImage" EntityType="Self.ListingImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Membership" EntityType="Self.Membership" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RefCategory" EntityType="Self.RefCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Region" EntityType="Self.Region" Schema="dbo" store:Type="Tables" />
@@ -165,7 +191,11 @@
           </AssociationSet>
           <AssociationSet Name="FK_Listing_DealMethod" Association="Self.FK_Listing_DealMethod">
             <End Role="Listing" EntitySet="Listing" />
-            <End Role="Listing_DealMethod" EntitySet="Listing_DealMethod" />
+            <End Role="ListingDealMethod" EntitySet="ListingDealMethod" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Listing_ListingID" Association="Self.FK_Listing_ListingID">
+            <End Role="Listing" EntitySet="Listing" />
+            <End Role="ListingImage" EntitySet="ListingImage" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -215,7 +245,6 @@
           <EntitySet Name="RefCategories" EntityType="AdsDBModel.RefCategory" />
           <EntitySet Name="Regions" EntityType="AdsDBModel.Region" />
           <EntitySet Name="RegionZones" EntityType="AdsDBModel.RegionZone" />
-          <EntitySet Name="Listing_DealMethod" EntityType="AdsDBModel.Listing_DealMethod" />
           <EntitySet Name="Listings" EntityType="AdsDBModel.Listing" />
           <AssociationSet Name="FK__Listing__Categor__5BE2A6F2" Association="AdsDBModel.FK__Listing__Categor__5BE2A6F2">
             <End Role="RefCategory" EntitySet="RefCategories" />
@@ -225,9 +254,15 @@
             <End Role="RegionZone" EntitySet="RegionZones" />
             <End Role="Listing" EntitySet="Listings" />
           </AssociationSet>
-          <AssociationSet Name="FK_Listing_DealMethod" Association="AdsDBModel.FK_Listing_DealMethod">
+          <EntitySet Name="ListingDealMethods" EntityType="AdsDBModel.ListingDealMethod" />
+          <EntitySet Name="ListingImages" EntityType="AdsDBModel.ListingImage" />
+          <AssociationSet Name="FK_Listing_DealMethod1" Association="AdsDBModel.FK_Listing_DealMethod1">
             <End Role="Listing" EntitySet="Listings" />
-            <End Role="Listing_DealMethod" EntitySet="Listing_DealMethod" />
+            <End Role="ListingDealMethod" EntitySet="ListingDealMethods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Listing_ListingID" Association="AdsDBModel.FK_Listing_ListingID">
+            <End Role="Listing" EntitySet="Listings" />
+            <End Role="ListingImage" EntitySet="ListingImages" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Config">
@@ -274,16 +309,6 @@
           <Property Name="isActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Listings" Relationship="AdsDBModel.FK__Listing__Locatio__5CD6CB2B" FromRole="RegionZone" ToRole="Listing" />
         </EntityType>
-        <EntityType Name="Listing_DealMethod">
-          <Key>
-            <PropertyRef Name="ListingId" />
-            <PropertyRef Name="DealMethodId" />
-          </Key>
-          <Property Name="ListingId" Type="Int32" Nullable="false" />
-          <Property Name="DealMethodId" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Listing" Relationship="AdsDBModel.FK_Listing_DealMethod" FromRole="Listing_DealMethod" ToRole="Listing" />
-        </EntityType>
         <EntityType Name="Listing">
           <Key>
             <PropertyRef Name="id" />
@@ -303,7 +328,8 @@
           <Property Name="LastUpdate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="RefCategory" Relationship="AdsDBModel.FK__Listing__Categor__5BE2A6F2" FromRole="Listing" ToRole="RefCategory" />
           <NavigationProperty Name="RegionZone" Relationship="AdsDBModel.FK__Listing__Locatio__5CD6CB2B" FromRole="Listing" ToRole="RegionZone" />
-          <NavigationProperty Name="Listing_DealMethod" Relationship="AdsDBModel.FK_Listing_DealMethod" FromRole="Listing" ToRole="Listing_DealMethod" />
+          <NavigationProperty Name="ListingDealMethods" Relationship="AdsDBModel.FK_Listing_DealMethod1" FromRole="Listing" ToRole="ListingDealMethod" />
+          <NavigationProperty Name="ListingImages" Relationship="AdsDBModel.FK_Listing_ListingID" FromRole="Listing" ToRole="ListingImage" />
         </EntityType>
         <Association Name="FK__Listing__Categor__5BE2A6F2">
           <End Type="AdsDBModel.RefCategory" Role="RefCategory" Multiplicity="0..1" />
@@ -329,14 +355,50 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Listing_DealMethod">
+        <EntityType Name="ListingDealMethod">
+          <Key>
+            <PropertyRef Name="ListingId" />
+            <PropertyRef Name="DealMethodId" />
+          </Key>
+          <Property Name="ListingId" Type="Int32" Nullable="false" />
+          <Property Name="DealMethodId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Listing" Relationship="AdsDBModel.FK_Listing_DealMethod1" FromRole="ListingDealMethod" ToRole="Listing" />
+        </EntityType>
+        <EntityType Name="ListingImage">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ListingId" Type="Int32" Nullable="false" />
+          <Property Name="FileName" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="IsCover" Type="Boolean" Nullable="false" />
+          <Property Name="Sort" Type="Byte" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="Src" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Listing" Relationship="AdsDBModel.FK_Listing_ListingID" FromRole="ListingImage" ToRole="Listing" />
+        </EntityType>
+        <Association Name="FK_Listing_DealMethod1">
           <End Type="AdsDBModel.Listing" Role="Listing" Multiplicity="1" />
-          <End Type="AdsDBModel.Listing_DealMethod" Role="Listing_DealMethod" Multiplicity="*" />
+          <End Type="AdsDBModel.ListingDealMethod" Role="ListingDealMethod" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Listing">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Listing_DealMethod">
+            <Dependent Role="ListingDealMethod">
+              <PropertyRef Name="ListingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Listing_ListingID">
+          <End Type="AdsDBModel.Listing" Role="Listing" Multiplicity="1" />
+          <End Type="AdsDBModel.ListingImage" Role="ListingImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Listing">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ListingImage">
               <PropertyRef Name="ListingId" />
             </Dependent>
           </ReferentialConstraint>
@@ -431,15 +493,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Listing_DealMethod">
-            <EntityTypeMapping TypeName="AdsDBModel.Listing_DealMethod">
-              <MappingFragment StoreEntitySet="Listing_DealMethod">
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="DealMethodId" ColumnName="DealMethodId" />
-                <ScalarProperty Name="ListingId" ColumnName="ListingId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Listings">
             <EntityTypeMapping TypeName="AdsDBModel.Listing">
               <MappingFragment StoreEntitySet="Listing">
@@ -455,6 +508,29 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ListingDealMethods">
+            <EntityTypeMapping TypeName="AdsDBModel.ListingDealMethod">
+              <MappingFragment StoreEntitySet="ListingDealMethod">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DealMethodId" ColumnName="DealMethodId" />
+                <ScalarProperty Name="ListingId" ColumnName="ListingId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ListingImages">
+            <EntityTypeMapping TypeName="AdsDBModel.ListingImage">
+              <MappingFragment StoreEntitySet="ListingImage">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Src" ColumnName="Src" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="IsCover" ColumnName="IsCover" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="ListingId" ColumnName="ListingId" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -89,7 +89,7 @@ namespace App.Ads.Controllers
             EditListingViewModel model = Mapper.Map<Listing, EditListingViewModel>(listing);
 
             //TODO: Better way to do this?
-            foreach (var item in model.Listing_DealMethod)
+            foreach (var item in model.ListingDealMethods)
             {
                 switch (item.DealMethodId)
                 {
@@ -111,6 +111,8 @@ namespace App.Ads.Controllers
             }
 
             RebindForm();
+
+            ViewBag.id = model.id;
 
             return View(model);
         }
@@ -134,7 +136,7 @@ namespace App.Ads.Controllers
                 //TODO: Better way to do this?
                 if (model.COD)
                 {
-                    listing.Listing_DealMethod.Add(new Listing_DealMethod
+                    listing.ListingDealMethods.Add(new ListingDealMethod
                     {
                         ListingId = model.id,
                         DealMethodId = (int)XtEnum.DealMethod.COD,
@@ -144,7 +146,7 @@ namespace App.Ads.Controllers
 
                 if (model.Postage)
                 {
-                    listing.Listing_DealMethod.Add(new Listing_DealMethod
+                    listing.ListingDealMethods.Add(new ListingDealMethod
                     {
                         ListingId = model.id,
                         DealMethodId = (int)XtEnum.DealMethod.Postage,
@@ -154,7 +156,7 @@ namespace App.Ads.Controllers
 
                 if (model.OnlineBanking)
                 {
-                    listing.Listing_DealMethod.Add(new Listing_DealMethod
+                    listing.ListingDealMethods.Add(new ListingDealMethod
                     {
                         ListingId = model.id,
                         DealMethodId = (int)XtEnum.DealMethod.OnlineBanking,
@@ -169,6 +171,11 @@ namespace App.Ads.Controllers
 
             RebindForm();
             return View(model);
+        }
+
+        public ActionResult Image()
+        {
+            return PartialView("_gallery");
         }
 
 

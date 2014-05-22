@@ -9,7 +9,7 @@
     @Styles.Render("~/Content/css")
     @RenderSection("style", required: false)
 </head>
-<body>
+<body data-ng-app="shopApp">
 
     <nav class="navbar navbar-default" role="navigation">
         <div class="container">
@@ -75,7 +75,6 @@
     @Scripts.Render("~/bundles/common")
     @Scripts.Render("~/bundles/angular")
     @Scripts.Render("~/bundles/angularstrap")
-    @Scripts.Render("~/bundles/upload")
     @Scripts.Render("~/bundles/validation")
     <script>
         window.data = {

@@ -64,7 +64,7 @@ namespace App.Core.Services
         Listing IListingService.GetListingById(int ListingId, int UserId)
         {
             var listing = db.Listings
-                            .Include(l => l.Listing_DealMethod)
+                            .Include(l => l.ListingDealMethods)
                             .Where(l => l.CreateBy == UserId)
                             .Where(l => l.id == ListingId).FirstOrDefault();
 
