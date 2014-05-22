@@ -1,12 +1,17 @@
-﻿using System;
+﻿using App.Core.Utility;
+using App.Core.Data;
+using App.Core.Services;
+using App.Ads.Code.Membership;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Helpers;
-using App.Core.Utility;
-using App.Core.Data;
+using System.Threading.Tasks;
+using System.Web;
+using System.Text;
 
 namespace App.Ads.Controllers.api
 {
@@ -14,64 +19,90 @@ namespace App.Ads.Controllers.api
     public class ImageController : ApiController
     {
         private AdsDBEntities db = new AdsDBEntities();
-        // Get
 
-        public HttpResponseMessage Get(int ListingId)
+        private readonly IListingService _listingService;
+        private readonly IImageService _imageService;
+
+        public ImageController(IListingService listingService, IImageService imageService)
         {
-            return Request.CreateResponse(HttpStatusCode.OK);
+            _listingService = listingService;
+            _imageService = imageService;
+        }
+
+        public List<ListingImage> Get(int ListingId)
+        {
+            CustomIdentity identity = User.ToCustomPrincipal().CustomIdentity;
+            List<ListingImage> images = _imageService.Get(ListingId, identity.UserId);
+
+            //return Request.CreateResponse(HttpStatusCode.OK, images);
+            return images;
         }
 
         // AJAX
         // POST: /Listing/ImageUpload
 
+        //[HttpPost]
+        //public HttpResponseMessage Post()
+        //{
+        //    HttpResponseMessage result = null;
+        //    var httpRequest = HttpContext.Current.Request;
+        //    if (httpRequest.Files.Count > 0)
+        //    {
+        //        var docfiles = new List<string>();
+        //        foreach (string file in httpRequest.Files)
+        //        {
+        //            var postedFile = httpRequest.Files[file];
+        //            var filePath = HttpContext.Current.Server.MapPath("~/" + postedFile.FileName);
+        //            postedFile.SaveAs(filePath);
+
+        //            docfiles.Add(filePath);
+        //        }
+        //        result = Request.CreateResponse(HttpStatusCode.Created, docfiles);
+        //    }
+        //    else
+        //    {
+        //        result = Request.CreateResponse(HttpStatusCode.BadRequest);
+        //    }
+        //    return result;
+        //}
+
+        //Multiple Uploads
         [HttpPost]
-        public HttpResponseMessage Upload(Listing listing)
+        public async Task<HttpResponseMessage> Uploads()
         {
-            ListingImage listingImage = new ListingImage();
+            // Check if the request contains multipart/form-data.
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            }
 
-            S3Helper s3 = new S3Helper();
+            string root = HttpContext.Current.Server.MapPath("~/App_Data");
+            var provider = new MultipartFormDataStreamProvider(root);
 
-            DateTime create_date = (DateTime)listing.CreateDate;
+            // Read the form data.
+            await Request.Content.ReadAsMultipartAsync(provider);
 
+            int id = 0;
 
-            string YearMonthDay = string.Empty;
+            Int32.TryParse(provider.FormData.GetValues("id")[0], out id);
 
-            YearMonthDay = create_date.Year.ToString() + create_date.Month.ToString("d2") + create_date.Day.ToString();
+            CustomIdentity identity = User.ToCustomPrincipal().CustomIdentity;
 
-            var image = WebImage.GetImageFromRequest();
-            string hashName = s3.Hash(image.FileName, listing.id);
+            Listing listing = _listingService.GetListingById(id, identity.UserId);
 
-            //file format
-            //env + listing + yyyymmdd + listingid + size
+            if (listing == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid Id.");
+            }
 
-            string imageURL = string.Join("/", new string[] { s3.env, "listing", YearMonthDay, listing.id.ToString(), "####size####", hashName });
+            DateTime CreateDate = listing.CreateDate ?? DateTime.Now;
 
-            bool status = false;
-
-            byte[] fileBytes = image.GetBytes();
-
-            //Thumnbnail
-            byte[] s0 = s3.CreateImage(fileBytes, image.FileName, 56, 42);
-            status = s3.UploadToS3(s0, imageURL.Replace("####size####", "s0"));
-
-            //Standard
-            byte[] s1 = s3.CreateImage(fileBytes, image.FileName, 315, 230);
-            status = s3.UploadToS3(s1, imageURL.Replace("####size####", "s1"));
-
-            //Large
-            byte[] s2 = s3.CreateImage(fileBytes, image.FileName, 640, 480);
-            status = s3.UploadToS3(s2, imageURL.Replace("####size####", "s2"));
-
-            listingImage.ListingId = listing.id;
-            listingImage.FileName = hashName;
-            listingImage.Description = image.FileName.Substring(0, image.FileName.IndexOf(".")).Truncate(30);
-            listingImage.Src = imageURL;
-            listingImage.CreateDate = DateTime.Now;
-
-            db.ListingImages.Add(listingImage);
-            db.SaveChanges();
+            ListingImage listingImage = _imageService.Uploads(identity.UserId, id, CreateDate);
 
             return Request.CreateResponse(HttpStatusCode.OK, listingImage);
+
         }
+
+
     }
 }

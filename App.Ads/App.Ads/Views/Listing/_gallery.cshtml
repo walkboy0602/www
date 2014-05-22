@@ -1,72 +1,66 @@
 ﻿@*@model App.Core.ViewModel.EditListingViewModel*@
 @Styles.Render("~/Content/common")
 @Styles.Render("~/Content/css")
+@Styles.Render("~/Content/css/form")
 
-        @*<div class="no-gallery">
+<div data-ng-app="shopApp" data-ng-controller="ListingImageCtrl">
+    <form name="formUpload" method="post" fileupload enctype="multipart/form-data" action="/api/image/uploads">
+        <!-- No File -->
+        <input type="hidden" value="1" id="ListingId" name="ListingId" />
+        <div class="no-gallery" data-ng-show="!draftFiles.length && !files.length">
             <div class="center">
                 <img src="http://detail.herokuapp.com/img/no-img-gallery.png" alt="no-gallery">
                 <p class="no-gallery-label">You don't have any images</p>
                 <p>Click 'Add Image' to attach photos or drag & drop your photos here.</p>
-                <a data-toggle="modal" href="#myModal" class="btn-glow primary"><i class="fa fa-plus"></i> Add new image</a>
-            </div>
-        </div>*@
-        @*@Html.HiddenFor(model => model.id)
-        @Html.HiddenFor(model => model.CreateDate)*@
-        <form name="formUpload" method="post" fileupload enctype="multipart/form-data" action="/api/image/upload">
-            <!-- No File -->
-            <div class="no-gallery" data-ng-show="!draftFiles.length && !files.length">
-                <div class="center">
-                    <img src="http://detail.herokuapp.com/img/no-img-gallery.png" alt="no-gallery">
-                    <p class="no-gallery-label">You don't have any images</p>
-                    <p>Click 'Add Image' to attach photos or drag & drop your photos here.</p>
-                    <div class="btn-glow primary fileinput-button">
-                        <i class="fa fa-plus"></i>
-                        <input name="image" type="file" data-url="/api/image/upload" multiple upload />
-                        <span>Add new image</span>
-                    </div>
+                <div class="btn-glow primary fileinput-button">
+                    <i class="fa fa-plus"></i>
+                    <input name="image" type="file" data-url="/api/image/upload" multiple upload />
+                    <span>Add new image</span>
                 </div>
             </div>
-            <div class="gallery-wrapper" data-ng-show="files.length">
-                <div class="row gallery-row">
-                    <!-- Image -->
-                    <div class="col-xs-6 col-md-3 img-container" data-ng-repeat="file in files">
-                        <div class="img-box">
-                            <span class="icon edit" data-ng-click="edit(file)">
-                                <a><i class="gallery-edit"></i></a>
-                            </span>
-                            <span class="icon trash" data-ng-click="delete(file)">
-                                <i class="gallery-trash"></i>
-                            </span>
-                            <img data-ng-src="{{file.Url}}" class="img-responsive" alt="picture">
-                            <p class="title" data-ng-show="file.Description">
-                                {{file.Description}}
-                            </p>
-                            <p class="title" data-ng-show="!file.Description">
-                                &lt;No Description&gt;
-                            </p>
-                        </div>
+        </div>
+        <div class="gallery-wrapper" data-ng-show="files.length">
+            <div class="row gallery-row">
+                <!-- Image -->
+                <div class="col-xs-6 col-md-3 img-container" data-ng-repeat="file in files">
+                    <div class="img-box">
+                        <span class="icon edit" data-ng-click="edit(file)">
+                            <a><i class="gallery-edit"></i></a>
+                        </span>
+                        <span class="icon trash" data-ng-click="delete(file)">
+                            <i class="gallery-trash"></i>
+                        </span>
+                        <img data-ng-src="{{file.Url}}" class="img-responsive" alt="picture">
+                        <p class="title" data-ng-show="file.Description">
+                            {{file.Description}}
+                        </p>
+                        <p class="title" data-ng-show="!file.Description">
+                            &lt;No Description&gt;
+                        </p>
                     </div>
-                    <!-- Spinner -->
-                    <div data-ng-repeat="file in draftFiles">
-                        <div class="col-xs-6 col-md-3 img-container">
-                            <div class="img-box">
-                                <div class="spin-{{$index + 1}} img-spin-box"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- new image button -->
-                    <div class="col-xs-6 col-md-3 new-img">
+                </div>
+                <!-- Spinner -->
+                <div data-ng-repeat="file in draftFiles">
+                    <div class="col-xs-6 col-md-3 img-container">
                         <div class="img-box">
-                            <label for="file-input">
-                                <img src="http://detail.herokuapp.com/img/new-gallery-img.png" />
-                            </label>
-                            <input id="file-input" name="image" type="file" multiple accept="image/*" />
+                            <div class="spin-{{$index + 1}} img-spin-box"></div>
                         </div>
                     </div>
                 </div>
+                <!-- new image button -->
+                <div class="col-xs-6 col-md-3 new-img">
+                    <div class="img-box">
+                        <label for="file-input">
+                            <img src="http://detail.herokuapp.com/img/new-gallery-img.png" />
+                        </label>
+                        <input id="file-input" name="image" type="file" multiple accept="image/*" />
+                    </div>
+                </div>
             </div>
-        </form>
+        </div>
+    </form>
 
+</div>
 
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")
@@ -74,3 +68,9 @@
 @Scripts.Render("~/bundles/angular")
 @Scripts.Render("~/bundles/angularstrap")
 @Scripts.Render("~/bundles/validation")
+@Scripts.Render("~/bundles/upload")
+<script>
+        window.data = {
+            id: '@ViewBag.id'
+        };
+</script>

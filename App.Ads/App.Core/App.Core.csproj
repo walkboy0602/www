@@ -111,6 +111,7 @@
       <DependentUpon>AdsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EmailHostModel.cs" />
+    <Compile Include="Services\ImageService.cs" />
     <Compile Include="Utility\S3Helper.cs" />
     <Compile Include="ViewModel\DisplayListingViewModel.cs" />
     <Compile Include="ViewModel\EditListingViewModel.cs" />

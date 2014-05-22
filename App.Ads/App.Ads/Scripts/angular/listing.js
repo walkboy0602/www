@@ -78,7 +78,7 @@ function ListingCreateCtrl($scope, ListingFactory, $filter, $q, ListingManager) 
 
 }
 
-function ListingImageCtrl($scope, $q, ImageFactory, $filter, uploadManager) {
+function ListingImageCtrl($scope, $q, ImageFactory, $filter, uploadManager, $route, $routeParams) {
 
     $scope.files = [];
     $scope.draftFiles = [];
@@ -87,12 +87,14 @@ function ListingImageCtrl($scope, $q, ImageFactory, $filter, uploadManager) {
     $scope.file = {};
 
     $scope.form.id = $scope.id;
-    $scope.form.CreateDate = $('#CreateDate').val();
 
     //Retrieve Imge
-    $q.all([ImageFactory.get(4)]).then(function (results) {
+    $q.all([ImageFactory.get($scope.id)]).then(function (results) {
+        //var data = results[0].data;
         var data = results[0].data;
+        console.log(data);
         angular.forEach(data, function (v, k) {
+            console.log(v);
             $scope.files.push({
                 id: v.id,
                 FileName: v.FileName,
@@ -177,6 +179,7 @@ function ListingImageCtrl($scope, $q, ImageFactory, $filter, uploadManager) {
     //Do something when image is successfully upload
     $scope.$on('uploadReturn', function (e, response) {
         $scope.spinLoading.end();
+        console.log(response);
         if (response.result !== undefined) {
             console.log(response.result);
             var v = response.result;
@@ -194,8 +197,7 @@ function ListingImageCtrl($scope, $q, ImageFactory, $filter, uploadManager) {
 
             $scope.$apply();
         } else {
-            var resp = JSON.parse(response);
-            if (resp.result == "Redirect") {
+            if (response.result == "Redirect") {
                 window.location = resp.url;
             }
         }

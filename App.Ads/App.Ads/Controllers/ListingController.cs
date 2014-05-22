@@ -173,8 +173,9 @@ namespace App.Ads.Controllers
             return View(model);
         }
 
-        public ActionResult Image()
+        public ActionResult Image(int id)
         {
+            ViewBag.id = id;
             return PartialView("_gallery");
         }
 

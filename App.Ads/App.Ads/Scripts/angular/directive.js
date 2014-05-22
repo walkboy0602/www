@@ -15,7 +15,6 @@ shopApp.directive('fileupload', ['uploadManager', function factory(uploadManager
     return {
         restrict: 'A',
         link: function (scope, element, attrs) {
-            console.log('dd');
             $(element).fileupload({
                 dataType: 'json',
                 autoUpload: false,
@@ -28,7 +27,7 @@ shopApp.directive('fileupload', ['uploadManager', function factory(uploadManager
                     if (data.originalFiles[0]['type'].length && !acceptFileTypes.test(data.originalFiles[0]['type'])) {
                         uploadErrors.push('Not an accepted file type');
                     }
-                    if (data.originalFiles[0]['size'].length && data.originalFiles[0]['size'] > 5000000) {
+                    if (data.originalFiles[0]['size'].length && data.originalFiles[0]['size'] > maxFileSize) {
                         uploadErrors.push('Filesize is too big');
                     }
                     if (uploadErrors.length > 0) {
@@ -38,8 +37,8 @@ shopApp.directive('fileupload', ['uploadManager', function factory(uploadManager
                     }
                 },
                 submit: function (e, data) {
+                    console.log(scope.form);
                     data.formData = scope.form;
-
                 },
                 progressall: function (e, data) {
                     uploadManager.setProgress(data);

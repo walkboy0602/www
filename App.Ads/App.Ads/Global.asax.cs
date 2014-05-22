@@ -22,6 +22,7 @@ namespace App.Ads
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            UnityConfig.RegisterComponents();    
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             Bootstrapper.Initialise();
             AutoMapperConfig.Configure();

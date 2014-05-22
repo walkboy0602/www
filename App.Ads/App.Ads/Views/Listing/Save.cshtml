@@ -109,10 +109,10 @@
                 </div>
             </div>
             @*@Html.Partial("_gallery", Model);*@
-            <div class="panel panel-default" data-ng-controller="ListingImageCtrl">
+            <div class="panel panel-default">
                 <div class="panel-heading">Add photos</div>
                 <div class="panel-body">
-                    <iframe src="@Url.Action("Image")" width="720" height="400" frameborder="0" scrolling="no"></iframe>
+                    <iframe src="@Url.Action("Image", new { id = Model.id })" width="680" height="280" frameborder="0" scrolling="no"></iframe>
                 </div>
             </div>
             <div class="panel panel-default">
