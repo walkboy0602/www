@@ -18,6 +18,7 @@ namespace App.Ads
                 Mapper.CreateMap<Listing, EditListingViewModel>();
                 Mapper.CreateMap<EditListingViewModel, Listing>();
                 Mapper.CreateMap<Listing, DisplayListingViewModel>();
+                Mapper.CreateMap<ListingImage, ListingImageViewModel>();
             });
         }
     }

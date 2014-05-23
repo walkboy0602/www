@@ -90,11 +90,10 @@ function ListingImageCtrl($scope, $q, ImageFactory, $filter, uploadManager, $rou
 
     //Retrieve Imge
     $q.all([ImageFactory.get($scope.id)]).then(function (results) {
-        //var data = results[0].data;
+
         var data = results[0].data;
         console.log(data);
         angular.forEach(data, function (v, k) {
-            console.log(v);
             $scope.files.push({
                 id: v.id,
                 FileName: v.FileName,
@@ -105,6 +104,8 @@ function ListingImageCtrl($scope, $q, ImageFactory, $filter, uploadManager, $rou
             })
 
         });
+
+        console.log($scope.files.length);
     });
 
     //Edit Image
@@ -138,16 +139,15 @@ function ListingImageCtrl($scope, $q, ImageFactory, $filter, uploadManager, $rou
     $scope.delete = function (file) {
         $scope.file = file;
 
-        if (id == undefined) {
+        if ($scope.file.id == undefined) {
             return;
         }
-
         $('#deleteModal').modal('show');
     }
 
     //Delete POST
     $scope.deleteImage = function () {
-        ListingFactory.deleteImage($scope.file)
+        ImageFactory.delete($scope.file.id)
             .success(function (data, status) {
                 $('#deleteModal').modal('hide');
                 angular.forEach($scope.files, function (v, k) {
@@ -155,9 +155,10 @@ function ListingImageCtrl($scope, $q, ImageFactory, $filter, uploadManager, $rou
                         $scope.files.splice(k, 1);
                     }
                 });
+                $scope.success('Image is removed.');
             })
             .error(function (data, status) {
-                //TODO: redirect
+                $scope.error();
             });
     }
 
@@ -170,18 +171,25 @@ function ListingImageCtrl($scope, $q, ImageFactory, $filter, uploadManager, $rou
             $scope.draftFiles.push({
                 Src: e.target.result
             });
+
             $scope.$apply();
-            $scope.spinLoading.start($scope.draftFiles.length);
-            uploadManager.upload();
+            $scope.totalFiles = $scope.draftFiles.length + $scope.files.length;
+
+            if ($scope.totalFiles > 8) {
+                $scope.warning('Cannot upload more than 8 photos.');
+                $scope.$apply();
+            } else {
+                $scope.spinLoading.start($scope.draftFiles.length);
+                uploadManager.upload();
+            }
         }
+
     });
 
     //Do something when image is successfully upload
     $scope.$on('uploadReturn', function (e, response) {
         $scope.spinLoading.end();
-        console.log(response);
         if (response.result !== undefined) {
-            console.log(response.result);
             var v = response.result;
             $scope.files.push({
                 id: v.id,
@@ -194,12 +202,12 @@ function ListingImageCtrl($scope, $q, ImageFactory, $filter, uploadManager, $rou
 
             //remove draft file
             $scope.draftFiles.splice(0, 1);
-
             $scope.$apply();
         } else {
-            if (response.result == "Redirect") {
-                window.location = resp.url;
-            }
+            $scope.warning(response.Message);
+            //if (response.result == "Redirect") {
+            //    window.location = resp.url;
+            //}
         }
 
     });

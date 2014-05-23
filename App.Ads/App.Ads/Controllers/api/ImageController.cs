@@ -1,6 +1,7 @@
 ﻿using App.Core.Utility;
 using App.Core.Data;
 using App.Core.Services;
+using App.Core.ViewModel;
 using App.Ads.Code.Membership;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ using System.Web.Helpers;
 using System.Threading.Tasks;
 using System.Web;
 using System.Text;
+using AutoMapper;
 
 namespace App.Ads.Controllers.api
 {
@@ -29,13 +31,15 @@ namespace App.Ads.Controllers.api
             _imageService = imageService;
         }
 
-        public List<ListingImage> Get(int ListingId)
+        public HttpResponseMessage Get(int ListingId)
         {
             CustomIdentity identity = User.ToCustomPrincipal().CustomIdentity;
-            List<ListingImage> images = _imageService.Get(ListingId, identity.UserId);
 
-            //return Request.CreateResponse(HttpStatusCode.OK, images);
-            return images;
+            var images = _imageService.Get(ListingId, identity.UserId);
+
+            List<ListingImageViewModel> model = Mapper.Map<List<ListingImage>, List<ListingImageViewModel>>(images);
+
+            return Request.CreateResponse(HttpStatusCode.OK, model);
         }
 
         // AJAX
@@ -95,12 +99,29 @@ namespace App.Ads.Controllers.api
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid Id.");
             }
 
+            int totalImage = _imageService.Count(id);
+
+            if (totalImage >= 8)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Cannot upload more than 8 photos.");
+            }
+
             DateTime CreateDate = listing.CreateDate ?? DateTime.Now;
 
             ListingImage listingImage = _imageService.Uploads(identity.UserId, id, CreateDate);
 
             return Request.CreateResponse(HttpStatusCode.OK, listingImage);
 
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public HttpResponseMessage Delete([FromUri] int ImageId)
+        {
+            CustomIdentity identity = User.ToCustomPrincipal().CustomIdentity;
+
+            _imageService.Delete(ImageId, identity.UserId);
+
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
 

@@ -21,7 +21,10 @@ angular.module('shopAPI', [])
     .factory('ImageFactory', ['$http', function ($http) {
         return {
             get: function (ListingId) {
-                return $http.get('/api/image', { params: { ListingId: ListingId } });
+                return $http.get('/api/image', { params: { ListingId: ListingId, json: true } });
+            },
+            delete: function (ImageId) {
+                return $http.post('/api/image/delete?ImageId=' + ImageId);
             }
         }
     }])

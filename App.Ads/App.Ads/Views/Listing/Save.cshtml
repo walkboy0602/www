@@ -54,7 +54,7 @@
                             <div class="col-sm-12">
                                 <br>
                                 <label>Description </label>
-                                @Html.TextAreaFor(m => m.Description, new { @rows = "6", @class = "form-control col-sm-8 expand", placeholder = "Put your product info, condition and so on." })
+                                @Html.TextAreaFor(m => m.Description, new { @rows = "6", @class = "form-control", placeholder = "Put your product info, condition and so on." })
                                 @Html.ValidationMessageFor(m => m.Description, null, new { @class = "help-inline" })
                             </div>
                             <div class="col-sm-12">
@@ -108,7 +108,6 @@
                     </div>
                 </div>
             </div>
-            @*@Html.Partial("_gallery", Model);*@
             <div class="panel panel-default">
                 <div class="panel-heading">Add photos</div>
                 <div class="panel-body">

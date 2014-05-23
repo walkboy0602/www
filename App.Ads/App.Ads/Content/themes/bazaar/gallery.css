@@ -4,7 +4,7 @@
 }
 
 .gallery .img-container {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
     .gallery .img-container .img-box {
@@ -22,8 +22,8 @@
         cursor: pointer;
         /*width: 315px;
         height: 230px;*/
-        width: 280px;
-        height: 190px;
+        /*width: 280px;*/
+        height: 120px;
     }
 
     .gallery .img-container .title {
@@ -37,7 +37,8 @@
         height: 48px;
         width: 48px;
         visibility: hidden;
-        left: 41%;
+        /*left: 41%*/;
+        top: 32%;
         border-radius: 100%;
         cursor: pointer;
         text-align: center;
@@ -49,11 +50,11 @@
     }
 
     .gallery .img-container span.edit {
-        top: 23%;
+        left: 17%;
     }
 
     .gallery .img-container span.trash {
-        top: 48%;
+        left: 58%;
     }
 
 .gallery .new-img {
@@ -63,7 +64,8 @@
     .gallery .new-img img {
         border: 2px dashed #dee3e8;
         cursor: pointer;
-        margin-bottom: 50px;
+        /*margin-bottom: 50px;*/
+        height: 140px;
     }
 
         .gallery .new-img img:hover {
@@ -116,7 +118,22 @@
     border: 2px dashed #EEE;
     border-radius: 10px;
     cursor: pointer;
-    width: 280px;
-    height: 190px;
+    width: 139px;
+    height: 120px;
     background: #F7FCFF;
+}
+
+div.addnew{
+    border: 2px dashed #EEE;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 139px;
+    height: 120px;
+    background: #F7FCFF;
+}
+
+div.addnew i{
+    top: 28%;
+    left: 39%;
+    position: absolute;
 }
