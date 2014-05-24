@@ -128,6 +128,7 @@
     <Compile Include="Services\RegionService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="ViewModel\CategoryGroup.cs" />
+    <Compile Include="ViewModel\ListingImageViewModel.cs" />
     <Compile Include="ViewModel\UserMembership.cs" />
   </ItemGroup>
   <ItemGroup>

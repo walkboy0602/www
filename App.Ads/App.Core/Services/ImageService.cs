@@ -13,12 +13,42 @@ namespace App.Core.Services
     public interface IImageService
     {
         List<ListingImage> Get(int ListingId, int UserId);
+        int Count(int ListingId);
         ListingImage Uploads(int UserId, int ListingId, DateTime CreateDate);
+        bool Delete(int ImageId, int UserId);
     }
 
     public class ImageService : IImageService
     {
         private AdsDBEntities db = new AdsDBEntities();
+
+        bool IImageService.Delete(int ImageId, int UserId)
+        {
+            ListingImage model = (from l in db.Listings
+                                  join lb in db.ListingImages on l.id equals lb.ListingId
+                                  where lb.id == ImageId
+                                  where l.CreateBy == UserId
+                                  select lb).FirstOrDefault();
+
+            if (model != null)
+            {
+                S3Helper s3 = new S3Helper();
+
+                s3.DeletePhoto(model.Src.Replace("####size####", "s0"));
+                s3.DeletePhoto(model.Src.Replace("####size####", "s1"));
+                s3.DeletePhoto(model.Src.Replace("####size####", "s2"));
+
+                db.ListingImages.Remove(model);
+                db.SaveChanges();
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
 
         List<ListingImage> IImageService.Get(int ListingId, int UserId)
         {
@@ -28,10 +58,16 @@ namespace App.Core.Services
                           where l.CreateBy == UserId
                           select lb
                               ).ToList();
-            return result;
 
+            return result;
         }
 
+        int IImageService.Count(int ListingId)
+        {
+            var count = this.db.ListingImages.Where(l => l.ListingId == ListingId).Count();
+
+            return count;
+        }
 
         ListingImage IImageService.Uploads(int UserId, int ListingId, DateTime CreateDate)
         {
