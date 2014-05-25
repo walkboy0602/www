@@ -1,0 +1,508 @@
+﻿@model App.Core.ViewModel.AdDetailViewModel
+@{
+    ViewBag.Title = "My Ad - OhMyBazaar.com";
+}
+
+<div class="jumbotron home-tron-search well ">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-12">
+                <div class="home-tron-search-inner">
+
+                    <div class="row">
+
+                        <div class="col-sm-8 col-xs-9" style="text-align: center">
+                            <div class="row">
+
+                                <div class="col-sm-12 col-sm-offset-1">
+                                    <div class="input-group">
+                                        <span class="input-group-addon input-group-addon-text hidden-xs">Find me a</span>
+
+                                        <input type="text" class="form-control col-sm-3" placeholder="e.g. BMW, 2 bed flat, sofa ">
+                                        <div class=" input-group-addon hidden-xs">
+                                            <div class="btn-group">
+                                                <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">
+                                                    All categories <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="#">Cars, Vans &amp; Motorbikes</a></li>
+                                                    <li><a href="#">Community</a></li>
+                                                    <li><a href="#">Flats &amp; Houses</a></li>
+                                                    <li><a href="#">For Sale</a></li>
+                                                    <li><a href="#">Jobs</a></li>
+                                                    <li><a href="#">Pets</a></li>
+                                                    <li><a href="#">Services</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-4 col-xs-3" style="text-align: center">
+                            <div class="row">
+                                <div class="col-sm-11 pull-right">
+                                    <button class="btn btn-primary search-btn"><i class="icon-search"></i>&nbsp;&nbsp;&nbsp;&nbsp;Search</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" id="listings-page">
+    <div class="row">
+        <div class="col-sm-12 listing-wrapper listings-top listings-bottom">
+            <br>
+            <br>
+
+
+            <div class="row">
+
+                <div class="col-sm-7">
+
+                    <ol class="breadcrumb">
+                        <li><a href="listings.html" class="link-info"><i class="fa fa-chevron-left"></i> Back to listings</a></li>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Vehicles</a></li>
+                        <li class="active">Cars</li>
+                    </ol>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-7">
+                    <h1>@Model.Title</h1>
+                    <p>Location: @Model.Location, @Model.ParentLocation</p>
+                </div>
+
+
+                <div class="col-sm-5">
+                    <p class="price">
+                        RM @Model.Price
+                        @if (@Model.IsNegotiable) 
+                        {
+                          <span>(Negotiable)</span> 
+                        }
+                    </p>
+                </div>
+
+            </div>
+            <div class="row">
+
+                <div class="col-sm-7">
+                    <div class="row">
+                        <div class="col-xs-3" style="width: 100px;">
+                            <!-- Place this tag where you want the share button to render. -->
+                            <div id="___plus_0" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 85px; height: 20px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 85px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1400908404714" name="I0_1400908404714" src="https://apis.google.com/u/0/_/+1/sharebutton?plusShare=true&amp;usegapi=1&amp;action=share&amp;annotation=bubble&amp;origin=http%3A%2F%2Ftemplates.expresspixel.com&amp;url=http%3A%2F%2Ftemplates.expresspixel.com%2Fbootlistings%2Fdetails.html&amp;gsrc=3p&amp;ic=1&amp;jsh=m%3B%2F_%2Fscs%2Fapps-static%2F_%2Fjs%2Fk%3Doz.gapi.en_GB.1RvwTz7I2s8.O%2Fm%3D__features__%2Fam%3DAQ%2Frt%3Dj%2Fd%3D1%2Fz%3Dzcms%2Frs%3DAItRSTOP1v6Flk6goWTeFkAtxrQt3Aasqw#_methods=onPlusOne%2C_ready%2C_close%2C_open%2C_resizeMe%2C_renderstart%2Concircled%2Cdrefresh%2Cerefresh%2Conload&amp;id=I0_1400908404714&amp;parent=http%3A%2F%2Ftemplates.expresspixel.com&amp;pfname=&amp;rpctoken=14455287" data-gapiattached="true" title="+Share"></iframe></div>
+
+                            <!-- Place this tag after the last share tag. -->
+                            <script type="text/javascript">
+                                (function () {
+                                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                                    po.src = 'https://apis.google.com/js/platform.js';
+                                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                                })();
+                            </script>
+                        </div>
+
+
+                        <div class="col-xs-3" style="width: 100px;">
+                            <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="http://platform.twitter.com/widgets/tweet_button.1400006231.html#_=1400908404774&amp;count=horizontal&amp;id=twitter-widget-0&amp;lang=en&amp;original_referer=http%3A%2F%2Ftemplates.expresspixel.com%2Fbootlistings%2Fdetails.html&amp;size=m&amp;text=BootListings%20-%20A%20Bootstrap%20Classifieds%20template&amp;url=http%3A%2F%2Ftemplates.expresspixel.com%2Fbootlistings%2Fdetails.html" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-horizontal" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 109px; height: 20px;"></iframe>
+                            <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');</script>
+                        </div>
+
+                        <div class="col-xs-3" style="width: 100px;">
+                            <div class="fb-share-button fb_iframe_widget" data-href="http://developers.facebook.com/docs/plugins/" data-type="button_count" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=&amp;href=http%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;locale=en_GB&amp;sdk=joey&amp;type=button_count"><span style="vertical-align: bottom; width: 86px; height: 20px;"><iframe name="f14cb4847c" width="1000px" height="1000px" frameborder="0" allowtransparency="true" scrolling="no" title="fb:share_button Facebook Social Plugin" src="http://www.facebook.com/plugins/share_button.php?app_id=&amp;channel=http%3A%2F%2Fstatic.ak.facebook.com%2Fconnect%2Fxd_arbiter%2FdgdTycPTSRj.js%3Fversion%3D41%23cb%3Dffe63040c%26domain%3Dtemplates.expresspixel.com%26origin%3Dhttp%253A%252F%252Ftemplates.expresspixel.com%252Ffe5461054%26relation%3Dparent.parent&amp;href=http%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;locale=en_GB&amp;sdk=joey&amp;type=button_count" style="border: none; visibility: visible; width: 86px; height: 20px;" class=""></iframe></span></div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+            <hr>
+
+
+            <div class="row">
+
+                <div class="col-sm-7">
+                    <h3>Ad details</h3>
+
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <table class="table">
+
+                                <tbody>
+                                    <tr>
+                                        <th>Make</th>
+                                        <td>Porsche</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Model</th>
+                                        <td>Boxster</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Mileage</th>
+                                        <td>80,000 Kms</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-xs-6">
+                            <table class="table">
+
+                                <tbody>
+                                    <tr>
+                                        <th>Year</th>
+                                        <td>2007</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Type of car:</th>
+                                        <td>4-door</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Body type</th>
+                                        <td>Estate</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    @Html.Raw(Server.HtmlDecode(@Model.Description))
+
+
+                    <p>Ad ref: @Model.id | Posted @Model.CreateDateText </p>
+
+                    <p>
+                        <span class="classified_links ">
+                            <a class="link-info" href="#"><i class="fa fa-share"></i> Share</a>&nbsp;
+                            <a class="link-info " href="#"><i class="fa fa-star"></i> Add to favorites</a>
+                            &nbsp;<a class="link-info " href="#"><i class="fa fa-envelope-o"></i> Contact</a>
+                            &nbsp;<a class="link-info fancybox-media" href="http://maps.google.com/?ll=48.85796,2.295231&amp;spn=0.003833,0.010568&amp;t=h&amp;z=17"><i class="fa fa-map-marker"></i> Map</a>
+                        </span>
+                    </p>
+
+                </div>
+
+                <div class="col-sm-5 center zoom-gallery">
+                    <div class="row center">
+
+                        <div class="col-sm-12">
+
+                            @if (Model.ListingImages.Count > 0)
+                            {
+                                <a class="fancybox" rel="group" href="css/images/single/1.jpg">
+                                    <img id="img_01" alt="" class="raised" src="@Url.Content(Model.CoverImage)" width="100%">
+                                </a>
+                                <br>
+                                <br>
+                                <div class="row" id="gallery">
+
+                                    @foreach (var item in Model.ListingImages)
+                                    {
+                                        <div class="col-xs-4" style="margin-bottom: 10px;">
+                                            <a href="@Url.Content(item.Src)" class="fancybox thumbnail" rel="group">
+                                                <img alt="" src="@Url.Content(item.Src)">
+                                            </a>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="col-sm-12" style="text-align: center; margin: 0 auto">
+                        <button data-toggle="modal" data-target="#myModal" class="btn btn-warning" style="text-align: center;width: 180px; " type="button">Reply to ad</button>
+                        <br>
+                        <p>or call @Model.PostedBy on 9824614705</p>
+                    </div>
+                    <br>
+                </div>
+
+            </div>
+
+            <div class="col-sm-12 listings">
+                <br>
+                <div class="row">
+
+                    <div class="panel panel-default recent-listings hidden-xs">
+                        <div class="panel-heading">Recent Cars, Vans &amp; Motorbikes ads in London</div>
+
+
+                        <div class="panel-body">
+
+                            <div class="row premium  listing-row">
+
+                                <div class="col-sm-2">
+                                    <a href="details.html" class="thumbnail "><img alt="" src="css/images/listings/0.jpg"></a>
+                                </div>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+
+                                        <div class="col-sm-9">
+                                            <h3><a class="" href="details.html">7 bedroom house for sale</a></h3>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <h3 class="price-text"><strong>£3,350,000</strong></h3>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <p class="muted">Located in <strong>Richmond, London</strong></p>
+                                            <p class="muted">Posted Feb 05, 2014 to <a href="#" class="underline">Cars, Vans &amp; Motorbikes</a></p><br>
+                                            <p>Excellent Condition. Displacement: 2,900 cc Power Output: 250 bhp Drivetrain: 2-WD  Second hand car for sale – 7377790212 Available car – beat – blue color, Honda city –white /black Indica ecs – white Alto – white Nano – red /white...</p><br>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-2"></div>
+                                        <div class="col-sm-5">
+                                            <p class="ad-description">
+                                                <strong>2006</strong> |
+
+                                                <strong>98,000 miles</strong> |
+
+                                                <strong>2,696 cc</strong> |
+
+                                                <strong>Diesel</strong>
+                                            </p>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <p>
+                                                <span class="classified_links pull-right">
+                                                    <a class="link-info underline" href="#">Share</a>&nbsp;
+                                                    <a class="link-info underline" href="#">Add to favorites</a>
+                                                    &nbsp;<a class="link-info underline" href="#">Contact</a>
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <br>
+                            <div class="row   listing-row">
+
+                                <div class="col-sm-2">
+                                    <a href="details.html" class="thumbnail "><img alt="" src="css/images/listings/1.jpg"></a>
+                                </div>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+
+                                        <div class="col-sm-9">
+                                            <h3><a class="" href="details.html">1 bedroom flat for sale</a></h3>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <h3 class="price-text"><strong>£229,950</strong></h3>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <p class="muted">Located in <strong>Richmond, London</strong></p>
+                                            <p class="muted">Posted Feb 05, 2014 to <a href="#" class="underline">Cars, Vans &amp; Motorbikes</a></p><br>
+                                            <p>Excellent Condition. Displacement: 2,900 cc Power Output: 250 bhp Drivetrain: 2-WD  Second hand car for sale – 7377790212 Available car – beat – blue color, Honda city –white /black Indica ecs – white Alto – white Nano – red /white...</p><br>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-2"></div>
+                                        <div class="col-sm-5">
+                                            <p class="ad-description">
+                                                <strong>2006</strong> |
+
+                                                <strong>98,000 miles</strong> |
+
+                                                <strong>2,696 cc</strong> |
+
+                                                <strong>Diesel</strong>
+                                            </p>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <p>
+                                                <span class="classified_links pull-right">
+                                                    <a class="link-info underline" href="#">Share</a>&nbsp;
+                                                    <a class="link-info underline" href="#">Add to favorites</a>
+                                                    &nbsp;<a class="link-info underline" href="#">Contact</a>
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <br>
+                            <div class="row   listing-row">
+
+                                <div class="col-sm-2">
+                                    <a href="details.html" class="thumbnail property_sold" style="position:relative;"><img alt="" src="css/images/listings/2.jpg"></a>
+                                </div>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+
+                                        <div class="col-sm-9">
+                                            <h3><a class="" href="details.html">2 bedroom apartment for sale</a></h3>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <h3 class="price-text"><strong>£520,000</strong></h3>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <p class="muted">Located in <strong>Richmond, London</strong></p>
+                                            <p class="muted">Posted Feb 05, 2014 to <a href="#" class="underline">Cars, Vans &amp; Motorbikes</a></p><br>
+                                            <p>Excellent Condition. Displacement: 2,900 cc Power Output: 250 bhp Drivetrain: 2-WD  Second hand car for sale – 7377790212 Available car – beat – blue color, Honda city –white /black Indica ecs – white Alto – white Nano – red /white...</p><br>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-2"></div>
+                                        <div class="col-sm-5">
+                                            <p class="ad-description">
+                                                <strong>2006</strong> |
+
+                                                <strong>98,000 miles</strong> |
+
+                                                <strong>2,696 cc</strong> |
+
+                                                <strong>Diesel</strong>
+                                            </p>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <p>
+                                                <span class="classified_links pull-right">
+                                                    <a class="link-info underline" href="#">Share</a>&nbsp;
+                                                    <a class="link-info underline" href="#">Add to favorites</a>
+                                                    &nbsp;<a class="link-info underline" href="#">Contact</a>
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <br>
+                            <div class="row  last listing-row">
+
+                                <div class="col-sm-2">
+                                    <a href="details.html" class="thumbnail "><img alt="" src="css/images/listings/3.jpg"></a>
+                                </div>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+
+                                        <div class="col-sm-9">
+                                            <h3><a class="" href="details.html">2 bedroom house for sale</a></h3>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <h3 class="price-text"><strong>£550,000</strong></h3>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <p class="muted">Located in <strong>Richmond, London</strong></p>
+                                            <p class="muted">Posted Feb 05, 2014 to <a href="#" class="underline">Cars, Vans &amp; Motorbikes</a></p><br>
+                                            <p>Excellent Condition. Displacement: 2,900 cc Power Output: 250 bhp Drivetrain: 2-WD  Second hand car for sale – 7377790212 Available car – beat – blue color, Honda city –white /black Indica ecs – white Alto – white Nano – red /white...</p><br>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-2"></div>
+                                        <div class="col-sm-5">
+                                            <p class="ad-description">
+                                                <strong>2006</strong> |
+
+                                                <strong>98,000 miles</strong> |
+
+                                                <strong>2,696 cc</strong> |
+
+                                                <strong>Diesel</strong>
+                                            </p>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <p>
+                                                <span class="classified_links pull-right">
+                                                    <a class="link-info underline" href="#">Share</a>&nbsp;
+                                                    <a class="link-info underline" href="#">Add to favorites</a>
+                                                    &nbsp;<a class="link-info underline" href="#">Contact</a>
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <br>
+                        </div>
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+</div>

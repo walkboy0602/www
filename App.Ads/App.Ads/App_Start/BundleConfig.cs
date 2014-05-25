@@ -108,7 +108,7 @@ namespace App.Ads
 
             //Bootstrap
             bundles.Add(new StyleBundle("~/Content/common").Include(
-                         "~/Content/bootstrap/bootstrap3.0.css",
+                         "~/Content/bootstrap/bootstrap.css",
                          "~/Content/bootstrap/bootstrap-additions.css",
                          "~/Content/bootstrap/bootstrap-style.css",
                          "~/Content/bootstrap/bootstrap-overrides.css"

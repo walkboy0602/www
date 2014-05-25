@@ -14,6 +14,11 @@ namespace App.Core.Data
     
     public partial class UserProfile
     {
+        public UserProfile()
+        {
+            this.Listings = new HashSet<Listing>();
+        }
+    
         public int UserId { get; set; }
         public string UserName { get; set; }
         public string FirstName { get; set; }
@@ -22,5 +27,7 @@ namespace App.Core.Data
         public string Identification { get; set; }
         public string IdentificationFile { get; set; }
         public string Salutation { get; set; }
+    
+        public virtual ICollection<Listing> Listings { get; set; }
     }
 }

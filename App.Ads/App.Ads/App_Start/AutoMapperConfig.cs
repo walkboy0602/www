@@ -14,11 +14,16 @@ namespace App.Ads
         {
             Mapper.Initialize(x =>
             {
-                //Listing
+                //Listing Mapper
                 Mapper.CreateMap<Listing, EditListingViewModel>();
                 Mapper.CreateMap<EditListingViewModel, Listing>();
                 Mapper.CreateMap<Listing, DisplayListingViewModel>();
                 Mapper.CreateMap<ListingImage, ListingImageViewModel>();
+                Mapper.CreateMap<Listing, AdDetailViewModel>()
+                        .ForMember(dest => dest.Location, opt => opt.MapFrom(src => src.RegionZone.Name))
+                        .ForMember(dest => dest.LocationParentId, opt => opt.MapFrom(src => src.RegionZone.ParentId))
+                        .ForMember(dest => dest.PostedBy, opt => opt.MapFrom(src => src.UserProfile.FirstName));
+
             });
         }
     }

@@ -242,6 +242,7 @@
     <Compile Include="Code\Membership\MembershipExtentions.cs" />
     <Compile Include="Code\Membership\TwitterAuthenticationClient.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdvertisementController.cs" />
     <Compile Include="Controllers\api\ImageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ListingController.cs" />
@@ -698,10 +699,13 @@
     <Content Include="Views\Test\Edit.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Listing\_gallery.cshtml" />
+    <Content Include="Views\Advertisement\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Account\Views\LogOff\" />
+    <Folder Include="Views\Ad\" />
+    <Folder Include="Views\Detail\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

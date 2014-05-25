@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using ExpressiveAnnotations.ConditionalAttributes;
+using App.Core.Utility;
+using System.Web.Mvc;
 
 namespace App.Core.ViewModel
 {
@@ -21,6 +23,7 @@ namespace App.Core.ViewModel
         public string Title { get; set; }
 
         [Required]
+        [AllowHtml]
         public string Description { get; set; }
 
         [Required]
@@ -28,7 +31,7 @@ namespace App.Core.ViewModel
         public string Keywords { get; set; }
 
         [RegularExpression(@"^\$?\d+(\.(\d{2}))?$", ErrorMessage = "e.g price format - 19.99")]
-        [Range(0, 99999999.99, ErrorMessage="Price cannot exceed 8 characters long.")]
+        [Range(0, 99999999.99, ErrorMessage = "Price cannot exceed 8 characters long.")]
         [Required]
         public decimal Price { get; set; }
 
@@ -37,7 +40,7 @@ namespace App.Core.ViewModel
         [Required]
         public int ContactMethod { get; set; }
 
-        [Required]
+        [Required(ErrorMessage="Please select Location.")]
         public int LocationId { get; set; }
 
         public int Status { get; set; }
@@ -46,8 +49,11 @@ namespace App.Core.ViewModel
 
         public bool COD { get; set; }
 
-        [StringLength(50, ErrorMessage="Maximum {1} charaters.")]
-        [RequiredIf(DependentProperty = "COD", TargetValue = true, ErrorMessage="Please fill in the detail.")]
+        [BooleanRequired(ErrorMessage = "Please agree to the Terms & Conditions and Privacy Policy.")]
+        public bool AgreesWithTerms { get; set; }
+
+        [StringLength(50, ErrorMessage = "Maximum {1} charaters.")]
+        [RequiredIf(DependentProperty = "COD", TargetValue = true, ErrorMessage = "Please fill in the detail.")]
         public string CODText { get; set; }
 
         public bool Postage { get; set; }

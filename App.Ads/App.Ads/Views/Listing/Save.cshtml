@@ -166,12 +166,14 @@
                             <label class="col-sm-3 control-label">Contact Method</label>
                             <div class="col-sm-6">
                                 @Html.DropDownListFor(m => m.ContactMethod, ViewBag.Contacts as IEnumerable<SelectListItem>, "", new { id = "ddlContact", @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.ContactMethod)
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Location</label>
                             <div class="col-sm-6">
                                 @Html.DropDownListFor(m => m.LocationId, ViewBag.RegionZones as IEnumerable<SelectListItem>, "", new { id = "ddlRegion", @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.LocationId)
                             </div>
                         </div>
                     </div>
@@ -184,15 +186,19 @@
                 <div class="panel-body">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox"> I agree to the terms and conditions and regulations.
+                            @Html.CheckBoxFor(m => m.AgreesWithTerms)
+                            I agree to the Terms and Conditions and Privacy Policy of ohMyBazaar.com Malaysia.
                         </label>
                     </div>
+                    <p>@Html.ValidationMessageFor(m => m.AgreesWithTerms)</p>
                     <br>
-                    <button type="submit" class="btn btn-glow">Save draft</button>
-                    <button type="submit" class="btn btn-glow hidden-xs">Preview ad</button>
-                    @*<a href="account_credits.html" class="btn-glow success btn-finish pull-right"><i class="icon-ok"></i>  Publish ad</a>*@
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-glow">Save draft</button>
+                    </div>
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-glow hidden-xs">Preview ad</button>
+                    </div>
                     <input type="submit" class="btn-glow success btn-finish pull-right" value="Publish ad" />
-                    <br><p class="pull-right"><small>* payment options will be shown on the next screen</small></p>
                 </div>
             </div>
         </div>
@@ -211,6 +217,11 @@
                 placeholder: "Select a Location"
             });
             $('#ddlContact').select2();
+
         });
+
+        (function ($) {
+            $.validator.unobtrusive.adapters.addBool("booleanrequired", "required");
+        }(jQuery));
     </script>
 }

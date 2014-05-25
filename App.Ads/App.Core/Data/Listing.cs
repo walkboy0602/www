@@ -38,5 +38,6 @@ namespace App.Core.Data
         public virtual RegionZone RegionZone { get; set; }
         public virtual ICollection<ListingDealMethod> ListingDealMethods { get; set; }
         public virtual ICollection<ListingImage> ListingImages { get; set; }
+        public virtual UserProfile UserProfile { get; set; }
     }
 }

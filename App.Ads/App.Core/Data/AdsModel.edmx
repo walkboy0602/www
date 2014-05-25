@@ -171,6 +171,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FS_Listing_UserId">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="Listing" Type="Self.Listing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Listing">
+              <PropertyRef Name="CreateBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="AdsDBModelStoreContainer">
           <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Listing" EntityType="Self.Listing" Schema="dbo" store:Type="Tables" />
@@ -196,6 +208,10 @@
           <AssociationSet Name="FK_Listing_ListingID" Association="Self.FK_Listing_ListingID">
             <End Role="Listing" EntitySet="Listing" />
             <End Role="ListingImage" EntitySet="ListingImage" />
+          </AssociationSet>
+          <AssociationSet Name="FS_Listing_UserId" Association="Self.FS_Listing_UserId">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Listing" EntitySet="Listing" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -237,6 +253,7 @@
           <Property Name="Identification" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="IdentificationFile" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Salutation" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Listings" Relationship="AdsDBModel.FS_Listing_UserId" FromRole="UserProfile" ToRole="Listing" />
         </EntityType>
         <EntityContainer Name="AdsDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Memberships" EntityType="Self.Membership" />
@@ -263,6 +280,10 @@
           <AssociationSet Name="FK_Listing_ListingID" Association="AdsDBModel.FK_Listing_ListingID">
             <End Role="Listing" EntitySet="Listings" />
             <End Role="ListingImage" EntitySet="ListingImages" />
+          </AssociationSet>
+          <AssociationSet Name="FS_Listing_UserId" Association="AdsDBModel.FS_Listing_UserId">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="Listing" EntitySet="Listings" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Config">
@@ -330,6 +351,7 @@
           <NavigationProperty Name="RegionZone" Relationship="AdsDBModel.FK__Listing__Locatio__5CD6CB2B" FromRole="Listing" ToRole="RegionZone" />
           <NavigationProperty Name="ListingDealMethods" Relationship="AdsDBModel.FK_Listing_DealMethod1" FromRole="Listing" ToRole="ListingDealMethod" />
           <NavigationProperty Name="ListingImages" Relationship="AdsDBModel.FK_Listing_ListingID" FromRole="Listing" ToRole="ListingImage" />
+          <NavigationProperty Name="UserProfile" Relationship="AdsDBModel.FS_Listing_UserId" FromRole="Listing" ToRole="UserProfile" />
         </EntityType>
         <Association Name="FK__Listing__Categor__5BE2A6F2">
           <End Type="AdsDBModel.RefCategory" Role="RefCategory" Multiplicity="0..1" />
@@ -400,6 +422,18 @@
             </Principal>
             <Dependent Role="ListingImage">
               <PropertyRef Name="ListingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FS_Listing_UserId">
+          <End Type="AdsDBModel.UserProfile" Role="UserProfile" Multiplicity="0..1" />
+          <End Type="AdsDBModel.Listing" Role="Listing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Listing">
+              <PropertyRef Name="CreateBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
