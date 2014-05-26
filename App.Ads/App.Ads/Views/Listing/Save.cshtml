@@ -60,7 +60,7 @@
                             <div class="col-sm-12">
                                 <br>
                                 <label>Keywords</label>
-                                @Html.TextBoxFor(m => m.Keywords, new { @class = "form-control", placeholder = "Enter keywords where how user can find your products." })
+                                @Html.TextBoxFor(m => m.Keywords, new { @class = "form-control", placeholder = "Enter keywords that related to your product, e.g - brands, model." })
                                 @Html.ValidationMessageFor(m => m.Keywords, null, new { @class = "help-inline" })
                             </div>
                         </div>
@@ -111,7 +111,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Add photos</div>
                 <div class="panel-body">
-                    <iframe src="@Url.Action("Image", new { id = Model.id })" width="680" height="280" frameborder="0" scrolling="no"></iframe>
+                    <iframe src="@Url.Action("Image", new { id = Model.id })" width="680" height="290" frameborder="0" scrolling="no"></iframe>
                 </div>
             </div>
             <div class="panel panel-default">

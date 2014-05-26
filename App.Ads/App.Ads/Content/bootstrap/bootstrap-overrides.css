@@ -563,3 +563,8 @@ table th span.line {
     padding-top: 21px;
     padding-bottom: 21px;
 }
+
+
+.modal-footer{
+    margin-top: 0;
+}

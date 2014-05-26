@@ -92,30 +92,26 @@ function ListingImageCtrl($scope, $q, ImageFactory, $filter, uploadManager, $rou
     $q.all([ImageFactory.get($scope.id)]).then(function (results) {
 
         var data = results[0].data;
-        console.log(data);
+
         angular.forEach(data, function (v, k) {
             $scope.files.push({
                 id: v.id,
                 FileName: v.FileName,
                 Description: v.Description,
                 Src: v.Src,
-                Url: "http://assets.monsteritem.com/" + v.Src.replace("####size####", "s1"),
-                ListingID: v.ListingID
+                Url: "http://assets.monsteritem.com/" + v.Src.replace("####size####", "s0"),
+                ListingID: v.ListingID,
+                IsCover: v.IsCover,
+                CoverCss: v.IsCover ? "cover" : ""
             })
 
         });
-
-        console.log($scope.files.length);
     });
 
     //Edit Image
     $scope.edit = function (file) {
 
         $scope.file = file;
-
-        if (id == undefined) {
-            return;
-        }
 
         $('#editModal').modal('show');
     }

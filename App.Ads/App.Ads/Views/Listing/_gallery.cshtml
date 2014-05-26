@@ -27,7 +27,7 @@
         <div class="gallery-wrapper" data-ng-show="files.length || draftFiles.length">
             <div class="row gallery-row">
                 <!-- Image -->
-                <div class="col-xs-3 col-md-3 img-container" data-ng-repeat="file in files">
+                <div class="col-xs-3 col-md-3 img-container {{file.CoverCss}}" data-ng-repeat="file in files">
                     <div class="img-box">
                         <span class="icon edit" data-ng-click="edit(file)">
                             <a><i class="gallery-edit"></i></a>
@@ -36,6 +36,9 @@
                             <i class="gallery-trash"></i>
                         </span>
                         <img data-ng-src="{{file.Url}}" class="img-responsive" alt="picture">
+                        <span class="cover-image" data-ng-show="file.IsCover">
+                            <strong>Cover Image</strong>
+                        </span>
                         @*<p class="title" data-ng-show="file.Description">
                                 {{file.Description}}
                             </p>
@@ -71,15 +74,55 @@
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Delete Image</h4>
+                </div>
                 <div class="modal-body">
                     <h4 class="modal-title">Are you sure you want to delete - {{file.Description}} ?</h4>
+                </div>
+                <div class="modal-footer">
                     <div class="pull-right">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-danger" data-ng-click="deleteImage()">Delete</button>
+                        <button type="button" class="btn-glow" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn-glow inverse" data-ng-click="deleteImage()">Delete</button>
                     </div>
-                    <div class="clearfix"></div>
                 </div>
 
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- Modal - Edit Description -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Edit Image</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label for="input1" class="col-lg-2 control-label">Description:</label>
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control" placeholder="Max 30 characters" maxlength="30" data-ng-model="file.Description">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <div class="col-md-10">
+                                    <label>
+                                        <input type="checkbox" data-ng-model="file.IsCover" />
+                                        Make this image as Cover Image
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-glow" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn-glow success btn-finish" data-ng-click="editImage()">Save changes</button>
+                </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
