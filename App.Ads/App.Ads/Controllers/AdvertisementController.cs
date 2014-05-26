@@ -41,12 +41,9 @@ namespace App.Ads.Controllers
                         model.CoverImage = "http://assets.monsteritem.com/" + item.Src.Replace("####size####", "s2");
                     }
 
+                    item.Thumnbnail = "http://assets.monsteritem.com/" + item.Src.Replace("####size####", "s0");
                     item.Src = "http://assets.monsteritem.com/" + item.Src.Replace("####size####", "s2");
                 }
-            }
-            else
-            {
-                model.CoverImage = "";
             }
 
             return View(model);

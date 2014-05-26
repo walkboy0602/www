@@ -17,8 +17,10 @@ namespace App.Ads
             // e.g. container.RegisterType<ITestService, TestService>();
 
             container.RegisterType<IListingService, ListingService>();
+            container.RegisterType<IConfigService, ConfigService>();
             container.RegisterType<IImageService, ImageService>();
-            
+            container.RegisterType<IAWSService, AWSService>();
+
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
 
         }

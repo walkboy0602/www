@@ -594,6 +594,7 @@
     <Content Include="Scripts\ckeditor\skins\moonocolor\images\close.png" />
     <Content Include="Scripts\ckeditor\skins\moonocolor\images\mini.png" />
     <Content Include="Scripts\ckeditor\styles.js" />
+    <Content Include="Scripts\common\global.js" />
     <Content Include="Scripts\common\bootstrap.datepicker.js" />
     <Content Include="Scripts\common\bootstrap.js" />
     <Content Include="Scripts\common\jquery-latest.js" />

@@ -137,9 +137,10 @@
       <DependentUpon>AdsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EmailHostModel.cs" />
+    <Compile Include="Models\S3AssetsModel.cs" />
     <Compile Include="Services\ImageService.cs" />
     <Compile Include="Utility\CustomAnnotation.cs" />
-    <Compile Include="Utility\S3Helper.cs" />
+    <Compile Include="Services\AWSService.cs" />
     <Compile Include="ViewModel\AdDetailViewModel.cs" />
     <Compile Include="ViewModel\DisplayListingViewModel.cs" />
     <Compile Include="ViewModel\EditListingViewModel.cs" />

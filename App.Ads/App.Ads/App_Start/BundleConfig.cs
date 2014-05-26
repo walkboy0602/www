@@ -29,31 +29,18 @@ namespace App.Ads
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
 
-            bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
-                        "~/Content/themes/base/jquery.ui.core.css",
-                        "~/Content/themes/base/jquery.ui.resizable.css",
-                        "~/Content/themes/base/jquery.ui.selectable.css",
-                        "~/Content/themes/base/jquery.ui.accordion.css",
-                        "~/Content/themes/base/jquery.ui.autocomplete.css",
-                        "~/Content/themes/base/jquery.ui.button.css",
-                        "~/Content/themes/base/jquery.ui.dialog.css",
-                        "~/Content/themes/base/jquery.ui.slider.css",
-                        "~/Content/themes/base/jquery.ui.tabs.css",
-                        "~/Content/themes/base/jquery.ui.datepicker.css",
-                        "~/Content/themes/base/jquery.ui.progressbar.css",
-                        "~/Content/themes/base/jquery.ui.theme.css"));
-
-
-            //Common
-            bundles.Add(new ScriptBundle("~/bundles/common").Include(
+            //plugin
+            bundles.Add(new ScriptBundle("~/bundles/plugin").Include(
+                "~/Scripts/common/global.js",
                 "~/Scripts/common/bootstrap.js",
                 "~/Scripts/common/bootstrap.datepicker.js",
                 "~/Scripts/common/bootstrap.js",
                 "~/Scripts/common/select2.js",
                 "~/Scripts/common/theme.js",
-                "~/Scripts/common/spin.js"
+                "~/Scripts/common/spin.js",
+                "~/Content/fancybox/jquery.fancybox.js",
+                "~/Content/fancybox/helpers/jquery.fancybox-buttons.js"
             ));
-
 
             //Validation
             bundles.Add(new ScriptBundle("~/bundles/validation").Include(
@@ -85,7 +72,7 @@ namespace App.Ads
                  ));
 
             //File uploader
-            bundles.Add(new ScriptBundle("~/bundles/upload").Include(
+            bundles.Add(new ScriptBundle("~/bundles/form").Include(
                 "~/Scripts/fileupload/vendor/jquery.ui.widget.js",
                 "~/Scripts/fileupload/load-image.js",
                 "~/Scripts/fileupload/jquery.iframe-transport.js",
@@ -94,13 +81,10 @@ namespace App.Ads
                 "~/Scripts/fileupload/jquery.fileupload-image.js",
                 "~/Scripts/fileupload/jquery.fileupload-validate.js",
                 "~/Scripts/fileupload/jquery.fileupload-angular.js",
-                "~/Scripts/fileupload/app.js"
-                ));
-
-            //Listing e.g- ck editor, file uploader
-            bundles.Add(new ScriptBundle("~/bundles/formplugin").Include(
+                "~/Scripts/fileupload/app.js",
                 "~/Scripts/ckeditor/ckeditor.js"
                 ));
+
 
             #endregion
 
@@ -123,7 +107,9 @@ namespace App.Ads
                         "~/Content/global/layout.css",
                         "~/Content/global/table.css",
                         "~/Content/global/icons.css",
-                        "~/Content/themes/bazaar/signin.css"
+                        "~/Content/themes/bazaar/signin.css",
+                        "~/Content/fancybox/jquery.fancybox.css",
+                        "~/Content/fancybox/helpers/jquery.fancybox-buttons.css"
                         ));
 
             //Form CSS

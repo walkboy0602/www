@@ -15,7 +15,8 @@ namespace App.Core.ViewModel
             Published = 200,
             Pending = 300,
             Rejected = 400,
-            Expired = 500
+            Expired = 500,
+            Deleted = 999
         }
 
         public enum DealMethod

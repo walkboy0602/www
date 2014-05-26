@@ -21,6 +21,15 @@ namespace App.Core.Services
     public class ImageService : IImageService
     {
         private AdsDBEntities db = new AdsDBEntities();
+        private readonly IAWSService awsService;
+        private readonly IConfigService configService;
+
+        public ImageService(IAWSService awsService, IConfigService configService)
+        {
+            this.awsService = awsService;
+            this.configService = configService;
+        }
+        
 
         bool IImageService.Delete(int ImageId, int UserId)
         {
@@ -32,11 +41,10 @@ namespace App.Core.Services
 
             if (model != null)
             {
-                S3Helper s3 = new S3Helper();
-
-                s3.DeletePhoto(model.Src.Replace("####size####", "s0"));
-                s3.DeletePhoto(model.Src.Replace("####size####", "s1"));
-                s3.DeletePhoto(model.Src.Replace("####size####", "s2"));
+                
+                awsService.DeletePhoto(model.Src.Replace("####size####", "s0"));
+                awsService.DeletePhoto(model.Src.Replace("####size####", "s1"));
+                awsService.DeletePhoto(model.Src.Replace("####size####", "s2"));
 
                 db.ListingImages.Remove(model);
                 db.SaveChanges();
@@ -73,35 +81,33 @@ namespace App.Core.Services
         {
             ListingImage listingImage = new ListingImage();
 
-            S3Helper s3 = new S3Helper();
-
             string YearMonthDay = string.Empty;
 
             YearMonthDay = CreateDate.Year.ToString() + CreateDate.Month.ToString("d2") + CreateDate.Day.ToString();
 
             var image = WebImage.GetImageFromRequest();
-            string hashName = s3.Hash(image.FileName, ListingId);
+            string hashName = awsService.Hash(image.FileName, ListingId);
 
             //file format
             //env + listing + yyyymmdd + listingid + size
 
-            string imageURL = string.Join("/", new string[] { s3.env, "listing", YearMonthDay, ListingId.ToString(), "####size####", hashName });
+            string imageURL = string.Join("/", new string[] { configService.GetValue(ConfigName.S3Env), "listing", YearMonthDay, ListingId.ToString(), "####size####", hashName });
 
             bool status = false;
 
             byte[] fileBytes = image.GetBytes();
 
             //Thumnbnail
-            byte[] s0 = s3.CreateImage(fileBytes, image.FileName, 120, 120);
-            status = s3.UploadToS3(s0, imageURL.Replace("####size####", "s0"));
+            byte[] s0 = awsService.CreateImage(fileBytes, image.FileName, 120, 120);
+            status = awsService.UploadToS3(s0, imageURL.Replace("####size####", "s0"));
 
             //Standard
-            byte[] s1 = s3.CreateImage(fileBytes, image.FileName, 315, 230);
-            status = s3.UploadToS3(s1, imageURL.Replace("####size####", "s1"));
+            byte[] s1 = awsService.CreateImage(fileBytes, image.FileName, 315, 230);
+            status = awsService.UploadToS3(s1, imageURL.Replace("####size####", "s1"));
 
             //Large
-            byte[] s2 = s3.CreateImage(fileBytes, image.FileName, 640, 480);
-            status = s3.UploadToS3(s2, imageURL.Replace("####size####", "s2"));
+            byte[] s2 = awsService.CreateImage(fileBytes, image.FileName, 640, 480);
+            status = awsService.UploadToS3(s2, imageURL.Replace("####size####", "s2"));
 
             listingImage.ListingId = ListingId;
             listingImage.FileName = hashName;

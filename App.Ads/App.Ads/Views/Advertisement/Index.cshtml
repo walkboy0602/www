@@ -204,23 +204,20 @@
 
                 <div class="col-sm-5 center zoom-gallery">
                     <div class="row center">
-
                         <div class="col-sm-12">
-
                             @if (Model.ListingImages.Count > 0)
                             {
-                                <a class="fancybox" rel="group" href="css/images/single/1.jpg">
-                                    <img id="img_01" alt="" class="raised" src="@Url.Content(Model.CoverImage)" width="100%">
+                                <a class="fancybox" rel="group" href=@Model.CoverImage>
+                                    <img alt="Cover Image" class="raised" src="@Url.Content(Model.CoverImage)" width="100%">
                                 </a>
                                 <br>
                                 <br>
                                 <div class="row" id="gallery">
-
                                     @foreach (var item in Model.ListingImages)
                                     {
                                         <div class="col-xs-4" style="margin-bottom: 10px;">
-                                            <a href="@Url.Content(item.Src)" class="fancybox thumbnail" rel="group">
-                                                <img alt="" src="@Url.Content(item.Src)">
+                                            <a href="@Url.Content(item.Src)" class="fancybox thumbnail" rel="group" title=@item.Description>
+                                                <img alt="" src="@Url.Content(item.Thumnbnail)">
                                             </a>
                                         </div>
                                     }
@@ -233,7 +230,7 @@
                     <div class="col-sm-12" style="text-align: center; margin: 0 auto">
                         <button data-toggle="modal" data-target="#myModal" class="btn btn-warning" style="text-align: center;width: 180px; " type="button">Reply to ad</button>
                         <br>
-                        <p>or call @Model.PostedBy on 9824614705</p>
+                        <p>or call @Model.UserProfile.FirstName on @Model.UserProfile.Mobile</p>
                     </div>
                     <br>
                 </div>
@@ -479,30 +476,11 @@
                                     </div>
                                 </div>
                             </div>
-
-
                             <br>
                         </div>
-
-
-
-
-
-
-
-
-
                     </div>
                 </div>
-
-
             </div>
         </div>
-
-
-
     </div>
-
-
-
 </div>

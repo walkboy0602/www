@@ -24,6 +24,13 @@ namespace App.Core.Services
         public static readonly ConfigName EmailEnableSSL = new ConfigName("EmailEnableSSL");
         public static readonly ConfigName EmailFrom = new ConfigName("EmailFrom");
 
+        public static readonly ConfigName S3AccessKey = new ConfigName("S3AccessKey");
+        public static readonly ConfigName S3SecretKey = new ConfigName("S3SecretKey");
+        public static readonly ConfigName S3Bucket = new ConfigName("S3Bucket");
+        public static readonly ConfigName S3Env = new ConfigName("S3Env");
+        public static readonly ConfigName S3Url = new ConfigName("S3Url");
+        public static readonly ConfigName S3ServiceUrl = new ConfigName("S3ServiceUrl");
+
         private ConfigName(String name)
         {
             this.name = name;
