@@ -213,11 +213,14 @@
                                 <div class="row" id="gallery">
                                     @foreach (var item in Model.ListingImages)
                                     {
-                                        <div class="col-xs-4" style="margin-bottom: 10px;">
+                                        if (!item.IsCover)
+                                        {
+                                        <div class="col-xs-4">
                                             <a href="@Url.Content(item.Src)" class="fancybox thumbnail" rel="group" title=@item.Description>
-                                                <img alt="" src="@Url.Content(item.Thumnbnail)">
+                                                <img src="@Url.Content(item.Thumnbnail)" alt="@item.Description">
                                             </a>
                                         </div>
+                                        }
                                     }
                                 </div>
                             }

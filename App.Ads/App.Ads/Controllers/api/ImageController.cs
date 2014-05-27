@@ -42,6 +42,33 @@ namespace App.Ads.Controllers.api
             return Request.CreateResponse(HttpStatusCode.OK, model);
         }
 
+        public HttpResponseMessage Put(EditImageViewModel model)
+        {
+
+            CustomIdentity identity = User.ToCustomPrincipal().CustomIdentity;
+
+            ListingImage listingImage = _imageService.GetById(model.id, identity.UserId);
+
+            if (listingImage == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Invalid input");
+            }
+
+            if (ModelState.IsValid)
+            {
+                listingImage = Mapper.Map<EditImageViewModel, ListingImage>(model, listingImage);
+
+                if (listingImage.IsCover)
+                {
+                    _imageService.RemoveCoverImage(listingImage.ListingId);
+                }
+
+                _imageService.Save(listingImage);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
         //Multiple Uploads
         [HttpPost]
         public async Task<HttpResponseMessage> Uploads()

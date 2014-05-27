@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace App.Core.ViewModel
 {
@@ -16,5 +17,15 @@ namespace App.Core.ViewModel
         public Nullable<System.DateTime> CreateDate { get; set; }
         public string Src { get; set; }
         public string Description { get; set; }
+    }
+
+    public class EditImageViewModel
+    {
+        public int id { get; set; }
+
+        [Required]
+        public string Description { get; set; }
+
+        public bool IsCover { get; set; }
     }
 }

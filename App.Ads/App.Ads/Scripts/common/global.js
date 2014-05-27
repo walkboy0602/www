@@ -3,10 +3,8 @@
     $.validator.unobtrusive.adapters.addBool("booleanrequired", "required");
 }(jQuery));
 
+
 $(document).ready(function () {
-
-    //$(".fancybox").fancybox();
-
     //fancybox
     $(".fancybox").fancybox({
         prevEffect: 'none',
@@ -43,6 +41,4 @@ $(document).ready(function () {
             media: {}
         }
     });
-
-
 });

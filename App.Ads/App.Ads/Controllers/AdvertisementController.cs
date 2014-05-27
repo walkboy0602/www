@@ -16,6 +16,8 @@ namespace App.Ads.Controllers
     {
         private AdsDBEntities db = new AdsDBEntities();
 
+        private const string S3Domain = "http://assets.monsteritem.com/";
+
         // GET: Ad
         public ActionResult Index(int aid)
         {
@@ -34,17 +36,29 @@ namespace App.Ads.Controllers
 
             if (model.ListingImages.Count > 0)
             {
+                var CoverImage = model.ListingImages.Where(l => l.IsCover).FirstOrDefault();
+
+                if (CoverImage != null)
+                {
+                    model.CoverImage = S3Domain + CoverImage.Src.Replace("####size####", "s2");
+                }
+                else
+                {
+                    //Use first image as Cover image if not found
+                    model.CoverImage = S3Domain + model.ListingImages.First().Src.Replace("####size####", "s2");
+                    model.ListingImages.First().IsCover = true;
+                }
+
                 foreach (var item in model.ListingImages)
                 {
                     if (!item.IsCover)
                     {
-                        model.CoverImage = "http://assets.monsteritem.com/" + item.Src.Replace("####size####", "s2");
+                        item.Thumnbnail = S3Domain + item.Src.Replace("####size####", "s0");
+                        item.Src = S3Domain + item.Src.Replace("####size####", "s2");
                     }
-
-                    item.Thumnbnail = "http://assets.monsteritem.com/" + item.Src.Replace("####size####", "s0");
-                    item.Src = "http://assets.monsteritem.com/" + item.Src.Replace("####size####", "s2");
                 }
             }
+
 
             return View(model);
         }

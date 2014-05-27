@@ -10,54 +10,41 @@
     @RenderSection("style", required: false)
 </head>
 <body data-ng-app="shopApp">
-
     <nav class="navbar navbar-default" role="navigation">
         <div class="container">
-
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-
                 <a href="index.html" class="navbar-brand ">
                     <span class="logo">
                         <strong>OhMy</strong><span class="handwriting">Bazaar!</span><br>
                         <small>a minimalist theme built with bootstrap </small>
                     </span>
                 </a>
-
             </div>
-
             <section id="login">
                 <div class="pull-right">
                     @Html.Partial("_LoginPartial")
                 </div>
             </section>
-
         </div>
-
     </nav>
-
     <hr class="topbar">
-
     <div class="container">
         <div class="row">
             @RenderBody()
         </div>
     </div>
-
     <div class="footer">
         <div class="container">
-
             <div class="row">
-
                 <div class="col-sm-4 col-xs-12">
                     <p><strong>© Bootstrap Classifieds 2014</strong></p>
                     <p>All rights reserved</p>
                 </div>
-
                 <div class="col-sm-8 col-xs-12">
                     <p class="footer-links">
                         <a href="index.html" class="active">Home</a>
@@ -68,8 +55,7 @@
                 </div>
             </div>
         </div>
-    </div>
-
+        </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/plugin")

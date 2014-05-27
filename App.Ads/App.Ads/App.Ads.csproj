@@ -267,6 +267,21 @@
     <Content Include="Content\bootstrap\bootstrap.min.css" />
     <Content Include="Content\bootstrap\font-awesome.css" />
     <Content Include="Content\bootstrap\font-awesome.min.css" />
+    <Content Include="Content\fancybox\blank.gif" />
+    <Content Include="Content\fancybox\fancybox_loading%402x.gif" />
+    <Content Include="Content\fancybox\fancybox_loading.gif" />
+    <Content Include="Content\fancybox\fancybox_overlay.png" />
+    <Content Include="Content\fancybox\fancybox_sprite%402x.png" />
+    <Content Include="Content\fancybox\fancybox_sprite.png" />
+    <Content Include="Content\fancybox\helpers\fancybox_buttons.png" />
+    <Content Include="Content\fancybox\helpers\jquery.fancybox-buttons.css" />
+    <Content Include="Content\fancybox\helpers\jquery.fancybox-buttons.js" />
+    <Content Include="Content\fancybox\helpers\jquery.fancybox-media.js" />
+    <Content Include="Content\fancybox\helpers\jquery.fancybox-thumbs.css" />
+    <Content Include="Content\fancybox\helpers\jquery.fancybox-thumbs.js" />
+    <Content Include="Content\fancybox\jquery.fancybox.css" />
+    <Content Include="Content\fancybox\jquery.fancybox.js" />
+    <Content Include="Content\fancybox\jquery.fancybox.pack.js" />
     <Content Include="Content\fileupload\jquery.fileupload-ui.css" />
     <Content Include="Content\fileupload\jquery.fileupload.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
@@ -278,6 +293,7 @@
     <Content Include="Content\global\ui-elements.css" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
+    <Content Include="Content\libraries\pace.css" />
     <Content Include="Content\themes\bazaar\theme.css" />
     <Content Include="Content\bootstrap\bootstrap-overrides.css" />
     <Content Include="Content\themes\admin\global\custom.css" />
@@ -395,6 +411,7 @@
     <Content Include="Scripts\angular\defer.js" />
     <Content Include="Scripts\angular\directive.js" />
     <Content Include="Scripts\angular\listing.js" />
+    <Content Include="Scripts\angular\pace.js" />
     <Content Include="Scripts\angular\service.js" />
     <Content Include="Scripts\angular\ui-bootstrap-tpls-0.6.0.js" />
     <Content Include="Scripts\angular\user.js" />

@@ -23,7 +23,9 @@ namespace App.Ads
                         .ForMember(dest => dest.Location, opt => opt.MapFrom(src => src.RegionZone.Name))
                         .ForMember(dest => dest.LocationParentId, opt => opt.MapFrom(src => src.RegionZone.ParentId));
 
-                Mapper.CreateMap<ListingImage, ListingImageiViewModel>();
+                Mapper.CreateMap<ListingImage, AdImageViewModel>();
+
+                Mapper.CreateMap<EditImageViewModel, ListingImage>();
 
             });
         }

@@ -27,7 +27,7 @@
         <div class="gallery-wrapper" data-ng-show="files.length || draftFiles.length">
             <div class="row gallery-row">
                 <!-- Image -->
-                <div class="col-xs-3 col-md-3 img-container {{file.CoverCss}}" data-ng-repeat="file in files">
+                <div class="col-xs-4 col-md-6 img-container {{file.CoverCss}}" data-ng-repeat="file in files">
                     <div class="img-box">
                         <span class="icon edit" data-ng-click="edit(file)">
                             <a><i class="gallery-edit"></i></a>
@@ -35,7 +35,7 @@
                         <span class="icon trash" data-ng-click="delete(file)">
                             <i class="gallery-trash"></i>
                         </span>
-                        <img data-ng-src="{{file.Url}}" class="img-responsive" alt="picture">
+                        <img data-ng-src="{{file.Url}}" class="thumbnail" alt="picture">
                         <span class="cover-image" data-ng-show="file.IsCover">
                             <strong>Cover Image</strong>
                         </span>

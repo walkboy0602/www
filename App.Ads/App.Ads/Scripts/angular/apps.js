@@ -1,6 +1,6 @@
 ﻿
 //declare a module
-var shopApp = angular.module("shopApp", ['shopAPI', 'ui.bootstrap', 'ngRoute', 'ngSanitize', 'ngResource', 'mgcrea.ngStrap'])
+var shopApp = angular.module("shopApp", ['shopAPI', 'ui.bootstrap', 'ngRoute', 'ngSanitize', 'ngResource', 'mgcrea.ngStrap', 'angular-loading-bar'])
                     .config(function ($locationProvider, $routeProvider) {
                         $routeProvider.when('/listing/image/:id', {
                             controller: ListingImageCtrl
@@ -91,7 +91,6 @@ shopApp.run(['$rootScope', '$window', '$http', '$location', '$route', '$routePar
                 this.spinner.stop();
             }
         };
-        //var target = document.getElementById('foo');
-        //var spinner = new Spinner(opts).spin(target);
+
 
     }]);

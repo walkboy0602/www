@@ -60,9 +60,8 @@ namespace App.Ads
                  "~/Scripts/angular/service.js",
                  "~/Scripts/angular/directive.js",
                  "~/Scripts/angular/ui-bootstrap-tpls-0.6.0.js",
-                 "~/Scripts/angular/user.js",
                  "~/Scripts/angular/listing.js",
-                 "~/Scripts/angular/account.js"
+                 "~/Scripts/angular/loading-bar.js"
                  ));
 
             //AngularStrap
@@ -109,7 +108,8 @@ namespace App.Ads
                         "~/Content/global/icons.css",
                         "~/Content/themes/bazaar/signin.css",
                         "~/Content/fancybox/jquery.fancybox.css",
-                        "~/Content/fancybox/helpers/jquery.fancybox-buttons.css"
+                        "~/Content/fancybox/helpers/jquery.fancybox-buttons.css",
+                        "~/Content/libraries/loading-bar.css"
                         ));
 
             //Form CSS

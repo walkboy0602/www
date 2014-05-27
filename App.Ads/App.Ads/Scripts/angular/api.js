@@ -13,7 +13,7 @@ angular.module('shopAPI', [])
 
         return {
             list: function (data) {
-                return $http.get('/reference/get', { params: { ReferenceType: data, json: true } });
+                return $http.get('/reference/get', { params: { ReferenceType: data } });
             }
         }
 
@@ -21,7 +21,10 @@ angular.module('shopAPI', [])
     .factory('ImageFactory', ['$http', function ($http) {
         return {
             get: function (ListingId) {
-                return $http.get('/api/image', { params: { ListingId: ListingId, json: true } });
+                return $http.get('/api/image', { params: { ListingId: ListingId } });
+            },
+            put: function (data){
+                return $http.put('/api/image', data);
             },
             delete: function (ImageId) {
                 return $http.post('/api/image/delete?ImageId=' + ImageId);

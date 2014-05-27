@@ -4,13 +4,13 @@
 }
 
 .gallery .img-container {
-    margin-bottom: 20px;
+    /*margin-bottom: 10px;*/
 }
 
     .gallery .img-container .img-box {
         display: inline-block;
         position: relative;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
     }
 
         .gallery .img-container .img-box:hover span {
@@ -24,7 +24,7 @@
         height: 120px;
     }
 
-    .gallery .img-container.cover img{
+    .gallery .img-container.cover img {
         border: 4px solid #EDDA74;
         border-radius: 3px;
         cursor: pointer;
@@ -80,10 +80,7 @@
 
 /* gallery blank state */
 .no-gallery {
-    /*border-top: 1px solid #edeff1;
-  padding-top: 40px;
-  box-shadow: 0px 4px 9px -6px rgba(0, 0, 0, 0.12) inset;
-  margin-bottom: 100px;*/
+    padding-top: 50px;
 }
 
     .no-gallery .center {
@@ -128,7 +125,7 @@
     background: #F7FCFF;
 }
 
-div.addnew{
+div.addnew {
     border: 2px dashed #EEE;
     border-radius: 10px;
     cursor: pointer;
@@ -137,13 +134,14 @@ div.addnew{
     background: #F7FCFF;
 }
 
-div.addnew i{
-    top: 28%;
-    left: 39%;
-    position: absolute;
-}
+    div.addnew i {
+        top: 28%;
+        left: 39%;
+        position: absolute;
+    }
 
-.cover-image{
+.cover-image {
     position: absolute;
     left: 25%;
+    bottom: -8%;
 }

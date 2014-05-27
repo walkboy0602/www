@@ -78,7 +78,7 @@ function ListingCreateCtrl($scope, ListingFactory, $filter, $q, ListingManager) 
 
 }
 
-function ListingImageCtrl($scope, $q, ImageFactory, $filter, uploadManager, $route, $routeParams) {
+function ListingImageCtrl($scope, $q, ImageFactory, $filter, uploadManager, $route, $routeParams, $window) {
 
     $scope.files = [];
     $scope.draftFiles = [];
@@ -90,9 +90,7 @@ function ListingImageCtrl($scope, $q, ImageFactory, $filter, uploadManager, $rou
 
     //Retrieve Imge
     $q.all([ImageFactory.get($scope.id)]).then(function (results) {
-
         var data = results[0].data;
-
         angular.forEach(data, function (v, k) {
             $scope.files.push({
                 id: v.id,
@@ -104,23 +102,21 @@ function ListingImageCtrl($scope, $q, ImageFactory, $filter, uploadManager, $rou
                 IsCover: v.IsCover,
                 CoverCss: v.IsCover ? "cover" : ""
             })
-
         });
     });
 
     //Edit Image
     $scope.edit = function (file) {
-
         $scope.file = file;
-
         $('#editModal').modal('show');
     }
 
     //Edit POST
     $scope.editImage = function () {
-        ListingFactory.editImage($scope.file)
+        $('#editModal').modal('hide');
+        ImageFactory.put($scope.file)
             .success(function (data, status) {
-                $('#editModal').modal('hide');
+                $window.location.reload();
             })
             .error(function (data, status) {
                 if (status === 400) {
@@ -143,15 +139,14 @@ function ListingImageCtrl($scope, $q, ImageFactory, $filter, uploadManager, $rou
 
     //Delete POST
     $scope.deleteImage = function () {
+        $('#deleteModal').modal('hide');
         ImageFactory.delete($scope.file.id)
             .success(function (data, status) {
-                $('#deleteModal').modal('hide');
                 angular.forEach($scope.files, function (v, k) {
                     if (v.id === $scope.file.id) {
                         $scope.files.splice(k, 1);
                     }
                 });
-                $scope.success('Image is removed.');
             })
             .error(function (data, status) {
                 $scope.error();

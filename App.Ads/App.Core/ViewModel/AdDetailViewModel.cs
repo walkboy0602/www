@@ -39,7 +39,7 @@ namespace App.Core.ViewModel
 
         public string CoverImage { get; set; }
 
-        public virtual ICollection<ListingImageiViewModel> ListingImages { get; set; }
+        public virtual ICollection<AdImageViewModel> ListingImages { get; set; }
 
         public virtual UserProfile UserProfile { get; set; }
 
@@ -49,7 +49,7 @@ namespace App.Core.ViewModel
         //public virtual ICollection<ListingImage> ListingImages { get; set; }
     }
 
-    public class ListingImageiViewModel
+    public class AdImageViewModel
     {
         public int id { get; set; }
         public int ListingId { get; set; }

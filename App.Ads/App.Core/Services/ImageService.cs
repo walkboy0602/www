@@ -12,10 +12,14 @@ namespace App.Core.Services
 {
     public interface IImageService
     {
-        List<ListingImage> Get(int ListingId, int UserId);
         int Count(int ListingId);
-        ListingImage Uploads(int UserId, int ListingId, DateTime CreateDate);
+        void Save(ListingImage listingImage);
         bool Delete(int ImageId, int UserId);
+        void RemoveCoverImage(int ListingId);
+
+        List<ListingImage> Get(int ListingId, int UserId);
+        ListingImage GetById(int ImageId, int UserId);
+        ListingImage Uploads(int UserId, int ListingId, DateTime CreateDate);
     }
 
     public class ImageService : IImageService
@@ -29,7 +33,24 @@ namespace App.Core.Services
             this.awsService = awsService;
             this.configService = configService;
         }
-        
+
+        void IImageService.Save(ListingImage listingImage)
+        {
+            db.SaveChanges();
+        }
+
+        void IImageService.RemoveCoverImage(int ListingId)
+        {
+            var image = (from lb in db.ListingImages
+                         where lb.IsCover == true
+                         where lb.ListingId == ListingId
+                         select lb).FirstOrDefault();
+
+            if (image != null)
+            {
+                image.IsCover = false;
+            }
+        }
 
         bool IImageService.Delete(int ImageId, int UserId)
         {
@@ -41,7 +62,7 @@ namespace App.Core.Services
 
             if (model != null)
             {
-                
+
                 awsService.DeletePhoto(model.Src.Replace("####size####", "s0"));
                 awsService.DeletePhoto(model.Src.Replace("####size####", "s1"));
                 awsService.DeletePhoto(model.Src.Replace("####size####", "s2"));
@@ -58,6 +79,12 @@ namespace App.Core.Services
 
         }
 
+        int IImageService.Count(int ListingId)
+        {
+            return this.db.ListingImages
+                .Where(l => l.ListingId == ListingId).Count();
+        }
+
         List<ListingImage> IImageService.Get(int ListingId, int UserId)
         {
             var result = (from l in db.Listings
@@ -70,11 +97,16 @@ namespace App.Core.Services
             return result;
         }
 
-        int IImageService.Count(int ListingId)
+        ListingImage IImageService.GetById(int ImageId, int UserId)
         {
-            var count = this.db.ListingImages.Where(l => l.ListingId == ListingId).Count();
+            var result = (from l in db.Listings
+                          join lb in db.ListingImages on l.id equals lb.ListingId
+                          where lb.id == ImageId
+                          where l.CreateBy == UserId
+                          select lb
+                              ).FirstOrDefault();
 
-            return count;
+            return result;
         }
 
         ListingImage IImageService.Uploads(int UserId, int ListingId, DateTime CreateDate)
@@ -120,5 +152,6 @@ namespace App.Core.Services
 
             return listingImage;
         }
+
     }
 }
