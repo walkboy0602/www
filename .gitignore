@@ -27,6 +27,7 @@ Thumbs.db
 *.sbr
 PublishProfiles/
 */App_Data/XmlDocument.xml
+*/App_Data/BodyPart_*
 obj/
 [Rr]elease*/
 _ReSharper*/
