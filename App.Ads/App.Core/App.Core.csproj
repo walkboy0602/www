@@ -112,6 +112,9 @@
     <Compile Include="Data\Config.cs">
       <DependentUpon>AdsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\Enquiry.cs">
+      <DependentUpon>AdsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\Listing.cs">
       <DependentUpon>AdsModel.tt</DependentUpon>
     </Compile>
@@ -137,6 +140,7 @@
       <DependentUpon>AdsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EmailHostModel.cs" />
+    <Compile Include="Models\EnquiryModels.cs" />
     <Compile Include="Models\S3AssetsModel.cs" />
     <Compile Include="Services\ImageService.cs" />
     <Compile Include="Utility\CustomAnnotation.cs" />

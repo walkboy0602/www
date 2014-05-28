@@ -4454,15 +4454,17 @@ a.thumbnail.active {
   color: inherit;
 }
 .alert-success {
-  background-color: #000000;
-  border-color: #000000;
-  color: #ffffff;
+  color: #468847;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
 }
+
 .alert-success hr {
-  border-top-color: #000000;
+  border-top-color: #c9e2b3;
 }
+
 .alert-success .alert-link {
-  color: #e6e6e6;
+  color: #356635;
 }
 .alert-info {
   background-color: #d9edf7;
@@ -6058,14 +6060,6 @@ div {
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 1px 2px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-.alert-success {
-  background-image: -webkit-linear-gradient(top, #000000 0%, #000000 100%);
-  background-image: linear-gradient(to bottom, #000000 0%, #000000 100%);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff000000', endColorstr='#ff000000', GradientType=0);
-  border-color: #000000;
-  background: #000000;
 }
 .alert-info {
   background-image: -webkit-linear-gradient(top, #d9edf7 0%, #b9def0 100%);

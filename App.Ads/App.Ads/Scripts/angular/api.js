@@ -23,11 +23,18 @@ angular.module('shopAPI', [])
             get: function (ListingId) {
                 return $http.get('/api/image', { params: { ListingId: ListingId } });
             },
-            put: function (data){
+            put: function (data) {
                 return $http.put('/api/image', data);
             },
             delete: function (ImageId) {
                 return $http.post('/api/image/delete?ImageId=' + ImageId);
+            }
+        }
+    }])
+    .factory('EnquiryFactory', ['$http', function ($http) {
+        return {
+            post: function (data) {
+                return $http.post('/api/enquiry', data);
             }
         }
     }])

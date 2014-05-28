@@ -59,6 +59,12 @@ namespace App.Ads.Controllers
                 }
             }
 
+            ViewData["EnquiryViewData"] = new App.Core.Models.SendEnquiryModel
+            {
+                Recipient = model.UserProfile,
+                ListingId = model.id,
+                ListingTitle = model.Title
+            };
 
             return View(model);
         }

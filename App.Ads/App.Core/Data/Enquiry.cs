@@ -15,12 +15,30 @@ namespace App.Core.Data
 using System;
     using System.Collections.Generic;
     
-public partial class Config
+public partial class Enquiry
 {
 
-    public string Key { get; set; }
+    public int Id { get; set; }
 
-    public string Value { get; set; }
+    public int ListingId { get; set; }
+
+    public string Name { get; set; }
+
+    public string Email { get; set; }
+
+    public string Phone { get; set; }
+
+    public string Message { get; set; }
+
+    public System.DateTime CreateDate { get; set; }
+
+    public int IsRead { get; set; }
+
+    public int IsDelete { get; set; }
+
+
+
+    public virtual Listing Listing { get; set; }
 
 }
 

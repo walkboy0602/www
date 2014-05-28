@@ -19,6 +19,8 @@
         <AssociationConnector Association="AdsDBModel.FK_Listing_DealMethod1" />
         <AssociationConnector Association="AdsDBModel.FK_Listing_ListingID" />
         <AssociationConnector Association="AdsDBModel.FS_Listing_UserId" />
+        <EntityTypeShape EntityType="AdsDBModel.Enquiry" Width="1.5" PointX="10" PointY="0.75" />
+        <AssociationConnector Association="AdsDBModel.FK_Enquiry_ListingId" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

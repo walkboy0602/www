@@ -243,7 +243,9 @@
     <Compile Include="Code\Membership\TwitterAuthenticationClient.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdvertisementController.cs" />
+    <Compile Include="Controllers\api\EnquiryController.cs" />
     <Compile Include="Controllers\api\ImageController.cs" />
+    <Compile Include="Controllers\EnquiryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ListingController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -411,9 +413,10 @@
     <Content Include="Scripts\angular\defer.js" />
     <Content Include="Scripts\angular\directive.js" />
     <Content Include="Scripts\angular\listing.js" />
-    <Content Include="Scripts\angular\pace.js" />
+    <Content Include="Scripts\angular\loading-bar.js" />
     <Content Include="Scripts\angular\service.js" />
     <Content Include="Scripts\angular\ui-bootstrap-tpls-0.6.0.js" />
+    <Content Include="Scripts\angular\enquiry.js" />
     <Content Include="Scripts\angular\user.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\build-config.js" />
@@ -718,11 +721,12 @@
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Listing\_gallery.cshtml" />
     <Content Include="Views\Advertisement\Index.cshtml" />
+    <Content Include="Views\Advertisement\_Enquiry.cshtml" />
+    <Content Include="Views\Enquiry\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Account\Views\LogOff\" />
-    <Folder Include="Views\Ad\" />
     <Folder Include="Views\Detail\" />
   </ItemGroup>
   <ItemGroup>

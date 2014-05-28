@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using App.Core.Data;
+using App.Core.Models;
 
 namespace App.Core.ViewModel
 {
@@ -43,10 +44,6 @@ namespace App.Core.ViewModel
 
         public virtual UserProfile UserProfile { get; set; }
 
-        //public virtual RefCategory RefCategory { get; set; }
-        //public virtual RegionZone RegionZone { get; set; }
-        //public virtual ICollection<ListingDealMethod> ListingDealMethods { get; set; }
-        //public virtual ICollection<ListingImage> ListingImages { get; set; }
     }
 
     public class AdImageViewModel

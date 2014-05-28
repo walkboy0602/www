@@ -61,6 +61,7 @@ namespace App.Ads
                  "~/Scripts/angular/directive.js",
                  "~/Scripts/angular/ui-bootstrap-tpls-0.6.0.js",
                  "~/Scripts/angular/listing.js",
+                 "~/Scripts/angular/enquiry.js",
                  "~/Scripts/angular/loading-bar.js"
                  ));
 

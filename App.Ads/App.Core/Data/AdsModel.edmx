@@ -4,13 +4,27 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="AdsDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AdsDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Config">
           <Key>
             <PropertyRef Name="Key" />
           </Key>
           <Property Name="Key" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Value" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Enquiry">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ListingId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Message" Type="nvarchar" MaxLength="255" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="IsRead" Type="int" Nullable="false" />
+          <Property Name="IsDelete" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Listing">
           <Key>
@@ -147,6 +161,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Enquiry_ListingId">
+          <End Role="Listing" Type="Self.Listing" Multiplicity="1" />
+          <End Role="Enquiry" Type="Self.Enquiry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Listing">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Enquiry">
+              <PropertyRef Name="ListingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Listing_DealMethod">
           <End Role="Listing" Type="Self.Listing" Multiplicity="1" />
           <End Role="ListingDealMethod" Type="Self.ListingDealMethod" Multiplicity="*" />
@@ -185,6 +211,7 @@
         </Association>
         <EntityContainer Name="AdsDBModelStoreContainer">
           <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Enquiry" EntityType="Self.Enquiry" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Listing" EntityType="Self.Listing" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ListingDealMethod" EntityType="Self.ListingDealMethod" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ListingImage" EntityType="Self.ListingImage" Schema="dbo" store:Type="Tables" />
@@ -200,6 +227,10 @@
           <AssociationSet Name="FK__Listing__Locatio__5CD6CB2B" Association="Self.FK__Listing__Locatio__5CD6CB2B">
             <End Role="RegionZone" EntitySet="RegionZone" />
             <End Role="Listing" EntitySet="Listing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Enquiry_ListingId" Association="Self.FK_Enquiry_ListingId">
+            <End Role="Listing" EntitySet="Listing" />
+            <End Role="Enquiry" EntitySet="Enquiry" />
           </AssociationSet>
           <AssociationSet Name="FK_Listing_DealMethod" Association="Self.FK_Listing_DealMethod">
             <End Role="Listing" EntitySet="Listing" />
@@ -285,6 +316,11 @@
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="Listing" EntitySet="Listings" />
           </AssociationSet>
+          <EntitySet Name="Enquiries" EntityType="AdsDBModel.Enquiry" />
+          <AssociationSet Name="FK_Enquiry_ListingId" Association="AdsDBModel.FK_Enquiry_ListingId">
+            <End Role="Listing" EntitySet="Listings" />
+            <End Role="Enquiry" EntitySet="Enquiries" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Config">
           <Key>
@@ -352,6 +388,7 @@
           <NavigationProperty Name="ListingDealMethods" Relationship="AdsDBModel.FK_Listing_DealMethod1" FromRole="Listing" ToRole="ListingDealMethod" />
           <NavigationProperty Name="ListingImages" Relationship="AdsDBModel.FK_Listing_ListingID" FromRole="Listing" ToRole="ListingImage" />
           <NavigationProperty Name="UserProfile" Relationship="AdsDBModel.FS_Listing_UserId" FromRole="Listing" ToRole="UserProfile" />
+          <NavigationProperty Name="Enquiries" Relationship="AdsDBModel.FK_Enquiry_ListingId" FromRole="Listing" ToRole="Enquiry" />
         </EntityType>
         <Association Name="FK__Listing__Categor__5BE2A6F2">
           <End Type="AdsDBModel.RefCategory" Role="RefCategory" Multiplicity="0..1" />
@@ -434,6 +471,33 @@
             </Principal>
             <Dependent Role="Listing">
               <PropertyRef Name="CreateBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Enquiry">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ListingId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Message" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsRead" Type="Int32" Nullable="false" />
+          <Property Name="IsDelete" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Listing" Relationship="AdsDBModel.FK_Enquiry_ListingId" FromRole="Enquiry" ToRole="Listing" />
+        </EntityType>
+        <Association Name="FK_Enquiry_ListingId">
+          <End Type="AdsDBModel.Listing" Role="Listing" Multiplicity="1" />
+          <End Type="AdsDBModel.Enquiry" Role="Enquiry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Listing">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Enquiry">
+              <PropertyRef Name="ListingId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -566,6 +630,21 @@
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
                 <ScalarProperty Name="ListingId" ColumnName="ListingId" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Enquiries">
+            <EntityTypeMapping TypeName="AdsDBModel.Enquiry">
+              <MappingFragment StoreEntitySet="Enquiry">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ListingId" ColumnName="ListingId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
