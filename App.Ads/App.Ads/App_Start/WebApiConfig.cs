@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using App.Ads.Code.Filters;
 
 namespace App.Ads
 {
@@ -21,6 +22,8 @@ namespace App.Ads
                routeTemplate: "api/{controller}/{action}/{id}",
                defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Filters.Add(new ValidateModelAttribute());
 
             /// Add below to resolve error
             /// The 'ObjectContent`1' type failed to serialize the response body for content type application/json

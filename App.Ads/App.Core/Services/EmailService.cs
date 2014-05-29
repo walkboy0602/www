@@ -21,7 +21,7 @@ namespace App.Core.Services
     {
         void SendEmail(string emailAddress, string title, string message, object data);
 
-        void SendEmail(SendEmailModel sendEmailModel, string templateName, object data);
+        void SendEmailWithTemplate(string emailAddress, string subject, string templateName, object data);
 
         void TestEmail();
     }
@@ -31,6 +31,7 @@ namespace App.Core.Services
         private SmtpClient smtpClient;
         private IConfigService configService;
         private EmailHostModel emailHostModel;
+        private SendEmailModel sendEmailModel;
 
         public EmailService(SmtpClient smtpClient, IConfigService configService)
         {
@@ -45,6 +46,14 @@ namespace App.Core.Services
                 EmailEnableSSL = this.configService.GetValue(ConfigName.EmailEnableSSL),
                 EmailFrom = this.configService.GetValue(ConfigName.EmailFrom),
                 EmailPort = this.configService.GetValue(ConfigName.EmailPort)
+            };
+
+            sendEmailModel = new SendEmailModel
+            {
+                Subject = this.configService.GetValue(ConfigName.WebsiteUrlName),
+                WebsiteUrlName = this.configService.GetValue(ConfigName.WebsiteUrlName),
+                WebsiteTitle = this.configService.GetValue(ConfigName.WebsiteTitle),
+                WebsiteURL = this.configService.GetValue(ConfigName.WebsiteUrl)
             };
         }
 
@@ -165,15 +174,22 @@ namespace App.Core.Services
         /// <summary>
         /// Send email message with a template
         /// </summary>
-        /// <param name="emailAddress">ecipient email address</param>
+        /// <param name="emailAddress">recipient email address</param>
         /// <param name="subject">Email subject</param>
         /// <param name="templateName">Template name. Ex.: "Contact"</param>
         /// <param name="data">Data object for the template. Ex.: new { Name = "John" }</param>
-        void IEmailService.SendEmail(SendEmailModel sendEmailModel, string templateName, object data)
+        void IEmailService.SendEmailWithTemplate(string emailAddress, string subject, string templateName, object data)
         {
             if (String.IsNullOrWhiteSpace(templateName))
             {
                 throw new ArgumentException(String.Format(Global.CannotBeNullOrEmpy, "templateName"), "templateName");
+            }
+
+            sendEmailModel.EmailAddress = emailAddress;
+
+            if (!string.IsNullOrEmpty(subject))
+            {
+                sendEmailModel.Subject += ": " + subject;
             }
 
             var viewData = data as ViewDataDictionary ?? new ViewDataDictionary { Model = data };

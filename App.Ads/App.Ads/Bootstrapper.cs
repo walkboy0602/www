@@ -37,6 +37,7 @@ namespace App.Ads
             container.RegisterType<IRegionService, RegionService>();
             container.RegisterType<IListingService, ListingService>();
             container.RegisterType<IAWSService, AWSService>();
+            container.RegisterType<IEnquiryService, EnquiryService>();
             container.RegisterType<SmtpClient>(new InjectionConstructor());
 
 

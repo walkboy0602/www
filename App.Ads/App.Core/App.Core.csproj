@@ -142,6 +142,7 @@
     <Compile Include="Models\EmailHostModel.cs" />
     <Compile Include="Models\EnquiryModels.cs" />
     <Compile Include="Models\S3AssetsModel.cs" />
+    <Compile Include="Services\EnquiryService.cs" />
     <Compile Include="Services\ImageService.cs" />
     <Compile Include="Utility\CustomAnnotation.cs" />
     <Compile Include="Services\AWSService.cs" />

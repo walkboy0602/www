@@ -20,8 +20,6 @@ namespace App.Ads.Controllers.api
     [Authorize]
     public class ImageController : ApiController
     {
-        private AdsDBEntities db = new AdsDBEntities();
-
         private readonly IListingService _listingService;
         private readonly IImageService _imageService;
 
@@ -54,17 +52,15 @@ namespace App.Ads.Controllers.api
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Invalid input");
             }
 
-            if (ModelState.IsValid)
+
+            listingImage = Mapper.Map<EditImageViewModel, ListingImage>(model, listingImage);
+
+            if (listingImage.IsCover)
             {
-                listingImage = Mapper.Map<EditImageViewModel, ListingImage>(model, listingImage);
-
-                if (listingImage.IsCover)
-                {
-                    _imageService.RemoveCoverImage(listingImage.ListingId);
-                }
-
-                _imageService.Save(listingImage);
+                _imageService.RemoveCoverImage(listingImage.ListingId);
             }
+
+            _imageService.Save(listingImage);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }

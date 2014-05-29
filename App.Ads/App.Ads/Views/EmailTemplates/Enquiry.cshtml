@@ -1,0 +1,58 @@
+﻿@model App.Core.Models.SendEnquiryModel
+
+@{ 
+    //var membership = (App.Core.Data.Membership)ViewBag.Membership;
+    var sendEmailModel = (App.Core.Models.SendEmailModel)ViewBag.SendEmailModel; 
+    //var activationLink = sendEmailModel.WebsiteURL + Url.Action("confirmation", "verification", new { guid = membership.EmailConfirmationToken, area = "account" }); 
+    
+    var adLink = sendEmailModel.WebsiteURL + Url.Action("Index", "Advertisement", new { id = @Model.ListingId });
+}
+
+<p>
+Dear @Model.Recipient.FirstName, <br/>
+</p>
+
+<p>
+    Someone is interested in the listing you posted thru <a href="@sendEmailModel.WebsiteURL">@sendEmailModel.WebsiteTitle</a>, and have used the enquiry form on your listing to get in touch with you.
+</p>
+
+<p>
+    The following are the details of the enquiry: <br />
+</p>
+
+
+<table>
+    <tr>
+        <td>
+            ============================= <br/>
+                Listing Details <br />
+            ============================= <br />
+            ID:     @Model.ListingId <br />
+            <br />
+            Title:  @Model.ListingTitle<br/>
+            <br />
+            URL:    @adLink<br/>
+            <br />
+            ============================= <br />
+                Enquirer Details <br />
+            ============================= <br />
+            Name: @Model.Name <br />
+            <br />
+            Email: @Model.Email <br />
+            <br />
+            Phone: @Model.Phone <br />
+            <br />
+            Message: @Model.Message <br/>
+            <br />
+        </td>
+    </tr>
+
+</table>
+  
+<br />
+<br />
+<p>
+    <a href="@sendEmailModel.WebsiteURL">@sendEmailModel.WebsiteTitle - Everything Store</a>.<br />
+</p>
+
+<small>This message is auto generate by the system.</small>

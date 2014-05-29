@@ -13,7 +13,8 @@ function EnquiryCtrl($scope, EnquiryFactory) {
                     $scope.$apply();
                 },
                 error: function (response) {
-                    console.log(response);
+                    $scope.error();
+                    $scope.$apply();
                 }
             });
 

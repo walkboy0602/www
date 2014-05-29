@@ -5,6 +5,7 @@ using System.Web;
 using AutoMapper;
 using App.Core.Data;
 using App.Core.ViewModel;
+using App.Core.Models;
 
 namespace App.Ads
 {
@@ -24,9 +25,9 @@ namespace App.Ads
                         .ForMember(dest => dest.LocationParentId, opt => opt.MapFrom(src => src.RegionZone.ParentId));
 
                 Mapper.CreateMap<ListingImage, AdImageViewModel>();
-
                 Mapper.CreateMap<EditImageViewModel, ListingImage>();
 
+                Mapper.CreateMap<SendEnquiryModel, Enquiry>();
             });
         }
     }

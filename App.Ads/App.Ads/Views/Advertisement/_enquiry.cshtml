@@ -18,6 +18,7 @@
                     <p class="hidden-xs">about "@Model.ListingTitle"</p>
                 </div>
                 <div class="modal-body" data-ng-show="alert.display">
+                    <a class="close" data-ng-click="alert.display=false" href="#">&times;</a>
                     <div class="alert alert-{{alert.type}}">
                         <div data-ng-bind-html="alert.message"></div>
                     </div>

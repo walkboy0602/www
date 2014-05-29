@@ -122,18 +122,10 @@ namespace App.Core.Services
                 throw new MembershipCreateUserException(MembershipCreateStatus.ProviderError);
             }
 
-            var configValues = this.configService.GetValues(new ConfigName[] { ConfigName.WebsiteUrlName, ConfigName.WebsiteTitle, ConfigName.WebsiteUrl });
+            //var configValues = this.configService.GetValues(new ConfigName[] { ConfigName.WebsiteUrlName, ConfigName.WebsiteTitle, ConfigName.WebsiteUrl });
             var viewData = new ViewDataDictionary { Model = userProfile };
             viewData.Add("Membership", membership);
-            this.emailService.SendEmail(
-                new SendEmailModel
-                {
-                    EmailAddress = email,
-                    Subject = configValues[ConfigName.WebsiteUrlName.ToString()] + ": Confirm your registration",
-                    WebsiteUrlName = configValues[ConfigName.WebsiteUrlName.ToString()],
-                    WebsiteTitle = configValues[ConfigName.WebsiteTitle.ToString()],
-                    WebsiteURL = configValues[ConfigName.WebsiteUrl.ToString()]
-                },
+            this.emailService.SendEmailWithTemplate(email, "Confirm your registration",
                 "ConfirmRegistration",
                 viewData
             );

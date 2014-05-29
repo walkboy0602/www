@@ -15,7 +15,7 @@ namespace App.Core.Services
     {
         int CreateNew(int UserId);
         int GetNewListing(int UserId);
-        Listing GetListingById(int ListingId, int UserId);
+        Listing GetListingById(int ListingId, int UserId = 0);
         List<Listing> GetListings(int UserId);
         IList<SelectListItem> GetContactMethods(string selected = null);
 
@@ -61,14 +61,19 @@ namespace App.Core.Services
             return listingId;
         }
 
-        Listing IListingService.GetListingById(int ListingId, int UserId)
+        Listing IListingService.GetListingById(int ListingId, int UserId = 0)
         {
-            var listing = db.Listings
-                            .Include(l => l.ListingDealMethods)
-                            .Where(l => l.CreateBy == UserId)
-                            .Where(l => l.id == ListingId).FirstOrDefault();
 
-            return listing;
+            var listing = from l in db.Listings
+                          where l.id == ListingId
+                          select l;
+
+            if (UserId != 0)
+            {
+                listing = listing.Where(l => l.CreateBy == UserId);
+            }
+
+            return listing.FirstOrDefault();
         }
 
         List<Listing> IListingService.GetListings(int UserId)

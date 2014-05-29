@@ -21,6 +21,7 @@ namespace App.Core.ViewModel
 
     public class EditImageViewModel
     {
+        [Required]
         public int id { get; set; }
 
         [Required]
