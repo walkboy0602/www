@@ -19,6 +19,7 @@ namespace App.Ads
 
             container.RegisterType<IUserService, UserService>();
             container.RegisterType<IConfigService, ConfigService>();
+            container.RegisterType<IImageService, ImageService>();
             container.RegisterType<IEmailService, EmailService>();
             container.RegisterType<ICategoryService, CategoryService>();
             container.RegisterType<IRegionService, RegionService>();

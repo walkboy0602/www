@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Text.RegularExpressions;
 using AutoMapper;
 
 namespace App.Ads.Controllers
@@ -43,6 +44,7 @@ namespace App.Ads.Controllers
             foreach (var item in model)
             {
                 item.Title = string.IsNullOrEmpty(item.Title) ? "Untitled" : item.Title;
+                item.Description = string.IsNullOrEmpty(item.Description) ? "" : Regex.Replace(item.Description, @"<[^>]*>", string.Empty);
                 item.StatusText = Enum.GetName(typeof(XtEnum.ListingStatus), item.Status);
                 item.StatusCss = GetStatusCss(item.Status);
                 dayDiff = (DateTime.Now - item.CreateDate).Days;

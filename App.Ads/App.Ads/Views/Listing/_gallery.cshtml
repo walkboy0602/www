@@ -4,14 +4,14 @@
 @Styles.Render("~/Content/css/form")
 
 <div data-ng-app="shopApp" class="gallery" data-ng-controller="ListingImageCtrl">
-    <form name="formUpload" method="post" fileupload enctype="multipart/form-data" action="/api/image/uploads">
+    <!-- Alert -->
+    <div class="alert alert-{{alert.type}} alert-dismissable" data-ng-show="alert.display">
+        <a class="close" data-ng-click="alert.display=false" href="#">&times;</a>
+        <div data-ng-bind-html="alert.message"></div>
+    </div>
+    <form name="formUpload" method="post" fileupload enctype="multipart/form-data" action="/api/image/uploads" data-ng-hide="alert.display">
         <!-- No File -->
         <input type="hidden" value="1" id="ListingId" name="ListingId" />
-        <!-- Alert -->
-        <div class="alert alert-{{alert.type}} alert-dismissable" data-ng-show="alert.display">
-            <a class="close" data-ng-click="alert.display=false" href="#">&times;</a>
-            <div data-ng-bind-html="alert.message"></div>
-        </div>
         <div class="no-gallery" data-ng-show="!draftFiles.length && !files.length">
             <div class="center">
                 <img src="http://detail.herokuapp.com/img/no-img-gallery.png" alt="no-gallery">

@@ -25,7 +25,12 @@ function ListingImageCtrl($scope, $q, ImageFactory, $filter, uploadManager, $rou
                 CoverCss: v.IsCover ? "cover" : ""
             })
         });
+    }, 
+    function(response)
+    {
+        $scope.error();
     });
+
 
     //Edit Image
     $scope.edit = function (file) {

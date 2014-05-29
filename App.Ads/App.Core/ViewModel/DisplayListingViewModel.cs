@@ -1,6 +1,7 @@
 ﻿using System;
 using App.Core.Data;
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace App.Core.ViewModel
 {
@@ -24,5 +25,12 @@ namespace App.Core.ViewModel
 
         public string StatusCss { get; set; }
 
+        private string ReplaceHTML(string str)
+        {
+            return Regex.Replace(str, @"<[^>]*>", string.Empty);
+        }
+
     }
+
+
 }
