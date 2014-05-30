@@ -9,7 +9,7 @@
         <a class="close" data-ng-click="alert.display=false" href="#">&times;</a>
         <div data-ng-bind-html="alert.message"></div>
     </div>
-    <form name="formUpload" method="post" fileupload enctype="multipart/form-data" action="/api/image/uploads" data-ng-hide="alert.display">
+    <form name="formUpload" method="post" fileupload enctype="multipart/form-data" action="/api/image/uploads">
         <!-- No File -->
         <input type="hidden" value="1" id="ListingId" name="ListingId" />
         <div class="no-gallery" data-ng-show="!draftFiles.length && !files.length">
@@ -35,7 +35,7 @@
                         <span class="icon trash" data-ng-click="delete(file)">
                             <i class="gallery-trash"></i>
                         </span>
-                        <img data-ng-src="{{file.Url}}" class="thumbnail" alt="picture">
+                        <img data-ng-src="{{file.Url}}" class="img-responsive thumbnail" alt="picture">
                         <span class="cover-image" data-ng-show="file.IsCover">
                             <strong>Cover Image</strong>
                         </span>

@@ -729,8 +729,7 @@ p.muted {
     }
 
 #gallery .thumbnail img {
-    min-height: 66px;
-    max-height: 80px;
+    height: 66px;
 }
 
 #my-dropzone .dropzone .dz-default.dz-message {

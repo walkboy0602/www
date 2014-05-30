@@ -95,6 +95,7 @@ function ListingImageCtrl($scope, $q, ImageFactory, $filter, uploadManager, $rou
 
             if ($scope.totalFiles > 8) {
                 $scope.warning('Cannot upload more than 8 photos.');
+                $scope.draftFiles.splice(0,1);
                 $scope.$apply();
             } else {
                 $scope.spinLoading.start($scope.draftFiles.length);
