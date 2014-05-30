@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using App.Core.Data;
 using App.Core.ViewModel;
 using AutoMapper;
+using Recaptcha.Web;
+using Recaptcha.Web.Mvc;
 
 namespace App.Ads.Controllers
 {

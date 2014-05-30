@@ -11,7 +11,6 @@ using App.Ads.Code.Membership;
 using App.Core.Data;
 using AutoMapper;
 
-
 namespace App.Ads.Controllers.api
 {
     public class EnquiryController : ApiController
@@ -28,6 +27,7 @@ namespace App.Ads.Controllers.api
         [HttpPost]
         public HttpResponseMessage Post([FromBody]SendEnquiryModel model)
         {
+
             var listing = _listingService.GetListingById(model.ListingId);
 
             if (listing == null)

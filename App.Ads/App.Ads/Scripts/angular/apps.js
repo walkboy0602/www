@@ -1,6 +1,6 @@
 ﻿
 //declare a module
-var shopApp = angular.module("shopApp", ['shopAPI', 'ui.bootstrap', 'ngRoute', 'ngSanitize', 'ngResource', 'mgcrea.ngStrap', 'angular-loading-bar'])
+var shopApp = angular.module("shopApp", ['shopAPI', 'ui.bootstrap', 'ngRoute', 'ngSanitize', 'ngResource', 'mgcrea.ngStrap', 'chieffancypants.loadingBar'])
                     .config(function ($locationProvider, $routeProvider) {
                         $routeProvider.when('/listing/image/:id', {
                             controller: ListingImageCtrl
@@ -8,7 +8,7 @@ var shopApp = angular.module("shopApp", ['shopAPI', 'ui.bootstrap', 'ngRoute', '
 
                     });
 
-shopApp.run(['$rootScope', '$window', '$http', '$location', '$route', '$routeParams',
+shopApp.run(['$rootScope', '$window', '$http', '$location', '$route', '$routeParams', 
     function ($rootScope, $window, $http, $location, $route, $routeParams) {
         //add this so server side will recognise as ajax request
         $http.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -21,6 +21,7 @@ shopApp.run(['$rootScope', '$window', '$http', '$location', '$route', '$routePar
                 Tag: 3
             }
         }
+
 
         //set global data
         if (undefined !== $window.data) {

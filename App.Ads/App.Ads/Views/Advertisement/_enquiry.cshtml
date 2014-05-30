@@ -1,12 +1,14 @@
 ﻿@*@model App.Core.ViewModel.AdDetailViewModel*@
 @*@model Tuple<App.Core.ViewModel.AdDetailViewModel, App.Core.Models.SendEnquiryModel>*@
+@using Recaptcha.Web.Mvc;
+
 @model App.Core.Models.SendEnquiryModel
 
 <!-- Modal -->
 @*@using (Ajax.BeginForm("Index", "Enquiry", new AjaxOptions
-{
-    HttpMethod = "POST"
-}))*@
+    {
+        HttpMethod = "POST"
+    }))*@
 @using (Html.BeginForm())
 {
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-ng-controller="EnquiryCtrl">
@@ -18,9 +20,11 @@
                     <p class="hidden-xs">about "@Model.ListingTitle"</p>
                 </div>
                 <div class="modal-body" data-ng-show="alert.display">
-                    <a class="close" data-ng-click="alert.display=false" href="#">&times;</a>
                     <div class="alert alert-{{alert.type}}">
-                        <div data-ng-bind-html="alert.message"></div>
+                        <span data-ng-bind-html="alert.message"></span>
+                        <a class="pull-right" href="#" data-ng-click="alert.display=false" data-ng-hide="alert.type == 'success' ">
+                            <i class="fa fa-mail-reply"> Back</i>
+                        </a>
                     </div>
                 </div>
                 <div class="modal-body" data-ng-hide="alert.display">
@@ -53,6 +57,10 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label>Enter Captcha</label>
+                                        @Html.Recaptcha()
+                                    </div>
                                     <div class="alert alert-info hidden-xs">
                                         <p>
                                             Follow these simple steps for a safe and successful buying experience:<br />
@@ -66,7 +74,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn-glow" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn-glow primary" data-ng-hide="alert.display">Send</button>
+                    <button type="submit" class="btn-glow primary" data-ng-hide="alert.display" data-ng-disabled="isSending">Send</button>
                 </div>
             </div>
         </div>

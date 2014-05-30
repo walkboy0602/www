@@ -179,3 +179,23 @@ shopApp.directive('ckEditorMini', [function () {
         }
     };
 }]);
+
+shopApp.directive('spinnerClick', function () {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            var spinnerButton = angular.element("<button class='btn disabled'><i class='icon-refresh icon-spin'></i> Doing...</button>").hide();
+            element.after(spinnerButton);
+
+            element.click(function () {
+                spinnerButton.show();
+                element.hide();
+
+                scope.spinnerClick(function () {
+                    spinnerButton.hide();
+                    element.show();
+                });
+            });
+        }
+    };
+});
