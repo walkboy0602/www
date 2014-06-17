@@ -21,6 +21,8 @@
         <AssociationConnector Association="AdsDBModel.FS_Listing_UserId" />
         <EntityTypeShape EntityType="AdsDBModel.Enquiry" Width="1.5" PointX="10" PointY="0.75" />
         <AssociationConnector Association="AdsDBModel.FK_Enquiry_ListingId" />
+        <EntityTypeShape EntityType="AdsDBModel.z_RefCategory" Width="1.5" PointX="0.75" PointY="9.75" />
+        <AssociationConnector Association="AdsDBModel.FK_RefCategory_ParentId" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

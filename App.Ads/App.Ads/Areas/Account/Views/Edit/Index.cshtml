@@ -1,0 +1,78 @@
+﻿@model App.Ads.ViewModel.AccountEditViewModel
+
+@{
+    ViewBag.Title = "My Account";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@if (ViewBag.ModelState != null)
+{
+    <div class="col-sm-12">
+        <div class="alert alert-danger">
+            @foreach (ModelState modelState in ViewBag.ModelState.Values)
+            {
+                foreach (ModelError error in modelState.Errors)
+                {
+                    <span>@error.ErrorMessage</span>
+                }
+            }
+
+        </div>
+    </div>
+}
+
+<div class="col-sm-3">
+    @Html.Partial("~/Views/PartialView/_sidepanel.cshtml")
+</div>
+
+<div class="col-sm-9">
+
+    @Html.Partial("_ChangePassword", @Model)
+
+    <div class="panel panel-default">
+        <div class="panel-heading">My Account</div>
+        <div class="panel-body">
+
+            <div class="form-vertical">
+                <fieldset>
+                    @using (Html.BeginForm("SaveDetail", "Edit", new { area = "Account" }, FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="row">
+                            <div class="col-sm-12 ">
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Name</label>
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            @Html.DropDownListFor(model => model.Profile.Salutation, ViewBag.Salutation as IEnumerable<SelectListItem>, new { @class = "form-control" })
+                                        </div>
+                                        <div class="col-sm-5">
+                                            @Html.TextBoxFor(model => model.Profile.FirstName, new { @class = "form-control", placeholder = "First Name" })
+                                            @Html.ValidationMessageFor(model => model.Profile.FirstName)
+                                        </div>
+
+                                        <div class="col-sm-5">
+                                            @Html.TextBoxFor(model => model.Profile.LastName, new { @class = "form-control", placeholder = "Last Name" })
+                                            @Html.ValidationMessageFor(model => model.Profile.LastName)
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Mobile</label>
+                                    @Html.TextBoxFor(model => model.Profile.Mobile, new { @class = "form-control", placeholder = "Mobile No" })
+                                    @Html.ValidationMessageFor(model => model.Profile.Mobile)
+                                </div>
+                                <br>
+                                <button type="submit" class="btn-glow success">Save details</button>
+                            </div>
+                        </div>
+                    }
+                </fieldset>
+            </div>
+        </div>
+    </div>
+
+</div>

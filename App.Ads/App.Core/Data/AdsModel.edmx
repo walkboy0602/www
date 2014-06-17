@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="AdsDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AdsDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Config">
           <Key>
             <PropertyRef Name="Key" />
@@ -93,7 +93,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ParentID" Type="int" />
           <Property Name="MetaDescription" Type="nvarchar" MaxLength="200" />
@@ -137,18 +137,19 @@
           <Property Name="Identification" Type="varchar" MaxLength="100" />
           <Property Name="IdentificationFile" Type="varchar" MaxLength="100" />
         </EntityType>
-        <Association Name="FK__Listing__Categor__5BE2A6F2">
-          <End Role="RefCategory" Type="Self.RefCategory" Multiplicity="0..1" />
-          <End Role="Listing" Type="Self.Listing" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RefCategory">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Listing">
-              <PropertyRef Name="CategoryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <EntityType Name="z_RefCategory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ParentID" Type="int" />
+          <Property Name="MetaDescription" Type="nvarchar" MaxLength="200" />
+          <Property Name="MetaKeyword" Type="nvarchar" MaxLength="200" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+          <Property Name="Sort" Type="int" />
+          <Property Name="isActive" Type="bit" />
+        </EntityType>
         <Association Name="FK__Listing__Locatio__5CD6CB2B">
           <End Role="RegionZone" Type="Self.RegionZone" Multiplicity="0..1" />
           <End Role="Listing" Type="Self.Listing" Multiplicity="*" />
@@ -170,6 +171,18 @@
             </Principal>
             <Dependent Role="Enquiry">
               <PropertyRef Name="ListingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Listing_CategoryId">
+          <End Role="RefCategory" Type="Self.RefCategory" Multiplicity="0..1" />
+          <End Role="Listing" Type="Self.Listing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RefCategory">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Listing">
+              <PropertyRef Name="CategoryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -197,6 +210,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RefCategory_ParentId">
+          <End Role="RefCategory" Type="Self.RefCategory" Multiplicity="0..1" />
+          <End Role="RefCategory1" Type="Self.RefCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RefCategory">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RefCategory1">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FS_Listing_UserId">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
           <End Role="Listing" Type="Self.Listing" Multiplicity="*" />
@@ -220,10 +245,7 @@
           <EntitySet Name="Region" EntityType="Self.Region" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RegionZone" EntityType="Self.RegionZone" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Listing__Categor__5BE2A6F2" Association="Self.FK__Listing__Categor__5BE2A6F2">
-            <End Role="RefCategory" EntitySet="RefCategory" />
-            <End Role="Listing" EntitySet="Listing" />
-          </AssociationSet>
+          <EntitySet Name="z_RefCategory" EntityType="Self.z_RefCategory" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Listing__Locatio__5CD6CB2B" Association="Self.FK__Listing__Locatio__5CD6CB2B">
             <End Role="RegionZone" EntitySet="RegionZone" />
             <End Role="Listing" EntitySet="Listing" />
@@ -232,6 +254,10 @@
             <End Role="Listing" EntitySet="Listing" />
             <End Role="Enquiry" EntitySet="Enquiry" />
           </AssociationSet>
+          <AssociationSet Name="FK_Listing_CategoryId" Association="Self.FK_Listing_CategoryId">
+            <End Role="RefCategory" EntitySet="RefCategory" />
+            <End Role="Listing" EntitySet="Listing" />
+          </AssociationSet>
           <AssociationSet Name="FK_Listing_DealMethod" Association="Self.FK_Listing_DealMethod">
             <End Role="Listing" EntitySet="Listing" />
             <End Role="ListingDealMethod" EntitySet="ListingDealMethod" />
@@ -239,6 +265,10 @@
           <AssociationSet Name="FK_Listing_ListingID" Association="Self.FK_Listing_ListingID">
             <End Role="Listing" EntitySet="Listing" />
             <End Role="ListingImage" EntitySet="ListingImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RefCategory_ParentId" Association="Self.FK_RefCategory_ParentId">
+            <End Role="RefCategory" EntitySet="RefCategory" />
+            <End Role="RefCategory1" EntitySet="RefCategory" />
           </AssociationSet>
           <AssociationSet Name="FS_Listing_UserId" Association="Self.FS_Listing_UserId">
             <End Role="UserProfile" EntitySet="UserProfile" />
@@ -321,6 +351,11 @@
             <End Role="Listing" EntitySet="Listings" />
             <End Role="Enquiry" EntitySet="Enquiries" />
           </AssociationSet>
+          <EntitySet Name="z_RefCategory" EntityType="AdsDBModel.z_RefCategory" />
+          <AssociationSet Name="FK_RefCategory_ParentId" Association="AdsDBModel.FK_RefCategory_ParentId">
+            <End Role="RefCategory" EntitySet="RefCategories" />
+            <End Role="RefCategory1" EntitySet="RefCategories" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Config">
           <Key>
@@ -342,6 +377,8 @@
           <Property Name="Sort" Type="Int32" />
           <Property Name="isActive" Type="Boolean" />
           <NavigationProperty Name="Listings" Relationship="AdsDBModel.FK__Listing__Categor__5BE2A6F2" FromRole="RefCategory" ToRole="Listing" />
+          <NavigationProperty Name="SubCategories" Relationship="AdsDBModel.FK_RefCategory_ParentId" FromRole="RefCategory" ToRole="RefCategory1" />
+          <NavigationProperty Name="ParentCategory" Relationship="AdsDBModel.FK_RefCategory_ParentId" FromRole="RefCategory1" ToRole="RefCategory" />
         </EntityType>
         <EntityType Name="Region">
           <Key>
@@ -501,6 +538,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="z_RefCategory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ParentID" Type="Int32" />
+          <Property Name="MetaDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MetaKeyword" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Sort" Type="Int32" />
+          <Property Name="isActive" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_RefCategory_ParentId">
+          <End Type="AdsDBModel.RefCategory" Role="RefCategory" Multiplicity="0..1" />
+          <End Type="AdsDBModel.RefCategory" Role="RefCategory1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RefCategory">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RefCategory1">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -645,6 +707,20 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ListingId" ColumnName="ListingId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="z_RefCategory">
+            <EntityTypeMapping TypeName="AdsDBModel.z_RefCategory">
+              <MappingFragment StoreEntitySet="z_RefCategory">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="MetaKeyword" ColumnName="MetaKeyword" />
+                <ScalarProperty Name="MetaDescription" ColumnName="MetaDescription" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

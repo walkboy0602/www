@@ -4,11 +4,6 @@
 
 @model App.Core.Models.SendEnquiryModel
 
-<!-- Modal -->
-@*@using (Ajax.BeginForm("Index", "Enquiry", new AjaxOptions
-    {
-        HttpMethod = "POST"
-    }))*@
 @using (Html.BeginForm())
 {
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-ng-controller="EnquiryCtrl">

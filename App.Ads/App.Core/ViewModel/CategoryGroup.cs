@@ -18,4 +18,12 @@ namespace App.Core.ViewModel
         public RegionZone Value { get; set; }
         public IEnumerable<RegionZoneGroup> Children { get; set; }
     }
+
+    public class TreeCategories
+    {
+        public int? Seed { get; set; }
+        public int? SelectedId { get; set; }
+        public IEnumerable<RefCategory> ParentCategories { get; set; }
+        public IEnumerable<RefCategory> Categories { get; set; }
+    }
 }

@@ -115,6 +115,7 @@
     <Compile Include="Data\Enquiry.cs">
       <DependentUpon>AdsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\GenericRepository.cs" />
     <Compile Include="Data\Listing.cs">
       <DependentUpon>AdsModel.tt</DependentUpon>
     </Compile>
@@ -139,11 +140,18 @@
     <Compile Include="Data\UserProfile.cs">
       <DependentUpon>AdsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\z_RefCategory.cs">
+      <DependentUpon>AdsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EmailHostModel.cs" />
     <Compile Include="Models\EnquiryModels.cs" />
+    <Compile Include="Models\RefCategory.cs" />
     <Compile Include="Models\S3AssetsModel.cs" />
+    <Compile Include="Models\SearchModel.cs" />
+    <Compile Include="Services\CommonService.cs" />
     <Compile Include="Services\EnquiryService.cs" />
     <Compile Include="Services\ImageService.cs" />
+    <Compile Include="Services\SearchService.cs" />
     <Compile Include="Utility\CustomAnnotation.cs" />
     <Compile Include="Services\AWSService.cs" />
     <Compile Include="ViewModel\AdDetailViewModel.cs" />

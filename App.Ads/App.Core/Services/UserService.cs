@@ -8,6 +8,8 @@ using System.Text;
 using System.Transactions;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.Caching;
+using System.Web;
 using App.Core.ViewModel;
 
 namespace App.Core.Services
@@ -20,7 +22,7 @@ namespace App.Core.Services
         void Save(UserProfile userProfile);
 
         // Membership
-        void Save(App.Core.Data.Membership membership, bool add);
+        void Save(App.Core.Data.Membership membership);
         App.Core.Data.Membership GetMembership(string userName);
         App.Core.Data.Membership GetMembership(int userId);
         App.Core.Data.Membership GetMembershipByConfirmToken(string token, bool withUserProfile);
@@ -33,10 +35,12 @@ namespace App.Core.Services
 
     }
 
+
     public class UserService : IUserService
     {
         private readonly IConfigService configService;
         private readonly IEmailService emailService;
+
         private AdsDBEntities db;
 
         public UserService(IConfigService configService, IEmailService emailService)
@@ -45,7 +49,6 @@ namespace App.Core.Services
             this.configService = configService;
             this.emailService = emailService;
         }
-
 
         UserProfile IUserService.GetUserProfile(string userName)
         {
@@ -65,16 +68,30 @@ namespace App.Core.Services
             }
 
             this.db.SaveChanges();
+
+            ClearCache(userProfile.UserName);
+
         }
 
-        void IUserService.Save(App.Core.Data.Membership membership, bool add)
+        private void ClearCache(string UserName)
         {
-            if (add)
+            var cacheKey = string.Format("UserData_{0}", UserName);
+
+            if (HttpRuntime.Cache[cacheKey] != null)
+            {
+                HttpRuntime.Cache.Remove(cacheKey);
+            }
+        }
+
+        void IUserService.Save(App.Core.Data.Membership membership)
+        {
+            if (membership.UserId == 0)
             {
                 this.db.Memberships.Add(membership);
             }
 
             this.db.SaveChanges();
+
         }
 
         App.Core.Data.Membership IUserService.GetMembership(string userName)

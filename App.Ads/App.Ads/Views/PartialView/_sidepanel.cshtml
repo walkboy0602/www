@@ -16,10 +16,10 @@
                                 <a class="active" href="account_profile.html">My profile</a>
                             </li>
                             <li>
-                                <a class="active" href="account_account.html">My account</a>
+                                @Html.ActionLink("My account", "index", "edit", new { area = "account" }, null)
                             </li>
                             <li>
-                                @Html.ActionLink("Manage ads", "index", "listing")
+                                @Html.ActionLink("Manage ads", "index", "listing", new { area = "" }, null)
                             </li>
                             <li>
                                 <a href="javascript:document.getElementById('createForm').submit()">Create new ad</a>

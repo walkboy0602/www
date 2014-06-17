@@ -247,7 +247,7 @@ namespace App.Ads.Code.Membership
                 if (membership.EmailConfirmationToken == password)
                 {
                     membership.EmailConfirmationToken = null;
-                    this.usersService.Save(membership, add: false);
+                    this.usersService.Save(membership);
                     return true;
                 }
             }
@@ -270,7 +270,7 @@ namespace App.Ads.Code.Membership
                 throw new Exception("Your account is already activated.");
             }
             membership.IsEmailConfirmed = true;
-            this.usersService.Save(membership, add: false);
+            this.usersService.Save(membership);
             return true;
         }
 
@@ -312,7 +312,7 @@ namespace App.Ads.Code.Membership
                 IsMobileConfirmed = false,
                 EmailConfirmationToken = Guid.NewGuid().ToString().ToLower()
             };
-            this.usersService.Save(membership, add: true);
+            this.usersService.Save(membership);
 
             return membership.EmailConfirmationToken;
         }

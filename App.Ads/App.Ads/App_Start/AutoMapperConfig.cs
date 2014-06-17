@@ -6,6 +6,8 @@ using AutoMapper;
 using App.Core.Data;
 using App.Core.ViewModel;
 using App.Core.Models;
+using App.Ads.ViewModel;
+using App.Ads.Areas.Account.Models;
 
 namespace App.Ads
 {
@@ -26,6 +28,11 @@ namespace App.Ads
 
                 Mapper.CreateMap<ListingImage, AdImageViewModel>();
                 Mapper.CreateMap<EditImageViewModel, ListingImage>();
+
+
+                // UserProfile
+                Mapper.CreateMap<UserProfile, EditUserProfile>();
+                Mapper.CreateMap<EditUserProfile, UserProfile>();
 
                 Mapper.CreateMap<SendEnquiryModel, Enquiry>();
             });

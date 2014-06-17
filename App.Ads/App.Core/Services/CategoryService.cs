@@ -22,6 +22,8 @@ namespace App.Core.Services
         IEnumerable<RefCategory> GetByParentID(int? ParentID);
         string GetParentName(int? ParentID);
 
+        List<RefCategory> GetAll();
+        IEnumerable<CategoryGroup> GetCategoryGroup();
         IList<SelectListItem> GetCategories(int? selected = null);
     }
 
@@ -70,12 +72,9 @@ namespace App.Core.Services
             return db.RefCategories.Find(id);
         }
 
-        protected virtual void Dispose(bool disposing)
+        List<RefCategory> ICategoryService.GetAll()
         {
-            if (db != null)
-            {
-                db.Dispose();
-            }
+            return db.RefCategories.Where(x => x.isActive == true).ToList();
         }
 
         IList<SelectListItem> ICategoryService.GetCategories(int? selected = null)
@@ -90,6 +89,16 @@ namespace App.Core.Services
                                    Value = t.Value.id.ToString(),
                                    Selected = t.Value.id == selected ? true : false
                                }).ToList();
+
+            return list;
+        }
+
+        IEnumerable<CategoryGroup> ICategoryService.GetCategoryGroup()
+        {
+            var list = Grouping(db.RefCategories)
+                        .OfType<CategoryGroup>()
+                        .Where(x => x.Value.isActive == true)
+                        .SelectMany(x => GetNodeAndChildren(x, true));
 
             return list;
         }
@@ -137,6 +146,15 @@ namespace App.Core.Services
                 node.Children = lookup[node.Value.id];
             return lookup[null];
         }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (db != null)
+            {
+                db.Dispose();
+            }
+        }
+
 
     }
 }

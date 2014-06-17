@@ -1,0 +1,155 @@
+﻿@using App.Core.ViewModel
+@using App.Core.Data
+@model TreeCategories
+@ShowTree(Model)
+
+@{
+    //var Model = ViewData["categories"] as TreeCategories;
+}
+
+
+@*@if (Model.Categories != null)
+    {
+
+        var cat = Model.Categories;
+        <ul>
+
+            @foreach (var node in cat)
+            {
+                if (node.ParentID == Model.Seed)
+                {
+                    ViewData["inner"] = new TreeCategories { Seed = node.id, Categories = Model.Categories, SelectedId = Model.SelectedId };
+                    <li>
+                        <a href="?@node.id">@node.Name</a>
+                        @if (node.ParentID != Model.SelectedId && Model.SelectedId != null)
+                        {
+                            @Html.Partial("~/Views/PartialView/_RefineCategory.cshtml", new ViewDataDictionary { { "categories", ViewData["inner"] } })
+                        }
+                    </li>
+                }
+
+            }
+        </ul>
+    }*@
+
+@helper ShowTree(TreeCategories Model)
+{
+    <ul class="nav nav-category">
+
+        @if (Model.ParentCategories != null)
+        {
+            foreach (var parentNote in Model.ParentCategories)
+            {
+                <li>
+                    @Html.ActionLink(parentNote.Name, "Index", "Search", new { category = parentNote.Description }, null)
+                    @if (@parentNote.id != Model.Seed)
+                    {
+                        continue;
+                    }
+                    @*@ShowTree(new TreeCategories { Categories = Model.Categories, Seed = Model.Seed, SelectedId = Model.SelectedId, ParentCategories = Model.ParentCategories.Where(p => p.id != @parentNote.id) })*@
+                    <ul>
+                        @foreach (var node in Model.Categories)
+                        {
+                            if (node.ParentID == Model.Seed)
+                            {
+                                <li>
+                                    @Html.ActionLink(node.Name, "Index", "Search", new { category = node.Description }, null)
+                                    @if (node.ParentID != Model.SelectedId && Model.SelectedId != null && node.id == Model.SelectedId)
+                                    {
+                                        @ShowTree(new TreeCategories { Categories = Model.Categories, Seed = node.id, SelectedId = Model.SelectedId, ParentCategories = null })
+                                    }
+                                </li>
+                            }
+                        }
+
+                    </ul>
+                </li>
+            }
+        }
+        else //no parent
+        {
+            <li>
+                <ul>
+                    @foreach (var node in Model.Categories)
+                    {
+                        if (node.ParentID == Model.Seed)
+                        {
+                            <li>
+                                @Html.ActionLink(node.Name, "Index", "Search", new { category = node.Description }, null)
+                                @if (node.ParentID != Model.SelectedId && Model.SelectedId != null && node.id == Model.SelectedId)
+                                {
+                                    @ShowTree(new TreeCategories { Categories = Model.Categories, Seed = node.id, SelectedId = Model.SelectedId, ParentCategories = null })
+                                }
+                            </li>
+                        }
+                    }
+                </ul>
+            </li>
+        }
+    </ul>
+}
+
+@*<li>
+        <ul>
+            @foreach (var node in Model.Categories)
+            {
+                if (node.ParentID == Model.Seed)
+                {
+                    <li>
+                        <a href="?@node.id">
+                            @if (node.id == Model.SelectedId)
+                            {
+                                <strong>@node.Name</strong>
+                            }
+                            else
+                            {
+                                @node.Name
+                            }
+                        </a>
+                        @if (node.ParentID != Model.SelectedId && Model.SelectedId != null && node.id == Model.SelectedId)
+                        {
+                            @ShowTree(new TreeCategories { Categories = Model.Categories, Seed = node.id, SelectedId = Model.SelectedId, ParentCategories = null })
+                        }
+                    </li>
+                }
+            }
+
+        </ul>
+    </li>*@
+
+@*@if (model.Categories.Count() > 0)
+    {
+
+        <ul class="nav nav-category">
+
+            @if (model.OuterCategories.Count() > 0)
+            {
+                foreach (var parentNote in model.OuterCategories)
+                {
+                    <li>
+                        <a href="@parentNote.id">@parentNote.Name</a>
+                    </li>
+                }
+            }
+
+            <li>
+                <ul>
+                    @foreach (var cat in model.Categories)
+                    {
+                        if (cat.ParentID == model.Seed)
+                        {
+                            ViewData["inner"] = new TreeCategories { Seed = cat.id, Categories = model.Categories };
+
+                            <li>
+                                <a href="@cat.id">@cat.Name</a>
+                                @Html.Partial("~/Views/PartialView/_RefineCategory.cshtml", new ViewDataDictionary { { "categories", ViewData["inner"] } })
+                            </li>
+
+                        }
+                    }
+                </ul>
+
+            </li>
+
+        </ul>
+    }*@

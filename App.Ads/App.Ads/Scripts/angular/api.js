@@ -6,6 +6,9 @@ angular.module('shopAPI', [])
         return {
             emailVerification: function () {
                 return $http.post('/account/verification/sendemail');
+            },
+            changePassword: function (data) {
+                return $http.post('/account/edit/changepassword', data);
             }
         }
     }])
