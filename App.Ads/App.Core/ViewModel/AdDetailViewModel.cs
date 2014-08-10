@@ -28,6 +28,8 @@ namespace App.Core.ViewModel
 
         public Nullable<int> LocationId { get; set; }
 
+        public Nullable<int> CategoryId { get; set; }
+
         public string PostedBy { get; set; }
 
         public int Status { get; set; }
@@ -42,7 +44,11 @@ namespace App.Core.ViewModel
 
         public virtual ICollection<AdImageViewModel> ListingImages { get; set; }
 
+        public virtual RefCategory RefCategory { get; set; }
+
         public virtual UserProfile UserProfile { get; set; }
+
+        public string Action { get; set; }
 
     }
 

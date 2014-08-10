@@ -1,26 +1,16 @@
-﻿@*@model IEnumerable<App.Core.Data.Listing>*@
-@model Tuple<IEnumerable<App.Core.Data.Listing>, App.Core.Models.SearchModel>
+﻿
+@using App.Ads.Code;
+@using App.Ads.Code.Helpers;
+
+@model Tuple<PagedList.IPagedList<App.Ads.ViewModel.SearchViewModel>, App.Core.Models.SearchModel>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
 }
 
-
+@section SearchBox{
 @Html.Partial("~/Views/PartialView/_Searchbox.cshtml", @Model.Item2)
-
-
-<div class="container">
-
-    <br>
-    <div class="row">
-        <div class="col-sm-12">
-            <ol class="breadcrumb">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Vehicles</a></li>
-                <li class="active">Cars</li>
-                <li class="active">4,699 results for <strong>"Cars"</strong> in London</li>
-            </ol>
-        </div>
-    </div>
+}
 
     <div class="row">
         <div class="col-sm-4  hidden-xs">
@@ -452,16 +442,32 @@
             @foreach (var item in Model.Item1)
             {
                 <div class="row  listing-row">
-                    <div class="col-sm-2">
-                        <a href="details.html" class="thumbnail "><img alt="176 * 120" src="css/images/listings/3.jpg"></a>
+                    <div class="col-sm-3">
+
+                        <a href="details.html" class="thumbnail ">
+                            <img src="@ListingHelper.FormatImage(item.CoverImage, "s1")" alt="@item.Title" style="max-height:130px;" onerror="imgError(this, 190, 130)">
+                        </a>
                     </div>
 
-                    <div class="col-sm-10">
-                        <h3><a class="" href="details.html">@Html.DisplayFor(m => item.Title) - <strong>£5,000</strong></a></h3>
-                        <p class="muted">Located in <strong>Richmond, London</strong></p>
-                        <p class="muted">Posted Feb 05, 2014 to <a href="#" class="underline">Cars, Vans &amp; Motorbikes</a></p>
-                        <p>Excellent Condition. Displacement: 2,900 cc Power Output: 250 bhp Drivetrain: 2-WD  Second hand car for sale – 7377790212 Available car – beat – blue color, Honda city –white /black Indica ecs – white Alto – white Nano – red /white...</p>
-                        <p class="ad-description">
+                    <div class="col-sm-9">
+                        <h3>
+                            <a href="ad/@item.id/@item.Title.ToSeoUrl()">@Html.DisplayFor(m => item.Title) - <strong>@ListingHelper.FormatPrice(item.Price)</strong></a>
+                        </h3>
+                        @if(item.RegionZone != null)
+                        {
+                            <p class="muted">Located in <strong>@ListingHelper.FormatLocation(item.RegionZone.Name, item.ParentLocation)</strong></p>
+                        }
+                        <p class="muted">Posted @item.CreateDate.ToString("MMMM d, yyyy") 
+                            to
+                            @if(item.RefCategory != null)
+                            { 
+                                <a href="#" class="underline">@item.RefCategory.Name</a>
+                            }
+                        </p>
+                        <p>
+                            @ListingHelper.FormatDescription(item.Description, 230)
+                        </p>
+                        @*<p class="ad-description">
                             <strong>2006</strong> |
 
                             <strong>98,000 miles</strong> |
@@ -469,7 +475,8 @@
                             <strong>2,696 cc</strong> |
 
                             <strong>Diesel</strong>
-                        </p>
+                        </p>*@
+                        <br />
                         <p>
                             <span class="classified_links pull-right">
                                 <a class="link-info underline" href="#">Share</a>&nbsp;
@@ -483,26 +490,12 @@
             }
 
 
-            <div>
-                <ul class="pagination pull-right">
-                    <li><a href="#">Prev</a></li>
-                    <li class="active">
-                        <a href="#">1</a>
-                    </li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li class="hidden-xs"><a href="#">6</a></li>
-                    <li class="hidden-xs"><a href="#">7</a></li>
-                    <li class="hidden-sm hidden-xs"><a href="#">8</a></li>
-                    <li class="hidden-sm hidden-xs"><a href="#">9</a></li>
-                    <li class="hidden-sm hidden-xs"><a href="#">10</a></li>
-                    <li><a href="#">Next</a></li>
-                </ul>
+            <div class="pull-right">
+                @*Page @(Model.Item1.PageCount < Model.Item1.PageNumber ? 0 : Model.Item1.PageNumber) of @Model.Item1.PageCount*@
+                @Html.PagedListPager(Model.Item1, page => Url.Action("Index",
+                         new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
             </div>
 
         </div>
 
     </div>
-</div>

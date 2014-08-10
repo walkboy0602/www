@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
+using System.Web.Mvc;
 
 namespace App.Ads.Code.Membership
 {
@@ -11,10 +12,9 @@ namespace App.Ads.Code.Membership
     {
         private readonly IUserService usersService;
 
-        public CustomRoleProvider(IUserService service)
+        public CustomRoleProvider()
         {
-            this.usersService = service;
-            //this.usersService = (IUserService)MvcApplication.Container.Resolve(typeof(IUserService), null);
+            this.usersService = DependencyResolver.Current.GetService<IUserService>();
         }
 
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
@@ -67,7 +67,16 @@ namespace App.Ads.Code.Membership
 
         public override bool IsUserInRole(string username, string roleName)
         {
+            //var user = usersService.GetUserProfile(username);
+
+            //if (user == null)
+            //    return false;
+
+            //return user.UserRoles != null && 
+            //    user.UserRoles.Select(u => u.Role).Any(r => r.RoleName == roleName);
+
             throw new NotImplementedException();
+            
         }
 
         public override void RemoveUsersFromRoles(string[] usernames, string[] roleNames)

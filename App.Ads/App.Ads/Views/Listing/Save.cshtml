@@ -1,4 +1,6 @@
 ﻿@using App.Ads.Code.Membership
+
+
 @model App.Core.ViewModel.EditListingViewModel
 
 @{
@@ -12,6 +14,7 @@
 <div class="col-sm-3">
     @Html.Partial("~/Views/PartialView/_sidepanel.cshtml")
 </div>
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -111,7 +114,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Add photos</div>
                 <div class="panel-body">
-                    <iframe id="iPhoto" src="@Url.Action("Image", new { id = Model.id })" width="680" height="420" frameborder="0" scrolling="no" ></iframe>
+                    <iframe id="iPhoto" src="@Url.Action("Image", new { ListingId = Model.id })" width="670" height="420" frameborder="0" scrolling="no"></iframe>
                 </div>
             </div>
             <div class="panel panel-default">
@@ -181,30 +184,20 @@
                 </div>
             </div>
 
-            <div class="panel panel-default">
-                <div class="panel-heading">Complete ad</div>
-                <div class="panel-body">
-                    <div class="checkbox">
-                        <label>
-                            @Html.CheckBoxFor(m => m.AgreesWithTerms)
-                            I agree to the Terms and Conditions and Privacy Policy of ohMyBazaar.com Malaysia.
-                        </label>
-                    </div>
-                    <p>@Html.ValidationMessageFor(m => m.AgreesWithTerms)</p>
-                    <br>
-                    <div class="btn-group">
-                        <button type="submit" class="btn btn-glow">Save draft</button>
-                    </div>
-                    <div class="btn-group">
-                        <button type="submit" class="btn btn-glow hidden-xs">Preview ad</button>
-                    </div>
-                    <input type="submit" class="btn-glow success btn-finish pull-right" value="Publish ad" />
+            <div class="pull-right">
+                <div class="btn-group">
+                    <button type="submit" class="btn-glow btn-finish">Save for later</button>
+                </div>
+                <div class="btn-group">
+                    <input type="submit" class="btn-glow primary btn-finish" value="Continue" />
                 </div>
             </div>
+
+
+
         </div>
     </div>
 }
-
 
 @section Scripts {
     @Scripts.Render("~/bundles/form")

@@ -16,7 +16,9 @@ namespace App.Core.Data
     {
         public UserProfile()
         {
+            this.UserRoles = new HashSet<UserRole>();
             this.Listings = new HashSet<Listing>();
+            this.ListingLogs = new HashSet<ListingLog>();
         }
     
         public int UserId { get; set; }
@@ -28,6 +30,8 @@ namespace App.Core.Data
         public string IdentificationFile { get; set; }
         public string Salutation { get; set; }
     
+        public virtual ICollection<UserRole> UserRoles { get; set; }
         public virtual ICollection<Listing> Listings { get; set; }
+        public virtual ICollection<ListingLog> ListingLogs { get; set; }
     }
 }

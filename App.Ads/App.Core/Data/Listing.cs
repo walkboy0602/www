@@ -16,9 +16,11 @@ namespace App.Core.Data
     {
         public Listing()
         {
+            this.Enquiries = new HashSet<Enquiry>();
+            this.ListingPurchaseLogs = new HashSet<ListingPurchaseLog>();
             this.ListingDealMethods = new HashSet<ListingDealMethod>();
             this.ListingImages = new HashSet<ListingImage>();
-            this.Enquiries = new HashSet<Enquiry>();
+            this.ListingLogs = new HashSet<ListingLog>();
         }
     
         public int id { get; set; }
@@ -34,12 +36,21 @@ namespace App.Core.Data
         public Nullable<int> CreateBy { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> LastUpdate { get; set; }
+        public bool IsTNCAccept { get; set; }
+        public bool IsComplete { get; set; }
+        public Nullable<System.DateTime> PostedDate { get; set; }
+        public Nullable<System.DateTime> PostingEndDate { get; set; }
+        public Nullable<int> Duration { get; set; }
+        public string LastAction { get; set; }
+        public Nullable<int> LastActionBy { get; set; }
     
-        public virtual RefCategory RefCategory { get; set; }
+        public virtual ICollection<Enquiry> Enquiries { get; set; }
         public virtual RegionZone RegionZone { get; set; }
+        public virtual ICollection<ListingPurchaseLog> ListingPurchaseLogs { get; set; }
+        public virtual RefCategory RefCategory { get; set; }
         public virtual ICollection<ListingDealMethod> ListingDealMethods { get; set; }
         public virtual ICollection<ListingImage> ListingImages { get; set; }
         public virtual UserProfile UserProfile { get; set; }
-        public virtual ICollection<Enquiry> Enquiries { get; set; }
+        public virtual ICollection<ListingLog> ListingLogs { get; set; }
     }
 }

@@ -1,0 +1,74 @@
+﻿@model IEnumerable<App.Core.Data.Listing>
+
+
+@using App.Ads.Code.Helpers;
+
+@{
+    ViewBag.Title = "Manage Listing";
+}
+
+<div class="col-sm-12">
+
+    <div class="table-wrapper products-table section">
+        <div class="row head">
+            <div class="col-md-12">
+                <h4>Products</h4>
+            </div>
+        </div>
+
+        <div class="row filter-block">
+            <div class="pull-right">
+                <div class="ui-select">
+                    <select>
+                        <option>Filter users</option>
+                        <option>Signed last 30 days</option>
+                        <option>Active users</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="col-md-5">
+                            <input type="checkbox">
+                            Title
+                        </th>
+                        <th class="col-md-3">
+                            Status
+                        </th>
+                        <th class="col-md-2">
+                            Posted By
+                        </th>
+                        <th class="col-md-2">
+                            Last Update
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <input type="checkbox">
+                                <a href="/ad/@item.id/@item.Title.ToSeoUrl()?a=appvl" target="_blank" class="name">@item.Title</a>
+                            </td>
+                            <td>
+                                <span class="@ListingHelper.FormatListingStatusCss(item.Status)">@Enum.GetName(typeof(App.Core.ViewModel.XtEnum.ListingStatus), item.Status)</span>
+                            </td>
+                            <td>
+                                <span>@item.UserProfile.LastName</span>
+                            </td>
+                            <td>
+                                <span>@item.LastUpdate</span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

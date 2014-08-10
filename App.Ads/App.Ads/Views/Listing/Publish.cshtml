@@ -1,0 +1,90 @@
+﻿@model App.Core.ViewModel.PublishListingViewModel
+@using App.Core.Data;
+
+@{
+    ViewBag.Title = "My Ad - OhMyBazaar.com";
+}
+
+@section Style{
+    @Styles.Render("~/Content/css/form")
+}
+
+<div class="col-sm-3">
+    @Html.Partial("~/Views/PartialView/_sidepanel.cshtml")
+</div>
+
+
+@using (Html.BeginForm("Publish", "Listing", new { id = @ViewBag.ListingId }, FormMethod.Post, null))
+{
+    @Html.AntiForgeryToken()
+    <div class="col-sm-9">
+        @Html.ValidationSummary()
+        <div class="form-vertical">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Select your Ad duration</div>
+                <div class="panel-body">
+                    <div class="control-group">
+                        <div class="controls col-sm-5">
+                            @Html.DropDownListFor(m => m.DurationCode, ViewBag.DurationList as IEnumerable<SelectListItem>, "", new { id = "ddlDuration", @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.DurationCode)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Outstanding your Ad (Optional)</div>
+                <div class="panel-body">
+                    <div class="control-group">
+                        <div class="controls col-sm-5">
+                            <label class="radio">
+                                @Html.RadioButtonFor(m => m.FeatureCode, "", new { @checked = "checked" }) None
+                            </label>
+                            @foreach (ListingType listingType in ViewBag.FeatureList)
+                            {
+                                <label class="radio">
+                                    @Html.RadioButtonFor(m => m.FeatureCode, listingType.Code) @listingType.Name (RM @listingType.Fees)
+                                </label>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Term and Condition</div>
+                <div class="panel-body">
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(m => m.AgreesWithTerms)
+                            I agree to the Terms and Conditions and Privacy Policy of ohMyBazaar.com Malaysia.
+                        </label>
+                    </div>
+                    <p>@Html.ValidationMessageFor(m => m.AgreesWithTerms)</p>
+                    <br>
+                    <div class="btn-group">
+                        @Html.ActionLink("Go Back", "Save", new { id = ViewBag.ListingId }, new { @class = "btn-flat primary" })
+                    </div>
+                    <div class="btn-group">
+                        <button type="submit" class="btn-flat primary">Preview ad</button>
+                    </div>
+                    <input type="submit" class="btn-glow success btn-finish pull-right" value="Publish ad" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/form")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#ddlDuration').select2({
+                placeholder: "Select a duration"
+            });
+        });
+    </script>
+}

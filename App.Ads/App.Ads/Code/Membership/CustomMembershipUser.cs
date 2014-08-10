@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Web.Security;
 using App.Core.ViewModel;
+using App.Core.Data;
+using System.Collections.Generic;
 
 namespace App.Ads.Code.Membership
 {
@@ -10,6 +12,8 @@ namespace App.Ads.Code.Membership
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public bool IsEmailConfirmed { get; set; }
+        public string[] roles { get; set; }
+        public ICollection<UserRole> UserRoles { get; set; }
 
         public CustomMembershipUser(App.Core.Data.Membership user)
             : base("CustomMembershipProvider", 
@@ -30,6 +34,7 @@ namespace App.Ads.Code.Membership
             FirstName = user.UserProfile.FirstName;
             LastName = user.UserProfile.LastName;
             IsEmailConfirmed = user.IsEmailConfirmed;
+            UserRoles = user.UserRoles;
         }
     }
 }

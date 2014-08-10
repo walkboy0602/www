@@ -14,6 +14,11 @@ namespace App.Core.Data
     
     public partial class Membership
     {
+        public Membership()
+        {
+            this.UserRoles = new HashSet<UserRole>();
+        }
+    
         public int UserId { get; set; }
         public System.DateTime CreateDate { get; set; }
         public string EmailConfirmationToken { get; set; }
@@ -32,5 +37,7 @@ namespace App.Core.Data
         public Nullable<System.DateTime> LastPasswordChangedDate { get; set; }
         public Nullable<System.DateTime> LastLockoutDate { get; set; }
         public string Comment { get; set; }
+    
+        public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

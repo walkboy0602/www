@@ -1,0 +1,66 @@
+﻿@model App.Ads.Areas.Admin.Models.ActionModel
+
+<div class="pull-right">
+    <button data-toggle="modal" data-target="#approveModal" class="btn-flat primary" type="button">APPROVE</button>
+    <button data-toggle="modal" data-target="#rejectModal" class="btn-flat danger" type="button">REJECT</button>
+</div>
+
+
+<div class="modal fade" id="approveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+                <p class="hidden-xs"></p>
+            </div>
+            <div class="modal-body" data-ng-show="alert.display">
+                <div class="alert alert-{{alert.type}}">
+                    <span data-ng-bind-html="alert.message"></span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-ng-controller="RejectCtrl">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+                <p class="hidden-xs"></p>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-{{alert.type}}" data-ng-show="alert.display">
+                    <span data-ng-bind-html="alert.message"></span>
+                </div>
+                <form id="rejectForm" class="form-vertical">
+                    @Html.HiddenFor(m => m.ListingId)
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Select a Reason</label>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            @Html.DropDownListFor(m => m.RejectModel.RejectCode, ViewBag.ReasonList as IEnumerable<SelectListItem>, "", new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.RejectModel.RejectCode)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pull-right">
+                                    <button class="btn-flat success">REJECT</button>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

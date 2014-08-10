@@ -13,16 +13,26 @@ namespace App.Core.Services
     public interface IRegionService
     {
         IList<SelectListItem> GetRegionZone(int? selected = null);
+        RegionZone GetRegionZoneById(int? id);
+
     }
 
     public class RegionService : IRegionService
     {
-
         private AdsDBEntities db;
 
         public RegionService()
         {
             this.db = new AdsDBEntities();
+        }
+
+        RegionZone IRegionService.GetRegionZoneById(int? id)
+        {
+            var regionZone = from r in db.RegionZones
+                             where r.id == id
+                             select r;
+
+            return regionZone.FirstOrDefault();
         }
 
         IList<SelectListItem> IRegionService.GetRegionZone(int? selected = null)

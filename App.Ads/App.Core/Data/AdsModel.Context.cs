@@ -31,10 +31,16 @@ namespace App.Core.Data
         public virtual DbSet<RefCategory> RefCategories { get; set; }
         public virtual DbSet<Region> Regions { get; set; }
         public virtual DbSet<RegionZone> RegionZones { get; set; }
-        public virtual DbSet<Listing> Listings { get; set; }
         public virtual DbSet<ListingDealMethod> ListingDealMethods { get; set; }
         public virtual DbSet<ListingImage> ListingImages { get; set; }
         public virtual DbSet<Enquiry> Enquiries { get; set; }
         public virtual DbSet<z_RefCategory> z_RefCategory { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
+        public virtual DbSet<ListingPurchaseLog> ListingPurchaseLogs { get; set; }
+        public virtual DbSet<ListingType> ListingTypes { get; set; }
+        public virtual DbSet<Listing> Listings { get; set; }
+        public virtual DbSet<RefTable> RefTables { get; set; }
+        public virtual DbSet<ListingLog> ListingLogs { get; set; }
     }
 }

@@ -1,11 +1,21 @@
 ﻿using System;
 using System.Security.Principal;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace App.Ads.Code.Membership
 {
     public class CustomPrincipal: IPrincipal
     {
         #region Implementation of IPrincipal
+
+        /// <summary>
+        /// Gets the identity of the current principal.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="T:System.Security.Principal.IIdentity"/> object associated with the current principal.
+        /// </returns>
+        public IIdentity Identity { get; private set; }
 
         /// <summary>
         /// Determines whether the current principal belongs to the specified role.
@@ -16,17 +26,18 @@ namespace App.Ads.Code.Membership
         /// <param name="role">The name of the role for which to check membership. </param>
         public bool IsInRole(string role)
         {
-            return Identity is CustomIdentity &&
-                   string.Compare(role, ((CustomIdentity)Identity).UserRoleName, StringComparison.CurrentCultureIgnoreCase) == 0;
-        }
+            string[] userRoles = ((CustomIdentity)Identity).UserRoles.Select(u => u.Role).Select(r => r.RoleName).ToArray();
 
-        /// <summary>
-        /// Gets the identity of the current principal.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="T:System.Security.Principal.IIdentity"/> object associated with the current principal.
-        /// </returns>
-        public IIdentity Identity { get; private set; }
+            if (userRoles.Any(r => role.Contains(r)))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
 
         #endregion
 

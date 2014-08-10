@@ -52,6 +52,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="MvcSiteMapProvider">
+      <HintPath>..\packages\MvcSiteMapProvider.MVC5.Core.4.6.6\lib\net45\MvcSiteMapProvider.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
@@ -92,6 +95,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WebActivatorEx">
+      <HintPath>..\packages\WebActivatorEx.2.0.1\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\AdsModel.Context.cs">
@@ -125,10 +131,22 @@
     <Compile Include="Data\ListingImage.cs">
       <DependentUpon>AdsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\ListingLog.cs">
+      <DependentUpon>AdsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ListingPurchaseLog.cs">
+      <DependentUpon>AdsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ListingType.cs">
+      <DependentUpon>AdsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\Membership.cs">
       <DependentUpon>AdsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\RefCategory.cs">
+      <DependentUpon>AdsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\RefTable.cs">
       <DependentUpon>AdsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Region.cs">
@@ -137,7 +155,13 @@
     <Compile Include="Data\RegionZone.cs">
       <DependentUpon>AdsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\Role.cs">
+      <DependentUpon>AdsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\UserProfile.cs">
+      <DependentUpon>AdsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\UserRole.cs">
       <DependentUpon>AdsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\z_RefCategory.cs">
@@ -145,12 +169,15 @@
     </Compile>
     <Compile Include="Models\EmailHostModel.cs" />
     <Compile Include="Models\EnquiryModels.cs" />
+    <Compile Include="Models\PartialModel.cs" />
     <Compile Include="Models\RefCategory.cs" />
     <Compile Include="Models\S3AssetsModel.cs" />
     <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Services\CommonService.cs" />
     <Compile Include="Services\EnquiryService.cs" />
     <Compile Include="Services\ImageService.cs" />
+    <Compile Include="Services\PaymentService.cs" />
+    <Compile Include="Services\ReferenceService.cs" />
     <Compile Include="Services\SearchService.cs" />
     <Compile Include="Utility\CustomAnnotation.cs" />
     <Compile Include="Services\AWSService.cs" />
@@ -171,6 +198,7 @@
     <Compile Include="Services\UserService.cs" />
     <Compile Include="ViewModel\CategoryGroup.cs" />
     <Compile Include="ViewModel\ListingImageViewModel.cs" />
+    <Compile Include="ViewModel\PublishListingViewModel.cs" />
     <Compile Include="ViewModel\UserMembership.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -194,6 +222,8 @@
       <DependentUpon>AdsModel.edmx</DependentUpon>
       <LastGenOutput>AdsModel.cs</LastGenOutput>
     </None>
+    <None Include="Mvc.sitemap" />
+    <None Include="MvcSiteMapSchema.xsd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

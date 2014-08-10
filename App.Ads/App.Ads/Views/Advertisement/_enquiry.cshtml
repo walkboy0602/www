@@ -1,11 +1,8 @@
-﻿@*@model App.Core.ViewModel.AdDetailViewModel*@
-@*@model Tuple<App.Core.ViewModel.AdDetailViewModel, App.Core.Models.SendEnquiryModel>*@
-@using Recaptcha.Web.Mvc;
+﻿@using Recaptcha.Web.Mvc;
 
 @model App.Core.Models.SendEnquiryModel
 
-@using (Html.BeginForm())
-{
+<form id="enquiryForm">
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-ng-controller="EnquiryCtrl">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -75,4 +72,4 @@
         </div>
     </div>
     <!-- Modal -->
-}
+</form>

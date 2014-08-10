@@ -21,9 +21,7 @@ namespace App.Core.ViewModel
 
         public int Status { get; set; }
 
-        public string StatusText { get; set; }
-
-        public string StatusCss { get; set; }
+        public string StatusTooltip { get; set; }
 
         private string ReplaceHTML(string str)
         {

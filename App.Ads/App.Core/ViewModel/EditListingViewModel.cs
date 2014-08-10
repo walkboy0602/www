@@ -15,7 +15,9 @@ namespace App.Core.ViewModel
     {
         public int id { get; set; }
 
-        [Required]
+        public string Mode { get; set; }
+
+        [Required(ErrorMessage="Please select a Category")]
         public int CategoryId { get; set; }
 
         [Required]
@@ -49,8 +51,6 @@ namespace App.Core.ViewModel
 
         public bool COD { get; set; }
 
-        [BooleanRequired(ErrorMessage = "Please agree to the Terms & Conditions and Privacy Policy.")]
-        public bool AgreesWithTerms { get; set; }
 
         [StringLength(50, ErrorMessage = "Maximum {1} charaters.")]
         [RequiredIf(DependentProperty = "COD", TargetValue = true, ErrorMessage = "Please fill in the detail.")]
@@ -70,6 +70,10 @@ namespace App.Core.ViewModel
 
         public string CreateDate { get; set; }
 
+        public string LastAction = "Edit";
+
         public virtual ICollection<ListingDealMethod> ListingDealMethods { get; set; }
+
+
     }
 }

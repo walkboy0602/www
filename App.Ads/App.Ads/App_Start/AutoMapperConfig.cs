@@ -29,6 +29,8 @@ namespace App.Ads
                 Mapper.CreateMap<ListingImage, AdImageViewModel>();
                 Mapper.CreateMap<EditImageViewModel, ListingImage>();
 
+                Mapper.CreateMap<Listing, SearchViewModel>();
+
 
                 // UserProfile
                 Mapper.CreateMap<UserProfile, EditUserProfile>();

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Security.Principal;
 using System.Web.Security;
+using System.Collections.Generic;
+using App.Core.Data;
 
 namespace App.Ads.Code.Membership
 {
@@ -21,9 +23,7 @@ namespace App.Ads.Code.Membership
 
         public string Email { get; set; }
 
-        public int UserRoleId { get; set; }
-
-        public string UserRoleName { get; set; }
+        public ICollection<UserRole> UserRoles { get; set; }
 
         #endregion
 
@@ -63,6 +63,10 @@ namespace App.Ads.Code.Membership
 
         #region Constructor
 
+        /// <summary>
+        /// Save User Profile into Identity
+        /// </summary>
+        /// <param name="identity"></param>
         public CustomIdentity(IIdentity identity)
         {
             Identity = identity;
@@ -75,6 +79,7 @@ namespace App.Ads.Code.Membership
                 LastName = customMembershipUser.LastName;
                 Email = customMembershipUser.Email;
                 isEmailConfirmed = customMembershipUser.IsEmailConfirmed;
+                UserRoles = customMembershipUser.UserRoles;
             }
         }
 

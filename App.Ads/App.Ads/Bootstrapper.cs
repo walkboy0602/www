@@ -42,6 +42,8 @@ namespace App.Ads
             container.RegisterType<IEnquiryService, EnquiryService>();
             container.RegisterType<ISearchService, SearchService>();
             container.RegisterType<IAccountService, AccountService>();
+            container.RegisterType<IPaymentService, PaymentService>();
+            container.RegisterType<IReferenceService, ReferenceService>();
             container.RegisterType<SmtpClient>(new InjectionConstructor());
 
 

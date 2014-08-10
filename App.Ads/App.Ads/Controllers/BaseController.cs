@@ -9,15 +9,20 @@ namespace App.Ads.Controllers
 {
     public class BaseController : Controller
     {
-        public CustomIdentity identity;
+        public CustomPrincipal CurrentUser;
 
         protected override void OnAuthorization(AuthorizationContext filterContext)
         {
             base.OnAuthorization(filterContext);
             if (User.Identity.IsAuthenticated)
             {
-                identity = User.ToCustomPrincipal().CustomIdentity;
+                CurrentUser = User.ToCustomPrincipal();
+            }
+            else
+            {
+                CurrentUser = null;
             }
         }
+
     }
 }

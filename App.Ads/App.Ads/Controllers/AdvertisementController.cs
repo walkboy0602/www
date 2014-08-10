@@ -11,6 +11,9 @@ using App.Core.ViewModel;
 using AutoMapper;
 using Recaptcha.Web;
 using Recaptcha.Web.Mvc;
+using App.Ads.Code.Helpers;
+using MvcSiteMapProvider;
+using MvcSiteMapProvider.Web.Mvc.Filters;
 
 namespace App.Ads.Controllers
 {
@@ -21,15 +24,37 @@ namespace App.Ads.Controllers
         private const string S3Domain = "http://assets.monsteritem.com/";
 
         // GET: Ad
-        public ActionResult Index(int aid)
+        //[MvcSiteMapNode(Title = "Advertisement Details", PreservedRouteParameters = "id")]
+        //[SiteMapTitle("CategoryId", Target = AttributeTarget.ParentNode)]
+        [HttpGet]
+        public ActionResult Index(int id, string adTitle, string a)
         {
-            var listing = db.Listings.Find(aid);
+            var listing = db.Listings.Find(id);
 
             var model = Mapper.Map<Listing, AdDetailViewModel>(listing);
+
+            if (!string.IsNullOrEmpty(a))
+            {
+                model.Action = a;
+            }
+
+            string expectedTitle = model.Title.ToSeoUrl();
+            string actualName = (adTitle ?? "").ToLower();
+
+            if (expectedTitle != actualName)
+            {
+                return RedirectToActionPermanent("Index", "Advertisement", new { id = model.id, adTitle = expectedTitle });
+            }
 
             if (model.LocationParentId != 0)
             {
                 model.ParentLocation = db.RegionZones.FirstOrDefault(x => x.id == model.LocationParentId).Name;
+            }
+
+            var node = SiteMaps.Current.CurrentNode;
+            if (node != null && node.ParentNode != null)
+            {
+                node.Title = listing.Title;
             }
 
             int dayDiff = (DateTime.Now - model.CreateDate).Days;
@@ -70,5 +95,9 @@ namespace App.Ads.Controllers
 
             return View(model);
         }
+
+
     }
+
+
 }

@@ -11,18 +11,31 @@
         <EntityTypeShape EntityType="AdsDBModel.RefCategory" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="AdsDBModel.Region" Width="1.5" PointX="2.75" PointY="6.375" />
         <EntityTypeShape EntityType="AdsDBModel.RegionZone" Width="1.5" PointX="5.5" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="AdsDBModel.Listing" Width="1.5" PointX="7.75" PointY="3.25" />
-        <AssociationConnector Association="AdsDBModel.FK__Listing__Categor__5BE2A6F2" />
-        <AssociationConnector Association="AdsDBModel.FK__Listing__Locatio__5CD6CB2B" />
         <EntityTypeShape EntityType="AdsDBModel.ListingDealMethod" Width="1.5" PointX="10" PointY="3.875" />
         <EntityTypeShape EntityType="AdsDBModel.ListingImage" Width="1.5" PointX="10" PointY="6.375" />
-        <AssociationConnector Association="AdsDBModel.FK_Listing_DealMethod1" />
-        <AssociationConnector Association="AdsDBModel.FK_Listing_ListingID" />
-        <AssociationConnector Association="AdsDBModel.FS_Listing_UserId" />
         <EntityTypeShape EntityType="AdsDBModel.Enquiry" Width="1.5" PointX="10" PointY="0.75" />
-        <AssociationConnector Association="AdsDBModel.FK_Enquiry_ListingId" />
         <EntityTypeShape EntityType="AdsDBModel.z_RefCategory" Width="1.5" PointX="0.75" PointY="9.75" />
         <AssociationConnector Association="AdsDBModel.FK_RefCategory_ParentId" />
+        <EntityTypeShape EntityType="AdsDBModel.Role" Width="1.5" PointX="12.25" PointY="3.125" />
+        <EntityTypeShape EntityType="AdsDBModel.UserRole" Width="1.5" PointX="7.25" PointY="0.5" />
+        <AssociationConnector Association="AdsDBModel.FK_UserRoles_Users" />
+        <AssociationConnector Association="AdsDBModel.FK_UserRoles_Roles" />
+        <AssociationConnector Association="AdsDBModel.FK_UserRoles_UserProfile" />
+        <EntityTypeShape EntityType="AdsDBModel.ListingPurchaseLog" Width="1.5" PointX="13" PointY="6.5" />
+        <EntityTypeShape EntityType="AdsDBModel.ListingType" Width="1.5" PointX="10.75" PointY="10.625" />
+        <AssociationConnector Association="AdsDBModel.FK__ListingPu__Listi__6166761E" />
+        <EntityTypeShape EntityType="AdsDBModel.Listing" Width="1.5" PointX="7.75" PointY="4.375" />
+        <AssociationConnector Association="AdsDBModel.FK_Enquiry_ListingId" />
+        <AssociationConnector Association="AdsDBModel.FK__Listing__Locatio__5CD6CB2B" />
+        <AssociationConnector Association="AdsDBModel.FK__ListingPu__Listi__607251E5" />
+        <AssociationConnector Association="AdsDBModel.FK_Listing_CategoryId" />
+        <AssociationConnector Association="AdsDBModel.FK_Listing_DealMethod" />
+        <AssociationConnector Association="AdsDBModel.FK_Listing_ListingID" />
+        <AssociationConnector Association="AdsDBModel.FS_Listing_UserId" />
+        <EntityTypeShape EntityType="AdsDBModel.RefTable" Width="1.5" PointX="3.375" PointY="10.75" />
+        <EntityTypeShape EntityType="AdsDBModel.ListingLog" Width="1.5" PointX="13" PointY="0.75" />
+        <AssociationConnector Association="AdsDBModel.FK__ListingLo__Listi__7D0E9093" />
+        <AssociationConnector Association="AdsDBModel.FK__ListingLo__Actio__7E02B4CC" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

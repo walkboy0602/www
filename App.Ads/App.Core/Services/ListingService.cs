@@ -16,8 +16,11 @@ namespace App.Core.Services
         int CreateNew(int UserId);
         int GetNewListing(int UserId);
         Listing GetListingById(int ListingId, int UserId = 0);
-        List<Listing> GetListings(int UserId);
+        IEnumerable<Listing> GetAll();
+        IEnumerable<Listing> GetAllByUserId(int UserId);
         IList<SelectListItem> GetContactMethods(string selected = null);
+
+        void InsertLog(ListingLog listingLog);
 
         void Save(Listing listing);
     }
@@ -34,7 +37,6 @@ namespace App.Core.Services
         void IListingService.Save(Listing listing)
         {
             listing.LastUpdate = DateTime.Now;
-            listing.Status = (int)XtEnum.ListingStatus.Pending;
 
             db.SaveChanges();
         }
@@ -76,10 +78,15 @@ namespace App.Core.Services
             return listing.FirstOrDefault();
         }
 
-        List<Listing> IListingService.GetListings(int UserId)
+        IEnumerable<Listing> IListingService.GetAll()
+        {
+            return db.Listings;
+        }
+
+        IEnumerable<Listing> IListingService.GetAllByUserId(int UserId)
         {
             var listing = db.Listings
-                            .Where(l => l.CreateBy == UserId).ToList();
+                            .Where(l => l.CreateBy == UserId);
 
             return listing;
         }
@@ -104,5 +111,13 @@ namespace App.Core.Services
 
             return list;
         }
+
+
+        void IListingService.InsertLog(ListingLog listingLog)
+        {
+            db.ListingLogs.Add(listingLog);
+            db.SaveChanges();
+        }
+
     }
 }

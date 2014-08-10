@@ -5,8 +5,9 @@
             <div class="panel panel-default">
                 <div class="panel-heading">My account</div>
                 <div class="panel-body">
-                    @using (Html.BeginForm("Create", "Listing", FormMethod.Post, new { id = "createForm", area = "" }))
-                    {     
+                    @using (Html.BeginForm("Create", "Listing", null, FormMethod.Post, new { id = "createForm", area = "" }))
+                    {
+                      
                         @Html.AntiForgeryToken()
                         <ul class="nav">
                             <li>
@@ -19,7 +20,7 @@
                                 @Html.ActionLink("My account", "index", "edit", new { area = "account" }, null)
                             </li>
                             <li>
-                                @Html.ActionLink("Manage ads", "index", "listing", new { area = "" }, null)
+                                @Html.ActionLink("Manage ads", "manage", "listing", new { area = "" }, null)
                             </li>
                             <li>
                                 <a href="javascript:document.getElementById('createForm').submit()">Create new ad</a>

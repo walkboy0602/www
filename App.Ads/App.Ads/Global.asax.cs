@@ -38,5 +38,14 @@ namespace App.Ads
                 HttpContext.Current.User = principal;
             }
         }
+
+        protected void Application_EndRequest(object sender, EventArgs e)
+        {
+            //if (Response.StatusCode == 401)
+            //{
+            //    Response.ClearContent();
+            //    Response.RedirectToRoute("ErrorHandler", (RouteTable.Routes["ErrorHandler"] as Route).Defaults);
+            //}
+        }
     }
 }

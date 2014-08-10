@@ -27,6 +27,9 @@ namespace App.Core.Services
         App.Core.Data.Membership GetMembership(int userId);
         App.Core.Data.Membership GetMembershipByConfirmToken(string token, bool withUserProfile);
 
+        // UserRoles
+
+
         // Emails
         void SendAccountActivationMail(string email);
 

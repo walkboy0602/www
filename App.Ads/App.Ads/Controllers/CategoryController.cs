@@ -8,9 +8,11 @@ using System.Web;
 using System.Web.Mvc;
 using App.Core.Data;
 using App.Core.Services;
+using App.Ads.Code.Security;
 
 namespace App.Ads.Controllers
 {
+    [UserRoleAuthorize(Roles = "SuperAdmin, Admin")]
     public class CategoryController : Controller
     {
         private AdsDBEntities db = new AdsDBEntities();

@@ -34,7 +34,7 @@ namespace App.Ads.Areas.Account.Controllers
         {
             ViewBag.Salutation = commonService.GetSalutationSelectList();
 
-            var userProfile = userService.GetUserProfile(base.identity.UserId);
+            var userProfile = userService.GetUserProfile(CurrentUser.CustomIdentity.UserId);
 
             var model = new AccountEditViewModel()
             {
@@ -47,11 +47,11 @@ namespace App.Ads.Areas.Account.Controllers
         [HttpPost]
         public ActionResult ChangePassword(AccountEditViewModel model)
         {
-            model.ChangePassword.UserId = base.identity.UserId;
+            model.ChangePassword.UserId = CurrentUser.CustomIdentity.UserId;
 
             if (accountService.ChangePassword(model.ChangePassword))
             {
-                return RedirectToAction("Index", "Listing", new { area = "" });
+                return RedirectToAction("Manage", "Listing", new { area = "" });
             }
 
             ViewBag.Salutation = commonService.GetSalutationSelectList();
@@ -64,7 +64,7 @@ namespace App.Ads.Areas.Account.Controllers
         [HttpPost]
         public ActionResult SaveDetail(AccountEditViewModel model)
         {
-            var userProfile = userService.GetUserProfile(identity.UserId);
+            var userProfile = userService.GetUserProfile(CurrentUser.CustomIdentity.UserId);
 
             if (userProfile == null)
             {
@@ -77,7 +77,7 @@ namespace App.Ads.Areas.Account.Controllers
 
                 userService.Save(userProfile);
 
-                return RedirectToAction("Index", "Listing", new { area = "" });
+                return RedirectToAction("Manage", "Listing", new { area = "" });
             }
 
             ViewBag.Salutation = commonService.GetSalutationSelectList();

@@ -29,6 +29,10 @@ namespace App.Ads
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jqHead").Include(
+                "~/Scripts/common/holder.js"
+            ));
+
             //plugin
             bundles.Add(new ScriptBundle("~/bundles/plugin").Include(
                 "~/Scripts/common/global.js",
@@ -50,6 +54,7 @@ namespace App.Ads
 
             //Angular
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
+                 "~/Scripts/kendo/kendo.web.js",
                  "~/Scripts/angular/1.2.9/angular.js",
                  "~/Scripts/angular/1.2.9/angular-resource.js",
                  "~/Scripts/angular/1.2.9/angular-route.js",
@@ -63,8 +68,10 @@ namespace App.Ads
                  "~/Scripts/angular/listing.js",
                  "~/Scripts/angular/enquiry.js",
                  "~/Scripts/angular/account.js",
+                 "~/Scripts/angular/approverAction.js",
                  "~/Scripts/angular/loading-bar.js"
                  ));
+
 
             //AngularStrap
             bundles.Add(new ScriptBundle("~/bundles/angularstrap").Include(
@@ -116,6 +123,8 @@ namespace App.Ads
 
             //Form CSS
             bundles.Add(new StyleBundle("~/Content/css/form").Include(
+                            "~/Content/kendo/kendo.common-bootstrap.min.css",
+                            "~/Content/kendo/kendo.bootstrap.min.css",
                             "~/Content/libraries/select2.css",
                             "~/Content/libraries/select2-bootstrap.css",
                             "~/Content/themes/bazaar/gallery.css",
@@ -124,7 +133,7 @@ namespace App.Ads
                 ));
 
             #endregion
-
+            bundles.IgnoreList.Clear();
             BundleTable.EnableOptimizations = false;
         }
     }

@@ -10,7 +10,7 @@ namespace App.Core.Services
 {
     public interface ISearchService
     {
-        IEnumerable<Listing> SearchAds(SearchModel searchModel);
+        IEnumerable<Listing> Get(SearchModel searchModel);
 
         IEnumerable<Listing> SearchByCategory(int category);
     }
@@ -26,7 +26,7 @@ namespace App.Core.Services
             this.categoryService = categoryService;
         }
 
-        IEnumerable<Listing> ISearchService.SearchAds(SearchModel searchModel)
+        IEnumerable<Listing> ISearchService.Get(SearchModel searchModel)
         {
             var listing = from l in db.Listings
                           select l;

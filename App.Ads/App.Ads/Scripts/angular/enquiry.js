@@ -2,7 +2,7 @@
 function EnquiryCtrl($scope, EnquiryFactory, cfpLoadingBar) {
 
 
-    $('form').submit(function () {
+    $('#enquiryForm').submit(function () {
         if ($(this).valid()) {
             $scope.isSending = true;
             cfpLoadingBar.start();

@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "My Ad - OhMyBazaar.com";
+}
+
+@section Style{
+    @Styles.Render("~/Content/css/form")
+}
+
+<div class="col-sm-3">
+    @Html.Partial("~/Views/PartialView/_sidepanel.cshtml")
+</div>
+
+<div class="col-sm-9">
+    <div class="well">
+        <div class="row ">
+            <div class="col-sm-2">
+                <img src="http://templates.expresspixel.com/bootlistings/css/images/icons/Crest.png" width="45">
+            </div>
+            <div class="col-sm-10">
+                <h4>@TempData["Message"]</h4>
+            </div>
+        </div>
+    </div>
+</div>

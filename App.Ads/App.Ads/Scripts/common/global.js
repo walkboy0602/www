@@ -4,6 +4,15 @@
 }(jQuery));
 
 
+//Handling broken image
+function imgError(image, width, height) {
+    image.onerror = "";
+    size = width + "x" + height;
+    image.src = "holder.js/" + size + "/text-NO IMAGE AVAILABLE";
+    Holder.add_image("", image.src).run();
+    return true;
+}
+
 $(document).ready(function () {
     //fancybox
     $(".fancybox").fancybox({
@@ -41,4 +50,8 @@ $(document).ready(function () {
             media: {}
         }
     });
+
+    $('img.lazy').each(function () {
+        $(this).loadImage();
+    })
 });

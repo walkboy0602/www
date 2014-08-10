@@ -11,15 +11,15 @@ namespace App.Core.Data
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class RefCategory
     {
         public RefCategory()
         {
-            this.Listings = new HashSet<Listing>();
             this.SubCategories = new HashSet<RefCategory>();
+            this.Listings = new HashSet<Listing>();
         }
-
+    
         public int id { get; set; }
         public string Name { get; set; }
         public Nullable<int> ParentID { get; set; }
@@ -28,10 +28,9 @@ namespace App.Core.Data
         public string Description { get; set; }
         public Nullable<int> Sort { get; set; }
         public Nullable<bool> isActive { get; set; }
-
-        public virtual ICollection<Listing> Listings { get; set; }
+    
         public virtual ICollection<RefCategory> SubCategories { get; set; }
         public virtual RefCategory ParentCategory { get; set; }
-
+        public virtual ICollection<Listing> Listings { get; set; }
     }
 }
