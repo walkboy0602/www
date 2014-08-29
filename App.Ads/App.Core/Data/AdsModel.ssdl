@@ -1,0 +1,462 @@
+<Schema Namespace="AdsDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Config">
+    <Key>
+      <PropertyRef Name="Key" />
+    </Key>
+    <Property Name="Key" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Value" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Enquiry">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ListingId" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="Phone" Type="varchar" MaxLength="50" />
+    <Property Name="Message" Type="nvarchar" MaxLength="255" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="IsRead" Type="int" Nullable="false" />
+    <Property Name="IsDelete" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Listing">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="Title" Type="nvarchar" MaxLength="100" />
+    <Property Name="Description" Type="text" />
+    <Property Name="Keywords" Type="nvarchar" MaxLength="50" />
+    <Property Name="Price" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="IsNegotiable" Type="bit" Nullable="false" />
+    <Property Name="ContactMethod" Type="int" />
+    <Property Name="LocationId" Type="int" />
+    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="CreateBy" Type="int" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="LastUpdate" Type="datetime" />
+    <Property Name="IsTNCAccept" Type="bit" Nullable="false" />
+    <Property Name="IsComplete" Type="bit" Nullable="false" />
+    <Property Name="PostedDate" Type="datetime" />
+    <Property Name="PostingEndDate" Type="datetime" />
+    <Property Name="Duration" Type="int" />
+    <Property Name="LastAction" Type="varchar" MaxLength="50" />
+    <Property Name="LastActionBy" Type="int" />
+    <Property Name="RejectCode" Type="varchar" MaxLength="10" />
+    <Property Name="ConditionCode" Type="varchar" MaxLength="3" />
+  </EntityType>
+  <EntityType Name="ListingDealMethod">
+    <Key>
+      <PropertyRef Name="ListingId" />
+      <PropertyRef Name="DealMethodId" />
+    </Key>
+    <Property Name="ListingId" Type="int" Nullable="false" />
+    <Property Name="DealMethodId" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ListingImage">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ListingId" Type="int" Nullable="false" />
+    <Property Name="FileName" Type="varchar" MaxLength="1000" />
+    <Property Name="IsCover" Type="bit" Nullable="false" />
+    <Property Name="Sort" Type="tinyint" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="Src" Type="nvarchar" MaxLength="200" />
+    <Property Name="Description" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="ListingLog">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ListingId" Type="int" />
+    <Property Name="Action" Type="varchar" MaxLength="50" />
+    <Property Name="ActionBy" Type="int" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="Order" Type="int" />
+  </EntityType>
+  <EntityType Name="ListingPurchaseLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ListingId" Type="int" />
+    <Property Name="ListingTypeCode" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="StartDate" Type="datetime" Nullable="false" />
+    <Property Name="EndDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ListingType">
+    <Key>
+      <PropertyRef Name="Code" />
+    </Key>
+    <Property Name="Code" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="GroupCode" Type="varchar" MaxLength="10" />
+    <Property Name="Fees" Type="decimal" Precision="9" Scale="2" />
+    <Property Name="Duration" Type="int" Nullable="false" />
+    <Property Name="sort" Type="int" />
+  </EntityType>
+  <EntityType Name="Membership">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="EmailConfirmationToken" Type="nvarchar" MaxLength="128" />
+    <Property Name="IsEmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="LastPasswordFailureDate" Type="datetime" />
+    <Property Name="PasswordFailuresSinceLastSuccess" Type="int" Nullable="false" />
+    <Property Name="PasswordChangedDate" Type="datetime" />
+    <Property Name="PasswordSalt" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="PasswordVerificationToken" Type="nvarchar" MaxLength="128" />
+    <Property Name="PasswordVerificationTokenExpirationDate" Type="datetime" />
+    <Property Name="IsMobileConfirmed" Type="bit" Nullable="false" />
+    <Property Name="IsIdentificationConfirmed" Type="bit" />
+    <Property Name="IsLockedOut" Type="bit" Nullable="false" />
+    <Property Name="IsOnline" Type="bit" Nullable="false" />
+    <Property Name="LastLoginDate" Type="datetime" />
+    <Property Name="LastPasswordChangedDate" Type="datetime" />
+    <Property Name="LastLockoutDate" Type="datetime" />
+    <Property Name="Comment" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="RefCategory">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ParentID" Type="int" />
+    <Property Name="MetaDescription" Type="nvarchar" MaxLength="200" />
+    <Property Name="MetaKeyword" Type="nvarchar" MaxLength="200" />
+    <Property Name="Description" Type="nvarchar" MaxLength="200" />
+    <Property Name="Sort" Type="int" />
+    <Property Name="isActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="RefTable">
+    <Key>
+      <PropertyRef Name="Code" />
+    </Key>
+    <Property Name="Code" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Description" Type="varchar" MaxLength="255" />
+    <Property Name="Val" Type="varchar" MaxLength="10" />
+    <Property Name="Val2" Type="varchar" MaxLength="10" />
+    <Property Name="Val3" Type="varchar" MaxLength="10" />
+    <Property Name="Type" Type="varchar" MaxLength="10" />
+    <Property Name="ParentCode" Type="varchar" MaxLength="10" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="Sort" Type="int" />
+  </EntityType>
+  <EntityType Name="Region">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="CountryCode" Type="char" MaxLength="3" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Level" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RegionZone">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RegionId" Type="int" Nullable="false" />
+    <Property Name="ParentId" Type="int" />
+    <Property Name="Lng" Type="float" />
+    <Property Name="Lat" Type="float" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="Sort" Type="float" />
+    <Property Name="isActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="smallint" Nullable="false" />
+    <Property Name="RoleName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="RoleDescription" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserProfile">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Salutation" Type="nvarchar" MaxLength="10" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="100" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Mobile" Type="varchar" MaxLength="50" />
+    <Property Name="Identification" Type="varchar" MaxLength="100" />
+    <Property Name="IdentificationFile" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="UserRoles">
+    <Key>
+      <PropertyRef Name="UserRoleId" />
+    </Key>
+    <Property Name="UserRoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="RoleId" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="z_RefCategory">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ParentID" Type="int" />
+    <Property Name="MetaDescription" Type="nvarchar" MaxLength="200" />
+    <Property Name="MetaKeyword" Type="nvarchar" MaxLength="200" />
+    <Property Name="Description" Type="nvarchar" MaxLength="200" />
+    <Property Name="Sort" Type="int" />
+    <Property Name="isActive" Type="bit" />
+  </EntityType>
+  <Association Name="FK__Listing__Locatio__5CD6CB2B">
+    <End Role="RegionZone" Type="Self.RegionZone" Multiplicity="0..1" />
+    <End Role="Listing" Type="Self.Listing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RegionZone">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Listing">
+        <PropertyRef Name="LocationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ListingLo__Actio__7E02B4CC">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="ListingLog" Type="Self.ListingLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="ListingLog">
+        <PropertyRef Name="ActionBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ListingLo__Listi__7D0E9093">
+    <End Role="Listing" Type="Self.Listing" Multiplicity="0..1" />
+    <End Role="ListingLog" Type="Self.ListingLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Listing">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ListingLog">
+        <PropertyRef Name="ListingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ListingPu__Listi__607251E5">
+    <End Role="Listing" Type="Self.Listing" Multiplicity="0..1" />
+    <End Role="ListingPurchaseLog" Type="Self.ListingPurchaseLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Listing">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ListingPurchaseLog">
+        <PropertyRef Name="ListingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ListingPu__Listi__6166761E">
+    <End Role="ListingType" Type="Self.ListingType" Multiplicity="1" />
+    <End Role="ListingPurchaseLog" Type="Self.ListingPurchaseLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ListingType">
+        <PropertyRef Name="Code" />
+      </Principal>
+      <Dependent Role="ListingPurchaseLog">
+        <PropertyRef Name="ListingTypeCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Enquiry_ListingId">
+    <End Role="Listing" Type="Self.Listing" Multiplicity="1" />
+    <End Role="Enquiry" Type="Self.Enquiry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Listing">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Enquiry">
+        <PropertyRef Name="ListingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Listing_CategoryId">
+    <End Role="RefCategory" Type="Self.RefCategory" Multiplicity="0..1" />
+    <End Role="Listing" Type="Self.Listing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RefCategory">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Listing">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Listing_DealMethod">
+    <End Role="Listing" Type="Self.Listing" Multiplicity="1" />
+    <End Role="ListingDealMethod" Type="Self.ListingDealMethod" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Listing">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ListingDealMethod">
+        <PropertyRef Name="ListingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Listing_ListingID">
+    <End Role="Listing" Type="Self.Listing" Multiplicity="1" />
+    <End Role="ListingImage" Type="Self.ListingImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Listing">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ListingImage">
+        <PropertyRef Name="ListingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RefCategory_ParentId">
+    <End Role="RefCategory" Type="Self.RefCategory" Multiplicity="0..1" />
+    <End Role="RefCategory1" Type="Self.RefCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RefCategory">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="RefCategory1">
+        <PropertyRef Name="ParentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRoles_Roles">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+    <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="UserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRoles_UserProfile">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+    <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRoles_Users">
+    <End Role="Membership" Type="Self.Membership" Multiplicity="1" />
+    <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Membership">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FS_Listing_UserId">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="Listing" Type="Self.Listing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Listing">
+        <PropertyRef Name="CreateBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AdsDBModelStoreContainer">
+    <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Enquiry" EntityType="Self.Enquiry" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Listing" EntityType="Self.Listing" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ListingDealMethod" EntityType="Self.ListingDealMethod" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ListingImage" EntityType="Self.ListingImage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ListingLog" EntityType="Self.ListingLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ListingPurchaseLog" EntityType="Self.ListingPurchaseLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ListingType" EntityType="Self.ListingType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Membership" EntityType="Self.Membership" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RefCategory" EntityType="Self.RefCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RefTable" EntityType="Self.RefTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Region" EntityType="Self.Region" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RegionZone" EntityType="Self.RegionZone" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="z_RefCategory" EntityType="Self.z_RefCategory" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Listing__Locatio__5CD6CB2B" Association="Self.FK__Listing__Locatio__5CD6CB2B">
+      <End Role="RegionZone" EntitySet="RegionZone" />
+      <End Role="Listing" EntitySet="Listing" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ListingLo__Actio__7E02B4CC" Association="Self.FK__ListingLo__Actio__7E02B4CC">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="ListingLog" EntitySet="ListingLog" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ListingLo__Listi__7D0E9093" Association="Self.FK__ListingLo__Listi__7D0E9093">
+      <End Role="Listing" EntitySet="Listing" />
+      <End Role="ListingLog" EntitySet="ListingLog" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ListingPu__Listi__607251E5" Association="Self.FK__ListingPu__Listi__607251E5">
+      <End Role="Listing" EntitySet="Listing" />
+      <End Role="ListingPurchaseLog" EntitySet="ListingPurchaseLog" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ListingPu__Listi__6166761E" Association="Self.FK__ListingPu__Listi__6166761E">
+      <End Role="ListingType" EntitySet="ListingType" />
+      <End Role="ListingPurchaseLog" EntitySet="ListingPurchaseLog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Enquiry_ListingId" Association="Self.FK_Enquiry_ListingId">
+      <End Role="Listing" EntitySet="Listing" />
+      <End Role="Enquiry" EntitySet="Enquiry" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Listing_CategoryId" Association="Self.FK_Listing_CategoryId">
+      <End Role="RefCategory" EntitySet="RefCategory" />
+      <End Role="Listing" EntitySet="Listing" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Listing_DealMethod" Association="Self.FK_Listing_DealMethod">
+      <End Role="Listing" EntitySet="Listing" />
+      <End Role="ListingDealMethod" EntitySet="ListingDealMethod" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Listing_ListingID" Association="Self.FK_Listing_ListingID">
+      <End Role="Listing" EntitySet="Listing" />
+      <End Role="ListingImage" EntitySet="ListingImage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RefCategory_ParentId" Association="Self.FK_RefCategory_ParentId">
+      <End Role="RefCategory" EntitySet="RefCategory" />
+      <End Role="RefCategory1" EntitySet="RefCategory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRoles_Roles" Association="Self.FK_UserRoles_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="UserRoles" EntitySet="UserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRoles_UserProfile" Association="Self.FK_UserRoles_UserProfile">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="UserRoles" EntitySet="UserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRoles_Users" Association="Self.FK_UserRoles_Users">
+      <End Role="Membership" EntitySet="Membership" />
+      <End Role="UserRoles" EntitySet="UserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FS_Listing_UserId" Association="Self.FS_Listing_UserId">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="Listing" EntitySet="Listing" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

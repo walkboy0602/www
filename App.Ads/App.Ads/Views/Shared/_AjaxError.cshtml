@@ -1,0 +1,10 @@
+﻿
+<div id="globalError" class="float-error" data-ng-show="alert.showGobal">
+    <div class="alert alert-{{alert.type}} fade in alert-dismissible" role="alert">
+        <button type="button" class="close" data-ng-click="alert.showGobal=false">
+            <span aria-hidden="true">&nbsp;&times;</span>
+            <span class="sr-only">Close</span>
+        </button>
+        <span data-ng-bind-html="alert.message"></span>
+    </div>
+</div>

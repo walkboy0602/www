@@ -1,6 +1,6 @@
 ﻿@model App.Core.Models.SearchModel
 
-@using (Html.BeginForm("Index", "Search", new { category = "" }, FormMethod.Get))
+@using (Html.BeginForm("Search", "Search", FormMethod.Post, new { id = "searchForm" }))
 {
 
     <div class="jumbotron home-tron-search well ">
@@ -12,39 +12,29 @@
 
                         <div class="row">
 
-                            <div class="col-sm-8 col-xs-9" style="text-align: center">
+                            <div class="col-sm-8 col-xs-8">
                                 <div class="row">
-
-                                    <div class="col-sm-12 col-sm-offset-1">
+                                    <div class="col-sm-11 col-sm-offset-1">
                                         <div class="input-group">
                                             <span class="input-group-addon input-group-addon-text hidden-xs">Find me a</span>
-
                                             @Html.TextBoxFor(m => m.Keyword, new { @class = "form-control col-sm-3", placeholder = "e.g. BMW, 2 bed flat, sofa" })
-
-                                            <div class=" input-group-addon hidden-xs">
-                                                    <div class="btn-group">
-                                                        <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">
-                                                            All categories <span class="caret"></span>
-                                                        </button>
-                                                        <ul class="dropdown-menu" role="menu">
-                                                            <li><a href="#">Cars, Vans &amp; Motorbikes</a></li>
-                                                            <li><a href="#">Flats &amp; Houses</a></li>
-                                                            <li><a href="#">For Sale</a></li>
-                                                            <li><a href="#">Jobs</a></li>
-                                                            <li><a href="#">Pets</a></li>
-                                                            <li><a href="#">Services</a></li>
-                                                        </ul>
-                                                    </div>
+                                            <div class="input-group-addon">
+                                                <div class="btn-group" data-toggle="tooltip" data-placement="top" title="" data-original-title="Search for more options">
+                                                    <button data-toggle="modal" data-target="#searchModal" type="button" class="btn">
+                                                        <i class="fa fa-search"></i> More
+                                                    </button>
                                                 </div>
-
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-sm-4 col-xs-3" style="text-align: center">
+                            <div class="col-sm-4 col-xs-4">
                                 <div class="row">
-                                    <button class="btn btn-primary search-btn"><i class="icon-search"></i>Search</button>
+                                    <div class="col-sm-12">
+                                        <button class="btn btn-primary">&nbsp;&nbsp;&nbsp;Search&nbsp;&nbsp;&nbsp;</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -53,4 +43,64 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal - Filter Box -->
+    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" data-backdrop="static" data-ng-controller="RegionCtrl">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Search Options</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class=" col-xs-12 col-sm-2">
+                                <label class="radio-inline">
+                                    <input type="radio" name="type" value="" checked=""> All
+                                </label>
+                            </div>
+                            @{
+    List<App.Core.Data.RefTable> rbValues = (List<App.Core.Data.RefTable>)ViewBag.ListingTypeList;
+                            }
+                            @foreach (var item in rbValues)
+                            {
+                                <div class="col-xs-12 col-sm-3">
+                                    <label class="radio-inline">
+                                        @Html.RadioButtonFor(m => m.type, item.Code) @item.Name
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Keyword</label>
+                        @Html.TextBoxFor(m => m.Keyword, new { @class = "form-control", @id = "keyword2", placeholder = "e.g. BMW, 2 bed flat, sofa" })
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        @Html.DropDownListFor(m => m.cid, ViewBag.Categories as IEnumerable<SelectListItem>, "--- All Category ----", new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>Location</label>
+                        @Html.DropDownListFor(m => m.lid, ViewBag.LocationList as IEnumerable<SelectListItem>, "--- All Location ---", new { id = "LocationId", @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>Area</label>
+                        @Html.DropDownListFor(m => m.aid, Enumerable.Empty<SelectListItem>(), "--- All Area ---", new { id = "AreaId", @class = "form-control" })
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="pull-left">
+                        <button type="button" class="btn-glow" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                    </div>
+                    <div class="pull-right btn-group">
+                        @*<button type="reset" class="btn-glow info" data-ng-click="reset()">Reset</button>*@
+                        <button type="submit" class="btn-glow primary">Search</button>
+                    </div>
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 }

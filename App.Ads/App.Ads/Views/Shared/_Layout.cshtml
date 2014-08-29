@@ -7,14 +7,14 @@
     <title>@ViewBag.Title - My ASP.NET MVC Application</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
-    @Styles.Render("~/Content/common")
+    @Styles.Render("~/Content/bootstrap")
     @Styles.Render("~/Content/css")
     @RenderSection("style", required: false)
 
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     @Scripts.Render("~/bundles/jqHead")
 </head>
-<body data-ng-app="shopApp">
+<body data-ng-app="shopApp" data-ng-controller="MainCtrl">
     <nav class="navbar navbar-default" role="navigation">
         <div class="container">
             <div class="navbar-header">
@@ -37,38 +37,54 @@
             </section>
         </div>
     </nav>
-    @RenderSection("SearchBox", required: false)
+    @if (IsSectionDefined("SearchBox"))
+    {
+        @RenderSection("SearchBox")
+        <br />
+    }
+    else
+    {
+        <hr class="topbar">
+    }
+    <div id="wrapper">
 
-    <div class="container">
-        <br>
-        <div class="row">
-            @*@Html.MvcSiteMap().Menu(false, true, true)*@
+        <div id="page-content-wrapper">
 
-            @if (SiteMaps.Current.CurrentNode != null && (SiteMaps.Current.CurrentNode != SiteMaps.Current.CurrentNode.RootNode))
-            {
-                <div class="col-sm-12">
-                    @Html.MvcSiteMap().SiteMapPath()
+            @Html.Partial("_AjaxError")
+            <div class="container">
+                <div class="row">
+                    @*@Html.MvcSiteMap().Menu(false, true, true)*@
+                    <div class="col-sm-12">
+                        @RenderSection("PageTitle", required: false)
+                        @if (SiteMaps.Current.CurrentNode != null && (SiteMaps.Current.CurrentNode != SiteMaps.Current.CurrentNode.RootNode))
+                        {
+
+                            @Html.MvcSiteMap().SiteMapPath()
+
+                        }
+                    </div>
                 </div>
-            }
-        </div>
 
-        @RenderBody()
+                @RenderBody()
 
-    </div>
-    <div class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-4 col-xs-12">
-                    <p><strong>© Bootstrap Classifieds 2014</strong></p>
-                    <p>All rights reserved</p>
-                </div>
-                <div class="col-sm-8 col-xs-12">
-                    <p class="footer-links">
-                        <a href="index.html" class="active">Home</a>
-                        <a href="typography.html">Typography</a>
-                        <a href="terms.html">Terms and Conditions</a>
-                        <a href="contact.html">Contact Us</a>
-                    </p>
+            </div>
+
+            <div class="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-4 col-xs-12">
+                            <p><strong>© Bootstrap Classifieds 2014</strong></p>
+                            <p>All rights reserved</p>
+                        </div>
+                        <div class="col-sm-8 col-xs-12">
+                            <p class="footer-links">
+                                <a href="index.html" class="active">Home</a>
+                                <a href="typography.html">Typography</a>
+                                <a href="terms.html">Terms and Conditions</a>
+                                <a href="contact.html">Contact Us</a>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

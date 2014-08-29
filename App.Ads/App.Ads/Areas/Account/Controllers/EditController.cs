@@ -12,6 +12,7 @@ using App.Ads.Code.Membership;
 using AutoMapper;
 using App.Ads.Controllers;
 using App.Ads.ViewModel;
+using App.Ads.Code.Constant;
 
 namespace App.Ads.Areas.Account.Controllers
 {
@@ -20,12 +21,14 @@ namespace App.Ads.Areas.Account.Controllers
     {
         private readonly ICommonService commonService;
         private readonly IUserService userService;
+        private readonly ICacheService cacheService;
         private readonly Service.IAccountService accountService;
 
         public EditController()
         {
             this.commonService = DependencyResolver.Current.GetService<ICommonService>();
             this.userService = DependencyResolver.Current.GetService<IUserService>();
+            this.cacheService = DependencyResolver.Current.GetService<ICacheService>();
             this.accountService = DependencyResolver.Current.GetService<Service.IAccountService>();
         }
 
@@ -51,12 +54,15 @@ namespace App.Ads.Areas.Account.Controllers
 
             if (accountService.ChangePassword(model.ChangePassword))
             {
-                return RedirectToAction("Manage", "Listing", new { area = "" });
+                cacheService.Clear(string.Format(CacheConstant.USERDATA + "{0}", CurrentUser.Identity.Name));
+                ViewBag.SuccessMsg = MessageConstant.PASSWORD_CHANGED;
+            }
+            else
+            {
+                ViewBag.ModelState = model.ChangePassword.ModelState;
             }
 
             ViewBag.Salutation = commonService.GetSalutationSelectList();
-
-            ViewBag.ModelState = model.ChangePassword.ModelState;
 
             return View("Index", model);
         }
@@ -77,7 +83,8 @@ namespace App.Ads.Areas.Account.Controllers
 
                 userService.Save(userProfile);
 
-                return RedirectToAction("Manage", "Listing", new { area = "" });
+                cacheService.Clear(string.Format(CacheConstant.USERDATA + "{0}", CurrentUser.Identity.Name));
+                ViewBag.SuccessMsg = MessageConstant.ACCOUNT_DETAIL_CHANGED;
             }
 
             ViewBag.Salutation = commonService.GetSalutationSelectList();

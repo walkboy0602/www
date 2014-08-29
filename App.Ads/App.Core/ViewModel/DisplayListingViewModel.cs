@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using App.Core.Data;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
@@ -13,20 +14,24 @@ namespace App.Core.ViewModel
 
         public string Title { get; set; }
 
-        public string Description { get; set; }
+        public Nullable<decimal> Price { get; set; }
+
+        public string ParentLocation { get; set; }
 
         public DateTime CreateDate { get; set; }
 
-        public string CreateDateText { get; set; }
+        public DateTime? PostedDate { get; set; }
 
         public int Status { get; set; }
 
-        public string StatusTooltip { get; set; }
+        public virtual RefCategory RefCategory { get; set; }
+        public virtual RegionZone RegionZone { get; set; }
+        public virtual ICollection<ListingImage> ListingImages { get; set; }
 
-        private string ReplaceHTML(string str)
-        {
-            return Regex.Replace(str, @"<[^>]*>", string.Empty);
-        }
+        //private string ReplaceHTML(string str)
+        //{
+        //    return Regex.Replace(str, @"<[^>]*>", string.Empty);
+        //}
 
     }
 

@@ -26,15 +26,17 @@ namespace App.Core.ViewModel
 
         public Nullable<int> ContactMethod { get; set; }
 
+        public Nullable<int> AreaId { get; set; }
+
         public Nullable<int> LocationId { get; set; }
 
         public Nullable<int> CategoryId { get; set; }
 
+        public DateTime PostedDate { get; set; }
+
         public string PostedBy { get; set; }
 
         public int Status { get; set; }
-
-        public string Location { get; set; }
 
         public int LocationParentId { get; set; }
 
@@ -43,6 +45,10 @@ namespace App.Core.ViewModel
         public string CoverImage { get; set; }
 
         public virtual ICollection<AdImageViewModel> ListingImages { get; set; }
+
+        public virtual RegionZone Location { get; set; }
+
+        public virtual RegionZone Area { get; set; }
 
         public virtual RefCategory RefCategory { get; set; }
 

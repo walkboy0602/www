@@ -17,7 +17,15 @@
                     <span>@error.ErrorMessage</span>
                 }
             }
+        </div>
+    </div>
+}
 
+@if (ViewBag.SuccessMsg != null)
+{
+    <div class="col-sm-12">
+        <div class="alert alert-success">
+            @ViewBag.SuccessMsg
         </div>
     </div>
 }
@@ -31,7 +39,7 @@
     @Html.Partial("_ChangePassword", @Model)
 
     <div class="panel panel-default">
-        <div class="panel-heading">My Account</div>
+        <div class="panel-heading">My Profile</div>
         <div class="panel-body">
 
             <div class="form-vertical">

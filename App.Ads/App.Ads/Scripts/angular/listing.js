@@ -25,9 +25,8 @@ function ListingImageCtrl($scope, $q, ImageFactory, $filter, uploadManager, $rou
                 CoverCss: v.IsCover ? "cover" : ""
             })
         });
-    }, 
-    function(response)
-    {
+    },
+    function (response) {
         $scope.error();
     });
 
@@ -95,7 +94,7 @@ function ListingImageCtrl($scope, $q, ImageFactory, $filter, uploadManager, $rou
 
             if ($scope.totalFiles > 8) {
                 $scope.warning('Cannot upload more than 8 photos.');
-                $scope.draftFiles.splice(0,1);
+                $scope.draftFiles.splice(0, 1);
                 $scope.$apply();
             } else {
                 $scope.spinLoading.start($scope.draftFiles.length);
@@ -413,3 +412,34 @@ function ListingOptionCtrl($scope, $q, ListingFactory, $filter) {
 
 }
 
+function RegionCtrl($scope, CommonFactory) {
+
+    $scope.getArea = function () {
+        CommonFactory.getArea($('#LocationId').val())
+            .success(function (result, status) {
+                var data = result.Data;
+                var opt = '<option value="">--- All Area ---</option>';
+                angular.forEach(data, function (v, k) {
+                    opt += '<option value="' + v.Value + '">' + v.Text + '</option>';
+                });
+
+                $('select[id=AreaId]').html(opt);
+
+                var aid = getParameterByName('aid');
+                $('select[id=AreaId] option[value=' + aid + ']').prop('selected', true);
+
+            })
+            .error(function (data, status) {
+                Console.log('error occured while populating area');
+            });
+    }
+
+    if ($('#LocationId').val() > 0 && $('#AreaId').children('option').length <= 1) {
+        $scope.getArea();
+    }
+
+    $('#LocationId').change(function () {
+        $scope.getArea();
+    });
+
+}

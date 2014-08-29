@@ -49,17 +49,20 @@ namespace App.Ads.Controllers
 
             RecaptchaVerificationHelper recaptcha = this.GetRecaptchaVerificationHelper();
 
-            //Verify ReCaptcha
-            if (String.IsNullOrEmpty(recaptcha.Response))
+            //Verify ReCaptcha, skip mobile
+            if (!Request.Browser.IsMobileDevice)
             {
-                return Json(new { IsSuccess = false, Content = "Captcha answer cannot be empty." }, JsonRequestBehavior.AllowGet);
-            }
+                if (String.IsNullOrEmpty(recaptcha.Response))
+                {
+                    return Json(new { IsSuccess = false, Content = "Captcha answer cannot be empty." }, JsonRequestBehavior.AllowGet);
+                }
 
-            RecaptchaVerificationResult recaptchaResult = await recaptcha.VerifyRecaptchaResponseTaskAsync();
+                RecaptchaVerificationResult recaptchaResult = await recaptcha.VerifyRecaptchaResponseTaskAsync();
 
-            if (recaptchaResult != RecaptchaVerificationResult.Success)
-            {
-                return Json(new { IsSuccess = false, Content = "Incorrect captcha answer." }, JsonRequestBehavior.AllowGet);
+                if (recaptchaResult != RecaptchaVerificationResult.Success)
+                {
+                    return Json(new { IsSuccess = false, Content = "Incorrect captcha answer." }, JsonRequestBehavior.AllowGet);
+                }
             }
 
             var listing = _listingService.GetListingById(model.ListingId);

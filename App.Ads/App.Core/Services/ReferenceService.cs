@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Caching;
 using App.Core.Data;
+using App.Core.Models;
 
 namespace App.Core.Services
 {
@@ -13,6 +14,8 @@ namespace App.Core.Services
     public interface IReferenceService
     {
         IEnumerable<RefTable> Get();
+
+        RefTable Find(string code);
 
         IEnumerable<RefTable> GetByType(string type);
 
@@ -29,6 +32,11 @@ namespace App.Core.Services
             this.db = new AdsDBEntities();
         }
 
+        RefTable IReferenceService.Find(string code)
+        {
+            return (this as IReferenceService).Get().Where(r => r.Code == code).FirstOrDefault();
+        }
+
         IEnumerable<RefTable> IReferenceService.Get()
         {
             IEnumerable<RefTable> refTables = null;
@@ -39,6 +47,7 @@ namespace App.Core.Services
             }
             else
             {
+                refTables = this.db.RefTables;
                 HttpRuntime.Cache.Insert(cacheKey, refTables, null, DateTime.Now.AddMinutes(60), Cache.NoSlidingExpiration);
             }
 
@@ -47,22 +56,10 @@ namespace App.Core.Services
 
         IEnumerable<RefTable> IReferenceService.GetByType(string type)
         {
-            IEnumerable<RefTable> refTables = null;
-
-            if (HttpRuntime.Cache[cacheKey] != null)
-            {
-                refTables = (IEnumerable<RefTable>)HttpRuntime.Cache[cacheKey];
-                refTables = refTables.Where(r => r.Type == type);
-            }
-            else
-            {
-                refTables = this.db.RefTables.Where(r => r.Type == type);
-                HttpRuntime.Cache.Insert(cacheKey, refTables, null, DateTime.Now.AddMinutes(60), Cache.NoSlidingExpiration);
-            }
+            IEnumerable<RefTable> refTables = (this as IReferenceService).Get().Where(r => r.Type == type).Where(r => r.IsActive == true).OrderBy(s => s.Sort);
 
             return refTables;
         }
-
 
     }
 }

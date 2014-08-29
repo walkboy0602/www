@@ -12,6 +12,7 @@ using WebMatrix.WebData;
 using System.Web.Mvc;
 using System.Collections.Specialized;
 using System.Web.Caching;
+using App.Ads.Code.Helpers;
 
 namespace App.Ads.Code.Membership
 {
@@ -140,7 +141,7 @@ namespace App.Ads.Code.Membership
         /// <param name="userIsOnline">true to update the last-activity date/time stamp for the user; false to return user information without updating the last-activity date/time stamp for the user. </param>
         public override System.Web.Security.MembershipUser GetUser(string username, bool userIsOnline)
         {
-            var cacheKey = string.Format("UserData_{0}", username);
+            var cacheKey = string.Format(CacheConstant.USERDATA + "{0}", username);
 
             if (HttpRuntime.Cache[cacheKey] != null)
                 return (CustomMembershipUser)HttpRuntime.Cache[cacheKey];

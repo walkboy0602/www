@@ -26,10 +26,9 @@ namespace App.Core.Models
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        [Required]
         [Display(Name = "Mobile Phone")]
         [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^([0])([1])([0-9])\-[0-9]{7,8}", ErrorMessage = "Invalid phone number. It should be in the format of 012-3456789.")]
+        [RegularExpression(@"^([0])([1])([0-9])\-?[0-9]{7,8}", ErrorMessage = "Invalid phone number. It should be in the format of 012-3456789.")]
         public string Phone { get; set; }
 
         [Required]

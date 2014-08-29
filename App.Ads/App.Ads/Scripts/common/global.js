@@ -13,6 +13,14 @@ function imgError(image, width, height) {
     return true;
 }
 
+//Get QueryString
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
 $(document).ready(function () {
     //fancybox
     $(".fancybox").fancybox({
@@ -54,4 +62,11 @@ $(document).ready(function () {
     $('img.lazy').each(function () {
         $(this).loadImage();
     })
+
+    $("#menu-toggle").click(function (e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+
 });
+

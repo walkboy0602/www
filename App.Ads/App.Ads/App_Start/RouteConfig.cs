@@ -15,14 +15,14 @@ namespace App.Ads
 
             routes.MapRoute(
                  name: "Search",
-                 url: "listings/{category}",
-                 defaults: new { controller = "Search", action = "Index", category = UrlParameter.Optional }
+                 url: "listings/{LocationText}/{CategoryText}",
+                 defaults: new { controller = "Search", action = "Index", LocationText = UrlParameter.Optional, CategoryText = UrlParameter.Optional }
              );
 
             routes.MapRoute(
                 name: "view-ad-detail",
                 url: "ad/{id}/{adTitle}",
-                defaults: new { controller = "Advertisement", action = "index", title = UrlParameter.Optional }
+                defaults: new { controller = "Advertisement", action = "Detail", title = UrlParameter.Optional }
             );
 
             routes.MapRoute(

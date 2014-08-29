@@ -1,68 +1,79 @@
 ﻿@model IEnumerable<App.Core.ViewModel.DisplayListingViewModel>
 @using App.Ads.Code.Helpers
-    @{
-        ViewBag.Title = "Index";
-    }
+@{
+    ViewBag.Title = "Index";
+}
 
-    <div class="col-sm-3">
-        @Html.Partial("~/Views/PartialView/_sidepanel.cshtml")
-    </div>
-    <div class="col-sm-9">
-        <div class="panel panel-default">
-            <div class="panel-heading">Manage adverts</div>
-            <div class="panel-body">
+<div class="col-sm-3">
+    @Html.Partial("~/Views/PartialView/_sidepanel.cshtml")
+</div>
+<div class="col-sm-9">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Manage adverts
+            <div class="pull-right">
+                <strong>Posted Date</strong>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="listings">
+                @foreach (var item in Model)
+                {
+                    <div class="row listing-row">
+                        <div class="col-sm-3">
+                            <a href="@Url.Action("Save", new { id = item.id })" class="thumbnail">
+                                <img src="@ListingHelper.GetCoverImage(item.ListingImages.ToList(), "s0")" alt="@item.Title" onerror="imgError(this, 190, 100)">
+                            </a>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-xs-9 col-sm-9">
+                                    <h3>
+                                        @Html.ActionLink(ListingHelper.FormatTitle(item.Title), "Save", new { id = item.id }, new { @class = "listing-title" })
+                                    </h3>
+                                    <div class="listing-price">
+                                        <strong>@ListingHelper.FormatPrice(item.Price)</strong>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3 col-sm-3">
+                                    <span class="pull-right listing-view">
+                                        @ListingHelper.FormatPostedDate(item.PostedDate)
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="listing-info">
+                                @if (item.RefCategory != null)
+                                {
+                                    <i class="fa fa-tag"></i>
+                                    <span>@item.RefCategory.Name</span>
+                                }
+                            </div>
+                            <div class="row">
 
-                <div class="table-wrapper">
-                    <div class="col-sm-12">
-                        <div class="row">
+                                <div class="col-sm-4">
 
-                            <table class="table edit-listings">
-                                <thead>
-                                    <tr>
-                                        <th class="col-md-2"></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th>Date&nbsp;posted</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        <tr>
-                                            <td>
-                                                <div class="img">
-                                                    <img src="http://templates.expresspixel.com/bootlistings/css/images/listings/4.jpg" alt="pic">
-                                                </div>
-                                            </td>
-                                            <td class="main-td">
-                                                @Html.ActionLink(ListingHelper.FormatTitle(item.Title), "Save", new { id = item.id })
-                                                <a href="#" class="no-views">(11 views)</a>
-                                                <br>
-                                                <a class="edit-ad" href="account_ad_create.html">Edit ad</a>
-                                                <a class="extend-ad" href="#" data-toggle="tooltip" title="" data-original-title="Extend ad by 30 days">Extend for 30 days</a>
-                                                <a class="remove-ad" href="#">Remove this ad</a>
-                                                <p>
-                                                    @ListingHelper.FormatDescription(item.Description, 167)
-                                                </p>
+                                    <div class="@ListingHelper.FormatListingStatusCss(item.Status)" data-toggle="tooltip" data-original-title="@ListingHelper.FormatListingStatusToolTip(item.Status)">
+                                        <i class="fa fa-info-circle"></i>
+                                        @Enum.GetName(typeof(App.Core.ViewModel.XtEnum.ListingStatus), item.Status)
+                                    </div>
+                                </div>
 
-                                            </td>
-                                            <td>
-                                                <span class="@ListingHelper.FormatListingStatusCss(item.Status)" data-toggle="tooltip" data-original-title="@ListingHelper.FormatListingStatusToolTip(item.Status)">
-                                                    @Enum.GetName(typeof(App.Core.ViewModel.XtEnum.ListingStatus), item.Status)
-                                                </span>
-                                            </td>
-                                            <td>
-                                                @item.CreateDate.ToString("MMMM d, yyyy")
-                                            </td>
-                                        </tr>
-                                    }
+                                <div class="col-sm-8">
+                                    <span class="classified_links pull-right">
+                                        <a class="link-info underline" href="#">Share</a>&nbsp;
+                                        <a class="link-info underline" href="#">Add to favorites</a>
+                                        &nbsp;<a class="link-info underline" href="details.html">Details</a>&nbsp;
+                                        &nbsp;<a class="link-info underline" href="#">Contact</a>
+                                    </span>
 
-                                </tbody>
-                            </table>
+                                </div>
+                            </div>
+
+
                         </div>
                     </div>
-                </div>
-
+                }
             </div>
         </div>
     </div>
+</div>

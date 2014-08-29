@@ -30,7 +30,6 @@ namespace App.Ads
             // e.g. container.RegisterType<ITestService, TestService>();    
 
             container.RegisterInstance<IUnityContainer>(container);
-
             container.RegisterType<IUserService, UserService>();
             container.RegisterType<ICommonService, CommonService>();
             container.RegisterType<IConfigService, ConfigService>();
@@ -42,8 +41,9 @@ namespace App.Ads
             container.RegisterType<IEnquiryService, EnquiryService>();
             container.RegisterType<ISearchService, SearchService>();
             container.RegisterType<IAccountService, AccountService>();
-            container.RegisterType<IPaymentService, PaymentService>();
+            container.RegisterType<IFeatureService, FeatureService>();
             container.RegisterType<IReferenceService, ReferenceService>();
+            container.RegisterType<ICacheService, CacheService>();
             container.RegisterType<SmtpClient>(new InjectionConstructor());
 
 

@@ -3,21 +3,22 @@
 @using System.Linq
 @using MvcSiteMapProvider.Web.Html.Models
 
-<ol class="breadcrumb">
+<ol class="breadcrumb text-capitalize">
     @foreach (var node in Model)
     {
-        if (node == Model.First())
-        {
-            <li>
-                <a href="@node.Url" class="link-info">
-                    <i class="fa fa-chevron-left"></i>
-                    @node.Title
-                </a>
-            </li>
-        }
-        else
-        {
-            <li> @Html.DisplayFor(m => node)</li>
-        }
+        <li>@Html.DisplayFor(m => node)</li>
+        @*if (node == Model.First())
+            {
+                <li>
+                    <a href="@node.Url" class="link-info">
+                        <i class="fa fa-chevron-left"></i>
+                        @node.Title
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li> @Html.DisplayFor(m => node)</li>
+            }*@
     }
 </ol>

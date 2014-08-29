@@ -21,36 +21,57 @@ namespace App.Ads.Controllers
         private readonly ICategoryService categoryService;
         private readonly IRegionService regionService;
         private readonly IListingService listingService;
-        private readonly IPaymentService paymentService;
+        private readonly IFeatureService featureService;
+        private readonly IReferenceService referenceService;
 
         public ListingController()
         {
             this.categoryService = DependencyResolver.Current.GetService<ICategoryService>();
             this.regionService = DependencyResolver.Current.GetService<IRegionService>();
             this.listingService = DependencyResolver.Current.GetService<IListingService>();
-            this.paymentService = DependencyResolver.Current.GetService<IPaymentService>();
+            this.featureService = DependencyResolver.Current.GetService<IFeatureService>();
+            this.referenceService = DependencyResolver.Current.GetService<ReferenceService>();
         }
 
         #region GET
 
+        [HttpGet]
         public ActionResult Manage()
         {
-            var listings = listingService.GetAllByUserId(CurrentUser.CustomIdentity.UserId).Where(l => l.Status != (int)XtEnum.ListingStatus.New).ToList();
+            var listings = listingService.GetAllByUserId(CurrentUser.CustomIdentity.UserId)
+                            .Where(l => l.Status != (int)XtEnum.ListingStatus.New)
+                            .OrderByDescending(l => l.PostedDate)
+                            .ToList();
 
             var model = Mapper.Map<List<Listing>, List<DisplayListingViewModel>>(listings);
 
             return View(model);
         }
 
-        // Get: Listing/Save/5
 
+        [HttpGet]
+        public ActionResult Create()
+        {
+            int ListingId = listingService.GetNewListing(CurrentUser.CustomIdentity.UserId);
+
+            if (ListingId == 0)
+            {
+                ListingId = listingService.CreateNew(CurrentUser.CustomIdentity.UserId);
+            }
+
+            return RedirectToAction("Save", new { id = ListingId });
+        }
+
+
+        // Get: Listing/Save/5
+        [HttpGet]
         public ActionResult Save(int id)
         {
             var listing = listingService.GetListingById(id, CurrentUser.CustomIdentity.UserId);
 
             if (listing == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Manage");
             }
 
             EditListingViewModel model = Mapper.Map<Listing, EditListingViewModel>(listing);
@@ -77,7 +98,7 @@ namespace App.Ads.Controllers
                 }
             }
 
-            RebindForm();
+            RebindForm(model.LocationId);
 
             ViewBag.id = model.id;
 
@@ -85,14 +106,15 @@ namespace App.Ads.Controllers
         }
 
         // Get: Listing/Publish/5
-
+        [HttpGet]
         public ActionResult Publish(int id)
         {
             var listing = listingService.GetListingById(id, CurrentUser.CustomIdentity.UserId);
 
-            if (listing == null)
+            //Redirect if TNC was accepted
+            if (listing == null || listing.IsTNCAccept)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Manage");
             }
 
             ViewBag.ListingId = id;
@@ -101,18 +123,26 @@ namespace App.Ads.Controllers
         }
 
         // GET : Listing/Image/5
-
+        [HttpGet]
         public ActionResult Image(int ListingId)
         {
             ViewBag.ListingId = ListingId;
+
+            var listing = listingService.GetListingById(ListingId, CurrentUser.CustomIdentity.UserId);
+
+            if (listing == null)
+            {
+                return Content("Bad Request");
+            }
+
             return PartialView("_gallery");
         }
 
         // Get: Listing/Complete
-
+        [HttpGet]
         public ActionResult Complete()
         {
-            if (TempData["Messsage"] == null)
+            if (TempData["Message"] == null)
             {
                 return RedirectToAction("Manage");
             }
@@ -122,20 +152,6 @@ namespace App.Ads.Controllers
         #endregion
 
         #region POST
-
-        [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult Create()
-        {
-            int ListingId = listingService.GetNewListing(CurrentUser.CustomIdentity.UserId);
-
-            if (ListingId == 0)
-            {
-                ListingId = listingService.CreateNew(CurrentUser.CustomIdentity.UserId);
-            }
-
-            return RedirectToAction("Save", new { id = ListingId });
-        }
-
 
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Save(EditListingViewModel model)
@@ -186,12 +202,12 @@ namespace App.Ads.Controllers
 
                 listing.LastActionBy = CurrentUser.CustomIdentity.UserId;
 
-                if (listing.PostingEndDate == null)
+                if (!listing.IsTNCAccept)
                 {
                     listing.Status = (int)XtEnum.ListingStatus.Draft;
                     listing.IsComplete = true;
                     listingService.Save(listing);
-                    return RedirectToAction("Publish", new { id = listing.id });
+                    return RedirectToAction("Publish", new { id = listing.Id });
                 }
                 else
                 {
@@ -199,13 +215,13 @@ namespace App.Ads.Controllers
                     listingService.Save(listing);
 
                     TempData["ListingDetail"] = listing;
-                    TempData["Message"] = "You have successfully edit your listing, your listing will be temporary unavailable until reviewed by us.";
+                    TempData["Message"] = "You have successfully edit your listing, your listing will be temporary unavailable until reviewed by our team.";
                     return RedirectToAction("Complete");
                 }
 
             }
 
-            RebindForm();
+            RebindForm(model.LocationId);
             return View(model);
 
         }
@@ -238,52 +254,41 @@ namespace App.Ads.Controllers
 
             if (model.FeatureCode != null)
             {
-                DateTime featureEndDate = listing.ListingPurchaseLogs.Where
-                                                (l => l.EndDate >= DateTime.Now).Select(l => l.EndDate).FirstOrDefault();
+                //DateTime? featureEndDate = listing.ListingPurchaseLogs
+                //                                .Where(l => l.EndDate.HasValue && l.EndDate >= DateTime.Now)
+                //                                .Select(l => l.EndDate).FirstOrDefault();
 
-                if (featureEndDate != null && featureEndDate != DateTime.MinValue)
-                {
-                    ModelState.AddModelError("FeatureExists", "This listing already featured till " + featureEndDate);
-                    return View(model);
-                }
+                //if (featureEndDate != null && featureEndDate != DateTime.MinValue)
+                //{
+                //    ModelState.AddModelError("FeatureExists", "This listing already featured till " + featureEndDate);
+                //    return View(model);
+                //}
 
-                ListingType listingType = paymentService.Get(model.FeatureCode).FirstOrDefault();
+                ListingFeatureType featureType = featureService.Get(model.FeatureCode).FirstOrDefault();
 
-                if (listingType == null)
+                if (featureType == null)
                 {
                     ModelState.AddModelError("Bad Request", "Bad Request - Invalid Listing Type.");
                     return View(model);
                 }
 
-                // Insert Log
-                if (listingType.Duration > 0)
+                ListingPurchaseLog purchaseLog = new ListingPurchaseLog
                 {
-                    ListingPurchaseLog purchaseLog = new ListingPurchaseLog
-                    {
-                        ListingId = id,
-                        ListingTypeCode = listingType.Code,
-                        StartDate = DateTime.Now,
-                        EndDate = DateTime.Now.AddDays((double)listingType.Duration)
-                    };
+                    ListingId = listing.Id,
+                    ListingTypeCode = model.FeatureCode,
+                    PurchaseDate = DateTime.Now,
+                };
 
-                    paymentService.SavePurchaseLog(purchaseLog);
-                }
+                featureService.AddPurchaseLog(purchaseLog);
+
             }
 
-            // Validate Duration
-            int duration = paymentService.Get(model.DurationCode).Select(f => f.Duration).FirstOrDefault();
-
-            if (duration == 0)
-            {
-                ModelState.AddModelError("Bad Request", "Bad Request - Invalid Duration.");
-                return View(model);
-            }
+            int duration = 30;
 
             // Update Listing
             listing.IsTNCAccept = true;
             listing.Status = (int)XtEnum.ListingStatus.Pending;
-            listing.PostedDate = DateTime.Now;
-            listing.PostingEndDate = DateTime.Now.AddDays(duration);
+            listing.Duration = duration;
 
             listingService.Save(listing);
 
@@ -296,16 +301,38 @@ namespace App.Ads.Controllers
 
         #region Helper
 
-        private void RebindForm()
+        private void RebindForm(int locationId = 0)
         {
             ViewBag.Contacts = listingService.GetContactMethods();
-            ViewBag.Categories = categoryService.GetCategories();
-            ViewBag.RegionZones = regionService.GetRegionZone();
+            //ViewBag.Categories = categoryService.GetCategories();
+
+            ViewBag.LocationList = regionService.Get()
+                                    .Where(r => r.ParentId == null)
+                                    .OrderBy(r => r.Sort)
+                                    .Select(r => new SelectListItem
+                                    {
+                                        Text = r.Name,
+                                        Value = r.id.ToString()
+                                    });
+
+            ViewBag.ConditionList = referenceService.GetByType("CONDITION").ToList();
+
+            ViewBag.AreaList = regionService.GetRegionByParentId(locationId)
+                                    .OrderBy(r => r.Sort)
+                                    .Select(r => new SelectListItem
+                                    {
+                                        Text = r.Name,
+                                        Value = r.id.ToString()
+                                    });
+
+            ViewBag.ListingTypeList = referenceService.GetByType("LT").ToList();
+
+            ViewBag.CategoryList = new SelectList(categoryService.GetCategoriesOptGroup(), "Id", "Name", "Category", 1);
         }
 
         private void RebindPublishForm()
         {
-            ViewBag.DurationList = paymentService.GetByGroupCode("Basic").OrderBy(o => o.sort)
+            ViewBag.DurationList = featureService.GetByGroupCode("Basic").OrderBy(o => o.sort)
                                             .Select
                                             (i => new SelectListItem()
                                             {
@@ -313,7 +340,7 @@ namespace App.Ads.Controllers
                                                 Value = i.Code
                                             });
 
-            ViewBag.FeatureList = paymentService.GetByGroupCode("FD");
+            ViewBag.FeatureList = featureService.GetByGroupCode("FD");
         }
 
         #endregion

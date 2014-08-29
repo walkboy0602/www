@@ -51,14 +51,14 @@ namespace App.Core.Services
             db.Listings.Add(listing);
             db.SaveChanges();
 
-            return listing.id;
+            return listing.Id;
         }
 
         int IListingService.GetNewListing(int UserId)
         {
             var listingId = db.Listings
                             .Where(l => l.CreateBy == UserId)
-                            .Where(l => l.Status == (int)XtEnum.ListingStatus.New).Select(n => n.id).FirstOrDefault();
+                            .Where(l => l.Status == (int)XtEnum.ListingStatus.New).Select(n => n.Id).FirstOrDefault();
 
             return listingId;
         }
@@ -67,7 +67,7 @@ namespace App.Core.Services
         {
 
             var listing = from l in db.Listings
-                          where l.id == ListingId
+                          where l.Id == ListingId
                           select l;
 
             if (UserId != 0)

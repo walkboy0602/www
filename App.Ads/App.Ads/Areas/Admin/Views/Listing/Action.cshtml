@@ -6,39 +6,42 @@
 </div>
 
 
-<div class="modal fade" id="approveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel"></h4>
-                <p class="hidden-xs"></p>
-            </div>
-            <div class="modal-body" data-ng-show="alert.display">
-                <div class="alert alert-{{alert.type}}">
-                    <span data-ng-bind-html="alert.message"></span>
+<div class="modal fade" id="approveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-ng-controller="ApproveCtrl">
+    <form id="approveForm" class="form-vertical">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel"></h4>
+                    <p class="hidden-xs"></p>
+                </div>
+                <div class="modal-body">
+                    <h4 class="modal-title">Confirm approve this listing?</h4>
+                </div>
+                <div class="modal-footer">
+                    @Html.HiddenFor(m => m.ListingId)
+                    <div class="pull-right">
+                        <button class="btn-flat success">APPROVE</button>
+                    </div>
                 </div>
             </div>
-
         </div>
-    </div>
+    </form>
 </div>
 
 
 
-<div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-ng-controller="RejectCtrl">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel"></h4>
-                <p class="hidden-xs"></p>
-            </div>
-            <div class="modal-body">
-                <div class="alert alert-{{alert.type}}" data-ng-show="alert.display">
-                    <span data-ng-bind-html="alert.message"></span>
+<div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hi dden="true" data-ng-controller="RejectCtrl">
+    <form id="rejectForm" class="form-vertical">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel"></h4>
+                    <p class="hidden-xs"></p>
                 </div>
-                <form id="rejectForm" class="form-vertical">
+
+                <div class="modal-body">
                     @Html.HiddenFor(m => m.ListingId)
                     <fieldset>
                         <div class="row">
@@ -52,15 +55,16 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="pull-right">
-                                    <button class="btn-flat success">REJECT</button>
-                                </div>
                             </div>
                         </div>
                     </fieldset>
-                </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="pull-right">
+                        <button class="btn-flat danger">REJECT</button>
+                    </div>
+                </div>
             </div>
-
         </div>
-    </div>
+    </form>
 </div>

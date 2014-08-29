@@ -3,17 +3,14 @@
             xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
             xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
 
-  <mvcSiteMapNode title="Home" controller="Home" action="Index">
-    <mvcSiteMapNode title="Listing" controller="Search" action="Index" key="SearchIndex">
-      <mvcSiteMapNode title="Dynamic Nodes" dynamicNodeProvider="App.Ads.Code.SiteMap.CategorySiteMapProvider, App.Ads" PreservedRouteParameters="id">
-        <mvcSiteMapNode title="Detail" controller="Advertisement" action="Index" PreservedRouteParameters="id"/>
+  <mvcSiteMapNode title="Home" controller="Home" action="Index" key="Home">
+
+    <mvcSiteMapNode title="All Listing" controller="Search" action="Index" key="Listing" preservedRouteParameters="LocationText">
+      <mvcSiteMapNode title="Category" controller="Search" action="Index" dynamicNodeProvider="App.Ads.Code.SiteMap.CategoryDynamicNodeProvider, App.Ads" preservedRouteParameters="LocationText">
+        <mvcSiteMapNode title="Detail" controller="Advertisement" action="Detail" dynamicNodeProvider="App.Ads.Code.SiteMap.AdDetailDynamicNodeProvider, App.Ads" preservedRouteParameters="LocationText"/>
       </mvcSiteMapNode>
     </mvcSiteMapNode>
+
   </mvcSiteMapNode>
-
-  <!--<mvcSiteMapNode title="Dynamic Nodes" clickable="false" key="dynamic_node_parent" >
-      <mvcSiteMapNode title="Dynamic Nodes" dynamicNodeProvider="App.Ads.Code.SiteMap.CustomSiteMapProvider, App.Ads" />
-    </mvcSiteMapNode>-->
-
 
 </mvcSiteMap>

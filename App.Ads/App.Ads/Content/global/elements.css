@@ -761,3 +761,13 @@
 .validation-summary-errors, .field-validation-error {
     color: #c73939;
 }
+
+
+.float-error {
+    float:right;
+    right:5px;
+    top: 150px;
+    position:absolute;
+    z-index: 99;
+    max-width: 410px;;
+}

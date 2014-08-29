@@ -21,7 +21,7 @@ namespace App.Core.Data
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<int> Order { get; set; }
     
-        public virtual Listing Listing { get; set; }
         public virtual UserProfile UserProfile { get; set; }
+        public virtual Listing Listing { get; set; }
     }
 }

@@ -16,16 +16,16 @@ function EnquiryCtrl($scope, EnquiryFactory, cfpLoadingBar) {
                     cfpLoadingBar.complete();
                     $scope.isSending = false;
                     if (result.IsSuccess) {
-                        $scope.success(result.Content);
+                        $scope.success(result.Content, false);
                     } else {
-                        $scope.warning(result.Content);
+                        $scope.warning(result.Content, false);
                     }
                     $scope.$apply();
                 },
                 error: function (response) {
                     Recaptcha.reload();
                     cfpLoadingBar.complete();
-                    $scope.error();
+                    $scope.error(undefined, false);
                     $scope.isSending = false;
                     $scope.$apply();
                 }

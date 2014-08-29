@@ -22,7 +22,7 @@ namespace App.Ads.Areas.Admin.Models
 
     public class RejectModel
     {
-        [Required]
+        [Required(ErrorMessage="Select a Reason.")]
         public string RejectCode { get; set; }
     }
 }

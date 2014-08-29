@@ -15,10 +15,14 @@ namespace App.Core.ViewModel
     {
         public int id { get; set; }
 
-        public string Mode { get; set; }
+        [Required(ErrorMessage = "Please select condition")]
+        public string ConditionCode { get; set; }
 
-        [Required(ErrorMessage="Please select a Category")]
+        [Required(ErrorMessage = "Please select a Category")]
         public int CategoryId { get; set; }
+
+        [Required(ErrorMessage = "This field is required.")]
+        public string ListingTypeCode { get; set; }
 
         [Required]
         [StringLength(50, ErrorMessage = "Maximum {1} charaters.")]
@@ -35,15 +39,34 @@ namespace App.Core.ViewModel
         [RegularExpression(@"^\$?\d+(\.(\d{2}))?$", ErrorMessage = "e.g price format - 19.99")]
         [Range(0, 99999999.99, ErrorMessage = "Price cannot exceed 8 characters long.")]
         [Required]
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
 
         public bool IsNegotiable { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please select Contact method.")]
         public int ContactMethod { get; set; }
 
-        [Required(ErrorMessage="Please select Location.")]
+        [Required(ErrorMessage = "Please select Location.")]
         public int LocationId { get; set; }
+
+        public int? AreaId { get; set; }
+
+        //[Required(ErrorMessage = "Please select Area.")]
+        //private int? _locationId;
+        //public int? LocationId
+        //{
+        //    get { return _locationId == null ? this.RegionId : _locationId; }
+
+        //    set { _locationId = value; }
+        //}
+
+        //[Required(ErrorMessage = "Please select Location.")]
+        //private int _regionId;
+        //public int RegionId
+        //{
+        //    get { return _regionId; }
+        //    set { _regionId = value; }
+        //}
 
         public int Status { get; set; }
 

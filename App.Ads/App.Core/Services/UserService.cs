@@ -71,9 +71,6 @@ namespace App.Core.Services
             }
 
             this.db.SaveChanges();
-
-            ClearCache(userProfile.UserName);
-
         }
 
         private void ClearCache(string UserName)
@@ -101,12 +98,13 @@ namespace App.Core.Services
         {
             App.Core.Data.Membership membership = null;
 
-            var userProfile = this.db.UserProfiles.FirstOrDefault(x => x.UserName.Equals(userName));
+            var userProfile = db.UserProfiles.Where(x => x.UserName.Equals(userName)).FirstOrDefault();
+            db.Entry(userProfile).Reload(); //Force to reload db data else it will cached.
 
             if (userProfile != null)
             {
-                membership = this.db.Memberships.FirstOrDefault(x => x.UserId == userProfile.UserId);
-
+                membership = db.Memberships.Where(x => x.UserId == userProfile.UserId).FirstOrDefault();
+                db.Entry(membership).Reload();
                 membership.UserProfile = userProfile;
             }
 

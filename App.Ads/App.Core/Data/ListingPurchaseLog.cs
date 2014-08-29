@@ -17,10 +17,11 @@ namespace App.Core.Data
         public int Id { get; set; }
         public Nullable<int> ListingId { get; set; }
         public string ListingTypeCode { get; set; }
-        public System.DateTime StartDate { get; set; }
-        public System.DateTime EndDate { get; set; }
+        public Nullable<System.DateTime> StartDate { get; set; }
+        public Nullable<System.DateTime> EndDate { get; set; }
+        public Nullable<System.DateTime> PurchaseDate { get; set; }
     
-        public virtual ListingType ListingType { get; set; }
+        public virtual ListingFeatureType ListingFeatureType { get; set; }
         public virtual Listing Listing { get; set; }
     }
 }

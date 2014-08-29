@@ -1,10 +1,9 @@
 ﻿@using App.Ads.Code.Membership
 
-
 @model App.Core.ViewModel.EditListingViewModel
 
 @{
-    ViewBag.Title = "My Ad - OhMyBazaar.com";
+    ViewBag.Title = "Post ad - OhMyBazaar.com";
 }
 
 @section Style{
@@ -25,17 +24,31 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Choose category</div>
                 <div class="panel-body">
-
-                    <div class="form-horizontal">
-                        <div class="col-sm-12 ">
-                            <div class="form-group">
-                                <div class="row">
-                                    <label class="col-sm-3 control-label">Category</label>
-                                    <div class="col-sm-6">
-                                        @Html.DropDownListFor(m => m.CategoryId, ViewBag.Categories as IEnumerable<SelectListItem>, "", new { id = "ddlCategory", @class = "form-control" })
-                                        @Html.ValidationMessageFor(m => m.CategoryId)
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3 margin-top-10">
+                                <label>Category</label>
+                            </div>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(m => m.CategoryId, ViewBag.CategoryList as IEnumerable<SelectListItem>, "Choose a Category", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.CategoryId)
+                            </div>
+                        </div>
+                        <div class="row">
+                            <br />
+                            <div class="control-group col-xs-12 col-sm-offset-3">
+                                @{
+                                    List<App.Core.Data.RefTable> rbValues = (List<App.Core.Data.RefTable>)ViewBag.ListingTypeList;
+                                }
+                                @foreach (var item in rbValues)
+                                {
+                                    <div class=" col-xs-12 col-sm-2">
+                                        <label class="radio-inline">
+                                            @Html.RadioButtonFor(m => m.ListingTypeCode, item.Code) @item.Name
+                                        </label>
                                     </div>
-                                </div>
+                                }
+                                @Html.ValidationMessageFor(model => model.ListingTypeCode)
                             </div>
                         </div>
                     </div>
@@ -45,31 +58,47 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Ad details</div>
                 <div class="panel-body">
-
-
                     <div class="form-group">
                         <div class="row">
+                            <label class="col-sm-3 control-label">Condition</label>
+                            <div class="col-sm-6">
+                                @{
+                                    List<App.Core.Data.RefTable> rbValues2 = (List<App.Core.Data.RefTable>)ViewBag.ConditionList;
+                                }
+                                @foreach (var item in rbValues2)
+                                {
+                                    <div class=" col-xs-12 col-sm-4">
+                                        <label class="radio-inline">
+                                            @Html.RadioButtonFor(m => m.ConditionCode, item.Code) @item.Name
+                                        </label>
+                                    </div>
+                                }
+                                @Html.ValidationMessageFor(m => m.ConditionCode)
+
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-sm-12">
+                                <br />
                                 <label>Title </label>
-                                @Html.TextBoxFor(m => m.Title, new { @class = "form-control", placeholder = "Keep it short and simple." })
+                                @Html.TextBoxFor(m => m.Title, new { @class = "form-control", placeholder = "Ad Title" })
                                 @Html.ValidationMessageFor(m => m.Title, null, new { @class = "help-inline" })
                             </div>
                             <div class="col-sm-12">
                                 <br>
                                 <label>Description </label>
-                                @Html.TextAreaFor(m => m.Description, new { @rows = "6", @class = "form-control ckEditorMini", placeholder = "Put your product info, condition and so on." })
+                                @*, placeholder = "Put your product info such as Brand, Model and so on."*@
+                                @Html.TextAreaFor(m => m.Description, new { @rows = "6", @class = "form-control ckEditorMini" })
                                 @Html.ValidationMessageFor(m => m.Description, null, new { @class = "help-inline" })
                             </div>
                             <div class="col-sm-12">
                                 <br>
                                 <label>Keywords</label>
-                                @Html.TextBoxFor(m => m.Keywords, new { @class = "form-control", placeholder = "Enter keywords that related to your product, e.g - brands, model." })
+                                @Html.TextBoxFor(m => m.Keywords, new { @class = "form-control", placeholder = "Enter keywords that related to your product, e.g - brands, model" })
                                 @Html.ValidationMessageFor(m => m.Keywords, null, new { @class = "help-inline" })
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
             <div class="panel panel-default">
@@ -84,7 +113,7 @@
                                         Cash On Delivery
                                     </label>
                                 </div>
-                                @Html.TextBoxFor(m => m.CODText, new { @class = "form-control", placeholder = "Where to meet - Mid Valley, Petrol station and etc." })
+                                @Html.TextBoxFor(m => m.CODText, new { @class = "form-control", placeholder = "Where to meet - Mid Valley, Petrol station and etc" })
                                 @Html.ValidationMessageFor(m => m.CODText)
                             </div>
                             <div class="form-group">
@@ -94,7 +123,7 @@
                                         Postage
                                     </label>
                                 </div>
-                                @Html.TextBoxFor(m => m.PostageText, new { @class = "form-control", placeholder = "PosLaju, Free Delivery, Delivery Fees and etc." })
+                                @Html.TextBoxFor(m => m.PostageText, new { @class = "form-control", placeholder = "PosLaju, Free Delivery, Delivery Fees and etc" })
                                 @Html.ValidationMessageFor(m => m.Postage)
                             </div>
                             <div class="form-group">
@@ -104,7 +133,7 @@
                                         Online Banking
                                     </label>
                                 </div>
-                                @Html.TextBoxFor(m => m.OnlineBankingText, new { @class = "form-control", placeholder = "Your Bank Details." })
+                                @Html.TextBoxFor(m => m.OnlineBankingText, new { @class = "form-control", placeholder = "Your Bank Details" })
                                 @Html.ValidationMessageFor(m => m.OnlineBanking)
                             </div>
                         </div>
@@ -142,7 +171,7 @@
 
             </div>
 
-            <div class="panel panel-default">
+            <div class="panel panel-default" data-ng-controller="RegionCtrl">
                 <div class="panel-heading">Your Details</div>
                 <div class="panel-body">
 
@@ -166,17 +195,30 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Contact Method</label>
+                            <div class="col-sm-3 margin-top-10">
+                                <label>Contact Method</label>
+                            </div>
                             <div class="col-sm-6">
-                                @Html.DropDownListFor(m => m.ContactMethod, ViewBag.Contacts as IEnumerable<SelectListItem>, "", new { id = "ddlContact", @class = "form-control" })
+                                @Html.DropDownListFor(m => m.ContactMethod, ViewBag.Contacts as IEnumerable<SelectListItem>, "", new { @class = "form-control" })
                                 @Html.ValidationMessageFor(m => m.ContactMethod)
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Location</label>
+                            <div class="col-sm-3 margin-top-10">
+                                <label>Location</label>
+                            </div>
                             <div class="col-sm-6">
-                                @Html.DropDownListFor(m => m.LocationId, ViewBag.RegionZones as IEnumerable<SelectListItem>, "", new { id = "ddlRegion", @class = "form-control" })
+                                @Html.DropDownListFor(m => m.LocationId, ViewBag.LocationList as IEnumerable<SelectListItem>, "Select a Location", new { id = "LocationId", @class = "form-control" })
                                 @Html.ValidationMessageFor(m => m.LocationId)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3 margin-top-10">
+                                <label>Area</label>
+                            </div>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(m => m.AreaId, ViewBag.AreaList as IEnumerable<SelectListItem>, "--- All Area ---", new { id = "AreaId", @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.AreaId)
                             </div>
                         </div>
                     </div>
@@ -201,16 +243,18 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/form")
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#ddlCategory').select2({
-                placeholder: "Select a Category"
+    @*<script type="text/javascript">
+            $(document).ready(function () {
+                $('#ddlCategory').select2({
+                    placeholder: "Select a Category"
+                });
+                $('#ddlRegion').select2({
+                    placeholder: "Select a Location"
+                });
+                $('#ddlCondition').select2({
+                    placeholder: "Select Condition"
+                });
+                $('.select2').select2();
             });
-            $('#ddlRegion').select2({
-                placeholder: "Select a Location"
-            });
-            $('#ddlContact').select2();
-
-        });
-    </script>
+        </script>*@
 }

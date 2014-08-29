@@ -18,7 +18,9 @@ namespace App.Ads.ViewModel
         public Nullable<int> ContactMethod { get; set; }
         public Nullable<int> LocationId { get; set; }
         public int Status { get; set; }
+        public string ConditionCode { get; set; }
         public Nullable<int> CreateBy { get; set; }
+        public DateTime PostedDate { get; set; }
         public DateTime CreateDate { get; set; }
         public Nullable<System.DateTime> LastUpdate { get; set; }
 
@@ -27,7 +29,8 @@ namespace App.Ads.ViewModel
         public string CoverImage { get; set; }
 
         public virtual RefCategory RefCategory { get; set; }
-        public virtual RegionZone RegionZone { get; set; }
+        public virtual RegionZone Location { get; set; }
+        public virtual RegionZone Area { get; set; }
         public virtual ICollection<ListingDealMethod> ListingDealMethods { get; set; }
         public virtual ICollection<ListingImage> ListingImages { get; set; }
         public virtual UserProfile UserProfile { get; set; }

@@ -99,11 +99,12 @@ namespace App.Ads
             #region CSS
 
             //Bootstrap
-            bundles.Add(new StyleBundle("~/Content/common").Include(
+            bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
                          "~/Content/bootstrap/bootstrap.css",
+                         "~/Content/bootstrap/bootstrap-bazaar.css",
                          "~/Content/bootstrap/bootstrap-additions.css",
                          "~/Content/bootstrap/bootstrap-style.css",
-                         "~/Content/bootstrap/bootstrap-overrides.css"
+                         "~/Content/bootstrap/bootstrap-theme.css"
                          ).Include("~/Content/bootstrap/font-awesome.css", new CssRewriteUrlTransform()));
 
 
@@ -118,6 +119,7 @@ namespace App.Ads
                         "~/Content/themes/bazaar/signin.css",
                         "~/Content/fancybox/jquery.fancybox.css",
                         "~/Content/fancybox/helpers/jquery.fancybox-buttons.css",
+                        "~/Content/libraries/simple-sidebar.css",
                         "~/Content/libraries/loading-bar.css"
                         ));
 

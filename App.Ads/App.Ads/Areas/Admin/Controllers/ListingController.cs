@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Net;
 using System.Web.Mvc;
 using AutoMapper;
 using App.Core.Services;
@@ -59,20 +60,88 @@ namespace App.Ads.Areas.Admin.Controllers
             return Content("");
         }
 
+        public JsonResult Approve(ActionModel model)
+        {
+            var listing = _listingService.GetListingById(model.ListingId);
+
+            if (listing == null)
+            {
+                responseModel = new Ads.Models.ResponseModel
+                {
+                    StatusCode = (int)HttpStatusCode.BadRequest,
+                    Message = "Listing not exists."
+                };
+                return Json(responseModel);
+            }
+
+            if (listing.Status == (int)XtEnum.ListingStatus.Published)
+            {
+                responseModel = new Ads.Models.ResponseModel
+                {
+                    StatusCode = (int)HttpStatusCode.BadRequest,
+                    Message = "Listing already published."
+                };
+                return Json(responseModel);
+            }
+
+            listing.PostedDate = listing.PostedDate == null ? DateTime.Now : listing.PostedDate;
+            listing.PostingEndDate = listing.PostingEndDate == null ? DateTime.Now.AddDays((int)listing.Duration) : listing.PostingEndDate;
+            listing.Status = (int)XtEnum.ListingStatus.Published;
+            listing.LastAction = "Posted";
+            listing.LastActionBy = CurrentUser.CustomIdentity.UserId;
+            _listingService.Save(listing);
+
+            responseModel = new Ads.Models.ResponseModel
+            {
+                StatusCode = (int)HttpStatusCode.OK,
+                Message = "Listing successfully approved."
+            };
+
+            return Json(responseModel);
+
+            //return new JsonResult { Data = new {fieldName = "Word", error = "Not really a word!" } };
+        }
+
         [HttpPost]
         public JsonResult Reject(ActionModel model)
         {
             var listing = _listingService.GetListingById(model.ListingId);
 
-            if (listing != null)
+            if (listing == null)
             {
-                listing.LastAction = "Reject";
-                listing.LastActionBy = CurrentUser.CustomIdentity.UserId;
-                listing.Status = (int)XtEnum.ListingStatus.Rejected;
-
-                _listingService.Save(listing);
+                responseModel = new Ads.Models.ResponseModel
+                {
+                    StatusCode = (int)HttpStatusCode.BadRequest,
+                    Message = "Listing not exists."
+                };
+                return Json(responseModel);
             }
-            return Json("Success");
+
+
+            if (listing.Status == (int)XtEnum.ListingStatus.Rejected)
+            {
+                responseModel = new Ads.Models.ResponseModel
+                {
+                    StatusCode = (int)HttpStatusCode.BadRequest,
+                    Message = "Listing already rejected."
+                };
+                return Json(responseModel);
+            }
+
+            listing.LastAction = "Reject";
+            listing.LastActionBy = CurrentUser.CustomIdentity.UserId;
+            listing.Status = (int)XtEnum.ListingStatus.Rejected;
+            listing.RejectCode = model.RejectModel.RejectCode;
+
+            _listingService.Save(listing);
+
+            responseModel = new Ads.Models.ResponseModel
+            {
+                StatusCode = (int)HttpStatusCode.OK,
+                Message = "Listing successfully rejected."
+            };
+            return Json(responseModel);
+
         }
     }
 }

@@ -7,45 +7,85 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web;
+using System.Web.Caching;
 
 namespace App.Core.Services
 {
     public interface IRegionService
     {
-        IList<SelectListItem> GetRegionZone(int? selected = null);
-        RegionZone GetRegionZoneById(int? id);
+        IEnumerable<RegionZone> Get();
+        IList<SelectListItem> GetRegionZone();
+        RegionZone Find(int id);
 
+        IEnumerable<RegionZone> GetRegionByParentId(int parentId);
+        RegionZone GetParentRegionZoneByName(string name);
     }
 
     public class RegionService : IRegionService
     {
         private AdsDBEntities db;
 
+        private string cacheKey = "regionZones";
+
         public RegionService()
         {
             this.db = new AdsDBEntities();
         }
 
-        RegionZone IRegionService.GetRegionZoneById(int? id)
+        IEnumerable<RegionZone> IRegionService.Get()
         {
-            var regionZone = from r in db.RegionZones
-                             where r.id == id
-                             select r;
+            IEnumerable<RegionZone> regionZones = null;
+
+            if (HttpRuntime.Cache[cacheKey] != null)
+            {
+                regionZones = (IEnumerable<RegionZone>)HttpRuntime.Cache[cacheKey];
+            }
+            else
+            {
+                regionZones = this.db.RegionZones
+                                .Where(r => r.isActive == true);
+                HttpRuntime.Cache.Insert(cacheKey, regionZones, null, DateTime.Now.AddMinutes(60), Cache.NoSlidingExpiration);
+            }
+
+            return regionZones;
+        }
+
+        RegionZone IRegionService.Find(int id)
+        {
+            var regionZone = (this as IRegionService).Get()
+                                .Where(r => r.id == id);
 
             return regionZone.FirstOrDefault();
         }
 
-        IList<SelectListItem> IRegionService.GetRegionZone(int? selected = null)
+        IEnumerable<RegionZone> IRegionService.GetRegionByParentId(int parentId)
+        {
+            var regionZones = (this as IRegionService).Get()
+                                .Where(r => r.ParentId == parentId);
+
+            return regionZones;
+        }
+
+        RegionZone IRegionService.GetParentRegionZoneByName(string name)
+        {
+            var regionZone = (this as IRegionService).Get()
+                                .Where(r => r.ParentId == null)
+                                .Where(r => r.Name.ToLower() == name.ToLower()).FirstOrDefault();
+
+            return regionZone;
+        }
+
+        IList<SelectListItem> IRegionService.GetRegionZone()
         {
             var list = Grouping(db.RegionZones)
                               .OfType<RegionZoneGroup>()
-                              //.Where(x => x.Value.isActive == true)
+                //.Where(x => x.Value.isActive == true)
                               .SelectMany(x => GetNodeAndChildren(x))
                               .Select(t => new SelectListItem
                               {
                                   Text = t.Value.Name,
-                                  Value = t.Value.id.ToString(),
-                                  Selected = t.Value.id == selected ? true : false
+                                  Value = t.Value.id.ToString()
                               }).ToList();
 
             return list;

@@ -17,6 +17,7 @@ namespace App.Core.Data
         public RegionZone()
         {
             this.Listings = new HashSet<Listing>();
+            this.Listings1 = new HashSet<Listing>();
         }
     
         public int id { get; set; }
@@ -29,5 +30,6 @@ namespace App.Core.Data
         public bool isActive { get; set; }
     
         public virtual ICollection<Listing> Listings { get; set; }
+        public virtual ICollection<Listing> Listings1 { get; set; }
     }
 }

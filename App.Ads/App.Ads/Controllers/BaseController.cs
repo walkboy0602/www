@@ -4,12 +4,17 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using App.Ads.Code.Membership;
+using App.Ads.Models;
 
 namespace App.Ads.Controllers
 {
     public class BaseController : Controller
     {
+        // Current logged in User Cache Data
         public CustomPrincipal CurrentUser;
+
+        // For Ajax
+        public ResponseModel responseModel { get; set; }
 
         protected override void OnAuthorization(AuthorizationContext filterContext)
         {
@@ -22,6 +27,9 @@ namespace App.Ads.Controllers
             {
                 CurrentUser = null;
             }
+
+            ViewBag.Title = "MyBazaar.my";
+            ViewBag.SiteName = "MyBazaar.my";
         }
 
     }

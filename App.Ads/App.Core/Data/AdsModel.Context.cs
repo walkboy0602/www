@@ -38,9 +38,9 @@ namespace App.Core.Data
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<ListingPurchaseLog> ListingPurchaseLogs { get; set; }
-        public virtual DbSet<ListingType> ListingTypes { get; set; }
-        public virtual DbSet<Listing> Listings { get; set; }
         public virtual DbSet<RefTable> RefTables { get; set; }
         public virtual DbSet<ListingLog> ListingLogs { get; set; }
+        public virtual DbSet<ListingFeatureType> ListingFeatureTypes { get; set; }
+        public virtual DbSet<Listing> Listings { get; set; }
     }
 }

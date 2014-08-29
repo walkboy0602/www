@@ -29,6 +29,18 @@ namespace App.Ads.Code.Helpers
             encodedUrl = encodedUrl.Trim('-');
 
             return encodedUrl;
+        }   
+
+        public static string DecodeSeoUrl(this string url)
+        {
+            string decodedUrl = (url ?? "").ToLower();
+
+            // replace & with and
+            decodedUrl = decodedUrl.Replace("and", "&");
+
+            decodedUrl = decodedUrl.Replace("-", " ");
+
+            return decodedUrl;
         }
     }
 }

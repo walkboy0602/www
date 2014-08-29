@@ -41,6 +41,13 @@ angular.module('shopAPI', [])
             }
         }
     }])
+    .factory('CommonFactory', ['$http', function ($http) {
+        return {
+            getArea: function (locationId) {
+                return $http.get('/search/getArea', { params: { locationId: locationId } });
+            }
+        }
+    }])
     .factory('ListingFactory', ['$http', function ($http) {
 
         return {
@@ -78,8 +85,6 @@ angular.module('shopAPI', [])
                 return $http.post('/listing/deleteOption', data);
             }
         }
-
-
     }]);
 
 

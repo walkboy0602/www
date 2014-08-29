@@ -20,10 +20,10 @@
                     </div>
                 </div>
                 <div class="modal-body" data-ng-hide="alert.display">
-                    <form class="form-vertical">
+                    <div class="form-vertical">
                         <fieldset>
                             <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-sm-6">
                                     @Html.Hidden("ListingId", @Model.ListingId)
                                     <div class="form-group">
                                         <label>Name</label>
@@ -40,20 +40,23 @@
                                         @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", placeholder = "E.g. 012-3456789" })
                                         @Html.ValidationMessageFor(model => model.Phone)
                                     </div>
+                                </div>
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Message</label>
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                @Html.TextAreaFor(model => model.Message, new { @class = "form-control", @rows = 4 })
-                                                @Html.ValidationMessageFor(model => model.Message)
-                                            </div>
-                                        </div>
+                                        @Html.TextAreaFor(model => model.Message, new { @class = "form-control", @rows = 10 })
+                                        @Html.ValidationMessageFor(model => model.Message)
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row hidden-xs">
+                                <div class="col-sm-12">
                                     <div class="form-group">
                                         <label>Enter Captcha</label>
                                         @Html.Recaptcha()
                                     </div>
-                                    <div class="alert alert-info hidden-xs">
+                                    <div class="alert alert-info">
+                                        <b>Tips</b>
                                         <p>
                                             Follow these simple steps for a safe and successful buying experience:<br />
                                             1. Meet face to face to see the item and exchange money.<br /> 2. Make sure you are completely happy with the item before handing over any money. <br />3. Although we do not recommend paying for an item you haven't seen, if you are planning to do this, please use a secure payment method.<br />
@@ -62,7 +65,7 @@
                                 </div>
                             </div>
                         </fieldset>
-                    </form>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn-glow" data-dismiss="modal">Close</button>

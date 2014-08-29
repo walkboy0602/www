@@ -21,7 +21,7 @@
         @Html.ValidationSummary()
         <div class="form-vertical">
 
-            <div class="panel panel-default">
+            @*<div class="panel panel-default">
                 <div class="panel-heading">Select your Ad duration</div>
                 <div class="panel-body">
                     <div class="control-group">
@@ -31,7 +31,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>*@
 
             <div class="panel panel-default">
                 <div class="panel-heading">Outstanding your Ad (Optional)</div>
@@ -41,10 +41,10 @@
                             <label class="radio">
                                 @Html.RadioButtonFor(m => m.FeatureCode, "", new { @checked = "checked" }) None
                             </label>
-                            @foreach (ListingType listingType in ViewBag.FeatureList)
+                            @foreach (ListingFeatureType listingFeatureType in ViewBag.FeatureList)
                             {
                                 <label class="radio">
-                                    @Html.RadioButtonFor(m => m.FeatureCode, listingType.Code) @listingType.Name (RM @listingType.Fees)
+                                    @Html.RadioButtonFor(m => m.FeatureCode, listingFeatureType.Code) @listingFeatureType.Name (RM @listingFeatureType.Fees)
                                 </label>
                             }
                         </div>

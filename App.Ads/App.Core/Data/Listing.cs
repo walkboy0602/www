@@ -17,14 +17,16 @@ namespace App.Core.Data
         public Listing()
         {
             this.Enquiries = new HashSet<Enquiry>();
-            this.ListingPurchaseLogs = new HashSet<ListingPurchaseLog>();
             this.ListingDealMethods = new HashSet<ListingDealMethod>();
             this.ListingImages = new HashSet<ListingImage>();
             this.ListingLogs = new HashSet<ListingLog>();
+            this.ListingPurchaseLogs = new HashSet<ListingPurchaseLog>();
         }
     
-        public int id { get; set; }
+        public int Id { get; set; }
         public Nullable<int> CategoryId { get; set; }
+        public string ConditionCode { get; set; }
+        public string ListingTypeCode { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string Keywords { get; set; }
@@ -32,25 +34,28 @@ namespace App.Core.Data
         public bool IsNegotiable { get; set; }
         public Nullable<int> ContactMethod { get; set; }
         public Nullable<int> LocationId { get; set; }
+        public Nullable<int> AreaId { get; set; }
         public int Status { get; set; }
-        public Nullable<int> CreateBy { get; set; }
-        public Nullable<System.DateTime> CreateDate { get; set; }
-        public Nullable<System.DateTime> LastUpdate { get; set; }
         public bool IsTNCAccept { get; set; }
         public bool IsComplete { get; set; }
+        public Nullable<int> CreateBy { get; set; }
+        public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> PostedDate { get; set; }
         public Nullable<System.DateTime> PostingEndDate { get; set; }
-        public Nullable<int> Duration { get; set; }
+        public Nullable<System.DateTime> LastUpdate { get; set; }
         public string LastAction { get; set; }
         public Nullable<int> LastActionBy { get; set; }
+        public Nullable<int> Duration { get; set; }
+        public string RejectCode { get; set; }
     
         public virtual ICollection<Enquiry> Enquiries { get; set; }
-        public virtual RegionZone RegionZone { get; set; }
-        public virtual ICollection<ListingPurchaseLog> ListingPurchaseLogs { get; set; }
+        public virtual RegionZone Area { get; set; }
+        public virtual RegionZone Location { get; set; }
         public virtual RefCategory RefCategory { get; set; }
         public virtual ICollection<ListingDealMethod> ListingDealMethods { get; set; }
         public virtual ICollection<ListingImage> ListingImages { get; set; }
-        public virtual UserProfile UserProfile { get; set; }
         public virtual ICollection<ListingLog> ListingLogs { get; set; }
+        public virtual ICollection<ListingPurchaseLog> ListingPurchaseLogs { get; set; }
+        public virtual UserProfile UserProfile { get; set; }
     }
 }

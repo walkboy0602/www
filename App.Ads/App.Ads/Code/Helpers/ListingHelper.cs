@@ -5,6 +5,7 @@ using System.Web;
 using System.Configuration;
 using App.Core.Services;
 using App.Core.ViewModel;
+using App.Core.Data;
 using System.Text.RegularExpressions;
 
 namespace App.Ads.Code.Helpers
@@ -21,6 +22,21 @@ namespace App.Ads.Code.Helpers
             }
 
             return S3ImagePath + Src;
+        }
+
+        public static string GetCoverImage(List<App.Core.Data.ListingImage> listingImages, string size = null)
+        {
+            string coverImage = string.Empty;
+            if (listingImages.Count > 0)
+            {
+                coverImage = listingImages
+                                    .Where(i => i.IsCover)
+                                    .Select(i => i.Src).FirstOrDefault();
+
+                if (string.IsNullOrEmpty(coverImage)) coverImage = listingImages.Select(i => i.Src).FirstOrDefault();
+            }
+
+            return FormatImage(coverImage, size);
         }
 
         public static string FormatTitle(string title)
@@ -47,6 +63,11 @@ namespace App.Ads.Code.Helpers
             }
 
             return newPrice;
+        }
+
+        public static string FormatPostedDate(DateTime? postedDate)
+        {
+            return postedDate == null ? string.Empty : Convert.ToDateTime(postedDate).ToString("d-MMM-yy");
         }
 
         public static string FormatLocation(string locationName, string locationParentName)
@@ -124,6 +145,19 @@ namespace App.Ads.Code.Helpers
                 default:
                     return "";
             }
+        }
+
+        public static string GetSearchTitle(string keyword, string category, string area, string city, string type)
+        {
+            category = string.IsNullOrEmpty(category) ? "Almost anything" : category;
+
+            string location = string.IsNullOrEmpty(area) ? city : area + ", " + city;
+
+            keyword = string.IsNullOrEmpty(keyword) ? "" : keyword + " - ";
+
+            type = string.IsNullOrEmpty(type) ? "for sale" : type;
+
+            return keyword + category + " " + type + " in " + location;
         }
     }
 }

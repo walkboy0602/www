@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using App.Core.Data;
+using App.Core.Services;
 using App.Core.ViewModel;
 using AutoMapper;
 using Recaptcha.Web;
@@ -23,13 +24,26 @@ namespace App.Ads.Controllers
 
         private const string S3Domain = "http://assets.monsteritem.com/";
 
+        private readonly ICategoryService categoryService;
+        private readonly IRegionService regionService;
+        private readonly IListingService listingService;
+
+        public AdvertisementController()
+        {
+            this.categoryService = DependencyResolver.Current.GetService<ICategoryService>();
+            this.regionService = DependencyResolver.Current.GetService<IRegionService>();
+            this.listingService = DependencyResolver.Current.GetService<IListingService>();
+        }
+
         // GET: Ad
         //[MvcSiteMapNode(Title = "Advertisement Details", PreservedRouteParameters = "id")]
         //[SiteMapTitle("CategoryId", Target = AttributeTarget.ParentNode)]
+        //[MvcSiteMapNode(Title = "Ad Details", Key = "AdDetail", PreservedRouteParameters = "id, adTitle", ParentKey="Home")]
         [HttpGet]
-        public ActionResult Index(int id, string adTitle, string a)
+        //[SiteMapCacheRelease()]
+        public ActionResult Detail(int id, string adTitle, string a)
         {
-            var listing = db.Listings.Find(id);
+            var listing = listingService.GetListingById(id);
 
             var model = Mapper.Map<Listing, AdDetailViewModel>(listing);
 
@@ -46,16 +60,7 @@ namespace App.Ads.Controllers
                 return RedirectToActionPermanent("Index", "Advertisement", new { id = model.id, adTitle = expectedTitle });
             }
 
-            if (model.LocationParentId != 0)
-            {
-                model.ParentLocation = db.RegionZones.FirstOrDefault(x => x.id == model.LocationParentId).Name;
-            }
-
-            var node = SiteMaps.Current.CurrentNode;
-            if (node != null && node.ParentNode != null)
-            {
-                node.Title = listing.Title;
-            }
+            BreadCrumbConfiguration(SiteMaps.Current.CurrentNode, model);
 
             int dayDiff = (DateTime.Now - model.CreateDate).Days;
 
@@ -96,7 +101,26 @@ namespace App.Ads.Controllers
             return View(model);
         }
 
+        protected void BreadCrumbConfiguration(ISiteMapNode node, AdDetailViewModel model)
+        {
+            if (node != null && node.ParentNode != null)
+            {
+                node.Title = model.Title;
 
+                foreach (var parent in node.Ancestors)
+                {
+                    if (parent.Key != "Home")
+                    {
+                        parent.RouteValues["LocationText"] = model.Location.Name.ToLower();
+                    }
+
+                    if (parent.Key == "Listing")
+                    {
+                        parent.Title = model.Location.Name;
+                    }
+                }
+            }
+        }
     }
 
 

@@ -12,9 +12,9 @@ namespace App.Core.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class ListingType
+    public partial class ListingFeatureType
     {
-        public ListingType()
+        public ListingFeatureType()
         {
             this.ListingPurchaseLogs = new HashSet<ListingPurchaseLog>();
         }

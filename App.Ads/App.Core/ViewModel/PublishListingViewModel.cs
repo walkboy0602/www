@@ -14,9 +14,6 @@ namespace App.Core.ViewModel
         [BooleanRequired(ErrorMessage = "Please agree to the Terms & Conditions and Privacy Policy.")]
         public bool AgreesWithTerms { get; set; }
 
-        [Required(ErrorMessage="Please select your ad duration.")]
-        public string DurationCode { get; set; }
-
         public string FeatureCode { get; set; }
     }
 }

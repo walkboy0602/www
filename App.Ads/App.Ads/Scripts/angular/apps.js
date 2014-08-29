@@ -30,27 +30,39 @@ shopApp.run(['$rootScope', '$window', '$http', '$location', '$route', '$routePar
 
         $rootScope.errorMessage = "Sorry, there was an error while processing your request. <br/> Please contact our support";
 
-        $rootScope.success = function (msg) {
+        $rootScope.success = function (message, isHide) {
             $rootScope.alert = {
                 type: 'success',
                 display: true,
-                message: msg
+                message: message,
+                showGobal: angular.isUndefined(isHide) ? true : isHide
             };
         }
 
-        $rootScope.warning = function (message) {
+        $rootScope.info = function (message, isHide) {
+            $rootScope.alert = {
+                type: 'info',
+                display: true,
+                message: message,
+                showGobal: angular.isUndefined(isHide) ? true : isHide
+            };
+        }
+
+        $rootScope.warning = function (message, isHide) {
             $rootScope.alert = {
                 type: 'warning',
                 display: true,
-                message: message
+                message: message,
+                showGobal: angular.isUndefined(isHide) ? true : isHide
             };
         }
 
-        $rootScope.error = function (message) {
+        $rootScope.error = function (message, isHide) {
             $rootScope.alert = {
                 type: 'danger',
                 display: true,
-                message: angular.isUndefined !== message ? $rootScope.errorMessage : message
+                message: angular.isUndefined(message) ? $rootScope.errorMessage : message,
+                showGobal: angular.isUndefined(isHide) ? true : isHide
             };
         }
 

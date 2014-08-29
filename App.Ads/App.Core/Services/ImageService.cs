@@ -55,7 +55,7 @@ namespace App.Core.Services
         bool IImageService.Delete(int ImageId, int UserId)
         {
             ListingImage model = (from l in db.Listings
-                                  join lb in db.ListingImages on l.id equals lb.ListingId
+                                  join lb in db.ListingImages on l.Id equals lb.ListingId
                                   where lb.id == ImageId
                                   where l.CreateBy == UserId
                                   select lb).FirstOrDefault();
@@ -88,8 +88,8 @@ namespace App.Core.Services
         List<ListingImage> IImageService.Get(int ListingId, int UserId)
         {
             var result = (from l in db.Listings
-                          join lb in db.ListingImages on l.id equals lb.ListingId
-                          where l.id == ListingId
+                          join lb in db.ListingImages on l.Id equals lb.ListingId
+                          where l.Id == ListingId
                           where l.CreateBy == UserId
                           select lb
                               ).ToList();
@@ -100,7 +100,7 @@ namespace App.Core.Services
         ListingImage IImageService.GetById(int ImageId, int UserId)
         {
             var result = (from l in db.Listings
-                          join lb in db.ListingImages on l.id equals lb.ListingId
+                          join lb in db.ListingImages on l.Id equals lb.ListingId
                           where lb.id == ImageId
                           where l.CreateBy == UserId
                           select lb
@@ -130,7 +130,7 @@ namespace App.Core.Services
             byte[] fileBytes = image.GetBytes();
 
             //Thumnbnail
-            byte[] s0 = awsService.CreateImage(fileBytes, image.FileName, 120, 120);
+            byte[] s0 = awsService.CreateImage(fileBytes, image.FileName, 200, 150);
             status = awsService.UploadToS3(s0, imageURL.Replace("####size####", "s0"));
 
             //Standard

@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web;
+using System.Web.Caching;
 using System.Web.Mvc;
 using System.Data;
 using System.Data.Entity;
@@ -18,13 +20,18 @@ namespace App.Core.Services
         // All methods in Service<TEntity> are ovverridable for any custom implementations
         void Create(RefCategory refCategory);
         void Save(RefCategory refCategory);
-        RefCategory Find(int id);
-        IEnumerable<RefCategory> GetByParentID(int? ParentID);
-        string GetParentName(int? ParentID);
 
-        List<RefCategory> GetAll();
-        IEnumerable<CategoryGroup> GetCategoryGroup();
-        IList<SelectListItem> GetCategories(int? selected = null);
+        RefCategory Find(int id);
+        RefCategory FindByName(string name);
+
+        IEnumerable<RefCategory> Get();
+        IEnumerable<RefCategory> GetByParentID(int? ParentID);
+        List<int> GetSubCategory(int categoryId);
+
+        //DropDown
+        IList<SelectListItem> GetCategories();
+        IList<SelectListItem> GetParentCategories();
+        List<DropDownModel> GetCategoriesOptGroup();
     }
 
     // Add any custom business logic (methods) here
@@ -39,6 +46,8 @@ namespace App.Core.Services
     public class CategoryService : ICategoryService
     {
         private AdsDBEntities db;
+
+        private string cacheKey = "refCategories";
 
         public CategoryService()
         {
@@ -62,22 +71,52 @@ namespace App.Core.Services
             return db.RefCategories.Where(x => x.ParentID == ParentID).ToList();
         }
 
-        string ICategoryService.GetParentName(int? ParentID)
-        {
-            return db.RefCategories.Where(x => x.id == ParentID).Select(x => x.Name).SingleOrDefault();
-        }
-
         RefCategory ICategoryService.Find(int id)
         {
             return db.RefCategories.Find(id);
         }
 
-        List<RefCategory> ICategoryService.GetAll()
+        RefCategory ICategoryService.FindByName(string name)
         {
-            return db.RefCategories.Where(x => x.isActive == true).ToList();
+            IEnumerable<RefCategory> refCategories = (this as ICategoryService).Get().Where(r => r.Name.ToLower() == name.ToLower());
+
+            return refCategories.FirstOrDefault();
         }
 
-        IList<SelectListItem> ICategoryService.GetCategories(int? selected = null)
+        IEnumerable<RefCategory> ICategoryService.Get()
+        {
+            IEnumerable<RefCategory> refCategories = null;
+
+            if (HttpRuntime.Cache[cacheKey] != null)
+            {
+                refCategories = (IEnumerable<RefCategory>)HttpRuntime.Cache[cacheKey];
+            }
+            else
+            {
+                refCategories = db.RefCategories.Where(x => x.isActive == true).ToList();
+                HttpRuntime.Cache.Insert(cacheKey, refCategories, null, DateTime.Now.AddMinutes(60), Cache.NoSlidingExpiration);
+            }
+
+            return refCategories;
+        }
+
+        /// <summary>
+        /// Retrieve all sub category of the selected categoryId
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
+        List<int> ICategoryService.GetSubCategory(int categoryId)
+        {
+            var ids = (this as ICategoryService).Get()
+                                .First(c => c.id == categoryId)
+                                .AllSubcategories()
+                                .Select(x => x.id)
+                                .ToList();
+
+            return ids;
+        }
+
+        IList<SelectListItem> ICategoryService.GetCategories()
         {
             var list = Grouping(db.RefCategories)
                                .OfType<CategoryGroup>()
@@ -87,18 +126,38 @@ namespace App.Core.Services
                                {
                                    Text = t.Value.Name,
                                    Value = t.Value.id.ToString(),
-                                   Selected = t.Value.id == selected ? true : false
+                                   Selected = false
                                }).ToList();
 
             return list;
         }
 
-        IEnumerable<CategoryGroup> ICategoryService.GetCategoryGroup()
+        IList<SelectListItem> ICategoryService.GetParentCategories()
         {
-            var list = Grouping(db.RefCategories)
-                        .OfType<CategoryGroup>()
-                        .Where(x => x.Value.isActive == true)
-                        .SelectMany(x => GetNodeAndChildren(x, true));
+            var list = db.RefCategories
+                        .Where(r => r.ParentID == null)
+                        .Where(r => r.isActive == true)
+                               .Select(t => new SelectListItem
+                               {
+                                   Text = t.Name,
+                                   Value = t.id.ToString(),
+                                   Selected = false
+                               }).ToList();
+
+            return list;
+        }
+
+        List<DropDownModel> ICategoryService.GetCategoriesOptGroup()
+        {
+            var list = (this as ICategoryService).Get()
+                        .Where(r => r.ParentID != null)
+                        .Where(r => r.isActive == true)
+                        .Select(t => new DropDownModel
+                        {
+                            Id = t.id.ToString(),
+                            Name = t.Name,
+                            Category = t.ParentCategory.Name
+                        }).ToList();
 
             return list;
         }
@@ -115,8 +174,8 @@ namespace App.Core.Services
                                                 {
                                                     id = i.Value.id,
                                                     ParentID = i.Value.ParentID,
-                                                    //Name = "\u21B3\xA0" + i.Value.Name,
-                                                    Name = "\xA0›\xA0" + i.Value.Name,
+                                                    Name = "\xA0\xA0" + i.Value.Name,
+                                                    //Name = "\xA0›\xA0" + i.Value.Name,
                                                     isActive = i.Value.isActive,
                                                     Description = i.Value.Description
                                                 }
@@ -130,6 +189,7 @@ namespace App.Core.Services
                                                         id = i.Value.id,
                                                         ParentID = i.Value.ParentID,
                                                         Name = "\xA0\xA0" + i.Value.Name,
+                                                        //Name = "\xA0\xA0" + i.Value.Name,
                                                         isActive = i.Value.isActive,
                                                         Description = i.Value.Description
                                                     }
