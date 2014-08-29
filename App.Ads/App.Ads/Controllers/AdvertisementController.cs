@@ -111,7 +111,7 @@ namespace App.Ads.Controllers
                 {
                     if (parent.Key != "Home")
                     {
-                        parent.RouteValues["LocationText"] = model.Location.Name.ToLower();
+                        parent.RouteValues["LocationText"] = model.Location.Name.ToSeoUrl();
                     }
 
                     if (parent.Key == "Listing")

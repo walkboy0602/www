@@ -268,7 +268,6 @@
     <Compile Include="Code\Constant\CacheConstant.cs" />
     <Compile Include="Code\Constant\ErrorConstant.cs" />
     <Compile Include="Code\Constant\MessageConstant.cs" />
-    <Compile Include="Code\Filters\SEOSearchAttribute.cs" />
     <Compile Include="Code\Helpers\CommonHelper.cs" />
     <Compile Include="Code\Helpers\ListingHelper.cs" />
     <Compile Include="Code\Filters\ValidateModelAttribute.cs" />
