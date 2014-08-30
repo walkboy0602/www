@@ -564,3 +564,88 @@ table th span.line {
 .modal-footer{
     margin-top: 0;
 }
+
+/* bootstrap side navigation */
+ul.side-nav span.badge {
+	float:right;
+	margin-top:6px;
+	font-weight:400;
+
+	-webkit-border-radius: 3px;
+	   -moz-border-radius: 3px;
+			border-radius: 3px;
+}
+ul.side-nav>li>span.badge {
+	margin-top:12px;
+	margin-right:6px;
+}
+.list-group-item:first-child,
+.list-group-item:last-child,
+ul.side-nav {
+	-webkit-border-radius: 0;
+	   -moz-border-radius: 0;
+			border-radius: 0;
+}
+ul.side-nav li {
+	list-style:none;
+}
+ul.side-nav ul {
+	margin:0;
+	padding:0;
+	background-color:rgba(0,0,0,0.02);
+}
+ul.side-nav ul li {
+	padding:0 15px;
+	border-bottom:rgba(0,0,0,0.05) 1px solid;
+}
+ul.side-nav ul li:last-child {
+	border-bottom:0;
+}
+ul.side-nav a {
+	display:block;
+	text-decoration:none;
+	color:#333;
+}
+ul.side-nav a i.fa {
+	width:20px;
+}
+ul.side-nav ul li a {
+	padding:3px;
+	font-size:13px;
+}
+ul.side-nav>li {
+	padding:0;
+}
+ul.side-nav>li>a {
+	padding:7px 10px;
+}
+ul.side-nav>li.list-group-item.active {
+	border:0;
+	background-color:transparent;
+}
+ul.side-nav>li.active>a {
+	background-color:rgba(0,0,0,0.5);
+}
+ul.side-nav li.list-toggle.active:after,
+ul.side-nav > li.active>a {
+	color:#fff !important;
+}
+ul.side-nav li.list-toggle:after {
+	content: "\f105";
+	font-family: FontAwesome;
+	position: absolute;
+	font-size: 15px;
+	right: 10px;
+	top: 7px;
+	color:#999;
+}
+ul.side-nav li.list-toggle.active:after {
+	content: "\f107";
+}
+.list-group-item {
+	border:0;
+	background:transparent;
+	border:rgba(0,0,0,0.1) 1px solid;
+	border-left:0;
+	border-right:0;
+}

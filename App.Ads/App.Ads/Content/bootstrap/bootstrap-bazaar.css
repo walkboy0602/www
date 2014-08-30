@@ -4116,17 +4116,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   background-color: #ffffff;
   border-radius: 0px;
 }
-.breadcrumb > li {
-  display: inline-block;
-}
-.breadcrumb > li + li:before {
-  content: "/\00a0";
-  padding: 0 5px;
-  color: #cccccc;
-}
-.breadcrumb > .active {
-  color: #555555;
-}
 .pagination {
   display: inline-block;
   padding-left: 0;
@@ -6089,21 +6078,6 @@ div {
   border-color: #dedede;
   -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1);
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-.list-group {
-  border-radius: 0px;
-  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.075);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.075);
-}
-.list-group-item.active,
-.list-group-item.active:hover,
-.list-group-item.active:focus {
-  text-shadow: 0 -1px 0 #0066cc;
-  background-image: -webkit-linear-gradient(top, #007fff 0%, #006cd9 100%);
-  background-image: linear-gradient(to bottom, #007fff 0%, #006cd9 100%);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff007fff', endColorstr='#ff006cd9', GradientType=0);
-  border-color: #006cd9;
 }
 .hero-unit {
   border: 1px solid rgba(0, 0, 0, 0.05);
