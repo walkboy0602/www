@@ -1,0 +1,24 @@
+﻿
+@if (ViewBag.ModelState != null)
+{
+    <div class="col-sm-12">
+        <div class="alert alert-danger">
+            @foreach (ModelState modelState in ViewBag.ModelState.Values)
+            {
+                foreach (ModelError error in modelState.Errors)
+                {
+                    <span>@error.ErrorMessage</span>
+                }
+            }
+        </div>
+    </div>
+}
+
+@if (ViewBag.SuccessMsg != null)
+{
+    <div class="col-sm-12">
+        <div class="alert alert-success">
+            <strong>Success! </strong> @ViewBag.SuccessMsg
+        </div>
+    </div>
+}

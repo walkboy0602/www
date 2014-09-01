@@ -252,7 +252,9 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Account\AccountAreaRegistration.cs" />
-    <Compile Include="Areas\Account\Service\AccountService.cs" />
+    <Compile Include="Areas\Account\Controllers\ForgotPasswordController.cs" />
+    <Compile Include="Areas\Account\Models\ForgotPasswordModel.cs" />
+    <Compile Include="Areas\Account\BO\AccountBO.cs" />
     <Compile Include="Areas\Account\Controllers\EditController.cs" />
     <Compile Include="Areas\Account\Controllers\LoginController.cs" />
     <Compile Include="Areas\Account\Controllers\LogoffController.cs" />
@@ -703,6 +705,7 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Listing\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Listing\Action.cshtml" />
+    <Content Include="Areas\Account\Views\ForgotPassword\Index.cshtml" />
     <None Include="MvcSiteMapSchema.xsd" />
     <None Include="Properties\PublishProfiles\ohmybazzar - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\ohmybazzar - Web Deploy.pubxml" />
@@ -809,7 +812,7 @@
     <Content Include="Views\Shared\DisplayTemplates\CanonicalHelperModel.cshtml" />
     <Content Include="Views\Listing\Publish.cshtml" />
     <Content Include="Views\Listing\Complete.cshtml" />
-    <Content Include="Views\Shared\_globalError.cshtml" />
+    <Content Include="Views\Shared\_ErrorMessage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

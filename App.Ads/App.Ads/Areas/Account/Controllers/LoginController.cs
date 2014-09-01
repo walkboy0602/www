@@ -28,6 +28,10 @@ namespace App.Ads.Areas.Account.Controllers
         [HttpPost, AllowAnonymous, ValidateAntiForgeryToken]
         public ActionResult Index(LoginModel model, string returnUrl)
         {
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("Dashboard", "User", new { area = "" });
+            }
 
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {

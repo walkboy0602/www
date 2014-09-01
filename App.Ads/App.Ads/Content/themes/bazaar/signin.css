@@ -51,10 +51,8 @@
   display: block;
   text-align: right;
   font-style: italic;
-  text-decoration: underline;
   color: #3d88ba;
   font-size: 13px;
-  margin-bottom: 6px;
 }
 .login-wrapper .box .remember {
   display: block;

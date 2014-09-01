@@ -1,0 +1,35 @@
+﻿
+@model App.Ads.Areas.Account.Models.ForgotPasswordModel
+@{
+    ViewBag.Title = "ForgotPassword";
+}
+
+@Html.Partial("_ErrorMessage")
+
+<div class="col-sm-12 login-wrapper">
+    <h1>Forgot your password?</h1>
+    @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+    {
+        @Html.AntiForgeryToken()
+        <hr>
+
+        <div class="row">
+            <div class="col-sm-12 col-md-6 box">
+                @Html.ValidationSummary(true)
+                <div class="content-wrap">
+                    <div class="row">
+                        <div class="form-group">
+                            <label>Enter your email to continue</label>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "E-mail address" })
+                            @Html.ValidationMessageFor(m => m.Email)
+                        </div>
+                        <input type="submit" value="Continue" class="btn-glow primary pull-right" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="no-account">
+        @Html.ActionLink("Back to login", "index", "login", new { area = "account" }, new { @class = "link-info" })
+    </div>
+</div>

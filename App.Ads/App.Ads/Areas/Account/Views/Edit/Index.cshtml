@@ -5,30 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-@if (ViewBag.ModelState != null)
-{
-    <div class="col-sm-12">
-        <div class="alert alert-danger">
-            @foreach (ModelState modelState in ViewBag.ModelState.Values)
-            {
-                foreach (ModelError error in modelState.Errors)
-                {
-                    <span>@error.ErrorMessage</span>
-                }
-            }
-        </div>
-    </div>
-}
-
-@if (ViewBag.SuccessMsg != null)
-{
-    <div class="col-sm-12">
-        <div class="alert alert-success">
-            @ViewBag.SuccessMsg
-        </div>
-    </div>
-}
+@Html.Partial("_ErrorMessage")
 
 <div class="col-sm-3">
     @Html.Partial("~/Views/PartialView/_sidepanel.cshtml")

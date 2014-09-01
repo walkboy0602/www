@@ -7,7 +7,7 @@
 
 <div class="col-sm-12 login-wrapper">
     <h1>Sign in to your account</h1>
-    @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+    @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
         <hr>
@@ -25,14 +25,18 @@
                         @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Your password" })
                         @Html.ValidationMessageFor(m => m.Password)
                     </div>
-                        <a href="#" class="forgot">Forgot password?</a>
-                        <div class="remember">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            @Html.ActionLink("Forgot password?", "index", "ForgotPassword", new { area = "account" }, new { @class = "pull-right forgot" })
+                        </div>
+                        <div class="col-sm-12 remember">
                             @Html.CheckBoxFor(m => m.RememberMe)
                             @Html.LabelFor(m => m.RememberMe, new { @class = "remember-me" })
                         </div>
-
-                        <input type="submit" value="Log in" class="btn-glow primary login" />
                     </div>
+
+                    <input type="submit" value="Log in" class="btn-glow primary login" />
+                </div>
             </div>
         </div>
     }

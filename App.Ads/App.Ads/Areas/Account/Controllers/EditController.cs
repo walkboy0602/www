@@ -12,7 +12,6 @@ using App.Ads.Code.Membership;
 using AutoMapper;
 using App.Ads.Controllers;
 using App.Ads.ViewModel;
-using App.Ads.Code.Constant;
 
 namespace App.Ads.Areas.Account.Controllers
 {
@@ -22,14 +21,14 @@ namespace App.Ads.Areas.Account.Controllers
         private readonly ICommonService commonService;
         private readonly IUserService userService;
         private readonly ICacheService cacheService;
-        private readonly Service.IAccountService accountService;
+        private readonly BO.IAccountBO accountBO;
 
         public EditController()
         {
             this.commonService = DependencyResolver.Current.GetService<ICommonService>();
             this.userService = DependencyResolver.Current.GetService<IUserService>();
             this.cacheService = DependencyResolver.Current.GetService<ICacheService>();
-            this.accountService = DependencyResolver.Current.GetService<Service.IAccountService>();
+            this.accountBO = DependencyResolver.Current.GetService<BO.IAccountBO>();
         }
 
         // GET: Account/Edit
@@ -52,7 +51,7 @@ namespace App.Ads.Areas.Account.Controllers
         {
             model.ChangePassword.UserId = CurrentUser.CustomIdentity.UserId;
 
-            if (accountService.ChangePassword(model.ChangePassword))
+            if (accountBO.ChangePassword(model.ChangePassword))
             {
                 cacheService.Clear(string.Format(CacheConstant.USERDATA + "{0}", CurrentUser.Identity.Name));
                 ViewBag.SuccessMsg = MessageConstant.PASSWORD_CHANGED;

@@ -3,7 +3,6 @@ using Microsoft.Practices.Unity;
 using Unity.Mvc4;
 using System.Net.Mail;
 using App.Core.Services;
-using App.Ads.Areas.Account.Service;
 using System.Linq;
 using System.Web.Http;
 
@@ -40,7 +39,7 @@ namespace App.Ads
             container.RegisterType<IAWSService, AWSService>();
             container.RegisterType<IEnquiryService, EnquiryService>();
             container.RegisterType<ISearchService, SearchService>();
-            container.RegisterType<IAccountService, AccountService>();
+            container.RegisterType<App.Ads.Areas.Account.BO.IAccountBO, App.Ads.Areas.Account.BO.AccountBO>();
             container.RegisterType<IFeatureService, FeatureService>();
             container.RegisterType<IReferenceService, ReferenceService>();
             container.RegisterType<ICacheService, CacheService>();

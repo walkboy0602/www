@@ -32,12 +32,12 @@ namespace App.Core.Services
 
         // Emails
         void SendAccountActivationMail(string email);
+        void SendPasswordResetMail(int userId, string email, string token);
 
         // Helper to do 
         string GetHash(string text);
 
     }
-
 
     public class UserService : IUserService
     {
@@ -99,11 +99,12 @@ namespace App.Core.Services
             App.Core.Data.Membership membership = null;
 
             var userProfile = db.UserProfiles.Where(x => x.UserName.Equals(userName)).FirstOrDefault();
-            db.Entry(userProfile).Reload(); //Force to reload db data else it will cached.
-
+       
             if (userProfile != null)
             {
                 membership = db.Memberships.Where(x => x.UserId == userProfile.UserId).FirstOrDefault();
+                //Force to reload db data else it will cached.
+                db.Entry(userProfile).Reload(); 
                 db.Entry(membership).Reload();
                 membership.UserProfile = userProfile;
             }
@@ -140,7 +141,6 @@ namespace App.Core.Services
                 throw new MembershipCreateUserException(MembershipCreateStatus.ProviderError);
             }
 
-            //var configValues = this.configService.GetValues(new ConfigName[] { ConfigName.WebsiteUrlName, ConfigName.WebsiteTitle, ConfigName.WebsiteUrl });
             var viewData = new ViewDataDictionary { Model = userProfile };
             viewData.Add("Membership", membership);
             this.emailService.SendEmailWithTemplate(email, "Confirm your registration",
@@ -149,6 +149,11 @@ namespace App.Core.Services
             );
         }
 
+        void IUserService.SendPasswordResetMail(int userId, string email, string token)
+        {
+
+        }
+        
         private string salt = "HJIO6589";
         string IUserService.GetHash(string text)
         {

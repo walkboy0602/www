@@ -6,11 +6,19 @@ using System.Web.Mvc;
 using System.Web.Security;
 using WebMatrix.WebData;
 using App.Ads.Areas.Account.Models;
+using App.Core.Services;
 
 namespace App.Ads.Areas.Account.Controllers
 {
     public class RegisterController : Controller
     {
+        private readonly IUserService userService;
+
+        public RegisterController()
+        {
+            this.userService = DependencyResolver.Current.GetService<IUserService>();
+        }
+
         // GET: Account/Register
         public ActionResult Index()
         {
@@ -39,7 +47,7 @@ namespace App.Ads.Areas.Account.Controllers
                             Mobile = model.Mobile
                         }, requireConfirmationToken: true);
 
-                    //this.userService.SendAccountActivationMail(model.Email);
+                    this.userService.SendAccountActivationMail(model.Email);
 
                     return RedirectToAction("success", "register", new { email = model.Email, area = "account" });
                 }
