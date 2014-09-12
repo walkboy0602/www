@@ -42,7 +42,7 @@ namespace App.Ads.Areas.Account.BO
 
             membership.PasswordSalt = _userService.GetHash(model.Password);
             membership.PasswordChangedDate = DateTime.Now;
-            _userService.Save(membership);
+            _userService.Save(membership, false);
             return true;
         }
 
@@ -64,7 +64,7 @@ namespace App.Ads.Areas.Account.BO
 
             membership.PasswordVerificationToken = Guid.NewGuid().ToString().ToLower();
             membership.PasswordVerificationTokenExpirationDate = DateTime.Now.AddDays(1); // Expired in 24 hours
-            _userService.Save(membership);
+            _userService.Save(membership, false);
 
             //Send Password Reset Mail
             _userService.SendPasswordResetMail(membership.UserId, membership.UserProfile.UserName, membership.PasswordVerificationToken);

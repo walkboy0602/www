@@ -1,9 +1,7 @@
 ﻿@model App.Core.Models.SendEnquiryModel
 
 @{ 
-    //var membership = (App.Core.Data.Membership)ViewBag.Membership;
     var sendEmailModel = (App.Core.Models.SendEmailModel)ViewBag.SendEmailModel; 
-    //var activationLink = sendEmailModel.WebsiteURL + Url.Action("confirmation", "verification", new { guid = membership.EmailConfirmationToken, area = "account" }); 
     
     var adLink = sendEmailModel.WebsiteURL + Url.Action("Index", "Advertisement", new { id = @Model.ListingId });
 }

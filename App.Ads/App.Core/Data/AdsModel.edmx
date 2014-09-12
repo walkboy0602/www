@@ -145,6 +145,7 @@
           <Property Name="Description" Type="nvarchar" MaxLength="200" />
           <Property Name="Sort" Type="int" />
           <Property Name="isActive" Type="bit" />
+          <Property Name="FaIcon" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="RefTable">
           <Key>
@@ -629,6 +630,7 @@
           <NavigationProperty Name="SubCategories" Relationship="AdsDBModel.FK_RefCategory_ParentId" FromRole="RefCategory" ToRole="RefCategory1" />
           <NavigationProperty Name="ParentCategory" Relationship="AdsDBModel.FK_RefCategory_ParentId" FromRole="RefCategory1" ToRole="RefCategory" />
           <NavigationProperty Name="Listings" Relationship="AdsDBModel.FK_Listing_CategoryId" FromRole="RefCategory" ToRole="Listing" />
+          <Property Name="FaIcon" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Region">
           <Key>
@@ -1052,6 +1054,7 @@
           <EntitySetMapping Name="RefCategories">
             <EntityTypeMapping TypeName="AdsDBModel.RefCategory">
               <MappingFragment StoreEntitySet="RefCategory">
+                <ScalarProperty Name="FaIcon" ColumnName="FaIcon" />
                 <ScalarProperty Name="isActive" ColumnName="isActive" />
                 <ScalarProperty Name="Sort" ColumnName="Sort" />
                 <ScalarProperty Name="Description" ColumnName="Description" />

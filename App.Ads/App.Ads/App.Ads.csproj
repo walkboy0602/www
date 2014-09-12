@@ -791,7 +791,7 @@
     <Content Include="Views\Listing\_gallery.cshtml" />
     <Content Include="Views\Advertisement\Detail.cshtml" />
     <Content Include="Views\Advertisement\_Enquiry.cshtml" />
-    <Content Include="Views\EmailTemplates\ChangePassword.cshtml" />
+    <Content Include="Views\EmailTemplates\ResetPassword.cshtml" />
     <Content Include="Views\EmailTemplates\ConfirmRegistration.cshtml" />
     <Content Include="Views\EmailTemplates\Enquiry.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />

@@ -28,6 +28,7 @@ namespace App.Core.Data
         public string Description { get; set; }
         public Nullable<int> Sort { get; set; }
         public Nullable<bool> isActive { get; set; }
+        public string FaIcon { get; set; }
     
         public virtual ICollection<RefCategory> SubCategories { get; set; }
         public virtual RefCategory ParentCategory { get; set; }

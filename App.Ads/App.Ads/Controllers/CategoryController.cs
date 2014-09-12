@@ -56,7 +56,7 @@ namespace App.Ads.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,Name,ParentID,MetaDescription,MetaKeyword,Description,Sort,isActive")] RefCategory refCategory)
+        public ActionResult Create([Bind(Include = "id,Name,ParentID,MetaDescription,MetaKeyword,Description,Sort,isActive,FaIcon")] RefCategory refCategory)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +89,7 @@ namespace App.Ads.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,Name,ParentID,MetaDescription,MetaKeyword,Description,Sort,isActive")] RefCategory refCategory)
+        public ActionResult Edit([Bind(Include = "id,Name,ParentID,MetaDescription,MetaKeyword,Description,Sort,isActive,FaIcon")] RefCategory refCategory)
         {
             if (ModelState.IsValid)
             {

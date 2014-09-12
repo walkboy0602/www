@@ -22,7 +22,7 @@ namespace App.Core.Services
         void Save(UserProfile userProfile);
 
         // Membership
-        void Save(App.Core.Data.Membership membership);
+        void Save(App.Core.Data.Membership membership, bool isAdd);
         App.Core.Data.Membership GetMembership(string userName);
         App.Core.Data.Membership GetMembership(int userId);
         App.Core.Data.Membership GetMembershipByConfirmToken(string token, bool withUserProfile);
@@ -83,9 +83,9 @@ namespace App.Core.Services
             }
         }
 
-        void IUserService.Save(App.Core.Data.Membership membership)
+        void IUserService.Save(App.Core.Data.Membership membership, bool isAdd)
         {
-            if (membership.UserId == 0)
+            if (isAdd)
             {
                 this.db.Memberships.Add(membership);
             }
@@ -114,7 +114,7 @@ namespace App.Core.Services
 
         App.Core.Data.Membership IUserService.GetMembership(int userId)
         {
-            return this.db.Memberships.FirstOrDefault(x => x.UserId == userId);
+            return this.db.Memberships.Where(x => x.UserId == userId).FirstOrDefault();
         }
 
         App.Core.Data.Membership IUserService.GetMembershipByConfirmToken(string token, bool withUserProfile)
@@ -151,7 +151,24 @@ namespace App.Core.Services
 
         void IUserService.SendPasswordResetMail(int userId, string email, string token)
         {
+            var userProfile = (this as IUserService).GetUserProfile(userId);
+            if (userProfile == null)
+            {
+                throw new MembershipCreateUserException(MembershipCreateStatus.ProviderError);
+            }
 
+            var membership = (this as IUserService).GetMembership(userId);
+            if (membership == null)
+            {
+                throw new MembershipCreateUserException(MembershipCreateStatus.ProviderError);
+            }
+
+            var viewData = new ViewDataDictionary { Model = userProfile };
+            viewData.Add("Membership", (App.Core.Data.Membership)membership);
+            this.emailService.SendEmailWithTemplate(email, "Reset your password",
+                  "ResetPassword",
+                  viewData
+              );
         }
         
         private string salt = "HJIO6589";

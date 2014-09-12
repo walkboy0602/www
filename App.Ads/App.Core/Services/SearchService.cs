@@ -85,6 +85,8 @@ namespace App.Core.Services
                 predicate = predicate.And(predKeyword.Expand());
             }
 
+
+            predicate = predicate.And(p => p.Status != 0);
     
             //predicate = predicate.And(p => p.PostingEndDate >= DateTime.Now);
 
