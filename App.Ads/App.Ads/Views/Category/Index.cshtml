@@ -21,12 +21,6 @@
             @Html.DisplayNameFor(model => model.ParentCategory)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ParentID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Sort)
         </th>
         <th>
@@ -44,13 +38,7 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ParentCategory.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ParentID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
+            @Html.DisplayFor(modelItem => item.ParentCategory.Name) (@Html.DisplayFor(modelItem => item.ParentID))
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Sort)

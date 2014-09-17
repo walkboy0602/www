@@ -47,7 +47,7 @@ namespace App.Ads.Controllers
         // GET: RefCategories/Create
         public ActionResult Create()
         {
-            ViewBag.Categories = categoryService.GetParentCategories();
+            ViewBag.Categories = categoryService.GetCategories();
             return View();
         }
 
@@ -64,7 +64,7 @@ namespace App.Ads.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Categories = categoryService.GetParentCategories();
+            ViewBag.Categories = categoryService.GetCategories();
             return View(refCategory);
         }
 
@@ -80,7 +80,7 @@ namespace App.Ads.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Categories = categoryService.GetParentCategories();
+            ViewBag.Categories = categoryService.GetCategories();
             return View(refCategory);
         }
 
@@ -97,7 +97,7 @@ namespace App.Ads.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Categories = categoryService.GetParentCategories();
+            ViewBag.Categories = categoryService.GetCategories();
             return View(refCategory);
         }
 
