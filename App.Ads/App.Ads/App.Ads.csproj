@@ -806,6 +806,7 @@
     <Content Include="Views\Listing\Publish.cshtml" />
     <Content Include="Views\Listing\Complete.cshtml" />
     <Content Include="Views\Shared\_ErrorMessage.cshtml" />
+    <Content Include="Views\Shared\_AjaxError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
