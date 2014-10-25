@@ -348,8 +348,6 @@
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\libraries\loading-bar.css" />
-    <Content Include="Content\libraries\pace.css" />
-    <Content Include="Content\libraries\simple-sidebar.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\themes\bazaar\listing.css" />
     <Content Include="Content\themes\bazaar\theme.css" />
