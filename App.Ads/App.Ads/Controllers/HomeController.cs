@@ -20,8 +20,9 @@ namespace App.Ads.Controllers
         {
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
 
+            ViewBag.ParentCategoryList = categoryService.Get().Where(c => c.ParentID == null).OrderBy(c => c.Sort);
             ViewBag.CategoryList = categoryService.Get().OrderBy(c => c.Sort);
-
+            
             return View();
         }
 

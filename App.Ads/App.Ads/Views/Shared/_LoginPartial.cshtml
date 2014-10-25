@@ -4,40 +4,43 @@
     <div class="collapse navbar-collapse">
         @using (Html.BeginForm("index", "logoff", FormMethod.Post, new { id = "logoutForm", area = "account" }))
         {
+
             var identity = HttpContext.Current.User.ToCustomPrincipal().CustomIdentity;
             @Html.AntiForgeryToken()
-            <ul class="nav navbar-nav navbar-right hidden-xs">
-                @*<li><a href="listings.html">Listings</a></li>*@
-                @*<li class="divider-vertical">Welcome</li>*@
+            
+            <ul class="nav navbar-nav navbar-right">
                 <li>
-                    @*<i class="fa fa-user"></i>*@
                     <div>
-                        <b>Welcome</b>
-                        @Html.ActionLink(identity.FirstName, "Dashboard", "User", new { area = "" }, null)
+                        @Html.ActionLink("Post an ad", "create", "listing", new { area = "" }, new { @class = "btn btn-warning post-ad-btn" })
                         <span>&nbsp;</span>
                     </div>
                 </li>
-                <li class="divider-vertical"> |</li>
                 <li>
-                    <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-power-off"></i> Log off</a>
+                    <div>
+                        <b>Welcome</b>
+                        @Html.ActionLink(identity.FirstName, "manage", "listing", new { area = "" }, null)
+                        <span>&nbsp; |</span>
+                    </div>
                 </li>
-
+                <li>
+                    <div>
+                        <span>&nbsp;</span>
+                        <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-power-off"></i> Log off</a>
+                    </div>
+                </li>
             </ul>
         }
     </div>
 }
 else
 {
-
     <div class="collapse navbar-collapse">
-        <div class="nav navbar-nav navbar-right hidden-xs">
+        <div class="nav navbar-nav navbar-right">
             <div class="row">
                 @Html.ActionLink("Register", "index", "register", new { area = "account" }, null) |
                 @Html.ActionLink("Login", "index", "login", new { area = "account" }, null)
-                <a href="account_ad_create.html" class="btn btn-warning post-ad-btn">Post an ad</a>
+                @Html.ActionLink("Post an ad", "create", "listing", new { area = "" }, new { @class = "btn btn-warning post-ad-btn" })
             </div>
         </div>
     </div>
-
-
 }

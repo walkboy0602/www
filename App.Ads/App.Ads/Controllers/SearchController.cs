@@ -10,6 +10,7 @@ using App.Core.Data;
 using App.Ads.Code.Filters;
 using App.Ads.Code.Helpers;
 using App.Ads.ViewModel;
+using App.Ads.Models;
 using MvcSiteMapProvider;
 using AutoMapper;
 using PagedList;
@@ -42,8 +43,6 @@ namespace App.Ads.Controllers
             if (objSearch != null)
                 searchModel = (SearchModel)objSearch;
 
-            RebindForm();
-
             ViewBag.DateSortParm = String.IsNullOrEmpty(sort) ? "date" : "";
             ViewBag.PriceSortParm = sort == "price" ? "price_desc" : "price";
 
@@ -56,6 +55,14 @@ namespace App.Ads.Controllers
             var searchResult = searchService.Search(searchModel, sort);
 
             BreadCrumbConfiguration(SiteMaps.Current.CurrentNode, searchModel);
+
+            Menu menu = new Menu();
+
+            GenerateMenu(menu, searchModel.cid);
+
+            List<int> fds = menu.MenuItems.Select(s => s.Id).ToList();
+
+            RebindForm(fds, searchModel.cid);
 
             switch (sort)
             {
@@ -168,10 +175,20 @@ namespace App.Ads.Controllers
             return Json(responseModel, JsonRequestBehavior.AllowGet);
         }
 
-        protected void RebindForm()
+        protected void RebindForm(List<int> categoryIds, int? cid)
         {
+            if (categoryIds != null && categoryIds.Count() > 0 && cid != null)
+            {
+                //ViewBag.Categories = new SelectList(categoryService.GetCategoriesOptGroupByIds(categoryIds), "Id", "Name", "Category", 1);
+
+                ViewBag.Categories = categoryService.GetCategoriesByIds(categoryIds);
+            }
+            else
+            {
+                ViewBag.Categories = new SelectList(categoryService.GetCategoriesOptGroupByParentId(null), "Id", "Name", "Category", 1);
+            }
+
             ViewBag.ListingTypeList = referenceService.GetByType("LT").ToList();
-            ViewBag.Categories = categoryService.GetCategories();
             ViewBag.LocationList = regionService.Get()
                                         .Where(r => r.ParentId == null)
                                         .OrderBy(r => r.Sort)
@@ -244,52 +261,65 @@ namespace App.Ads.Controllers
             }
         }
 
-        
+        protected void GenerateMenu(Menu menu, int? categoryId)
+        {
+            if (categoryId != null)
+            {
+                var category = categoryService.Find((int)categoryId);
+
+                menu.Id = category.id;
+
+                if (category != null)
+                {
+                    PopulateMenu(menu, category.id, true);
+                }
+            }
+            else
+            {
+                PopulateMenuItem(menu, null);
+            }
+
+            ViewBag.Menu = menu;
+        }
+
+        protected void PopulateMenu(Menu menu, int categoryId, bool showItems)
+        {
+            var category = categoryService.Find(categoryId);
+
+            MenuItem menuItem = new MenuItem();
+
+            menuItem.Id = category.id;
+            menuItem.Name = category.Name;
+            menuItem.ParentId = category.ParentID;
+
+            if (showItems)
+            {
+                PopulateMenuItem(menu, (int)category.id);
+            }
+
+            menu.MenuItems.Add(menuItem);
+
+            if (category.ParentID != null)
+            {
+                PopulateMenu(menu, (int)category.ParentID, false);
+            }
+        }
+
+        protected void PopulateMenuItem(Menu menu, int? categoryId)
+        {
+            var categories = categoryService.GetByParentID(categoryId);
+
+            foreach (var cat in categories)
+            {
+                MenuItem menuItem = new MenuItem();
+
+                menuItem.Id = cat.id;
+                menuItem.Name = cat.Name;
+                menuItem.ParentId = cat.ParentID;
+
+                menu.MenuItems.Add(menuItem);
+            }
+        }
+
     }
 }
-
-
-//int? outersId = null;
-//RefCategory selectedCategory = null;
-//int categoryId = 0;
-
-//var allCategories = categoryService.GetAll();
-
-//var parentCategories = new List<RefCategory>();
-
-//if (searchModel.Category != null)
-//{
-//    selectedCategory = allCategories.Where(d => d.Description.ToLower() == searchModel.Category.ToLower()).FirstOrDefault();
-
-//    if (selectedCategory != null)
-//    {
-//        categoryId = selectedCategory.id;
-
-//        outersId = allCategories.Where(d => d.id == selectedCategory.id).FirstOrDefault().ParentID;
-//        if (outersId != null)
-//        {
-//            parentCategories.Add(allCategories.Where(d => d.id == outersId).FirstOrDefault());
-//        }
-
-//        for (int i = 0; i < parentCategories.Count; i++)
-//        {
-//            if (parentCategories[i].ParentID != null)
-//            {
-//                outersId = allCategories.Where(d => d.id == selectedCategory.id).FirstOrDefault().ParentID;
-//                parentCategories.Add(allCategories.Where(d => d.id == parentCategories[i].ParentID).FirstOrDefault());
-//            }
-//        }
-//    }
-//    else
-//    {
-//        //Not Found
-//    }
-//}
-
-//ViewData["categories"] = new TreeCategories
-//{
-//    Seed = outersId != null ? outersId : null,
-//    Categories = allCategories,
-//    SelectedId = categoryId == 0 ? (int?)null : categoryId,
-//    ParentCategories = parentCategories.Count == 0 ? null : parentCategories.OrderBy(o => o.ParentID)
-//};

@@ -30,8 +30,12 @@ namespace App.Core.Services
 
         //DropDown
         IList<SelectListItem> GetCategories();
+        IList<SelectListItem> GetCategoriesByIds(List<int> categoryIds);
         IList<SelectListItem> GetParentCategories();
+
         List<DropDownModel> GetCategoriesOptGroup();
+        List<DropDownModel> GetCategoriesOptGroupByIds(List<int> categoryIds);
+        List<DropDownModel> GetCategoriesOptGroupByParentId(int? parentId);
     }
 
     // Add any custom business logic (methods) here
@@ -94,6 +98,7 @@ namespace App.Core.Services
             else
             {
                 refCategories = db.RefCategories.Where(x => x.isActive == true).ToList();
+
                 HttpRuntime.Cache.Insert(cacheKey, refCategories, null, DateTime.Now.AddMinutes(60), Cache.NoSlidingExpiration);
             }
 
@@ -147,6 +152,21 @@ namespace App.Core.Services
             return list;
         }
 
+        IList<SelectListItem> ICategoryService.GetCategoriesByIds(List<int> categoryIds)
+        {
+            var list = Grouping((this as ICategoryService).Get())
+                        .Where(r => categoryIds.Any(c => c == r.Value.id))
+                        .SelectMany(x => GetNodeAndChildren(x))
+                        .Select(t => new SelectListItem
+                        {
+                            Text = t.Value.Name,
+                            Value = t.Value.id.ToString(),
+                            Selected = false
+                        }).ToList();
+
+            return list;
+        }
+
         List<DropDownModel> ICategoryService.GetCategoriesOptGroup()
         {
             var list = (this as ICategoryService).Get()
@@ -157,6 +177,36 @@ namespace App.Core.Services
                             Id = t.id.ToString(),
                             Name = t.Name,
                             Category = t.ParentCategory.Name
+                        }).ToList();
+
+            return list;
+        }
+
+        List<DropDownModel> ICategoryService.GetCategoriesOptGroupByIds(List<int> categoryIds)
+        {
+            var list = (this as ICategoryService).Get()
+                        .Where(r => r.isActive == true)
+                        .Where(r => categoryIds.Contains(r.id))
+                        .Select(t => new DropDownModel
+                        {
+                            Id = t.id.ToString(),
+                            Name = t.Name,
+                            Category = t.ParentCategory == null ? null : t.ParentCategory.Name
+                        }).ToList();
+
+            return list;
+        }
+
+        List<DropDownModel> ICategoryService.GetCategoriesOptGroupByParentId(int? parentId)
+        {
+            var list = (this as ICategoryService).Get()
+                        .Where(r => r.isActive == true)
+                        .Where(r => r.ParentID == parentId)
+                        .Select(t => new DropDownModel
+                        {
+                            Id = t.id.ToString(),
+                            Name = t.Name,
+                            Category = t.ParentCategory == null ? null : t.ParentCategory.Name
                         }).ToList();
 
             return list;

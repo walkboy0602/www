@@ -1,5 +1,6 @@
 ﻿@using App.Ads.Code;
 @using App.Ads.Code.Helpers;
+@using App.Ads.Models;
 
 @model Tuple<PagedList.IPagedList<App.Ads.ViewModel.SearchViewModel>, App.Core.Models.SearchModel>
 
@@ -20,84 +21,85 @@
         <h1 class="text-capitalize">@ViewBag.SearchTitle</h1>
     }
 
-    @if (Model.Item1.Count == 0)
-    {
-        <div class="row">
-            <div class="col-sm-12">
-                <h2>No ads were found!</h2>
-                <div>We could not find any ads matching your search.</div>
-                <h3>@Html.ValidationSummary()</h3>
-            </div>
-        </div>
-    }
-    else
-    {
-        
-        <div class="row">
-            <div class="col-md-4 hidden-xs">
 
-                <ul class="side-nav list-group" id="sidebarnav">
-
-                    <li class="list-group-item list-toggle active">
-                        <!-- NOTE: "active" to be open on page load -->
-                        <a data-toggle="collapse" data-parent="#sidebarnav" href="#collapse-1" class="collapsed">Women</a>
-                        <ul id="collapse-1" class="collapse in">
-                            <!-- NOTE: "collapse in" to be open on page load -->
-                            <li><a href="shop-page-sidebar.html"><i class="fa fa-angle-right"></i> Clothes</a></li>
-                            <li class="active"><a href="shop-page-sidebar.html"><i class="fa fa-angle-right"></i> Shoes</a></li>
-                            <li><a href="shop-page-sidebar.html"><i class="fa fa-angle-right"></i> Dress</a></li>
-                            <li><a href="shop-page-sidebar.html"><i class="fa fa-angle-right"></i> Lingerie</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="list-group-item list-toggle">
-                        <!-- NOTE: "active" to be open on page load -->
-                        <a data-toggle="collapse" data-parent="#sidebarnav" href="#collapse-2" class="">Men</a>
-                        <ul id="collapse-2" class="collapse">
-                            <!-- NOTE: "collapse in" to be open on page load -->
-                            <li><a href="shop-page-sidebar.html"><i class="fa fa-angle-right"></i> Clothes</a></li>
-                            <li><a href="shop-page-sidebar.html"><i class="fa fa-angle-right"></i> Shoes</a></li>
-                            <li><a href="shop-page-sidebar.html"><i class="fa fa-angle-right"></i> Dress</a></li>
-                            <li><a href="shop-page-sidebar.html"><i class="fa fa-angle-right"></i> Lingerie</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="list-group-item list-toggle">
-                        <!-- NOTE: "active" to be open on page load -->
-                        <a data-toggle="collapse" data-parent="#sidebarnav" href="#collapse-3" class="collapsed">Kids</a>
-                        <ul id="collapse-3" class="collapse">
-                            <!-- NOTE: "collapse in" to be open on page load -->
-                            <li><a href="shop-page-sidebar.html"><i class="fa fa-angle-right"></i> Clothes</a></li>
-                            <li><a href="shop-page-sidebar.html"><i class="fa fa-angle-right"></i> Shoes</a></li>
-                            <li><a href="shop-page-sidebar.html"><i class="fa fa-angle-right"></i> Dress</a></li>
-                            <li><a href="shop-page-sidebar.html"><i class="fa fa-angle-right"></i> Lingerie</a></li>
-                            <li><a href="shop-page-sidebar.html"><i class="fa fa-angle-right"></i> Toys</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="list-group-item"><a href="shop-page-sidebar.html">Accessories</a></li>
-                    <li class="list-group-item"><a href="shop-page-sidebar.html">Jewlery</a></li>
-
-                </ul>
-
-                    <div class="panel-group" id="accordion">
+    <div class="row">
+        <div class="col-md-4 hidden-xs">
+            <div class="sidebar">
+                <div class="row ">
+                    <div class="col-sm-12">
                         <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-4">
-                                        Collapsible Group Item #1
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapse-4" class="panel-collapse collapse in">
-                                <div class="panel-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                                </div>
+                            <div class="panel-heading">Refine category</div>
+                            <div class="panel-body">
+                                <ul class="nav nav-category">
+                                    <li>
+                                        <a href="/listings/malaysia">All categories</a>
+                                        @{
+
+                                                Menu menu = ViewBag.Menu;
+                                                if (menu != null) {
+                                            @ShowTree(menu, null)
+                                                }
+                                            @helper ShowTree(Menu menu, int? parentId)
+                                                {
+                                                    int cPid = 0;
+                                            <ul>
+                                                @foreach (MenuItem menuItem in menu.MenuItems)
+                                                        {
+                                                            if (menuItem.ParentId == parentId)
+                                                            {
+                                                                if (menu.Id == menuItem.Id)
+                                                                {
+                                                        <li>
+                                                            <a class="active" href="@Url.Action("Index", "Search", new RouteValueDictionary
+                                                                        {
+                                                                            { "locationText", "malaysia" },
+                                                                            { "categoryText", menuItem.Name.ToSeoUrl() }
+                                                                        })"><strong>@menuItem.Name</strong></a>
+                                                                    </li>
+                                                                }
+                                                                else
+                                                                {
+                                                        <li>
+                                                            <a href="@Url.Action("Index", "Search", new RouteValueDictionary
+                                                                        {
+                                                                            { "locationText", "malaysia" },
+                                                                            { "categoryText", menuItem.Name.ToSeoUrl() }
+                                                                        })">@menuItem.Name</a>
+                                                                    </li>
+                                                                }
+
+                                                                cPid = menuItem.Id;
+                                                            }
+                                                        }
+                                                @if (cPid != 0)
+                                                        {
+                                                        @ShowTree(menu, (int?)cPid);
+                                                        }
+                                            </ul>
+}
+                                        }
+                                    </li>
+                                </ul>
+
                             </div>
                         </div>
                     </div>
                 </div>
-            <div class="col-md-8 listings">
+            </div>
+        </div>
+        <div class="col-md-8 listings">
+            @if (Model.Item1.Count == 0)
+            {
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2 style="text-align:center">No ads were found.</h2>
+                        <div style="text-align:center">Sorry, we could not find any ads matching your search.</div>
+                        <h3>@Html.ValidationSummary()</h3>
+                    </div>
+                </div>
+            }
+            else
+            {
                 <div class="row listing-row" style="margin-top: -10px;">
                     <div class="pull-right">
                         <span style="">Sort by:&nbsp;&nbsp;&nbsp;</span>
@@ -124,7 +126,7 @@
                             }, null)" data-toggle="tooltip" data-placement="top" data-original-title="@ViewBag.PriceSortTooltips">&nbsp;Price&nbsp;<i class="@ViewBag.PriceSortIcon"></i></a>
                     </div>
                 </div>
-                @foreach (var item in Model.Item1)
+                foreach (var item in Model.Item1)
                 {
                     <div class="row listing-row">
                         <div class="col-sm-3">
@@ -148,11 +150,11 @@
                                         <br />
                                         @if (item.Area != null)
                                         {
-                                            <span>@item.Area.Name</span>
+                                        <span>@item.Area.Name</span>
                                         }
                                         else
                                         {
-                                            <span>@item.Location.Name</span>
+                                        <span>@item.Location.Name</span>
                                         }
                                     </div>
                                 </div>
@@ -167,23 +169,23 @@
                             <div class="listing-info">
                                 @if (item.RefCategory != null)
                                 {
-                                    <label class="label label-success label-small">
-                                        <a href="@Url.Action("Index", "Search", new RouteValueDictionary
+                                <label class="label label-success label-small">
+                                    <a href="@Url.Action("Index", "Search", new RouteValueDictionary
                                             {
                                                 { "locationText", "malaysia" },
                                                 { "categoryText", @item.RefCategory.Name.ToSeoUrl() }
                                             })">
-                                            <i class="fa fa-tag"></i>
-                                            <span>@item.RefCategory.Name</span>
-                                        </a>
-                                    </label>
-                                    <span>&nbsp;</span>
+                                        <i class="fa fa-tag"></i>
+                                        <span>@item.RefCategory.Name</span>
+                                    </a>
+                                </label>
+                                <span>&nbsp;</span>
                                     string conditionLabel = common.GetReferenceLabel(item.ConditionCode);
                                     if (!string.IsNullOrEmpty(conditionLabel))
                                     {
-                                        <label class="label label-color-2 label-small">
-                                            @conditionLabel
-                                        </label>
+                                <label class="label label-color-2 label-small">
+                                    @conditionLabel
+                                </label>
                                     }
                                 }
                             </div>
@@ -211,10 +213,9 @@
                              Model.Item2.Keyword
                          }))
                 </div>
-
-            </div>
-
+            }
         </div>
 
-    }
+    </div>
+
 </div>

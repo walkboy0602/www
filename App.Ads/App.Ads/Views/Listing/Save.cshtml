@@ -30,7 +30,7 @@
                                 <label>Category</label>
                             </div>
                             <div class="col-sm-6">
-                                @Html.DropDownListFor(m => m.CategoryId, ViewBag.CategoryList as IEnumerable<SelectListItem>, "Choose a Category", new { @class = "form-control" })
+                                @Html.DropDownListFor(m => m.CategoryId, ViewBag.CategoryList as IEnumerable<SelectListItem>, "Choose a Category", new { id="ddlCategory", @class = "form-control" })
                                 @Html.ValidationMessageFor(m => m.CategoryId)
                             </div>
                         </div>
@@ -243,18 +243,18 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/form")
-    @*<script type="text/javascript">
+    <script type="text/javascript">
             $(document).ready(function () {
                 $('#ddlCategory').select2({
                     placeholder: "Select a Category"
                 });
-                $('#ddlRegion').select2({
-                    placeholder: "Select a Location"
-                });
-                $('#ddlCondition').select2({
-                    placeholder: "Select Condition"
-                });
-                $('.select2').select2();
+                //$('#ddlRegion').select2({
+                //    placeholder: "Select a Location"
+                //});
+                //$('#ddlCondition').select2({
+                //    placeholder: "Select Condition"
+                //});
+                //$('.select2').select2();
             });
-        </script>*@
+        </script>
 }
