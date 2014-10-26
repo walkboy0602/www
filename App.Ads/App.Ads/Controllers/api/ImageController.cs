@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Text;
 using AutoMapper;
+using System.IO;
 
 namespace App.Ads.Controllers.api
 {
@@ -75,11 +76,10 @@ namespace App.Ads.Controllers.api
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
 
-            string root = HttpContext.Current.Server.MapPath("~/App_Data");
-            var provider = new MultipartFormDataStreamProvider(root);
+            var provider = GetMultipartProvider();
 
             // Read the form data.
-            await Request.Content.ReadAsMultipartAsync(provider);
+            var result = await Request.Content.ReadAsMultipartAsync(provider);
 
             int id = 0;
 
@@ -105,8 +105,24 @@ namespace App.Ads.Controllers.api
 
             ListingImage listingImage = _imageService.Uploads(identity.UserId, id, CreateDate);
 
+            // Delete File - not working
+            //var fi = new FileInfo(result.FileData.First().LocalFileName);
+            //fi.Delete();
+
             return Request.CreateResponse(HttpStatusCode.OK, listingImage);
 
+        }
+
+        // You could extract these two private methods to a separate utility class since
+        // they do not really belong to a controller class but that is up to you
+        private MultipartFormDataStreamProvider GetMultipartProvider()
+        {
+            // IMPORTANT: replace "(tilde)" with the real tilde character
+            // (our editor doesn't allow it, so I just wrote "(tilde)" instead)
+            var uploadFolder = "~/App_Data"; // you could put this to web.config
+            var root = HttpContext.Current.Server.MapPath(uploadFolder);
+            Directory.CreateDirectory(root);
+            return new MultipartFormDataStreamProvider(root);
         }
 
         [HttpPost, ActionName("Delete")]

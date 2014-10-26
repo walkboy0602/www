@@ -14,6 +14,18 @@ namespace App.Ads
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                "Error - 404",
+                "PageNotFound",
+                new { controller = "Exception", action = "PageNotFound" }
+                );
+
+            routes.MapRoute(
+                "Error - 500",
+                "Error",
+                new { controller = "Exception", action = "Error" }
+                );
+
+            routes.MapRoute(
                  name: "Search",
                  url: "listings/{LocationText}/{CategoryText}",
                  defaults: new { controller = "Search", action = "Index", LocationText = UrlParameter.Optional, CategoryText = UrlParameter.Optional }

@@ -28,7 +28,7 @@ shopApp.run(['$rootScope', '$window', '$http', '$location', '$route', '$routePar
             $rootScope.id = $window.data.id;
         }
 
-        $rootScope.errorMessage = "Sorry, there was an error while processing your request. <br/> Please contact our support";
+        $rootScope.errorMessage = "Sorry, there was an error while processing your request. <br/> Please contact our support.";
 
         $rootScope.success = function (message, isHide) {
             $rootScope.alert = {

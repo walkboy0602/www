@@ -117,17 +117,15 @@ function ListingImageCtrl($scope, $q, ImageFactory, $filter, uploadManager, $rou
                 Url: "http://assets.monsteritem.com/" + v.Src.replace("####size####", "s1"),
                 ListingID: v.ListingID
             });
-
-            //remove draft file
-            $scope.draftFiles.splice(0, 1);
-            $scope.$apply();
         } else {
-            $scope.warning(response.Message);
+            $scope.warning($scope.errorMessage);
             //if (response.result == "Redirect") {
             //    window.location = resp.url;
             //}
         }
-
+        //remove draft file
+        $scope.draftFiles.splice(0, 1);
+        $scope.$apply();
     });
 
 }

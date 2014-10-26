@@ -286,6 +286,7 @@
     <Compile Include="Code\Membership\CustomRoleProvider.cs" />
     <Compile Include="Code\Membership\MembershipExtentions.cs" />
     <Compile Include="Code\Membership\TwitterAuthenticationClient.cs" />
+    <Compile Include="Code\Security\ExceptionUtility.cs" />
     <Compile Include="Code\Security\UserRoleAuthorizeAttribute.cs" />
     <Compile Include="Code\SiteMap\SiteMapProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -293,6 +294,7 @@
     <Compile Include="Controllers\api\ImageController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\EnquiryController.cs" />
+    <Compile Include="Controllers\ExceptionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ListingController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
@@ -772,7 +774,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Exception\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
@@ -807,6 +809,8 @@
     <Content Include="Views\Listing\Complete.cshtml" />
     <Content Include="Views\Shared\_ErrorMessage.cshtml" />
     <Content Include="Views\Shared\_AjaxError.cshtml" />
+    <Content Include="Views\Exception\PageNotFound.cshtml" />
+    <Content Include="Views\Shared\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

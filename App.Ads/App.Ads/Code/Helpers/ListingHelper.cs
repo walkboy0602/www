@@ -65,9 +65,9 @@ namespace App.Ads.Code.Helpers
             return newPrice;
         }
 
-        public static string FormatPostedDate(DateTime? postedDate)
+        public static string FormatDate(DateTime? date, String format)
         {
-            return postedDate == null ? string.Empty : Convert.ToDateTime(postedDate).ToString("d-MMM-yy");
+            return date == null ? string.Empty : Convert.ToDateTime(date).ToString(format);
         }
 
         public static string FormatLocation(string locationName, string locationParentName)

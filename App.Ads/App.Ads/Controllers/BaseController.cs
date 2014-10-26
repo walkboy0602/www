@@ -28,8 +28,8 @@ namespace App.Ads.Controllers
                 CurrentUser = null;
             }
 
-            ViewBag.Title = "MyBazaar.my";
-            ViewBag.SiteName = "MyBazaar.my";
+            ViewBag.Title = "MyBazaar.com.my";
+            ViewBag.SiteName = "MyBazaar.com.my";
         }
 
     }

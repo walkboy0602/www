@@ -40,7 +40,7 @@ namespace App.Ads.Controllers
         {
             var listings = listingService.GetAllByUserId(CurrentUser.CustomIdentity.UserId)
                             .Where(l => l.Status != (int)XtEnum.ListingStatus.New)
-                            .OrderByDescending(l => l.PostedDate)
+                            .OrderByDescending(l => l.LastUpdate)
                             .ToList();
 
             var model = Mapper.Map<List<Listing>, List<DisplayListingViewModel>>(listings);
@@ -76,27 +76,27 @@ namespace App.Ads.Controllers
 
             EditListingViewModel model = Mapper.Map<Listing, EditListingViewModel>(listing);
 
-            //TODO: Better way to do this?
-            foreach (var item in model.ListingDealMethods)
-            {
-                switch (item.DealMethodId)
-                {
-                    case (int)XtEnum.DealMethod.COD:
-                        model.COD = true;
-                        model.CODText = item.Description;
-                        break;
+            ///TODO: Better way to do this?
+            //foreach (var item in model.ListingDealMethods)
+            //{
+            //    switch (item.DealMethodId)
+            //    {
+            //        case (int)XtEnum.DealMethod.COD:
+            //            model.COD = true;
+            //            model.CODText = item.Description;
+            //            break;
 
-                    case (int)XtEnum.DealMethod.Postage:
-                        model.Postage = true;
-                        model.PostageText = item.Description;
-                        break;
+            //        case (int)XtEnum.DealMethod.Postage:
+            //            model.Postage = true;
+            //            model.PostageText = item.Description;
+            //            break;
 
-                    case (int)XtEnum.DealMethod.OnlineBanking:
-                        model.OnlineBanking = true;
-                        model.OnlineBankingText = item.Description;
-                        break;
-                }
-            }
+            //        case (int)XtEnum.DealMethod.OnlineBanking:
+            //            model.OnlineBanking = true;
+            //            model.OnlineBankingText = item.Description;
+            //            break;
+            //    }
+            //}
 
             RebindForm(model.LocationId);
 

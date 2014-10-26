@@ -22,6 +22,8 @@ namespace App.Core.ViewModel
 
         public DateTime? PostedDate { get; set; }
 
+        public DateTime LastUpdate { get; set; }
+
         public int Status { get; set; }
 
         public virtual RefCategory RefCategory { get; set; }

@@ -189,7 +189,7 @@ namespace App.Core.Services
                         request.Key = s3Path;
 
                         client.PutObject(request).Headers.Add("Content-Length", buffer.Length.ToString());
-                        memoryStream.Close();
+                        memoryStream.Flush();
                     }
                     return true;
                 }

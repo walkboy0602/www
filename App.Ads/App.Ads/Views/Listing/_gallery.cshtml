@@ -49,14 +49,14 @@
                 </div>
                 <!-- Spinner -->
                 <div data-ng-repeat="file in draftFiles">
-                    <div class="col-xs-3 col-md-3 img-container">
+                    <div class="col-xs-4 col-md-6 img-container">
                         <div class="img-box">
                             <div class="spin-{{$index + 1}} img-spin-box"></div>
                         </div>
                     </div>
                 </div>
                 <!-- new image button -->
-                <div class="col-xs-3 col-md-3 new-img" data-ng-hide="totalFiles >= 8 || files.length >= 8">
+                <div class="col-xs-4 col-md-6 new-img" data-ng-hide="totalFiles >= 8 || files.length >= 8">
                     <div class="img-box">
                         <label for="file-input">
                             <div class="addnew">

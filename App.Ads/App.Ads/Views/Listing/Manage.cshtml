@@ -12,7 +12,7 @@
         <div class="panel-heading">
             Manage adverts
             <div class="pull-right">
-                <strong>Posted Date</strong>
+                <strong>Last Update</strong>
             </div>
         </div>
         <div class="panel-body">
@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="col-xs-3 col-sm-3">
                                     <span class="pull-right listing-view">
-                                        @ListingHelper.FormatPostedDate(item.PostedDate)
+                                        @ListingHelper.FormatDate(item.LastUpdate, "d-MMM-yy")
                                     </span>
                                 </div>
                             </div>

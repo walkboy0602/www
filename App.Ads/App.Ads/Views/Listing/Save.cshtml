@@ -42,7 +42,7 @@
                                 }
                                 @foreach (var item in rbValues)
                                 {
-                                    <div class=" col-xs-12 col-sm-2">
+                                    <div class="col-xs-12 col-sm-2">
                                         <label class="radio-inline">
                                             @Html.RadioButtonFor(m => m.ListingTypeCode, item.Code) @item.Name
                                         </label>
@@ -101,7 +101,7 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default">
+            @*<div class="panel panel-default">
                 <div class="panel-heading">Dealing methods</div>
                 <div class="panel-body">
                     <div class="row">
@@ -139,11 +139,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>*@
             <div class="panel panel-default">
                 <div class="panel-heading">Add photos</div>
                 <div class="panel-body">
-                    <iframe id="iPhoto" src="@Url.Action("Image", new { ListingId = Model.id })" width="670" height="420" frameborder="0" scrolling="no"></iframe>
+                    <iframe id="iPhoto" src="@Url.Action("Image", new { ListingId = Model.id })" width="670" height="437" frameborder="0" scrolling="no"></iframe>
                 </div>
             </div>
             <div class="panel panel-default">
@@ -227,9 +227,9 @@
             </div>
 
             <div class="pull-right">
-                <div class="btn-group">
+                @*<div class="btn-group">
                     <button type="submit" class="btn-glow btn-finish">Save for later</button>
-                </div>
+                </div>*@
                 <div class="btn-group">
                     <input type="submit" class="btn-glow primary btn-finish" value="Continue" />
                 </div>

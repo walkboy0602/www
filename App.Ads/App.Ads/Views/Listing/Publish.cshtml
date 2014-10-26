@@ -33,7 +33,7 @@
                 </div>
             </div>*@
 
-            <div class="panel panel-default">
+            @*<div class="panel panel-default">
                 <div class="panel-heading">Outstanding your Ad (Optional)</div>
                 <div class="panel-body">
                     <div class="control-group">
@@ -50,7 +50,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>*@
 
             <div class="panel panel-default">
                 <div class="panel-heading">Term and Condition</div>
@@ -61,7 +61,6 @@
                             I agree to the Terms and Conditions and Privacy Policy of ohMyBazaar.com Malaysia.
                         </label>
                     </div>
-                    <p>@Html.ValidationMessageFor(m => m.AgreesWithTerms)</p>
                     <br>
                     <div class="btn-group">
                         @Html.ActionLink("Go Back", "Save", new { id = ViewBag.ListingId }, new { @class = "btn-flat primary" })
