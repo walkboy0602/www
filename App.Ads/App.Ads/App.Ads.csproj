@@ -810,7 +810,6 @@
     <Content Include="Views\Shared\_ErrorMessage.cshtml" />
     <Content Include="Views\Shared\_AjaxError.cshtml" />
     <Content Include="Views\Exception\PageNotFound.cshtml" />
-    <Content Include="Views\Shared\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
