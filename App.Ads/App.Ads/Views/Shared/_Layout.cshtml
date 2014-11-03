@@ -4,16 +4,12 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    @{
-        string pageTitle = @ViewBag.Title ?? "Malaysia New Marketplace - MYBazaar.com.my";
-    }
-    <title>@pageTitle</title>
-    <meta property="og:title" content="iProperty - New Property For Sale" />
+    <title>@ViewBag.Title - @ViewBag.SiteName</title>
+    <meta property="og:title" content="@ViewBag.Title - @ViewBag.SiteName" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="http://newlaunch.iproperty.com.my/" />
-    <meta property="og:image" content="http://assets.newlaunch.ippstatic.com/common/logomy.png" />
-    <meta property="og:description" content="Looking to Buy, Sell or Rent Malaysia Property and Real Estate? Search Malaysia's No.1 Property Classifieds for Free Today!" />
-    <meta property="og:site_name" content="iProperty.com.my" />
+    <meta property="og:description" content="Search thousands of stores, brands, products and user classifieds all in one place!" />
+    <meta property="og:site_name" content="@ViewBag.SiteName" />
     <meta property="fb:admins" content="709385591" />
 
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />

@@ -7,7 +7,7 @@ using App.Core.Services;
 
 namespace App.Ads.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ICategoryService categoryService;
 
