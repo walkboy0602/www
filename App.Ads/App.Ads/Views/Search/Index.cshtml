@@ -130,7 +130,7 @@
                 {
                     <div class="row listing-row">
                         <div class="col-sm-3">
-                            <a href="@Url.Action("Save", new { id = item.id })" class="thumbnail">
+                            <a href="/ad/@item.id/@item.Title.ToSeoUrl()" class="thumbnail">
                                 <img src="@ListingHelper.GetCoverImage(item.ListingImages.ToList(), "s0")" alt="@item.Title" onerror="imgError(this, 190, 130)">
                             </a>
                         </div>

@@ -21,10 +21,10 @@ namespace App.Core.ViewModel
         [Required(ErrorMessage = "Please select a Category")]
         public int CategoryId { get; set; }
 
-        [Required(ErrorMessage = "This field is required.")]
+        [Required(ErrorMessage = "Please select how you want to publish your ad.")]
         public string ListingTypeCode { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter Title.")]
         [StringLength(50, ErrorMessage = "Maximum {1} charaters.")]
         public string Title { get; set; }
 
@@ -32,13 +32,13 @@ namespace App.Core.ViewModel
         [AllowHtml]
         public string Description { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter Keyword.")]
         [StringLength(50, ErrorMessage = "Maximum {1} charaters.")]
         public string Keywords { get; set; }
 
         [RegularExpression(@"^\$?\d+(\.(\d{2}))?$", ErrorMessage = "e.g price format - 19.99")]
         [Range(0, 99999999.99, ErrorMessage = "Price cannot exceed 8 characters long.")]
-        [Required]
+        [Required(ErrorMessage="Please enter your Price.")]
         public decimal? Price { get; set; }
 
         public bool IsNegotiable { get; set; }

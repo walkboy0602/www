@@ -4,7 +4,18 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>@ViewBag.Title</title>
+    @{
+        string pageTitle = @ViewBag.Title ?? "Malaysia New Marketplace - MYBazaar.com.my";
+    }
+    <title>@pageTitle</title>
+    <meta property="og:title" content="iProperty - New Property For Sale" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://newlaunch.iproperty.com.my/" />
+    <meta property="og:image" content="http://assets.newlaunch.ippstatic.com/common/logomy.png" />
+    <meta property="og:description" content="Looking to Buy, Sell or Rent Malaysia Property and Real Estate? Search Malaysia's No.1 Property Classifieds for Free Today!" />
+    <meta property="og:site_name" content="iProperty.com.my" />
+    <meta property="fb:admins" content="709385591" />
+
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
     @Styles.Render("~/Content/bootstrap")
@@ -15,6 +26,23 @@
     @Scripts.Render("~/bundles/jqHead")
 </head>
 <body data-ng-app="shopApp" data-ng-controller="MainCtrl">
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '@System.Configuration.ConfigurationManager.AppSettings["fbId"]',
+                xfbml: true,
+                version: 'v2.2'
+            });
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
     <nav class="navbar navbar-default" role="navigation">
         <div class="container">
             <div class="navbar-header">
@@ -25,8 +53,8 @@
                 </button>
                 <a href="/" class="navbar-brand ">
                     <span class="logo">
-                        <strong>MY</strong><span class="handwriting">BAZAAR.com</span><br>
-                        <small>Malaysia Popular Market Place</small>
+                        <strong>MY</strong><span class="handwriting">BAZAAR.com.my</span><br>
+                        <small>Malaysia New Market Place</small>
                     </span>
                 </a>
             </div>

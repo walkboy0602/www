@@ -28,8 +28,8 @@ namespace App.Ads.Controllers
                 CurrentUser = null;
             }
 
-            ViewBag.Title = "MyBazaar.com.my";
-            ViewBag.SiteName = "MyBazaar.com.my";
+            ViewBag.Title = "Malaysia New Market Place - ";
+            ViewBag.SiteName = "MYBazaar.com.my";
         }
 
     }

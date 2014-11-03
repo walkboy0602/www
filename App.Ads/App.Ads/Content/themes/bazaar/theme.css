@@ -243,6 +243,7 @@ a.navbar-brand {
 
     a.navbar-brand .handwriting {
         float: right;
+        font-size: 24px;
     }
 
     a.navbar-brand small {
@@ -252,7 +253,7 @@ a.navbar-brand {
         line-height: 20px;
         font-weight: 100;
         text-transform: none;
-        font-family: "Pacifico", Monaco, Consolas, monospace;
+        /*font-family: "Pacifico", Monaco, Consolas, monospace;*/
     }
 
     a.navbar-brand:hover {

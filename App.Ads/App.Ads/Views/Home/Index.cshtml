@@ -1,83 +1,61 @@
 ﻿@using App.Ads.Code.Helpers;
 @model App.Core.Models.SearchModel
-@{
-    ViewBag.Title = "Home Page";
-}
-
-
 @section SearchBox{
-@using (Html.BeginForm("Search", "Search", FormMethod.Post, new { id = "searchForm" }))
-{
-    <div class="jumbotron home-search" style="">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <br>
-                    <p class="main_description">Search thousands of stores, brands, products and user classifieds all in one place</p>
+    @using (Html.BeginForm("Search", "Search", FormMethod.Post, new { id = "searchForm" }))
+    {
+        <div class="jumbotron home-search" style="">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <br>
+                        <p class="main_description">Search thousands of stores, brands, products and user classifieds all in one place</p>
 
-                    <br><br>
-                    <div class="row">
+                        <br><br>
+                        <div class="row">
 
-                        <div class="col-sm-8 col-sm-offset-2" style="text-align: center">
-                            <div class="row">
+                            <div class="col-sm-8 col-sm-offset-2" style="text-align: center">
+                                <div class="row">
 
-                                <div class="col-sm-10 col-sm-offset-1">
-                                    <div class="input-group">
-                                        <span class="input-group-addon input-group-addon-text hidden-xs">Find me a</span>
-                                        @Html.TextBoxFor(m => m.Keyword, new { @class = "form-control col-sm-3", placeholder = "e.g. BMW, 2 bed flat, sofa" })
-                                        <div class=" input-group-addon hidden-xs">
-                                            <div class="btn-group">
-                                                <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">
-                                                    All categories <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="/listings/malaysia/car-and-vehicles">Cars, Vans &amp; Motorbikes</a></li>
-                                                    <li><a href="/listings/malaysia/community">Community</a></li>
-                                                    <li><a href="/listings/malaysia/property-for-sales">Condo &amp; Houses</a></li>
-                                                    <li><a href="/listings/malaysia/stuff-for-sale">For Sale</a></li>
-                                                    <li><a href="/listings/malaysia/jobs">Jobs</a></li>
-                                                    <li><a href="/listings/malaysia/electronics">Electronics</a></li>
-                                                    <li><a href="/listings/malaysia/services">Services</a></li>
-                                                </ul>
+                                    <div class="col-sm-10 col-sm-offset-1">
+                                        <div class="input-group">
+
+                                            <span class="input-group-addon input-group-addon-text">Find me a</span>
+                                            @Html.TextBoxFor(m => m.Keyword, new { @class = "form-control col-sm-3", placeholder = "e.g. BMW, 2 bed flat, sofa" })
+
+                                            <div class="input-group-addon hidden-xs">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">
+                                                        All categories <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li><a href="/listings/malaysia/car-and-vehicles">Cars, Vans &amp; Motorbikes</a></li>
+                                                        <li><a href="/listings/malaysia/community">Community</a></li>
+                                                        <li><a href="/listings/malaysia/property-for-sales">Condo &amp; Houses</a></li>
+                                                        <li><a href="/listings/malaysia/stuff-for-sale">For Sale</a></li>
+                                                        <li><a href="/listings/malaysia/jobs">Jobs</a></li>
+                                                        <li><a href="/listings/malaysia/electronics">Electronics</a></li>
+                                                        <li><a href="/listings/malaysia/services">Services</a></li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
-
                                     </div>
-
                                 </div>
-
-
                             </div>
                         </div>
-                    </div>
-                    <br>
-                    <br>
-                    <div class="row">
-                        <div class="col-sm-12" style="text-align: center">
-                            <button class="btn btn-primary search-btn">Search</button>
-                        </div>
-                    </div>
-                    <br>
-                    <br>
-                    <div class="row">
-                        <div class="col-sm-12" style="text-align: center">
-
-                            <div id="quotes">
-                                <div class="text-item" style="display: none;">Boom! <strong>Vince</strong> just sold a <strong>Washing Machine</strong> in <strong>Sheffield</strong></div>
-                                <div class="text-item" style="display: none;"><strong>Julia</strong> is availiable for <strong>home cleaning</strong> in <strong>Manchester</strong></div>
-                                <div class="text-item" style="display: none;">Success! <strong>Paul</strong> has just sold a <strong>Mercedes-Benz E-class</strong> in <strong>Liverpool</strong></div>
-                                <div class="text-item" style="display: block; opacity: 0.845693484477603;">Hey, <strong>Uber</strong> has a <strong>job opening</strong> in <strong>London</strong></div>
+                        <br>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-12" style="text-align: center">
+                                <button class="btn btn-primary search-btn">Search</button>
                             </div>
-
-
-
                         </div>
+                        <br>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-}
+    }
 
 }
 
@@ -496,108 +474,22 @@
                             <li class="list-group-item"><a href="typography.html">Help and contact us</a></li>
                             <li class="list-group-item"><a href="typography.html">Frequently asked questions</a></li>
                         </ul>
-
-
-
                     </div>
                 </div>
 
                 <div class="col-xs-12 col-sm-5 col-md-12  col-lg-11 pull-right">
-
-
                     <div class="panel panel-default">
-
-
-                        <div class="panel-body" style="height: 102px; display: block;">
-
-                            <div class="fb-like fb_iframe_widget" data-href="https://developers.facebook.com/docs/plugins/" data-width="265" data-layout="standard" data-action="like" data-show-faces="false" data-share="false" style="display: block; height: 30px;" fb-xfbml-state="rendered" fb-iframe-plugin-query="action=like&amp;app_id=&amp;href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;layout=standard&amp;locale=en_GB&amp;sdk=joey&amp;share=false&amp;show_faces=false&amp;width=265"><span style="vertical-align: bottom; width: 265px; height: 28px;"><iframe name="f3796efc4" width="265px" height="1000px" frameborder="0" allowtransparency="true" scrolling="no" title="fb:like Facebook Social Plugin" src="http://www.facebook.com/plugins/like.php?action=like&amp;app_id=&amp;channel=http%3A%2F%2Fstatic.ak.facebook.com%2Fconnect%2Fxd_arbiter%2FoDB-fAAStWy.js%3Fversion%3D41%23cb%3Df27034a73c%26domain%3Dtemplates.expresspixel.com%26origin%3Dhttp%253A%252F%252Ftemplates.expresspixel.com%252Ff35785f368%26relation%3Dparent.parent&amp;href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;layout=standard&amp;locale=en_GB&amp;sdk=joey&amp;share=false&amp;show_faces=false&amp;width=265" style="border: none; visibility: visible; width: 265px; height: 28px;" class=""></iframe></span></div>
-                            <br>
-                            <!-- Place this tag where you want the +1 button to render. -->
-                            <div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 300px; height: 24px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 300px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 24px;" tabindex="0" vspace="0" width="100%" id="I0_1406300350476" name="I0_1406300350476" src="https://apis.google.com/u/0/_/+1/fastbutton?usegapi=1&amp;annotation=inline&amp;width=300&amp;height=30&amp;origin=http%3A%2F%2Ftemplates.expresspixel.com&amp;url=http%3A%2F%2Ftemplates.expresspixel.com%2Fbootlistings%2Findex.html&amp;gsrc=3p&amp;ic=1&amp;jsh=m%3B%2F_%2Fscs%2Fapps-static%2F_%2Fjs%2Fk%3Doz.gapi.en_GB.TT8tVYVU1YA.O%2Fm%3D__features__%2Fam%3DAQ%2Frt%3Dj%2Fd%3D1%2Ft%3Dzcms%2Frs%3DAItRSTPkuj4I1j6v3MrRD9e5r9qSmHDpXw#_methods=onPlusOne%2C_ready%2C_close%2C_open%2C_resizeMe%2C_renderstart%2Concircled%2Cdrefresh%2Cerefresh%2Conload&amp;id=I0_1406300350476&amp;parent=http%3A%2F%2Ftemplates.expresspixel.com&amp;pfname=&amp;rpctoken=18532259" data-gapiattached="true" title="+1"></iframe></div>
-
-                            <!-- Place this tag after the last +1 button tag. -->
-                            <script type="text/javascript">
-                                (function () {
-                                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-                                    po.src = 'https://apis.google.com/js/platform.js';
-                                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-                                })();
-                            </script>
-                        </div>
-                        <div class="panel-footer">
-                            <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="http://platform.twitter.com/widgets/follow_button.1404859412.html#_=1406300350515&amp;dnt=true&amp;id=twitter-widget-0&amp;lang=en&amp;screen_name=twitterapi&amp;show_count=true&amp;show_screen_name=true&amp;size=m" class="twitter-follow-button twitter-follow-button" title="Twitter Follow Button" data-twttr-rendered="true" style="width: 227px; height: 20px;"></iframe>
-                            <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+                        <div class="panel-heading">Connect with us</div>
+                        <div class="panel-body">
+                            <div class="fb-like"
+                                 data-share="true"
+                                 data-width="250"
+                                 data-show-faces="true">
+                            </div>
                         </div>
                     </div>
 
                     <p class="main_slogan" style="margin: 28px 0">Currently listing 355,785 classified ads in the United Kingdom.</p>
-
-                </div>
-
-
-
-                <div class="col-xs-12 col-sm-4 col-md-12  col-lg-11 pull-right">
-
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Premium listings</div>
-                        <div class="panel-body">
-                            <div class="featured-gallery">
-
-                                <div class="row">
-
-
-                                    <div class="col-sm-6 col-xs-4 featured-thumbnail" data-toggle="tooltip" data-placement="top" title="" data-original-title="Programmer job availiable at Uber in London">
-                                        <a href="details.html" class="">
-                                            <img alt="" src="css/images/logos/uberlogo_large_verge_medium_landscape.png" style="width: 100%">
-                                        </a>
-                                    </div>
-                                    <div class="col-sm-6 col-xs-4 featured-thumbnail" data-toggle="tooltip" data-placement="top" title="" data-original-title="Porsche Boxster S, 2.9 2dr reg Apr 2007 ">
-                                        <a href="details.html" class="">
-                                            <img alt="" src="css/images/logos/car-78738_150.jpg">
-                                        </a>
-                                    </div>
-
-
-
-                                    <div class="col-sm-6 col-xs-4 featured-thumbnail" data-toggle="tooltip" data-placement="top" title="" data-original-title="Please find my lost cat">
-                                        <a href="details.html" class="">
-                                            <img alt="" src="css/images/logos/cats-q-c-120-80-4.jpg">
-                                        </a>
-                                    </div>
-                                    <div class="col-sm-6 col-xs-4 featured-thumbnail" data-toggle="tooltip" data-placement="top" title="" data-original-title="Mini copper looking for a quick sell !! - London - £2,485">
-                                        <a href="details.html" class="">
-                                            <img alt="" src="css/images/logos/transport-q-c-120-80-8.jpg">
-                                        </a>
-                                    </div>
-
-
-
-                                    <div class="col-sm-6 col-xs-4 featured-thumbnail" data-toggle="tooltip" data-placement="top" title="" data-original-title="Old MP3 player for sale">
-                                        <a href="details.html" class="">
-                                            <img alt="" src="css/images/logos/technics-q-c-120-80-10.jpg">
-                                        </a>
-                                    </div>
-                                    <div class="col-sm-6 col-xs-4 featured-thumbnail" data-toggle="tooltip" data-placement="top" title="" data-original-title="Designer job availiable at Uber in London">
-                                        <a href="details.html" class="">
-                                            <img alt="" src="css/images/logos/uberlogo_large_verge_medium_landscape.png">
-                                        </a>
-                                    </div>
-
-
-
-
-                                </div>
-
-
-
-                            </div>
-
-
-
-                        </div>
-                    </div>
-
 
                 </div>
             </div>

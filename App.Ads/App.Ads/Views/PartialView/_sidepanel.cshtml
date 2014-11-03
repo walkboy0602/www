@@ -7,14 +7,14 @@
                 <div class="panel-body">
                         <ul class="nav">
                             <li>
-                                @Html.ActionLink("My account", "index", "edit", new { area = "account" }, null)
-                            </li>
-                            <li>
                                 @Html.ActionLink("Manage ads", "manage", "listing", new { area = "" }, null)
                             </li>
                             <li>
+                                @Html.ActionLink("My account", "index", "edit", new { area = "account" }, null)
+                            </li>
+                            <li>
                                 @*<a href="javascript:document.getElementById('createForm').submit()">Create new ad</a>*@
-                                @Html.ActionLink("Create new ad", "create", "listing", new { area = "" }, null)
+                                @Html.ActionLink("Post new ad", "create", "listing", new { area = "" }, null)
                             </li>
                         </ul>
                 </div>

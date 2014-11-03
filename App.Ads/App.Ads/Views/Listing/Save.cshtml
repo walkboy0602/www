@@ -30,7 +30,7 @@
                                 <label>Category</label>
                             </div>
                             <div class="col-sm-6">
-                                @Html.DropDownListFor(m => m.CategoryId, ViewBag.CategoryList as IEnumerable<SelectListItem>, "Choose a Category", new { id="ddlCategory", @class = "form-control" })
+                                @Html.DropDownListFor(m => m.CategoryId, ViewBag.CategoryList as IEnumerable<SelectListItem>, "Choose a Category", new { id = "ddlCategory", @class = "form-control" })
                                 @Html.ValidationMessageFor(m => m.CategoryId)
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                             <br />
                             <div class="control-group col-xs-12 col-sm-offset-3">
                                 @{
-                                    List<App.Core.Data.RefTable> rbValues = (List<App.Core.Data.RefTable>)ViewBag.ListingTypeList;
+    List<App.Core.Data.RefTable> rbValues = (List<App.Core.Data.RefTable>)ViewBag.ListingTypeList;
                                 }
                                 @foreach (var item in rbValues)
                                 {
@@ -48,6 +48,10 @@
                                         </label>
                                     </div>
                                 }
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="control-group col-xs-12 col-sm-offset-3">
                                 @Html.ValidationMessageFor(model => model.ListingTypeCode)
                             </div>
                         </div>
@@ -63,7 +67,7 @@
                             <label class="col-sm-3 control-label">Condition</label>
                             <div class="col-sm-6">
                                 @{
-                                    List<App.Core.Data.RefTable> rbValues2 = (List<App.Core.Data.RefTable>)ViewBag.ConditionList;
+    List<App.Core.Data.RefTable> rbValues2 = (List<App.Core.Data.RefTable>)ViewBag.ConditionList;
                                 }
                                 @foreach (var item in rbValues2)
                                 {
@@ -73,10 +77,9 @@
                                         </label>
                                     </div>
                                 }
-                                @Html.ValidationMessageFor(m => m.ConditionCode)
-
                             </div>
                         </div>
+                        @Html.ValidationMessageFor(m => m.ConditionCode)
                         <div class="row">
                             <div class="col-sm-12">
                                 <br />
@@ -102,44 +105,44 @@
                 </div>
             </div>
             @*<div class="panel panel-default">
-                <div class="panel-heading">Dealing methods</div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <div class="checkbox">
-                                    <label>
-                                        @Html.CheckBoxFor(m => m.COD)
-                                        Cash On Delivery
-                                    </label>
+                    <div class="panel-heading">Dealing methods</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(m => m.COD)
+                                            Cash On Delivery
+                                        </label>
+                                    </div>
+                                    @Html.TextBoxFor(m => m.CODText, new { @class = "form-control", placeholder = "Where to meet - Mid Valley, Petrol station and etc" })
+                                    @Html.ValidationMessageFor(m => m.CODText)
                                 </div>
-                                @Html.TextBoxFor(m => m.CODText, new { @class = "form-control", placeholder = "Where to meet - Mid Valley, Petrol station and etc" })
-                                @Html.ValidationMessageFor(m => m.CODText)
-                            </div>
-                            <div class="form-group">
-                                <div class="checkbox">
-                                    <label>
-                                        @Html.CheckBoxFor(m => m.Postage)
-                                        Postage
-                                    </label>
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(m => m.Postage)
+                                            Postage
+                                        </label>
+                                    </div>
+                                    @Html.TextBoxFor(m => m.PostageText, new { @class = "form-control", placeholder = "PosLaju, Free Delivery, Delivery Fees and etc" })
+                                    @Html.ValidationMessageFor(m => m.Postage)
                                 </div>
-                                @Html.TextBoxFor(m => m.PostageText, new { @class = "form-control", placeholder = "PosLaju, Free Delivery, Delivery Fees and etc" })
-                                @Html.ValidationMessageFor(m => m.Postage)
-                            </div>
-                            <div class="form-group">
-                                <div class="checkbox">
-                                    <label>
-                                        @Html.CheckBoxFor(m => m.OnlineBanking)
-                                        Online Banking
-                                    </label>
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(m => m.OnlineBanking)
+                                            Online Banking
+                                        </label>
+                                    </div>
+                                    @Html.TextBoxFor(m => m.OnlineBankingText, new { @class = "form-control", placeholder = "Your Bank Details" })
+                                    @Html.ValidationMessageFor(m => m.OnlineBanking)
                                 </div>
-                                @Html.TextBoxFor(m => m.OnlineBankingText, new { @class = "form-control", placeholder = "Your Bank Details" })
-                                @Html.ValidationMessageFor(m => m.OnlineBanking)
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>*@
+                </div>*@
             <div class="panel panel-default">
                 <div class="panel-heading">Add photos</div>
                 <div class="panel-body">
@@ -199,7 +202,7 @@
                                 <label>Contact Method</label>
                             </div>
                             <div class="col-sm-6">
-                                @Html.DropDownListFor(m => m.ContactMethod, ViewBag.Contacts as IEnumerable<SelectListItem>, "", new { @class = "form-control" })
+                                @Html.DropDownListFor(m => m.ContactMethod, ViewBag.Contacts as IEnumerable<SelectListItem>, new { @class = "form-control" })
                                 @Html.ValidationMessageFor(m => m.ContactMethod)
                             </div>
                         </div>
@@ -228,8 +231,8 @@
 
             <div class="pull-right">
                 @*<div class="btn-group">
-                    <button type="submit" class="btn-glow btn-finish">Save for later</button>
-                </div>*@
+                        <button type="submit" class="btn-glow btn-finish">Save for later</button>
+                    </div>*@
                 <div class="btn-group">
                     <input type="submit" class="btn-glow primary btn-finish" value="Continue" />
                 </div>
@@ -244,17 +247,17 @@
 @section Scripts {
     @Scripts.Render("~/bundles/form")
     <script type="text/javascript">
-            $(document).ready(function () {
-                $('#ddlCategory').select2({
-                    placeholder: "Select a Category"
-                });
-                //$('#ddlRegion').select2({
-                //    placeholder: "Select a Location"
-                //});
-                //$('#ddlCondition').select2({
-                //    placeholder: "Select Condition"
-                //});
-                //$('.select2').select2();
+        $(document).ready(function () {
+            $('#ddlCategory').select2({
+                placeholder: "Select a Category"
             });
-        </script>
+            //$('#ddlRegion').select2({
+            //    placeholder: "Select a Location"
+            //});
+            //$('#ddlCondition').select2({
+            //    placeholder: "Select Condition"
+            //});
+            //$('.select2').select2();
+        });
+    </script>
 }

@@ -817,7 +817,6 @@
     <Folder Include="Areas\Account\Views\Shared\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Detail\" />
     <Folder Include="Views\Enquiry\" />
   </ItemGroup>
   <ItemGroup>
