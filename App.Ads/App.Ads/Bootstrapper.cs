@@ -37,6 +37,7 @@ namespace App.Ads
             container.RegisterType<IRegionService, RegionService>();
             container.RegisterType<IListingService, ListingService>();
             container.RegisterType<IAWSService, AWSService>();
+            container.RegisterType<IAzureService, AzureService>();
             container.RegisterType<IEnquiryService, EnquiryService>();
             container.RegisterType<ISearchService, SearchService>();
             container.RegisterType<App.Ads.Areas.Account.BO.IAccountBO, App.Ads.Areas.Account.BO.AccountBO>();

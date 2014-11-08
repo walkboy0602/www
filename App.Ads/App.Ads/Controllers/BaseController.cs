@@ -29,7 +29,7 @@ namespace App.Ads.Controllers
             }
 
             ViewBag.Title = "Malaysia New Market Place";
-            ViewBag.SiteName = "MYBazaar.com.my";
+            ViewBag.SiteName = "MyBazaar.com.my";
         }
 
     }

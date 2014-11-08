@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 using System.ComponentModel.DataAnnotations;
 
 namespace App.Core.ViewModel
 {
-    public class ListingImageViewModel
+    public class ImageModel
+    {
+        public Uri UrlDomain = new Uri(string.Format("https://{0}.blob.core.windows.net/", 
+            ConfigurationManager.AppSettings["StorageAccountName"].ToString()) + "images/");
+    }
+
+    public class ListingImageViewModel : ImageModel
     {
         public int id { get; set; }
         public int ListingId { get; set; }

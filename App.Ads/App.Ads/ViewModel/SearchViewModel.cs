@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using App.Core.Data;
+using App.Core.ViewModel;
 
 namespace App.Ads.ViewModel
 {
-    public class SearchViewModel
+    public class SearchViewModel: ImageModel
     {
         public int id { get; set; }
         public Nullable<int> CategoryId { get; set; }

@@ -8,7 +8,7 @@ using App.Core.Models;
 
 namespace App.Core.ViewModel
 {
-    public class AdDetailViewModel
+    public class AdDetailViewModel: ImageModel
     {
         public int id { get; set; }
 

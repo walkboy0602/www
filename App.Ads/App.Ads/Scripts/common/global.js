@@ -24,11 +24,11 @@ function getParameterByName(name) {
 $(document).ready(function () {
     //fancybox
     $(".fancybox").fancybox({
-        prevEffect: 'none',
-        nextEffect: 'none',
-        closeBtn: false,
+        prevEffect: 'elastic',
+        nextEffect: 'elastic',
+        closeBtn: true,
         autoSize: false,
-        maxWidth: 680,
+        maxWidth: 800,
         maxHeight: 480,
         helpers: {
             //float, outside, inside, over

@@ -146,8 +146,9 @@
                         <div class="col-sm-12">
                             @if (Model.ListingImages.Count > 0)
                             {
-                                <a class="fancybox" rel="group" href=@Model.CoverImage>
-                                    <img alt="Cover Image" class="raised" src="@Url.Content(Model.CoverImage)" width="100%">
+
+                                <a class="fancybox" rel="group" href="@Url.Content(Model.UrlDomain + Model.CoverImage)">
+                                    <img alt="Cover Image" class="raised" src="@Url.Content(Model.UrlDomain + Model.CoverImage)" width="100%">
                                 </a>
                                 <br>
                                 <br>
@@ -157,8 +158,8 @@
                                         if (!item.IsCover)
                                         {
                                         <div class="col-xs-4">
-                                            <a href="@Url.Content(item.Src)" class="img-responsive fancybox thumbnail" rel="group" title=@item.Description>
-                                                <img src="@Url.Content(item.Thumnbnail)" alt="@item.Description">
+                                            <a href="@Url.Content(Model.UrlDomain + item.Src)" class="img-responsive fancybox thumbnail" rel="group" title=@item.Description>
+                                                <img src="@Url.Content(Model.UrlDomain + item.Thumnbnail)" alt="@item.Description">
                                             </a>
                                         </div>
                                         }

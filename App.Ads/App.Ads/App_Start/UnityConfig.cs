@@ -6,6 +6,7 @@ using App.Core.Services;
 
 namespace App.Ads
 {
+    //This Config is use for Web Api
     public static class UnityConfig
     {
         public static void RegisterComponents()
@@ -25,6 +26,7 @@ namespace App.Ads
             container.RegisterType<IRegionService, RegionService>();
             container.RegisterType<IListingService, ListingService>();
             container.RegisterType<IAWSService, AWSService>();
+            container.RegisterType<IAzureService, AzureService>();
             container.RegisterType<IEnquiryService, EnquiryService>();
             container.RegisterType<SmtpClient>(new InjectionConstructor());
 

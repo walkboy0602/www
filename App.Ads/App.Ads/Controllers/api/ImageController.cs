@@ -105,11 +105,13 @@ namespace App.Ads.Controllers.api
 
             ListingImage listingImage = _imageService.Uploads(identity.UserId, id, CreateDate);
 
+            ListingImageViewModel model = Mapper.Map<ListingImage, ListingImageViewModel>(listingImage);
+
             // Delete File - not working
             //var fi = new FileInfo(result.FileData.First().LocalFileName);
             //fi.Delete();
 
-            return Request.CreateResponse(HttpStatusCode.OK, listingImage);
+            return Request.CreateResponse(HttpStatusCode.OK, model);
 
         }
 

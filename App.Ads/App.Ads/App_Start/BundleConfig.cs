@@ -42,7 +42,7 @@ namespace App.Ads
                 "~/Scripts/common/select2.js",
                 "~/Scripts/common/theme.js",
                 "~/Scripts/common/spin.js",
-                "~/Content/fancybox/jquery.fancybox.js",
+                "~/Content/fancybox/jquery.fancybox.js", //http://fancyapps.com/fancybox/
                 "~/Content/fancybox/helpers/jquery.fancybox-buttons.js"
             ));
 

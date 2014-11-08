@@ -18,11 +18,9 @@ using MvcSiteMapProvider.Web.Mvc.Filters;
 
 namespace App.Ads.Controllers
 {
-    public class AdvertisementController : Controller
+    public class AdvertisementController : BaseController
     {
         private AdsDBEntities db = new AdsDBEntities();
-
-        private const string S3Domain = "http://assets.monsteritem.com/";
 
         private readonly ICategoryService categoryService;
         private readonly IRegionService regionService;
@@ -72,12 +70,12 @@ namespace App.Ads.Controllers
 
                 if (CoverImage != null)
                 {
-                    model.CoverImage = S3Domain + CoverImage.Src.Replace("####size####", "s2");
+                    model.CoverImage = CoverImage.Src.Replace("####size####", "s2");
                 }
                 else
                 {
                     //Use first image as Cover image if not found
-                    model.CoverImage = S3Domain + model.ListingImages.First().Src.Replace("####size####", "s2");
+                    model.CoverImage = model.ListingImages.First().Src.Replace("####size####", "s2");
                     model.ListingImages.First().IsCover = true;
                 }
 
@@ -85,8 +83,8 @@ namespace App.Ads.Controllers
                 {
                     if (!item.IsCover)
                     {
-                        item.Thumnbnail = S3Domain + item.Src.Replace("####size####", "s0");
-                        item.Src = S3Domain + item.Src.Replace("####size####", "s2");
+                        item.Thumnbnail = item.Src.Replace("####size####", "s0");
+                        item.Src = item.Src.Replace("####size####", "s2");
                     }
                 }
             }

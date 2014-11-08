@@ -12,8 +12,6 @@ namespace App.Ads.Code.Helpers
 {
     public class ListingHelper
     {
-        private static string S3ImagePath = ConfigurationManager.AppSettings["S3ImagePath"];
-
         public static string FormatImage(string Src, string Size = null)
         {
             if (!string.IsNullOrEmpty(Src) && !string.IsNullOrEmpty(Size))
@@ -21,7 +19,7 @@ namespace App.Ads.Code.Helpers
                 Src = Src.Replace("####size####", Size);
             }
 
-            return S3ImagePath + Src;
+            return Src;
         }
 
         public static string GetCoverImage(List<App.Core.Data.ListingImage> listingImages, string size = null)

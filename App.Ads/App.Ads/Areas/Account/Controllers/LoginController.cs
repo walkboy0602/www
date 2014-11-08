@@ -5,15 +5,17 @@ using System.Web;
 using System.Web.Mvc;
 using WebMatrix.WebData;
 using App.Ads.Areas.Account.Models;
+using App.Ads.Controllers;
 
 namespace App.Ads.Areas.Account.Controllers
 {
-    public class LoginController : Controller
+    public class LoginController : BaseController
     {
         //
         // GET: /Account/Login/
         public ActionResult Index(string returnUrl)
         {
+            ViewBag.Title = "Login";
             if (Request.IsAuthenticated)
             {
                 return RedirectToAction("Dashboard", "User", new { area = "" });

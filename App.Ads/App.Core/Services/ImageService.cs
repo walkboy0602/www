@@ -26,11 +26,13 @@ namespace App.Core.Services
     {
         private AdsDBEntities db = new AdsDBEntities();
         private readonly IAWSService awsService;
+        private readonly IAzureService azureService;
         private readonly IConfigService configService;
 
-        public ImageService(IAWSService awsService, IConfigService configService)
+        public ImageService(IAWSService awsService, IConfigService configService, IAzureService azureService)
         {
             this.awsService = awsService;
+            this.azureService = azureService;
             this.configService = configService;
         }
 
@@ -62,11 +64,12 @@ namespace App.Core.Services
 
             if (model != null)
             {
-
-                awsService.DeletePhoto(model.Src.Replace("####size####", "s0"));
-                awsService.DeletePhoto(model.Src.Replace("####size####", "s1"));
-                awsService.DeletePhoto(model.Src.Replace("####size####", "s2"));
-
+                azureService.DeleteImage(model.Src.Replace("####size####", "s0"));
+                azureService.DeleteImage(model.Src.Replace("####size####", "s1"));
+                azureService.DeleteImage(model.Src.Replace("####size####", "s2"));
+                //awsService.DeletePhoto(model.Src.Replace("####size####", "s0"));
+                //awsService.DeletePhoto(model.Src.Replace("####size####", "s1"));
+                //awsService.DeletePhoto(model.Src.Replace("####size####", "s2"));
                 db.ListingImages.Remove(model);
                 db.SaveChanges();
 
@@ -123,23 +126,29 @@ namespace App.Core.Services
             //file format
             //env + listing + yyyymmdd + listingid + size
 
-            string imageURL = string.Join("/", new string[] { configService.GetValue(ConfigName.S3Env), "listing", YearMonthDay, ListingId.ToString(), "####size####", hashName });
+            //string imageURL = string.Join("/", new string[] { configService.GetValue(ConfigName.S3Env), "listing", YearMonthDay, ListingId.ToString(), "####size####", hashName });
+
+            string imageURL = string.Join("/", new string[] { "listing", YearMonthDay, ListingId.ToString(), "####size####-" + hashName });
 
             bool status = false;
 
             byte[] fileBytes = image.GetBytes();
-
+            
             //Thumnbnail
             byte[] s0 = awsService.CreateImage(fileBytes, image.FileName, 200, 150);
-            status = awsService.UploadToS3(s0, imageURL.Replace("####size####", "s0"));
-
+            //status = awsService.UploadToS3(s0, imageURL.Replace("####size####", "s0"));
+            
             //Standard
             byte[] s1 = awsService.CreateImage(fileBytes, image.FileName, 315, 230);
-            status = awsService.UploadToS3(s1, imageURL.Replace("####size####", "s1"));
+            //status = awsService.UploadToS3(s1, imageURL.Replace("####size####", "s1"));
 
             //Large
             byte[] s2 = awsService.CreateImage(fileBytes, image.FileName, 640, 480);
-            status = awsService.UploadToS3(s2, imageURL.Replace("####size####", "s2"));
+            //status = awsService.UploadToS3(s2, imageURL.Replace("####size####", "s2"));
+
+            azureService.UploadImage(imageURL.Replace("####size####", "s0"), s0);
+            azureService.UploadImage(imageURL.Replace("####size####", "s1"), s1);
+            azureService.UploadImage(imageURL.Replace("####size####", "s2"), s2);
 
             listingImage.ListingId = ListingId;
             listingImage.FileName = hashName;
@@ -147,10 +156,24 @@ namespace App.Core.Services
             listingImage.Src = imageURL;
             listingImage.CreateDate = DateTime.Now;
 
+            if (CheckIsFirstImage(ListingId))
+            {
+                listingImage.IsCover = true;
+            }
+
             db.ListingImages.Add(listingImage);
             db.SaveChanges();
 
             return listingImage;
+        }
+
+        private bool CheckIsFirstImage(int ListingId)
+        {
+            var count = (from lb in db.ListingImages
+                        where lb.ListingId == ListingId
+                             select lb).Count();
+
+            return count == 0;
         }
 
     }

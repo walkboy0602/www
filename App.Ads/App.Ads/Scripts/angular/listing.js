@@ -19,7 +19,7 @@ function ListingImageCtrl($scope, $q, ImageFactory, $filter, uploadManager, $rou
                 FileName: v.FileName,
                 Description: v.Description,
                 Src: v.Src,
-                Url: "http://assets.monsteritem.com/" + v.Src.replace("####size####", "s0"),
+                Url: v.UrlDomain + v.Src.replace("####size####", "s0"),
                 ListingID: v.ListingID,
                 IsCover: v.IsCover,
                 CoverCss: v.IsCover ? "cover" : ""
@@ -114,7 +114,7 @@ function ListingImageCtrl($scope, $q, ImageFactory, $filter, uploadManager, $rou
                 FileName: v.FileName,
                 Description: v.Description,
                 Src: v.Src,
-                Url: "http://assets.monsteritem.com/" + v.Src.replace("####size####", "s1"),
+                Url: v.UrlDomain + v.Src.replace("####size####", "s0"),
                 ListingID: v.ListingID
             });
         } else {

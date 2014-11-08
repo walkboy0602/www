@@ -22,7 +22,7 @@
                     <div class="row listing-row">
                         <div class="col-sm-3">
                             <a href="@Url.Action("Save", new { id = item.id })" class="thumbnail">
-                                <img src="@ListingHelper.GetCoverImage(item.ListingImages.ToList(), "s0")" alt="@item.Title" onerror="imgError(this, 190, 100)">
+                                <img src="@Url.Content(@item.UrlDomain + @ListingHelper.GetCoverImage(item.ListingImages.ToList(), "s0"))" alt="@item.Title" onerror="imgError(this, 190, 100)">
                             </a>
                         </div>
                         <div class="col-sm-9">
@@ -60,12 +60,9 @@
 
                                 <div class="col-sm-8">
                                     <span class="classified_links pull-right">
-                                        <a class="link-info underline" href="#">Share</a>&nbsp;
-                                        <a class="link-info underline" href="#">Add to favorites</a>
-                                        &nbsp;<a class="link-info underline" href="details.html">Details</a>&nbsp;
-                                        &nbsp;<a class="link-info underline" href="#">Contact</a>
+                                        <a class="link-info underline" href="#">View</a>&nbsp;&nbsp;
+                                        <a class="link-info underline" href="#">Delete</a>
                                     </span>
-
                                 </div>
                             </div>
 

@@ -7,9 +7,9 @@ using System.Text.RegularExpressions;
 namespace App.Core.ViewModel
 {
 
-    public class DisplayListingViewModel
+    public class DisplayListingViewModel : ImageModel
     {
-     
+
         public int id { get; set; }
 
         public string Title { get; set; }
