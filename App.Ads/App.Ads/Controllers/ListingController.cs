@@ -170,35 +170,35 @@ namespace App.Ads.Controllers
                 listing = Mapper.Map<EditListingViewModel, Listing>(model, listing);
 
                 //TODO: Better way to do this?
-                if (model.COD)
-                {
-                    listing.ListingDealMethods.Add(new ListingDealMethod
-                    {
-                        ListingId = model.id,
-                        DealMethodId = (int)XtEnum.DealMethod.COD,
-                        Description = model.CODText
-                    });
-                }
+                //if (model.COD)
+                //{
+                //    listing.ListingDealMethods.Add(new ListingDealMethod
+                //    {
+                //        ListingId = model.id,
+                //        DealMethodId = (int)XtEnum.DealMethod.COD,
+                //        Description = model.CODText
+                //    });
+                //}
 
-                if (model.Postage)
-                {
-                    listing.ListingDealMethods.Add(new ListingDealMethod
-                    {
-                        ListingId = model.id,
-                        DealMethodId = (int)XtEnum.DealMethod.Postage,
-                        Description = model.PostageText
-                    });
-                }
+                //if (model.Postage)
+                //{
+                //    listing.ListingDealMethods.Add(new ListingDealMethod
+                //    {
+                //        ListingId = model.id,
+                //        DealMethodId = (int)XtEnum.DealMethod.Postage,
+                //        Description = model.PostageText
+                //    });
+                //}
 
-                if (model.OnlineBanking)
-                {
-                    listing.ListingDealMethods.Add(new ListingDealMethod
-                    {
-                        ListingId = model.id,
-                        DealMethodId = (int)XtEnum.DealMethod.OnlineBanking,
-                        Description = model.OnlineBankingText
-                    });
-                }
+                //if (model.OnlineBanking)
+                //{
+                //    listing.ListingDealMethods.Add(new ListingDealMethod
+                //    {
+                //        ListingId = model.id,
+                //        DealMethodId = (int)XtEnum.DealMethod.OnlineBanking,
+                //        Description = model.OnlineBankingText
+                //    });
+                //}
 
                 listing.LastActionBy = CurrentUser.CustomIdentity.UserId;
 

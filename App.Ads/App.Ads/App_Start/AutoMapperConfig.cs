@@ -6,6 +6,7 @@ using AutoMapper;
 using App.Core.Data;
 using App.Core.ViewModel;
 using App.Core.Models;
+using App.Ads.Models;
 using App.Ads.ViewModel;
 using App.Ads.Areas.Account.Models;
 
@@ -31,10 +32,12 @@ namespace App.Ads
 
                 Mapper.CreateMap<Listing, SearchViewModel>();
 
+                Mapper.CreateMap<CreateArticleModel, Article>();
+                Mapper.CreateMap<Article, CreateArticleModel>();
 
                 // UserProfile
-                Mapper.CreateMap<UserProfile, EditUserProfile>();
-                Mapper.CreateMap<EditUserProfile, UserProfile>();
+                Mapper.CreateMap<App.Core.Data.UserProfile, EditUserProfile>();
+                Mapper.CreateMap<EditUserProfile, App.Core.Data.UserProfile>();
 
                 Mapper.CreateMap<SendEnquiryModel, Enquiry>();
             });

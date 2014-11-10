@@ -31,10 +31,18 @@ namespace App.Ads
                  defaults: new { controller = "Search", action = "Index", LocationText = UrlParameter.Optional, CategoryText = UrlParameter.Optional }
              );
 
+            //Ad Detail
             routes.MapRoute(
                 name: "view-ad-detail",
                 url: "ad/{id}/{adTitle}",
                 defaults: new { controller = "Advertisement", action = "Detail", title = UrlParameter.Optional }
+            );
+
+            //Article Detail
+            routes.MapRoute(
+                name: "view-article-detail",
+                url: "article/{id}/{title}",
+                defaults: new { controller = "Article", action = "Detail", title = UrlParameter.Optional }
             );
 
             routes.MapRoute(

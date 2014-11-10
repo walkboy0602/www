@@ -142,6 +142,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AdsModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Data\Article.cs">
+      <DependentUpon>AdsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\Config.cs">
       <DependentUpon>AdsModel.tt</DependentUpon>
     </Compile>

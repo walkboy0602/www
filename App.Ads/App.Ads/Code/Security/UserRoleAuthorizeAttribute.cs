@@ -46,7 +46,7 @@ namespace App.Ads.Code.Security
             else
             {
                 filterContext.Result = new RedirectToRouteResult(new
-                RouteValueDictionary(new { controller = "Error", action = "AccessDenied", area = "" }));
+                RouteValueDictionary(new { controller = "Login", action = "Index", area = "Account" }));
             }
 
         }

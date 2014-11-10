@@ -1,0 +1,16 @@
+﻿@model App.Core.Data.Article
+
+@{
+    ViewBag.Title = "View Article";
+}
+
+<div class="col-md-12">
+    <h1>
+        @Model.Title
+        <small>@Model.InlineTitle</small>
+    </h1>
+    <hr />
+    <div class="cold-md-12">
+        @Html.Raw(Server.HtmlDecode(@Model.Content))
+    </div>
+</div>

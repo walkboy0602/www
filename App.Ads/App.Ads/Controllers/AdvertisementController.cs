@@ -55,7 +55,7 @@ namespace App.Ads.Controllers
 
             if (expectedTitle != actualName)
             {
-                return RedirectToActionPermanent("Index", "Advertisement", new { id = model.id, adTitle = expectedTitle });
+                return RedirectToActionPermanent("Detail", "Advertisement", new { id = model.id, adTitle = expectedTitle });
             }
 
             BreadCrumbConfiguration(SiteMaps.Current.CurrentNode, model);
