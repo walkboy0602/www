@@ -58,7 +58,7 @@
                     <div class="checkbox">
                         <label>
                             @Html.CheckBoxFor(m => m.AgreesWithTerms)
-                            I agree to the Terms and Conditions and Privacy Policy of ohMyBazaar.com Malaysia.
+                            I agree to the @Html.ActionLink("Terms and Conditions", "Detail", "Article", new { id = 1 }, new { @class = "underline", target = "_blank" }) and Privacy Policy of ohMyBazaar.com Malaysia.
                         </label>
                     </div>
                     <br>

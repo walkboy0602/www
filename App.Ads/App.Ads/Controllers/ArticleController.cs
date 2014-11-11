@@ -95,23 +95,24 @@ namespace App.Ads.Controllers
             return View(model);
         }
 
-        public ActionResult Detail(int id, string adTitle)
+        public ActionResult Detail(int id, string title)
         {
             Article article = this.db.Articles.Find(id);
-
-            string expectedTitle = article.Title.ToSeoUrl();
-            string actualName = (adTitle ?? "").ToLower();
-
-            if (expectedTitle != actualName)
-            {
-                return RedirectToActionPermanent("Detail", "Article", new { id = article.Id, adTitle = expectedTitle });
-            }
 
             if (article == null)
             {
                 return HttpNotFound();
             }
 
+            string expectedTitle = article.Title.ToSeoUrl();
+            string actualName = (title ?? "").ToLower();
+
+            if (expectedTitle != actualName)
+            {
+                return RedirectToActionPermanent("Detail", "Article", new { id = article.Id, title = expectedTitle });
+            }
+
+           
             return View(article);
         }
 

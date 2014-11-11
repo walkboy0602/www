@@ -200,6 +200,7 @@ namespace App.Ads.Controllers
                 //    });
                 //}
 
+                listing.LastUpdate = DateTime.Now;
                 listing.LastActionBy = CurrentUser.CustomIdentity.UserId;
 
                 if (!listing.IsTNCAccept)
@@ -283,17 +284,41 @@ namespace App.Ads.Controllers
 
             }
 
-            int duration = 30;
+            //TODO: Temp HardCode 60 days
+            int duration = 60;
 
             // Update Listing
             listing.IsTNCAccept = true;
             listing.Status = (int)XtEnum.ListingStatus.Pending;
+            listing.LastUpdate = DateTime.Now;
+            listing.LastActionBy = CurrentUser.CustomIdentity.UserId;
             listing.Duration = duration;
 
             listingService.Save(listing);
 
             TempData["Message"] = "Thank you for posting your listing with us, your listing is currently being reviewed by us and will be available within 24 hours.";
             return RedirectToAction("Complete");
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete (int id)
+        {
+            Listing listing = listingService.GetListingById(id, CurrentUser.CustomIdentity.UserId);
+
+            if (listing == null)
+            {
+                return HttpNotFound();
+            }
+
+            listing.Status = (int)XtEnum.ListingStatus.Deleted;
+            listing.LastUpdate = DateTime.Now;
+            listing.LastActionBy = CurrentUser.CustomIdentity.UserId;
+
+            listingService.Save(listing);
+
+            TempData["Message"] = "Your ad ''" + listing.Title + "'' has been successfully removed.";
+            return RedirectToAction("Index");
         }
 
 
