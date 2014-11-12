@@ -127,7 +127,7 @@ namespace App.Ads.Code.Helpers
             }
         }
 
-        public static string FormatListingStatusToolTip(int status)
+        public static string FormatListingStatusToolTip(int status, DateTime endDate)
         {
             switch ((XtEnum.ListingStatus)status)
             {
@@ -135,10 +135,13 @@ namespace App.Ads.Code.Helpers
                     return "Pending for review";
 
                 case XtEnum.ListingStatus.Published:
-                    return "Ad successfully posted";
-
+                    return "Ad expired on " + endDate.ToString("ddMMMyy");
+                   
                 case XtEnum.ListingStatus.Rejected:
                     return "Ad rejected for reasons";
+
+                case XtEnum.ListingStatus.Expired:
+                    return "Ad has been expired";
 
                 default:
                     return "";

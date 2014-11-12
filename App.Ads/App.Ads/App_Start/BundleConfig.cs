@@ -55,10 +55,10 @@ namespace App.Ads
             //Angular
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                  "~/Scripts/kendo/kendo.web.js",
-                 "~/Scripts/angular/1.2.9/angular.js",
-                 "~/Scripts/angular/1.2.9/angular-resource.js",
-                 "~/Scripts/angular/1.2.9/angular-route.js",
-                 "~/Scripts/angular/1.2.9/angular-sanitize.js",
+                 "~/Scripts/angular/1.2.26/angular.js",
+                 "~/Scripts/angular/1.2.26/angular-resource.js",
+                 "~/Scripts/angular/1.2.26/angular-route.js",
+                 "~/Scripts/angular/1.2.26/angular-sanitize.js",
                  "~/Scripts/angular/angular-bootstrap-select.js",
                  "~/Scripts/angular/apps.js",
                  "~/Scripts/angular/api.js",

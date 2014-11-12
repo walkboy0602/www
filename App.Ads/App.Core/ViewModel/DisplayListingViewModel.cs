@@ -20,9 +20,11 @@ namespace App.Core.ViewModel
 
         public DateTime CreateDate { get; set; }
 
-        public DateTime? PostedDate { get; set; }
+        public DateTime PostedDate { get; set; }
 
         public DateTime LastUpdate { get; set; }
+
+        public DateTime PostingEndDate { get; set; }
 
         public int Status { get; set; }
 

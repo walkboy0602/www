@@ -25,5 +25,13 @@ namespace App.Core.ViewModel
             Postage = 2,
             OnlineBanking = 3
         }
+
+        public enum ListingAction
+        {
+            Posted = 0,
+            Update = 1,
+            Delete = 2,
+            Extend = 3
+        }
     }
 }

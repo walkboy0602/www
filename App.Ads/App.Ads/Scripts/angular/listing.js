@@ -237,6 +237,16 @@ function ListingSpecCtrl($scope, $q, ListingFactory, $filter) {
 
 }
 
+function ListingManageCtrl($scope, $q, $filter) {
+    $scope.model = {};
+
+    //triggered when modal is about to be shown
+    $('#deleteModal').on('show.bs.modal', function (e) {
+        //get data-id attribute of the clicked element
+        $scope.model.id = $(e.relatedTarget).data('listing-id');
+    });
+}
+
 function ListingDescriptionCtrl($scope, $q, ListingFactory, $filter) {
 
     $scope.form = {};

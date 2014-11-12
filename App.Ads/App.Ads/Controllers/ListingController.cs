@@ -38,10 +38,20 @@ namespace App.Ads.Controllers
         [HttpGet]
         public ActionResult Manage()
         {
+            List<int> filterStatus = new List<int>{
+                (int)XtEnum.ListingStatus.New,
+                (int)XtEnum.ListingStatus.Deleted
+            };
+
             var listings = listingService.GetAllByUserId(CurrentUser.CustomIdentity.UserId)
-                            .Where(l => l.Status != (int)XtEnum.ListingStatus.New)
+                            .Where(l => !filterStatus.Contains(l.Status))
                             .OrderByDescending(l => l.LastUpdate)
                             .ToList();
+
+            listings.ForEach(x =>
+            {
+                x.Status = x.PostingEndDate < DateTime.Now ? (int)XtEnum.ListingStatus.Expired : x.Status;
+            });
 
             var model = Mapper.Map<List<Listing>, List<DisplayListingViewModel>>(listings);
 
@@ -312,13 +322,13 @@ namespace App.Ads.Controllers
             }
 
             listing.Status = (int)XtEnum.ListingStatus.Deleted;
-            listing.LastUpdate = DateTime.Now;
+            listing.LastAction = "Delete";
             listing.LastActionBy = CurrentUser.CustomIdentity.UserId;
 
             listingService.Save(listing);
 
             TempData["Message"] = "Your ad ''" + listing.Title + "'' has been successfully removed.";
-            return RedirectToAction("Index");
+            return RedirectToAction("Manage");
         }
 
 

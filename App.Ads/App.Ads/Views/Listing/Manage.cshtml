@@ -1,13 +1,16 @@
 ﻿@model IEnumerable<App.Core.ViewModel.DisplayListingViewModel>
 @using App.Ads.Code.Helpers
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Manage ads";
 }
 
 @if (TempData["Message"] != null)
 {
     <div class="col-sm-12">
-        <div class="alert alert-info">
+        <div class="alert alert-info" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>
             @TempData["Message"]
         </div>
     </div>
@@ -15,7 +18,7 @@
 <div class="col-sm-3">
     @Html.Partial("~/Views/PartialView/_sidepanel.cshtml")
 </div>
-<div class="col-sm-9">
+<div class="col-sm-9" data-ng-controller="ListingManageCtrl">
     <div class="panel panel-default">
         <div class="panel-heading">
             Manage adverts
@@ -60,7 +63,7 @@
 
                                 <div class="col-sm-4">
 
-                                    <div class="@ListingHelper.FormatListingStatusCss(item.Status)" data-toggle="tooltip" data-original-title="@ListingHelper.FormatListingStatusToolTip(item.Status)">
+                                    <div class="@ListingHelper.FormatListingStatusCss(item.Status)" data-toggle="tooltip" data-original-title="@ListingHelper.FormatListingStatusToolTip(item.Status, item.PostingEndDate)">
                                         <i class="fa fa-info-circle"></i>
                                         @Enum.GetName(typeof(App.Core.ViewModel.XtEnum.ListingStatus), item.Status)
                                     </div>
@@ -68,8 +71,13 @@
 
                                 <div class="col-sm-8">
                                     <span class="classified_links pull-right">
-                                        <a class="link-info underline" href="#">View</a>&nbsp;&nbsp;
-                                        <a class="link-info underline" href="#deleteModal" data-toggle="modal" data-listing-id="@item.id">Delete</a>
+                                        @if (item.Status == 200)
+                                        {
+                                            <span>
+                                                <a class="link-info underline" href="/ad/@item.id/@item.Title.ToSeoUrl()" target="_blank">View</a>&nbsp;&nbsp;
+                                            </span>
+                                        }
+                                        <a class="link-info underline" href="#" data-toggle="modal" data-target="#deleteModal" data-listing-id="@item.id">Delete</a>
                                     </span>
                                 </div>
                             </div>
@@ -81,30 +89,35 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal - Delete Listing -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+        @using (Html.BeginForm("Delete", "Listing", FormMethod.Post))
+        {
+            @Html.Hidden("id", null, new { ng_value = "model.id" })
+
+            @Html.AntiForgeryToken()
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Remove Listing</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4 class="modal-title">Are you sure you want to remove this listing ?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="pull-right">
+                            <button type="button" class="btn-glow" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn-glow inverse" data-ng-click="test(form.id)">Delete</button>
+                        </div>
+                    </div>
+
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        }
+    </div><!-- /.modal -->
+
 </div>
 
-<!-- Modal - Delete Image -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
-    @using (Html.BeginForm("Delete", "Listing", new { id = 123 }, FormMethod.Post))
-    {
-        @Html.AntiForgeryToken()
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Remove Listing</h4>
-                </div>
-                <div class="modal-body">
-                    <h4 class="modal-title">Are you sure you want to remove this listing ?</h4>
-                </div>
-                <div class="modal-footer">
-                    <div class="pull-right">
-                        <button type="button" class="btn-glow" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn-glow inverse">Delete</button>
-                    </div>
-                </div>
 
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    }
-</div><!-- /.modal -->
