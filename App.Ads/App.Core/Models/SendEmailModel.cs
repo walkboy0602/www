@@ -12,6 +12,6 @@ namespace App.Core.Models
 
         public string WebsiteURL { get; set; }
         public string WebsiteTitle { get; set; }
-        public string WebsiteUrlName { get; set; }
+        public string WebsiteName { get; set; }
     }
 }

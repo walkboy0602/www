@@ -146,6 +146,7 @@
           <Property Name="LastPasswordChangedDate" Type="datetime" />
           <Property Name="LastLockoutDate" Type="datetime" />
           <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="LastConfirmEmailSent" Type="datetime" />
         </EntityType>
         <EntityType Name="RefCategory">
           <Key>
@@ -527,6 +528,7 @@
           <Property Name="LastLockoutDate" Type="DateTime" Precision="3" />
           <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="UserRoles" Relationship="AdsDBModel.FK_UserRoles_Users" FromRole="Membership" ToRole="UserRole" />
+          <Property Name="LastConfirmEmailSent" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="UserProfile">
           <Key>
@@ -1038,6 +1040,7 @@
           <EntitySetMapping Name="Memberships">
             <EntityTypeMapping TypeName="AdsDBModel.Membership">
               <MappingFragment StoreEntitySet="Membership">
+                <ScalarProperty Name="LastConfirmEmailSent" ColumnName="LastConfirmEmailSent" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="EmailConfirmationToken" ColumnName="EmailConfirmationToken" />

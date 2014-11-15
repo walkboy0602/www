@@ -29,9 +29,9 @@ namespace App.Core.Services
 
         // UserRoles
 
-
         // Emails
         void SendAccountActivationMail(string email);
+        void SendAccountActivationMail(App.Core.Data.Membership membership);
         void SendPasswordResetMail(int userId, string email, string token);
 
         // Helper to do 
@@ -114,7 +114,14 @@ namespace App.Core.Services
 
         App.Core.Data.Membership IUserService.GetMembership(int userId)
         {
-            return this.db.Memberships.Where(x => x.UserId == userId).FirstOrDefault();
+            var membership = db.Memberships.Where(x => x.UserId == userId).FirstOrDefault();
+
+            if (membership != null)
+            {
+                membership.UserProfile = db.UserProfiles.Where(x => x.UserId == userId).FirstOrDefault();
+            }
+
+            return membership;
         }
 
         App.Core.Data.Membership IUserService.GetMembershipByConfirmToken(string token, bool withUserProfile)
@@ -145,8 +152,20 @@ namespace App.Core.Services
             viewData.Add("Membership", membership);
             this.emailService.SendEmailWithTemplate(email, "Confirm your registration",
                 "ConfirmRegistration",
-                viewData
+                viewData, true
             );
+        }
+
+        void IUserService.SendAccountActivationMail(App.Core.Data.Membership membership)
+        {
+            var viewData = new ViewDataDictionary { Model = membership.UserProfile };
+            viewData.Add("Membership", membership);
+            this.emailService.SendEmailWithTemplate(membership.UserProfile.UserName, "Confirm your registration",
+                "ConfirmRegistration",
+                viewData, false
+            );
+            membership.LastConfirmEmailSent = DateTime.Now;
+            (this as IUserService).Save(membership, false);
         }
 
         void IUserService.SendPasswordResetMail(int userId, string email, string token)

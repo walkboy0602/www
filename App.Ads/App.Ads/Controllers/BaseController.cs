@@ -5,13 +5,14 @@ using System.Web;
 using System.Web.Mvc;
 using App.Ads.Code.Membership;
 using App.Ads.Models;
+using System.Web.Routing;
 
 namespace App.Ads.Controllers
 {
     public class BaseController : Controller
     {
         // Current logged in User Cache Data
-        public CustomPrincipal CurrentUser;
+        public CustomPrincipal CurrentUser = null;
 
         // For Ajax
         public ResponseModel responseModel { get; set; }
@@ -22,10 +23,6 @@ namespace App.Ads.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 CurrentUser = User.ToCustomPrincipal();
-            }
-            else
-            {
-                CurrentUser = null;
             }
 
             ViewBag.Title = "Malaysia New Market Place";

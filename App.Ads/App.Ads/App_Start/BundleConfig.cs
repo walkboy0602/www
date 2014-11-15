@@ -59,24 +59,19 @@ namespace App.Ads
                  "~/Scripts/angular/1.2.26/angular-resource.js",
                  "~/Scripts/angular/1.2.26/angular-route.js",
                  "~/Scripts/angular/1.2.26/angular-sanitize.js",
-                 "~/Scripts/angular/angular-bootstrap-select.js",
                  "~/Scripts/angular/apps.js",
                  "~/Scripts/angular/api.js",
                  "~/Scripts/angular/service.js",
                  "~/Scripts/angular/directive.js",
-                 "~/Scripts/angular/ui-bootstrap-tpls-0.6.0.js",
-                 "~/Scripts/angular/listing.js",
-                 "~/Scripts/angular/enquiry.js",
-                 "~/Scripts/angular/account.js",
-                 "~/Scripts/angular/approverAction.js",
-                 "~/Scripts/angular/loading-bar.js"
-                 ));
-
-
-            //AngularStrap
-            bundles.Add(new ScriptBundle("~/bundles/angularstrap").Include(
-                 "~/Scripts/angular/angularstrap/angular-strap.js",
-                 "~/Scripts/angular/angularstrap/angular-strap.tpl.js"
+                 "~/Scripts/angular/controller/listing.js",
+                 "~/Scripts/angular/controller/enquiry.js",
+                 "~/Scripts/angular/controller/account.js",
+                 "~/Scripts/angular/controller/admin.js",
+                 "~/Scripts/angular/3rd/angular-bootstrap-select.js",
+                 "~/Scripts/angular/3rd/ui-bootstrap-tpls-0.6.0.js",
+                 "~/Scripts/angular/3rd/loading-bar.js",
+                 "~/Scripts/angular/3rd/angular-strap.js",
+                 "~/Scripts/angular/3rd/angular-strap.tpl.js"
                  ));
 
             //File uploader

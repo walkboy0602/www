@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'K:\ohmybazaar\www\App.Ads\App.Core\Data\AdsModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\chenhau\Documents\Itemsss.com\www\App.Ads\App.Core\Data\AdsModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

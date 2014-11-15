@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using App.Core.Services;
 using App.Ads.ViewModel;
+using App.Ads.Models;
 using App.Ads.Areas.Account.Models;
 using App.Core.Helper;
 
@@ -11,6 +12,8 @@ namespace App.Ads.Areas.Account.BO
 {
     public interface IAccountBO
     {
+        bool ResendEmail(BaseModel model);
+
         bool ChangePassword(ChangePassword model);
 
         bool ForgotPassword(ForgotPasswordModel model);
@@ -23,6 +26,31 @@ namespace App.Ads.Areas.Account.BO
         public AccountBO(IUserService userService)
         {
             this._userService = userService;
+        }
+
+        bool IAccountBO.ResendEmail(BaseModel model)
+        {
+            var membership = _userService.GetMembership(model.UserId);
+            if (membership == null)
+            {
+                model.ModelState.AddModelError("Error", ErrorConstant.BAD_REQUEST);
+                return false;
+            }
+
+            if (membership.LastConfirmEmailSent != null && !membership.IsEmailConfirmed)
+            {
+                //Send if last sent date is more than 1 hour
+                if ((DateTime.Now - (DateTime)membership.LastConfirmEmailSent).TotalHours > 1)
+                {
+                    _userService.SendAccountActivationMail(membership);
+                }
+            }
+            else
+            {
+                _userService.SendAccountActivationMail(membership);
+            }
+
+            return true;
         }
 
         bool IAccountBO.ChangePassword(ChangePassword model)

@@ -144,6 +144,12 @@
     <Reference Include="Recaptcha.Web">
       <HintPath>..\packages\RecaptchaNet.1.3\lib\net45\Recaptcha.Web.dll</HintPath>
     </Reference>
+    <Reference Include="SendGrid.SmtpApi">
+      <HintPath>..\packages\SendGrid.SmtpApi.1.1.3\lib\net40\SendGrid.SmtpApi.dll</HintPath>
+    </Reference>
+    <Reference Include="SendGridMail">
+      <HintPath>..\packages\Sendgrid.5.0.0\lib\SendGridMail.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -257,6 +263,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Account\AccountAreaRegistration.cs" />
     <Compile Include="Areas\Account\Controllers\ForgotPasswordController.cs" />
+    <Compile Include="Areas\Account\Controllers\VerificationController.cs" />
     <Compile Include="Areas\Account\Models\ForgotPasswordModel.cs" />
     <Compile Include="Areas\Account\BO\AccountBO.cs" />
     <Compile Include="Areas\Account\Controllers\EditController.cs" />
@@ -267,6 +274,7 @@
     <Compile Include="Areas\Account\Models\ChangePassword.cs" />
     <Compile Include="Areas\Account\Models\LoginModel.cs" />
     <Compile Include="Areas\Account\Models\RegisterModel.cs" />
+    <Compile Include="Areas\Account\Models\ResendEmailModel.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ListingController.cs" />
     <Compile Include="Areas\Admin\Models\ApprovalActionModel.cs" />
@@ -286,10 +294,10 @@
     <Compile Include="Code\Membership\CustomRoleProvider.cs" />
     <Compile Include="Code\Membership\MembershipExtentions.cs" />
     <Compile Include="Code\Membership\TwitterAuthenticationClient.cs" />
+    <Compile Include="Code\Security\CustomAuthorizeAttribute.cs" />
     <Compile Include="Code\Security\ExceptionUtility.cs" />
     <Compile Include="Code\Security\UserRoleAuthorizeAttribute.cs" />
     <Compile Include="Code\SiteMap\SiteMapProvider.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdvertisementController.cs" />
     <Compile Include="Controllers\api\ImageController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
@@ -460,27 +468,25 @@
     <Content Include="Scripts\angular\1.2.26\angular-route.js" />
     <Content Include="Scripts\angular\1.2.26\angular-sanitize.js" />
     <Content Include="Scripts\angular\1.2.26\angular.js" />
-    <Content Include="Scripts\angular\1.2.9\angular-resource.js" />
-    <Content Include="Scripts\angular\1.2.9\angular-route.js" />
-    <Content Include="Scripts\angular\1.2.9\angular-sanitize.js" />
-    <Content Include="Scripts\angular\1.2.9\angular.js" />
-    <Content Include="Scripts\angular\account.js" />
-    <Content Include="Scripts\angular\angular-bootstrap-select.js" />
+    <Content Include="Scripts\angular\3rd\angular-bootstrap-select.js" />
+    <Content Include="Scripts\angular\3rd\angular-strap.js" />
+    <Content Include="Scripts\angular\3rd\angular-strap.tpl.js" />
+    <Content Include="Scripts\angular\3rd\loading-bar.js" />
+    <Content Include="Scripts\angular\3rd\ui-bootstrap-tpls-0.6.0.js" />
     <Content Include="Scripts\angular\angularstrap\angular-strap.js" />
     <Content Include="Scripts\angular\angularstrap\angular-strap.min.js" />
     <Content Include="Scripts\angular\angularstrap\angular-strap.tpl.js" />
     <Content Include="Scripts\angular\angularstrap\angular-strap.tpl.min.js" />
     <Content Include="Scripts\angular\api.js" />
-    <Content Include="Scripts\angular\ApproverAction.js" />
     <Content Include="Scripts\angular\apps.js" />
+    <Content Include="Scripts\angular\controller\account.js" />
+    <Content Include="Scripts\angular\controller\admin.js" />
+    <Content Include="Scripts\angular\controller\enquiry.js" />
+    <Content Include="Scripts\angular\controller\listing.js" />
+    <Content Include="Scripts\angular\controller\user.js" />
     <Content Include="Scripts\angular\defer.js" />
     <Content Include="Scripts\angular\directive.js" />
-    <Content Include="Scripts\angular\enquiry.js" />
-    <Content Include="Scripts\angular\listing.js" />
-    <Content Include="Scripts\angular\loading-bar.js" />
     <Content Include="Scripts\angular\service.js" />
-    <Content Include="Scripts\angular\ui-bootstrap-tpls-0.6.0.js" />
-    <Content Include="Scripts\angular\user.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\build-config.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
@@ -701,6 +707,7 @@
     <Content Include="Scripts\select2\select2_locale_es.js" />
     <Content Include="Scripts\validation\jquery.validationEngine.js" />
     <Content Include="Scripts\validation\languages\jquery.validationEngine-en.js" />
+    <Content Include="TODO.txt" />
     <Content Include="Views\PartialView\_sidepanel.cshtml" />
     <Content Include="Areas\Account\Views\Edit\Index.cshtml" />
     <Content Include="Areas\Account\Views\Edit\_ChangePassword.cshtml" />
@@ -714,6 +721,9 @@
     <Content Include="Areas\Admin\Views\Listing\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Listing\Action.cshtml" />
     <Content Include="Areas\Account\Views\ForgotPassword\Index.cshtml" />
+    <Content Include="Areas\Account\Views\Verification\Confirmation.cshtml" />
+    <Content Include="Areas\Account\Views\Verification\Index.cshtml" />
+    <Content Include="Areas\Account\Views\Verification\success.cshtml" />
     <None Include="MvcSiteMapSchema.xsd" />
     <None Include="Properties\PublishProfiles\ohmybazzar - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\ohmybazzar - Web Deploy.pubxml" />
@@ -766,15 +776,6 @@
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
-    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Manage.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -821,7 +822,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Account\Views\LogOff\" />
     <Folder Include="Areas\Account\Views\Shared\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Views\Base\" />

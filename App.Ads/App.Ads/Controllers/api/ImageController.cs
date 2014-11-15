@@ -15,10 +15,11 @@ using System.Web;
 using System.Text;
 using AutoMapper;
 using System.IO;
+using App.Ads.Code.Security;
 
 namespace App.Ads.Controllers.api
 {
-    [Authorize]
+    [CustomAuthorize]
     public class ImageController : ApiController
     {
         private readonly IListingService _listingService;

@@ -1,0 +1,8 @@
+﻿
+TODO
+---------
+
+-Complete Term and Condition
+-Remove 'Share' in Ad Detail page
+-Publish online!
+

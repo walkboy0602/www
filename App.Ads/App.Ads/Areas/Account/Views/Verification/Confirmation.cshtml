@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Email Confirmation";
+}
+
+<div class="row">
+    <div class="col-md-6 login-wrapper">
+
+        @if (ViewBag.IsSuccess)
+        {
+            <div class="alert alert-success">
+                <p>
+                    <i class="fa fa-check"></i>
+                    @MvcHtmlString.Create(ViewBag.message)
+                </p>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-danger">
+                <p>
+                    <i class="fa fa-times"></i>
+                    @MvcHtmlString.Create(ViewBag.message)
+                </p>
+            </div>
+        }
+    </div>
+</div>

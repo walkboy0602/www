@@ -13,7 +13,7 @@ namespace App.Core.Services
 
         private readonly String name;
 
-        public static readonly ConfigName WebsiteUrlName = new ConfigName("WebsiteUrlName");
+        public static readonly ConfigName WebsiteName = new ConfigName("WebsiteName");
         public static readonly ConfigName WebsiteTitle = new ConfigName("WebsiteTitle");
         public static readonly ConfigName WebsiteUrl = new ConfigName("WebsiteUrl");
 

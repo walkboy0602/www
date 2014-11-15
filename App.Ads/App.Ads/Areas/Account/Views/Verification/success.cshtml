@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Email Confirmation";
+}
+
+<div class="row">
+    <div class="col-md-12 login-wrapper">
+        <div class="alert alert-success">
+            <p>
+                <i class="fa fa-check"></i>
+                Your account is activated.
+            </p>
+            <br />
+            <div>
+                <label>Click here to </label>
+                @Html.ActionLink("Sign In", "index", "login", new { area = "account" }, null)
+            </div>
+        </div>
+
+    </div>
+</div>

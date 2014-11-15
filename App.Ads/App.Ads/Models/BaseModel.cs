@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace App.Ads.Models
 {
-    public abstract class BaseModel
+    public class BaseModel
     {
 
         public int UserId { get; set; }

@@ -37,6 +37,7 @@ namespace App.Core.Data
         public Nullable<System.DateTime> LastPasswordChangedDate { get; set; }
         public Nullable<System.DateTime> LastLockoutDate { get; set; }
         public string Comment { get; set; }
+        public Nullable<System.DateTime> LastConfirmEmailSent { get; set; }
     
         public virtual ICollection<UserRole> UserRoles { get; set; }
     }

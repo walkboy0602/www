@@ -73,8 +73,7 @@
     <div id="wrapper">
 
         <div id="page-content-wrapper">
-
-            @Html.Partial("_AjaxError")
+            @RenderSection("AjaxError", required: false)
             <div class="container">
                 <div class="row">
                     @*@Html.MvcSiteMap().Menu(false, true, true)*@
@@ -82,15 +81,11 @@
                         @RenderSection("PageTitle", required: false)
                         @if (SiteMaps.Current.CurrentNode != null && (SiteMaps.Current.CurrentNode != SiteMaps.Current.CurrentNode.RootNode))
                         {
-
                             @Html.MvcSiteMap().SiteMapPath()
-
                         }
                     </div>
                 </div>
-
                 @RenderBody()
-
             </div>
 
             <div class="footer">
@@ -116,7 +111,6 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/plugin")
     @Scripts.Render("~/bundles/angular")
-    @Scripts.Render("~/bundles/angularstrap")
     <script>
         window.data = {
             id: '@ViewBag.id'

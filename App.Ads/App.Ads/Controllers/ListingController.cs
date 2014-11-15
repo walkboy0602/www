@@ -5,6 +5,7 @@ using App.Core.ViewModel;
 using App.Core.Utility;
 using App.Ads.Code.Membership;
 using App.Ads.Code.Filters;
+using App.Ads.Code.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ using AutoMapper;
 
 namespace App.Ads.Controllers
 {
-    [Authorize]
+    [CustomAuthorize]
     public class ListingController : BaseController
     {
         private readonly ICategoryService categoryService;

@@ -14,14 +14,15 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Configuration;
+using SendGrid;
 
 namespace App.Core.Services
 {
     public interface IEmailService
     {
-        void SendEmail(string emailAddress, string title, string message, object data);
+        void SendEmail(string emailAddress, string title, string message, object data, bool isSendAsync);
 
-        void SendEmailWithTemplate(string emailAddress, string subject, string templateName, object data);
+        void SendEmailWithTemplate(string emailAddress, string subject, string templateName, object data, bool isSendAsync = true);
 
         void TestEmail();
     }
@@ -50,8 +51,8 @@ namespace App.Core.Services
 
             sendEmailModel = new SendEmailModel
             {
-                Subject = this.configService.GetValue(ConfigName.WebsiteUrlName),
-                WebsiteUrlName = this.configService.GetValue(ConfigName.WebsiteUrlName),
+                Subject = this.configService.GetValue(ConfigName.WebsiteName),
+                WebsiteName = this.configService.GetValue(ConfigName.WebsiteName),
                 WebsiteTitle = this.configService.GetValue(ConfigName.WebsiteTitle),
                 WebsiteURL = this.configService.GetValue(ConfigName.WebsiteUrl)
             };
@@ -104,81 +105,13 @@ namespace App.Core.Services
         }
 
         /// <summary>
-        /// Send plain text email message
-        /// </summary>
-        /// <param name="emailAddress">Recipient email address</param>
-        /// <param name="subject">Email subject</param>
-        /// <param name="message">Email message</param>
-        void IEmailService.SendEmail(string emailAddress, string subject, string message, object data)
-        {
-            #region Validation
-
-            if (String.IsNullOrWhiteSpace(emailAddress))
-            {
-                throw new ArgumentException(String.Format(Global.CannotBeNullOrEmpy, "emailAddress"), "emailAddress");
-            }
-
-            if (String.IsNullOrWhiteSpace(subject))
-            {
-                throw new ArgumentException(String.Format(Global.CannotBeNullOrEmpy, "subject"), "subject");
-            }
-
-            if (String.IsNullOrWhiteSpace(message))
-            {
-                throw new ArgumentException(String.Format(Global.CannotBeNullOrEmpy, "message"), "message");
-            }
-
-            #endregion
-
-            // emailAddress may contain a list of email addresses. For example: "user1@mail.com, user2@mail.com"
-            // so.. let's split them into an array
-            var emailAddresses = emailAddress.Split(new char[] { ',', ';' })
-                .Where(x => !String.IsNullOrWhiteSpace(x))
-                .Select(x => x.Trim()).ToArray();
-
-            MailMessage mailMessage = new MailMessage();
-
-            //Recipient address
-            foreach (var email in emailAddresses)
-            {
-                mailMessage.To.Add(new MailAddress(emailAddress));
-            }
-
-            // Sender
-            mailMessage.Sender = new MailAddress("walkboy0602@gmail.com");
-
-            // From
-            mailMessage.From = new MailAddress(emailHostModel.EmailFrom, this.configService.GetValue(ConfigName.WebsiteTitle));
-
-            // Set subject
-            mailMessage.Subject = subject;
-
-            // Is it HTML message?
-            if (message.Contains("<p>")) // TODO: add more advanced logic here
-            {
-                mailMessage.IsBodyHtml = true;
-            }
-
-            mailMessage.Body = message;
-
-            mailMessage.BodyEncoding = Encoding.UTF8;
-            mailMessage.SubjectEncoding = Encoding.UTF8;
-            mailMessage.HeadersEncoding = Encoding.UTF8;
-
-            /// Create a thread for sending email
-            Thread t = new Thread(() => SendEmailAsyncThread(mailMessage, false, data));
-            t.Start();
-
-        }
-
-        /// <summary>
         /// Send email message with a template
         /// </summary>
         /// <param name="emailAddress">recipient email address</param>
         /// <param name="subject">Email subject</param>
         /// <param name="templateName">Template name. Ex.: "Contact"</param>
         /// <param name="data">Data object for the template. Ex.: new { Name = "John" }</param>
-        void IEmailService.SendEmailWithTemplate(string emailAddress, string subject, string templateName, object data)
+        void IEmailService.SendEmailWithTemplate(string emailAddress, string subject, string templateName, object data, bool isSendAsync = true)
         {
             if (String.IsNullOrWhiteSpace(templateName))
             {
@@ -223,9 +156,10 @@ namespace App.Core.Services
 
                 var message = httpResponse.Output.ToString().Trim();
 
-                (this as IEmailService).SendEmail(sendEmailModel.EmailAddress, sendEmailModel.Subject, message, data);
+                (this as IEmailService).SendEmail(sendEmailModel.EmailAddress, sendEmailModel.Subject, message, data, isSendAsync);
             }
         }
+
 
         /*
         public Task SendEmailAsync(string emailAddress, string title, string template, object data)
@@ -238,8 +172,86 @@ namespace App.Core.Services
         }
         */
 
+        /// <summary>
+        /// Send plain text email message
+        /// </summary>
+        /// <param name="emailAddress">Recipient email address</param>
+        /// <param name="subject">Email subject</param>
+        /// <param name="message">Email message</param>
+        void IEmailService.SendEmail(string emailAddress, string subject, string message, object data, bool isSendAsync)
+        {
+            #region Validation
 
-        private void SendEmailAsyncThread(MailMessage message, bool isSystemEmail, object userState = null, bool isSendAysnc = false)
+            if (String.IsNullOrWhiteSpace(emailAddress))
+            {
+                throw new ArgumentException(String.Format(Global.CannotBeNullOrEmpy, "emailAddress"), "emailAddress");
+            }
+
+            if (String.IsNullOrWhiteSpace(subject))
+            {
+                throw new ArgumentException(String.Format(Global.CannotBeNullOrEmpy, "subject"), "subject");
+            }
+
+            if (String.IsNullOrWhiteSpace(message))
+            {
+                throw new ArgumentException(String.Format(Global.CannotBeNullOrEmpy, "message"), "message");
+            }
+
+            #endregion
+
+            var env = ConfigurationManager.AppSettings["env"];
+            var testEmail = ConfigurationManager.AppSettings["testEmail"];
+
+            if (env == "test" && testEmail != null) emailAddress = testEmail;
+
+            // emailAddress may contain a list of email addresses. For example: "user1@mail.com, user2@mail.com"
+            // so.. let's split them into an array
+            var emailAddresses = emailAddress.Split(new char[] { ',', ';' })
+                .Where(x => !String.IsNullOrWhiteSpace(x))
+                .Select(x => x.Trim()).ToArray();
+
+            MailMessage mailMessage = new MailMessage();
+
+            //Recipient address
+            foreach (var email in emailAddresses)
+            {
+                mailMessage.To.Add(new MailAddress(email));
+            }
+
+            // Sender
+            mailMessage.Sender = new MailAddress(emailHostModel.EmailFrom);
+
+            // From
+            mailMessage.From = new MailAddress(emailHostModel.EmailFrom, this.configService.GetValue(ConfigName.WebsiteName));
+
+            // Set subject
+            mailMessage.Subject = subject;
+
+            // Is it HTML message?
+            if (message.Contains("<p>")) // TODO: add more advanced logic here
+            {
+                mailMessage.IsBodyHtml = true;
+            }
+
+            mailMessage.Body = message;
+
+            mailMessage.BodyEncoding = Encoding.UTF8;
+            mailMessage.SubjectEncoding = Encoding.UTF8;
+            mailMessage.HeadersEncoding = Encoding.UTF8;
+
+            if (isSendAsync)
+            {
+                //Create a thread for sending email
+                Thread t = new Thread(() => SendEmailAsyncThread(mailMessage, false, isSendAsync, data));
+                t.Start();
+            }
+            else
+            {
+                SendEmailAsyncThread(mailMessage, false, isSendAsync, data);
+            }
+        }
+
+        private void SendEmailAsyncThread(MailMessage message, bool isSystemEmail, bool isSendAysnc, object userState = null)
         {
             using (System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient(emailHostModel.EmailHost, Convert.ToInt16(emailHostModel.EmailPort)))
             {

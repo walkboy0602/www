@@ -12,10 +12,11 @@ using App.Ads.Code.Membership;
 using AutoMapper;
 using App.Ads.Controllers;
 using App.Ads.ViewModel;
+using App.Ads.Code.Security;
 
 namespace App.Ads.Areas.Account.Controllers
 {
-    [Authorize]
+    [CustomAuthorize]
     public class EditController : BaseController
     {
         private readonly ICommonService commonService;

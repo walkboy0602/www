@@ -1,33 +1,34 @@
 ﻿function VerificationCtrl($scope, AccountFactory, $filter, $q) {
 
     $scope.sendEmail = function () {
-        $('#verification-email').modal('show');
+        $('#verificationModal').modal('show');
         AccountFactory.emailVerification()
-        .success(function (data, status) {
-            console.log(data);
-        })
-        .error(function (data, status) {
-            console.log(data);
-        });
+            .success(function (data, status) {
+                if (data.StatusCode !== 200) {
+                    $scope.error(data.Message);
+                } else {
+                    $scope.success(data.Message);
+                }
+            })
+            .error(function (data, status) {
+                $scope.error(data.Message);
+            });
     }
 }
 
 function ChangePasswordCtrl($scope, AccountFactory) {
-    console.log('ddd');
-    $('form').submit(function () {
 
-        console.log('bbb');
+    $('form').submit(function () {
         if ($(this).valid()) {
 
             cfpLoadingBar.start();
             $scope.$apply();
-          
+
             $.ajax({
                 url: '/account/edit/changePassword',
                 type: 'Post',
                 data: $(this).serialize(),
-                success: function (result)
-                {
+                success: function (result) {
                     cfpLoadingBar.complete();
                     if (result.IsSuccess) {
                         $scope.success(result.Content);

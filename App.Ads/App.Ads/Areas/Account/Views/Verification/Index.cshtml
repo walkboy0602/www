@@ -1,0 +1,116 @@
+﻿@model App.Core.Data.Membership
+
+@{
+    ViewBag.Title = "Account Verfication";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="header-row">
+            <div class="header-main">
+                <span>Please verify your information</span>
+            </div>
+        </div>
+        <table class="table table-no-bordered td-valign-top" data-ng-controller="VerificationCtrl">
+            <tbody>
+                <!--Phone Verification-->
+                @*<tr>
+                    <td><h4>1.</h4></td>
+                    <td>
+                        <i class="fa fa-mobile fa-3x pull-left"></i>
+                        <div class="verification-desc">
+                            <h4>
+                                Mobile Phone Verification
+                                <small>
+                                    <span class="well well-sm">
+                                        @Html.DisplayTextFor(m => m.UserProfile.Mobile)
+                                    </span>
+                                    <a href="#" class="margin-left-20">Change</a>
+                                </small>
+                            </h4>
+                        </div>
+                        <div class="verification-desc pull-left">
+                            An SMS verification code will be sent to you mobile phone number. Enter the code received to verify your mobile phone number.
+                        </div>
+                    </td>
+                    <td>
+                        <button class="btn-glow inverse">
+                            <span><i class="fa fa-share"></i> Verify Now</span>
+                        </button>
+                        <div class="bright-grey margin-top-10"><i class="fa fa-times margin-left-20"></i> Unverified</div>
+                    </td>
+                </tr>*@
+                <!--Email Verification-->
+                <tr>
+                    <td><h4>1.</h4></td>
+                    <td>
+                        <div class="verification-desc">
+                            <i class="fa fa-envelope fa-2x pull-left"></i>
+                            <h4>
+                                Email Address Verification
+                                <small>
+                                    <span class="well well-sm">
+                                        @Html.DisplayTextFor(m => m.UserProfile.UserName)
+                                    </span>
+
+                                    @*@if (!Model.IsEmailConfirmed)
+                                    {
+                                        <a href="#" class="margin-left-20">Change</a>
+                                    }*@
+                                </small>
+                            </h4>
+                        </div>
+                        <div class="verification-desc pull-left">
+                            A verification email will be sent to your registered email address.
+                            Follow the instructions in the email to proceed.
+                        </div>
+                    </td>
+                    <td>
+                        @if (Model.IsEmailConfirmed)
+                        {
+                            <h5 class="green bright-grey margin-top-10"><i class="fa fa-check margin-left-20"></i> Verified</h5>
+                        }
+                        else
+                        {
+                            <button class="btn-glow inverse" data-ng-click="sendEmail()">
+                                <span><i class="fa fa-share"></i> Verify Now</span>
+                            </button>
+                            <div class="bright-grey margin-top-10"><i class="fa fa-times margin-left-20"></i> Unverified</div>
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Modal - Email Trigger -->
+        <div class="modal fade" id="verificationModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h3><i class="fa fa-envelope"></i> Email Address Verification</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div data-ng-show="!alert.display">
+                            <span>Please wait...</span>
+                        </div>
+                        <div class="alert alert-{{alert.type}} center margin-top-20 fade in" role="alert" data-ng-show="alert.display">
+                            <span class="fa fa-exclamation-circle" aria-hidden="true"></span>
+                            <span data-ng-bind-html="alert.message"></span>
+                        </div>
+                        
+                        @*<div class="alert alert-info center margin-top-20">
+                            <label>
+                                An email has been sent to your mailbox.
+                                Please follow the instructions in the email to complete the email verification process.
+                            </label>
+                        </div>*@
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
+</div>
