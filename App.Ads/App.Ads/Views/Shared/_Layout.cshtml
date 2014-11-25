@@ -5,12 +5,13 @@
 <head>
     <meta charset="utf-8" />
     <title>@ViewBag.Title | @ViewBag.SiteName</title>
-    <meta property="og:title" content="@ViewBag.SiteTitle - @ViewBag.SiteName" />
+    <meta property="og:title" content="@ViewBag.OG_Title - @ViewBag.SiteName" />
+    <meta property="og:description" content="@ViewBag.OG_Desc" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="http://www.9street.my/" />
-    <meta property="og:description" content="Search thousands of stores, brands, products and user classifieds all in one place!" />
     <meta property="og:site_name" content="@ViewBag.SiteName" />
-    <meta property="fb:admins" content="709385591" />
+    <meta property="og:image" content="@ViewBag.OG_Image" />
+    <meta property="fb:app_id" content="@System.Configuration.ConfigurationManager.AppSettings["fbId"]" /> 
 
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />

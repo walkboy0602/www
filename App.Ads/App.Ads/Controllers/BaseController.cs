@@ -17,6 +17,20 @@ namespace App.Ads.Controllers
         // For Ajax
         public ResponseModel responseModel { get; set; }
 
+        protected override void Initialize(RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+
+            ViewBag.Title = "Malaysia Free Classified Ads";
+
+            ViewBag.SiteName = "9street.my";
+            ViewBag.SiteTitle = "Malaysia Free Classified Ads";
+
+            ViewBag.OG_Title = "Malaysia Free Classified Ads";
+            ViewBag.OG_Desc = "Search thousands of stores, brands, products and user classifieds all in one place!";
+            ViewBag.OG_Image = "https://bazaarstorage.blob.core.windows.net/image/common/fblogo.jpg";
+        }
+
         protected override void OnAuthorization(AuthorizationContext filterContext)
         {
             base.OnAuthorization(filterContext);
@@ -25,9 +39,6 @@ namespace App.Ads.Controllers
                 CurrentUser = User.ToCustomPrincipal();
             }
 
-            ViewBag.SiteTitle = "Malaysia Free Classified Ads";
-            ViewBag.Title = "Malaysia Free Classified Ads";
-            ViewBag.SiteName = "9street.my";
         }
 
     }
