@@ -307,6 +307,7 @@
     <Compile Include="Controllers\ListingController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\ServerSettingController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -819,6 +820,7 @@
     <Content Include="Views\Article\Index.cshtml" />
     <Content Include="Views\Article\Edit.cshtml" />
     <Content Include="Views\Article\Detail.cshtml" />
+    <Content Include="Views\ServerSetting\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

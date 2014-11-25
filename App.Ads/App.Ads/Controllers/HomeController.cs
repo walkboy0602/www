@@ -20,7 +20,6 @@ namespace App.Ads.Controllers
         {
             ViewBag.ParentCategoryList = categoryService.Get().Where(c => c.ParentID == null).OrderBy(c => c.Sort);
             ViewBag.CategoryList = categoryService.Get().OrderBy(c => c.Sort);
-            
             return View();
         }
 
