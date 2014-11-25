@@ -1,26 +1,26 @@
 ﻿
 @{
     ViewBag.Title = "Register Success";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="row">
     <div class="col-md-12 login-wrapper">
         <div class="box-success">
+            <h1>Almost there!</h1>
             <div class="content-wrap well">
-                <h1>Registration Successful.</h1>
-
+                
                 <h4>
-                    Thank you for signing up with us.
+                    <i class="fa fa-envelope"></i>
+                    Email account activation
                 </h4>
 
                 <br />
                 <p>
-                    Now you can advertise your ads through MyBazaar.my!
+                    We have sent an activation email to @ViewData["email"]
                 </p>
 
                 <p>
-                    You will be redirected to the user control panel in 30 seconds. @Html.ActionLink("Click here", "Manage", "Listing", new { area = "" }, null) if the browser does not automatically redirect.
+                    Click on the link in the email to activate your <b>9street</b> account.
                 </p>
 
             </div>

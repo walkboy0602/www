@@ -2,7 +2,26 @@
 TODO
 ---------
 
--Complete Term and Condition
--Remove 'Share' in Ad Detail page
 -Publish online!
+-Facebook share configuration
+-Live configuration
 
+
+Done
+----------
+
+-Complete Term and Condition
+-Complete Privacy Policy
+-Footer
+-Remove 'Share' in Ad Detail page
+-Change Publish success message
+-Change status
+-Preview
+-dashboard
+-Check UTC date in webserver
+-Change Register Success Message
+-Configurate iproperty.club
+
+Bugs
+-----------
+-SendAsync not working

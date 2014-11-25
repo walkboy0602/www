@@ -3,6 +3,7 @@ using App.Core.Data;
 using App.Core.Services;
 using App.Core.ViewModel;
 using App.Core.Utility;
+using App.Ads.ViewModel;
 using App.Ads.Code.Membership;
 using App.Ads.Code.Filters;
 using App.Ads.Code.Security;
@@ -12,6 +13,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Text.RegularExpressions;
+using App.Ads.Code.Helpers;
 using AutoMapper;
 
 namespace App.Ads.Controllers
@@ -223,11 +225,14 @@ namespace App.Ads.Controllers
                 }
                 else
                 {
-                    listing.Status = (int)XtEnum.ListingStatus.Pending;
+                    listing.Status = (int)XtEnum.ListingStatus.Processing;
                     listingService.Save(listing);
 
                     TempData["ListingDetail"] = listing;
-                    TempData["Message"] = "You have successfully edit your listing, your listing will be temporary unavailable until reviewed by our team.";
+                    TempData["Message"] = "You have successful updating your ad '<b>" +  listing.Title + "</b>' (Ad ID <b>" + listing.Id + "</b>). " +
+                        "<br/>It can sometimes take a few hours for your ad to appear in the listings however, you can view your ad <a href='/ad/" + listing.Id + "/" +
+                        listing.Title.ToSeoUrl() + "'>here</a> straight away.";
+
                     return RedirectToAction("Complete");
                 }
 
@@ -300,7 +305,7 @@ namespace App.Ads.Controllers
 
             // Update Listing
             listing.IsTNCAccept = true;
-            listing.Status = (int)XtEnum.ListingStatus.Pending;
+            listing.Status = (int)XtEnum.ListingStatus.Processing;
             listing.LastUpdate = DateTime.Now;
             listing.LastActionBy = CurrentUser.CustomIdentity.UserId;
             listing.Duration = duration;

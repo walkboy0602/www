@@ -8,7 +8,7 @@
 
 @using PagedList.Mvc;
 @{
-    ViewBag.Title = ViewBag.SearchTitle + "-" + ViewBag.SiteName;
+    ViewBag.Title = ViewBag.SearchTitle;
     CommonHelper common = new CommonHelper();
 }
 
@@ -136,26 +136,16 @@
                         </div>
                         <div class="col-sm-9">
                             <div class="row">
-                                <div class="col-xs-9 col-sm-9">
+                                <div class="col-xs-8 col-sm-8">
                                     <h3>
-                                        <a href="/ad/@item.id/@item.Title.ToSeoUrl()" class="listing-title">@item.Title</a>
+                                        <a href="/ad/@item.id/@item.Title.ToSeoUrl()" class="listing-title">@ListingHelper.FormatDescription(item.Title, 100)</a>
                                     </h3>
-                                    <div class="listing-price">
-                                        <strong>@ListingHelper.FormatPrice(item.Price)</strong>
-                                    </div>
                                 </div>
-                                <div class="col-xs-3 col-sm-3">
+                                <div class="col-xs-4 col-sm-4">
                                     <div class="pull-right listing-view">
-                                        @item.PostedDate.ToString("d MMM, hh:mm")
-                                        <br />
-                                        @if (item.Area != null)
-                                        {
-                                        <span>@item.Area.Name</span>
-                                        }
-                                        else
-                                        {
-                                        <span>@item.Location.Name</span>
-                                        }
+                                        <strong>@ListingHelper.FormatPrice(item.Price)</strong>
+                                        <br/>
+                                            @item.PostedDate.ToRelativeDate()
                                     </div>
                                 </div>
                             </div>
@@ -167,6 +157,34 @@
                             </div>
 
                             <div class="listing-info">
+                                @if (item.Area != null)
+                                {
+                                     <label class="label label-color-11 label-small">
+                                         <a href="@Url.Action("Index", "Search", new RouteValueDictionary
+                                            {
+                                                { "locationText", @item.Location.Name.ToSeoUrl() },
+                                                { "categoryText", "" }, 
+                                                { "aid", @item.Area.id}
+                                            })">
+                                             <i class="fa fa-map-marker"></i>
+                                             <span>@item.Area.Name</span>
+                                         </a>
+                                     </label>
+                                }
+                                else
+                                {
+                                    <label class="label label-color-11 label-small">
+                                        <a href="@Url.Action("Index", "Search", new RouteValueDictionary
+                                            {
+                                                { "locationText", @item.Location.Name.ToSeoUrl() },
+                                                { "categoryText", "" },
+                                            })">
+                                            <i class="fa fa-map-marker"></i>
+                                            <span>@item.Location.Name</span>
+                                        </a>
+                                    </label>
+                                }
+                                <span>&nbsp;</span>
                                 @if (item.RefCategory != null)
                                 {
                                 <label class="label label-success label-small">

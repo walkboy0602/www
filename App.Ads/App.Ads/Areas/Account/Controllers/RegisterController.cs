@@ -7,10 +7,11 @@ using System.Web.Security;
 using WebMatrix.WebData;
 using App.Ads.Areas.Account.Models;
 using App.Core.Services;
+using App.Ads.Controllers;
 
 namespace App.Ads.Areas.Account.Controllers
 {
-    public class RegisterController : Controller
+    public class RegisterController : BaseController
     {
         private readonly IUserService userService;
 

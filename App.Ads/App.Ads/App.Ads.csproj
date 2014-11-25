@@ -274,7 +274,6 @@
     <Compile Include="Areas\Account\Models\ChangePassword.cs" />
     <Compile Include="Areas\Account\Models\LoginModel.cs" />
     <Compile Include="Areas\Account\Models\RegisterModel.cs" />
-    <Compile Include="Areas\Account\Models\ResendEmailModel.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ListingController.cs" />
     <Compile Include="Areas\Admin\Models\ApprovalActionModel.cs" />
@@ -320,6 +319,7 @@
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\AccountViewModel.cs" />
+    <Compile Include="ViewModel\ListingViewModel.cs" />
     <Compile Include="ViewModel\SearchViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

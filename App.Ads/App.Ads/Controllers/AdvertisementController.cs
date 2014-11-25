@@ -8,11 +8,12 @@ using System.Web;
 using System.Web.Mvc;
 using App.Core.Data;
 using App.Core.Services;
-using App.Core.ViewModel;
+using App.Ads.ViewModel;
 using AutoMapper;
 using Recaptcha.Web;
 using Recaptcha.Web.Mvc;
 using App.Ads.Code.Helpers;
+using App.Core.ViewModel;
 using MvcSiteMapProvider;
 using MvcSiteMapProvider.Web.Mvc.Filters;
 
@@ -43,7 +44,16 @@ namespace App.Ads.Controllers
         {
             var listing = listingService.GetListingById(id);
 
-            var model = Mapper.Map<Listing, AdDetailViewModel>(listing);
+            //Valiate listing status
+            if (listing.Status != (int)XtEnum.ListingStatus.Live)
+            {
+                if (CurrentUser == null || listing.CreateBy != CurrentUser.CustomIdentity.UserId)
+                {
+                    return HttpNotFound();
+                }
+            }
+
+            var model = Mapper.Map<Listing, ListingDetailViewModel>(listing);
 
             if (!string.IsNullOrEmpty(a))
             {
@@ -59,10 +69,6 @@ namespace App.Ads.Controllers
             }
 
             BreadCrumbConfiguration(SiteMaps.Current.CurrentNode, model);
-
-            int dayDiff = (DateTime.Now - model.CreateDate).Days;
-
-            model.CreateDateText = dayDiff == 0 ? "Today" : dayDiff + " day ago";
 
             if (model.ListingImages.Count > 0)
             {
@@ -99,7 +105,7 @@ namespace App.Ads.Controllers
             return View(model);
         }
 
-        protected void BreadCrumbConfiguration(ISiteMapNode node, AdDetailViewModel model)
+        protected void BreadCrumbConfiguration(ISiteMapNode node, ListingDetailViewModel model)
         {
             if (node != null && node.ParentNode != null)
             {

@@ -32,7 +32,7 @@ namespace App.Ads.Areas.Admin.Controllers
         public ActionResult Index()
         {
             var listings = _listingService.GetAll()
-                                .Where(s => s.Status == (int)XtEnum.ListingStatus.Pending)
+                                .Where(s => s.Status == (int)XtEnum.ListingStatus.Processing)
                                 .OrderByDescending(o => o.LastUpdate)
                                 .ToList();
 
@@ -74,7 +74,7 @@ namespace App.Ads.Areas.Admin.Controllers
                 return Json(responseModel);
             }
 
-            if (listing.Status == (int)XtEnum.ListingStatus.Published)
+            if (listing.Status == (int)XtEnum.ListingStatus.Live)
             {
                 responseModel = new Ads.Models.ResponseModel
                 {
@@ -86,7 +86,7 @@ namespace App.Ads.Areas.Admin.Controllers
 
             listing.PostedDate = listing.PostedDate == null ? DateTime.Now : listing.PostedDate;
             listing.PostingEndDate = listing.PostingEndDate == null ? DateTime.Now.AddDays((int)listing.Duration) : listing.PostingEndDate;
-            listing.Status = (int)XtEnum.ListingStatus.Published;
+            listing.Status = (int)XtEnum.ListingStatus.Live;
             listing.LastAction = "Posted";
             listing.LastActionBy = CurrentUser.CustomIdentity.UserId;
             _listingService.Save(listing);

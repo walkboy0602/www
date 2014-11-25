@@ -25,8 +25,9 @@ namespace App.Ads.Controllers
                 CurrentUser = User.ToCustomPrincipal();
             }
 
-            ViewBag.Title = "Malaysia New Market Place";
-            ViewBag.SiteName = "MyBazaar.com.my";
+            ViewBag.SiteTitle = "Malaysia Free Classified Ads";
+            ViewBag.Title = "Malaysia Free Classified Ads";
+            ViewBag.SiteName = "9street.my";
         }
 
     }

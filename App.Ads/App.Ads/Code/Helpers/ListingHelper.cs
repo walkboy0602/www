@@ -57,7 +57,7 @@ namespace App.Ads.Code.Helpers
 
             if (Price != null)
             {
-                newPrice = "RM" + Price;
+                newPrice = string.Format("{0:C0}", Price);
             }
 
             return newPrice;
@@ -113,10 +113,10 @@ namespace App.Ads.Code.Helpers
                 case XtEnum.ListingStatus.Expired:
                     return "label label-info";
 
-                case XtEnum.ListingStatus.Pending:
+                case XtEnum.ListingStatus.Processing:
                     return "label label-warning";
 
-                case XtEnum.ListingStatus.Published:
+                case XtEnum.ListingStatus.Live:
                     return "label label-success";
 
                 case XtEnum.ListingStatus.Rejected:
@@ -131,10 +131,10 @@ namespace App.Ads.Code.Helpers
         {
             switch ((XtEnum.ListingStatus)status)
             {
-                case XtEnum.ListingStatus.Pending:
+                case XtEnum.ListingStatus.Processing:
                     return "Pending for review";
 
-                case XtEnum.ListingStatus.Published:
+                case XtEnum.ListingStatus.Live:
                     return "Ad expired on " + endDate.ToString("ddMMMyy");
                    
                 case XtEnum.ListingStatus.Rejected:

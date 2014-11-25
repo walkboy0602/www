@@ -242,7 +242,7 @@ namespace App.Core.Services
             if (isSendAsync)
             {
                 //Create a thread for sending email
-                Thread t = new Thread(() => SendEmailAsyncThread(mailMessage, false, isSendAsync, data));
+                Thread t = new Thread(() => SendEmailAsyncThread(mailMessage, false, false, data));
                 t.Start();
             }
             else

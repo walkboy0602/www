@@ -58,17 +58,19 @@
                     <div class="checkbox">
                         <label>
                             @Html.CheckBoxFor(m => m.AgreesWithTerms)
-                            I agree to the @Html.ActionLink("Terms and Conditions", "Detail", "Article", new { id = 1 }, new { @class = "underline", target = "_blank" }) and Privacy Policy of ohMyBazaar.com Malaysia.
+                            I agree to the @Html.ActionLink("Terms of Use", "Detail", "Article", new { id = 1 }, new { @class = "underline", target = "_blank" }) 
+                            and @Html.ActionLink("Privacy Policy", "Detail", "Article", new { id = 3 }, new { @class = "underline", target = "_blank" })  of @ViewBag.SiteName.
                         </label>
                     </div>
                     <br>
                     <div class="btn-group">
                         @Html.ActionLink("Go Back", "Save", new { id = ViewBag.ListingId }, new { @class = "btn-flat primary" })
                     </div>
-                    <div class="btn-group">
-                        <button type="submit" class="btn-flat primary">Preview ad</button>
+                    <div class="btn-group pull-right">
+                        @Html.ActionLink("Preview ad", "Detail", "Advertisement", new { id = ViewBag.ListingId }, new { @class = "btn-flat primary", target = "_blank" })
+                        <input type="submit" class="btn-glow success btn-finish " value="Publish ad" />
                     </div>
-                    <input type="submit" class="btn-glow success btn-finish pull-right" value="Publish ad" />
+         
                 </div>
             </div>
 

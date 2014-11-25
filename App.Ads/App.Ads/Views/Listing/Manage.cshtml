@@ -1,4 +1,4 @@
-﻿@model IEnumerable<App.Core.ViewModel.DisplayListingViewModel>
+﻿@model IEnumerable<App.Ads.ViewModel.DisplayListingViewModel>
 @using App.Ads.Code.Helpers
 @{
     ViewBag.Title = "Manage ads";
@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="col-xs-3 col-sm-3">
                                     <span class="pull-right listing-view">
-                                        @ListingHelper.FormatDate(item.LastUpdate, "d-MMM-yy")
+                                        @item.LastUpdate.ToRelativeDate()
                                     </span>
                                 </div>
                             </div>
@@ -71,12 +71,9 @@
 
                                 <div class="col-sm-8">
                                     <span class="classified_links pull-right">
-                                        @if (item.Status == 200)
-                                        {
-                                            <span>
-                                                <a class="link-info underline" href="/ad/@item.id/@item.Title.ToSeoUrl()" target="_blank">View</a>&nbsp;&nbsp;
-                                            </span>
-                                        }
+                                        <span>
+                                            <a class="link-info underline" href="/ad/@item.id/@item.Title.ToSeoUrl()" target="_blank">View</a>&nbsp;&nbsp;
+                                        </span>
                                         <a class="link-info underline" href="#" data-toggle="modal" data-target="#deleteModal" data-listing-id="@item.id">Delete</a>
                                     </span>
                                 </div>

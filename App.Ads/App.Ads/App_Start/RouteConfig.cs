@@ -41,7 +41,7 @@ namespace App.Ads
             //Article Detail
             routes.MapRoute(
                 name: "view-article-detail",
-                url: "article/{id}/{title}",
+                url: "about/{title}/{id}",
                 defaults: new { controller = "Article", action = "Detail", title = UrlParameter.Optional }
             );
 

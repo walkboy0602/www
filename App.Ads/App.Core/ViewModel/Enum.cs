@@ -12,8 +12,8 @@ namespace App.Core.ViewModel
         {
             New = 0,
             Draft = 100,
-            Published = 200,
-            Pending = 300,
+            Live = 200,
+            Processing = 300,
             Rejected = 400,
             Expired = 500,
             Deleted = 999

@@ -24,7 +24,7 @@ namespace App.Ads.Controllers
         private readonly IRegionService regionService;
         private readonly IReferenceService referenceService;
 
-        private const int PAGE_SIZE = 10;
+        private const int PAGE_SIZE = 15;
 
         public SearchController()
         {
@@ -133,7 +133,7 @@ namespace App.Ads.Controllers
             }
 
             TempData["tempSearch"] = searchModel;
-
+            
             return RedirectToRoute("Search", new
             {
                 controller = "Search",

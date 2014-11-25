@@ -4,10 +4,10 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>@ViewBag.Title - @ViewBag.SiteName</title>
-    <meta property="og:title" content="@ViewBag.Title - @ViewBag.SiteName" />
+    <title>@ViewBag.Title | @ViewBag.SiteName</title>
+    <meta property="og:title" content="@ViewBag.SiteTitle - @ViewBag.SiteName" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="http://newlaunch.iproperty.com.my/" />
+    <meta property="og:url" content="http://www.9street.my/" />
     <meta property="og:description" content="Search thousands of stores, brands, products and user classifieds all in one place!" />
     <meta property="og:site_name" content="@ViewBag.SiteName" />
     <meta property="fb:admins" content="709385591" />
@@ -49,8 +49,9 @@
                 </button>
                 <a href="/" class="navbar-brand ">
                     <span class="logo">
-                        <strong>MY</strong><span class="handwriting">BAZAAR.com.my</span><br>
-                        <small>Malaysia New Market Place</small>
+                        <strong style="float:left;">9</strong>
+                        <span class="handwriting">street.my</span><br>
+                        <small>@ViewBag.SiteTitle</small>
                     </span>
                 </a>
             </div>
@@ -97,10 +98,10 @@
                         </div>
                         <div class="col-sm-8 col-xs-12">
                             <p class="footer-links">
-                                <a href="index.html" class="active">Home</a>
-                                <a href="typography.html">Typography</a>
-                                <a href="terms.html">Terms and Conditions</a>
-                                <a href="contact.html">Contact Us</a>
+                                <a href="/" class="active">Home</a>
+                                @Html.ActionLink("Terms and Condition", "Detail", "Article", new { id = 1 }, new { target = "_blank" })
+                                @Html.ActionLink("Privacy Policy", "Detail", "Article", new { id = 3 }, new { target = "_blank" })
+                                <a href="#">Contact Us</a>
                             </p>
                         </div>
                     </div>

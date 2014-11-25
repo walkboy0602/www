@@ -16,7 +16,7 @@ namespace App.Ads.Controllers
 
         public ActionResult Dashboard()
         {
-            return View();
+            return RedirectToAction("Manage", "Listing", new { area = "" });
         }
     }
 }

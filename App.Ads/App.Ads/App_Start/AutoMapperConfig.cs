@@ -23,7 +23,7 @@ namespace App.Ads
                 Mapper.CreateMap<EditListingViewModel, Listing>();
                 Mapper.CreateMap<Listing, DisplayListingViewModel>();
                 Mapper.CreateMap<ListingImage, ListingImageViewModel>();
-                Mapper.CreateMap<Listing, AdDetailViewModel>();
+                Mapper.CreateMap<Listing, ListingDetailViewModel>();
                         //.ForMember(dest => dest.Location, opt => opt.MapFrom(src => src.RegionZone.Name))
                         //.ForMember(dest => dest.LocationParentId, opt => opt.MapFrom(src => src.RegionZone.ParentId));
 
