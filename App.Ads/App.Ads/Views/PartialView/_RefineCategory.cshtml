@@ -41,7 +41,7 @@
             foreach (var parentNote in Model.ParentCategories)
             {
                 <li>
-                    @Html.ActionLink(parentNote.Name, "Index", "Search", new { category = parentNote.Description }, null)
+                    @Html.ActionLink(parentNote.DisplayName, "Index", "Search", new { category = parentNote.Name }, null)
                     @if (@parentNote.id != Model.Seed)
                     {
                         continue;
@@ -53,7 +53,7 @@
                             if (node.ParentID == Model.Seed)
                             {
                                 <li>
-                                    @Html.ActionLink(node.Name, "Index", "Search", new { category = node.Description }, null)
+                                    @Html.ActionLink(node.DisplayName, "Index", "Search", new { category = node.Name }, null)
                                     @if (node.ParentID != Model.SelectedId && Model.SelectedId != null && node.id == Model.SelectedId)
                                     {
                                         @ShowTree(new TreeCategories { Categories = Model.Categories, Seed = node.id, SelectedId = Model.SelectedId, ParentCategories = null })
@@ -75,7 +75,7 @@
                         if (node.ParentID == Model.Seed)
                         {
                             <li>
-                                @Html.ActionLink(node.Name, "Index", "Search", new { category = node.Description }, null)
+                                @Html.ActionLink(node.DisplayName, "Index", "Search", new { category = node.Name }, null)
                                 @if (node.ParentID != Model.SelectedId && Model.SelectedId != null && node.id == Model.SelectedId)
                                 {
                                     @ShowTree(new TreeCategories { Categories = Model.Categories, Seed = node.id, SelectedId = Model.SelectedId, ParentCategories = null })
@@ -88,68 +88,3 @@
         }
     </ul>
 }
-
-@*<li>
-        <ul>
-            @foreach (var node in Model.Categories)
-            {
-                if (node.ParentID == Model.Seed)
-                {
-                    <li>
-                        <a href="?@node.id">
-                            @if (node.id == Model.SelectedId)
-                            {
-                                <strong>@node.Name</strong>
-                            }
-                            else
-                            {
-                                @node.Name
-                            }
-                        </a>
-                        @if (node.ParentID != Model.SelectedId && Model.SelectedId != null && node.id == Model.SelectedId)
-                        {
-                            @ShowTree(new TreeCategories { Categories = Model.Categories, Seed = node.id, SelectedId = Model.SelectedId, ParentCategories = null })
-                        }
-                    </li>
-                }
-            }
-
-        </ul>
-    </li>*@
-
-@*@if (model.Categories.Count() > 0)
-    {
-
-        <ul class="nav nav-category">
-
-            @if (model.OuterCategories.Count() > 0)
-            {
-                foreach (var parentNote in model.OuterCategories)
-                {
-                    <li>
-                        <a href="@parentNote.id">@parentNote.Name</a>
-                    </li>
-                }
-            }
-
-            <li>
-                <ul>
-                    @foreach (var cat in model.Categories)
-                    {
-                        if (cat.ParentID == model.Seed)
-                        {
-                            ViewData["inner"] = new TreeCategories { Seed = cat.id, Categories = model.Categories };
-
-                            <li>
-                                <a href="@cat.id">@cat.Name</a>
-                                @Html.Partial("~/Views/PartialView/_RefineCategory.cshtml", new ViewDataDictionary { { "categories", ViewData["inner"] } })
-                            </li>
-
-                        }
-                    }
-                </ul>
-
-            </li>
-
-        </ul>
-    }*@

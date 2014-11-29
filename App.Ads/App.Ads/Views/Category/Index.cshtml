@@ -4,7 +4,17 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+@if (Model.Select(m => m.ParentCategory).FirstOrDefault() != null)
+{
+    <h2><strong>Category - </strong>
+        @Html.ActionLink(Model.Select(m => m.ParentCategory.Name).FirstOrDefault(),
+"Index", new { parentId = Model.Select(m => m.ParentCategory.ParentID).FirstOrDefault() })
+</h2>
+}
+else
+{
+    <h2>Parent Category</h2>
+}
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -13,6 +23,9 @@
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DisplayName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -29,29 +42,32 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ParentCategory.Name) (@Html.DisplayFor(modelItem => item.ParentID))
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sort)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.isActive)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.ActionLink(item.DisplayName, "index", new { parentId = item.id })
+            </td>
+            <td>
+                @Html.ActionLink(item.Name, "index", new { parentId = item.id })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParentCategory.Name) (@Html.DisplayFor(modelItem => item.ParentID))
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sort)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.isActive)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
 </table>

@@ -148,7 +148,7 @@ namespace App.Ads.Code.Helpers
             }
         }
 
-        public static string GetSearchTitle(string keyword, string category, string area, string city, string type)
+        public static string GetSearchTitle(string keyword, string category, string area, string city, string listType)
         {
             category = string.IsNullOrEmpty(category) ? "Almost anything" : category;
 
@@ -156,9 +156,7 @@ namespace App.Ads.Code.Helpers
 
             keyword = string.IsNullOrEmpty(keyword) ? "" : keyword + " - ";
 
-            type = string.IsNullOrEmpty(type) ? "for sale" : type;
-
-            return keyword + category + " " + type + " in " + location;
+            return keyword + category + " " + listType + " in " + location;
         }
     }
 }

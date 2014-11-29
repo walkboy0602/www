@@ -41,7 +41,7 @@ namespace App.Ads.Code.SiteMap
                 foreach (var category in db.RefCategories)
                 {
                     DynamicNode dynamicNode = new DynamicNode();
-                    dynamicNode.Title = category.Name;
+                    dynamicNode.Title = category.DisplayName;
                     dynamicNode.Key = "Category_" + category.id;
                     dynamicNode.ParentKey = category.ParentID == null ? "Listing" : "Category_" + category.ParentID;
 
@@ -77,16 +77,21 @@ namespace App.Ads.Code.SiteMap
             using (var db = new AdsDBEntities())
             {
                 db.Configuration.LazyLoadingEnabled = false;
-                // Create a node for each album 
-                foreach (var listing in db.Listings.Include("RefCategory").Where(l => l.Status != (int)XtEnum.ListingStatus.New))
-                {
-                    DynamicNode dynamicNode = new DynamicNode();
-                    dynamicNode.Title = listing.Title;
-                    dynamicNode.ParentKey = "Category_" + listing.RefCategory.id;
-                    dynamicNode.RouteValues.Add("id", listing.Id);
-                    dynamicNode.RouteValues.Add("adTitle", listing.Title.ToSeoUrl());
+                // Create a node for each category 
+                var listings = db.Listings.Include("RefCategory").Where(l => l.Status != (int)XtEnum.ListingStatus.New);
 
-                    yield return dynamicNode;
+                if (listings != null)
+                {
+                    foreach (var listing in listings)
+                    {
+                        DynamicNode dynamicNode = new DynamicNode();
+                        dynamicNode.Title = listing.Title;
+                        dynamicNode.ParentKey = "Category_" + listing.RefCategory.id;
+                        dynamicNode.RouteValues.Add("id", listing.Id);
+                        dynamicNode.RouteValues.Add("adTitle", listing.Title.ToSeoUrl());
+
+                        yield return dynamicNode;
+                    }
                 }
             }
         }

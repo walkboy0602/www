@@ -17,16 +17,18 @@ namespace App.Ads.Controllers
     {
         private AdsDBEntities db = new AdsDBEntities();
         private readonly ICategoryService categoryService;
+        private readonly IReferenceService referenceService;
 
         public CategoryController()
         {
             this.categoryService = DependencyResolver.Current.GetService<ICategoryService>();
+            this.referenceService = DependencyResolver.Current.GetService<ReferenceService>();
         }
 
         // GET: RefCategories
-        public ActionResult Index()
+        public ActionResult Index(int? parentId)
         {
-            return View(db.RefCategories.OrderBy(o => o.ParentID).ToList());
+            return View(db.RefCategories.Where(c => c.ParentID == parentId).OrderBy(o => o.Sort).ToList());
         }
 
         // GET: RefCategories/Details/5
@@ -47,6 +49,12 @@ namespace App.Ads.Controllers
         // GET: RefCategories/Create
         public ActionResult Create()
         {
+            ViewBag.ListingTypeList = referenceService.GetByType("LT")
+                                         .Select(r => new SelectListItem()
+                                         {
+                                             Text = r.Name,
+                                             Value = r.Code
+                                         });
             ViewBag.Categories = categoryService.GetCategories();
             return View();
         }
@@ -56,14 +64,22 @@ namespace App.Ads.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,Name,ParentID,MetaDescription,MetaKeyword,Description,Sort,isActive,FaIcon")] RefCategory refCategory)
+        public ActionResult Create(RefCategory refCategory)
         {
             if (ModelState.IsValid)
             {
+                refCategory.isActive = true;
                 db.RefCategories.Add(refCategory);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { parentId = refCategory.ParentID });
             }
+            ViewBag.ListingTypeList = referenceService.GetByType("LT")
+                                       .Select(r => new SelectListItem()
+                                       {
+                                           Text = r.Name,
+                                           Value = r.Code,
+                                           Selected = r.Code == refCategory.ListType
+                                       });
             ViewBag.Categories = categoryService.GetCategories();
             return View(refCategory);
         }
@@ -80,6 +96,13 @@ namespace App.Ads.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ListingTypeList = referenceService.GetByType("LT")
+                                        .Select(r => new SelectListItem()
+                                        {
+                                            Text = r.Name,
+                                            Value = r.Code,
+                                            Selected = r.Code == refCategory.ListType
+                                        });
             ViewBag.Categories = categoryService.GetCategories();
             return View(refCategory);
         }
@@ -89,15 +112,23 @@ namespace App.Ads.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,Name,ParentID,MetaDescription,MetaKeyword,Description,Sort,isActive,FaIcon")] RefCategory refCategory)
+        public ActionResult Edit(RefCategory refCategory)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(refCategory).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { parentId = refCategory.ParentID });
             }
+            ViewBag.ListingTypeList = referenceService.GetByType("LT")
+                                        .Select(r => new SelectListItem()
+                                        {
+                                            Text = r.Name,
+                                            Value = r.Code,
+                                             Selected = r.Code == refCategory.ListType
+                                        });
             ViewBag.Categories = categoryService.GetCategories();
+
             return View(refCategory);
         }
 

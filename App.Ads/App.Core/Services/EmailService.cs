@@ -51,7 +51,7 @@ namespace App.Core.Services
 
             sendEmailModel = new SendEmailModel
             {
-                Subject = this.configService.GetValue(ConfigName.WebsiteName),
+                Subject = this.configService.GetValue(ConfigName.EmailSubject),
                 WebsiteName = this.configService.GetValue(ConfigName.WebsiteName),
                 WebsiteTitle = this.configService.GetValue(ConfigName.WebsiteTitle),
                 WebsiteURL = this.configService.GetValue(ConfigName.WebsiteUrl)

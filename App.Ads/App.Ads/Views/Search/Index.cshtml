@@ -8,7 +8,10 @@
 
 @using PagedList.Mvc;
 @{
-    ViewBag.Title = ViewBag.SearchTitle;
+    System.Globalization.CultureInfo cultureInfo = System.Threading.Thread.CurrentThread.CurrentCulture;
+    System.Globalization.TextInfo textInfo = cultureInfo.TextInfo;
+
+    ViewBag.Title = ViewBag.SearchTitle != null ? textInfo.ToTitleCase(ViewBag.SearchTitle) : "";
     CommonHelper common = new CommonHelper();
 }
 
@@ -53,7 +56,7 @@
                                                             <a class="active" href="@Url.Action("Index", "Search", new RouteValueDictionary
                                                                         {
                                                                             { "locationText", "malaysia" },
-                                                                            { "categoryText", menuItem.Name.ToSeoUrl() }
+                                                                            { "categoryText", menuItem.ActionName.ToSeoUrl() }
                                                                         })"><strong>@menuItem.Name</strong></a>
                                                                     </li>
                                                                 }
@@ -63,7 +66,7 @@
                                                             <a href="@Url.Action("Index", "Search", new RouteValueDictionary
                                                                         {
                                                                             { "locationText", "malaysia" },
-                                                                            { "categoryText", menuItem.Name.ToSeoUrl() }
+                                                                            { "categoryText", menuItem.ActionName.ToSeoUrl() }
                                                                         })">@menuItem.Name</a>
                                                                     </li>
                                                                 }

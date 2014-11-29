@@ -17,11 +17,13 @@ namespace App.Ads.Areas.Account.Controllers
     {
         private readonly IUserService userService;
         private readonly BO.IAccountBO accountBO;
+        private readonly ICacheService cacheService;
 
         public VerificationController(IUserService userService)
         {
             this.userService = userService;
             this.accountBO = DependencyResolver.Current.GetService<BO.IAccountBO>();
+            this.cacheService = DependencyResolver.Current.GetService<ICacheService>();
         }
 
         //
@@ -70,7 +72,8 @@ namespace App.Ads.Areas.Account.Controllers
             }
 
             WebSecurity.ConfirmAccount(guid.Value.ToString());
-           
+            cacheService.Clear(string.Format(CacheConstant.USERDATA + "{0}", CurrentUser.Identity.Name));
+
             return RedirectToAction("Success", "Verification", new { area = "Account" });
 
             //var membership = this.userService.GetMembershipByConfirmToken(guid.Value.ToString(), withUserProfile: true);

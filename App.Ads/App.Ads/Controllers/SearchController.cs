@@ -49,6 +49,7 @@ namespace App.Ads.Controllers
             if (!ValidateSearch(ref searchModel))
             {
                 var error = new Tuple<PagedList.IPagedList<SearchViewModel>, SearchModel>(new List<SearchViewModel>().ToPagedList((int)page, PAGE_SIZE), searchModel);
+                RebindForm(null, searchModel.cid);
                 return View(error);
             }
 
@@ -102,7 +103,7 @@ namespace App.Ads.Controllers
 
             string areaText = searchModel.aid != null ? regionService.Find((int)searchModel.aid).Name : "";
 
-            string listingType = searchModel.type != null ? referenceService.Find(searchModel.type).Name : "";
+            string listingType = searchModel.type != null ? referenceService.Find(searchModel.type.TrimEnd()).Name : "";
 
             ViewBag.SearchTitle = ListingHelper.GetSearchTitle(searchModel.Keyword, searchModel.CategoryText.DecodeSeoUrl(), areaText, searchModel.LocationText.DecodeSeoUrl(), listingType);
 
@@ -235,6 +236,10 @@ namespace App.Ads.Controllers
 
                 model.cid = refCategory.id;
                 model.CategoryIds = categoryService.GetSubCategory(refCategory.id);
+
+                RefCategory rootCategory = refCategory;
+                while (rootCategory.ParentCategory != null) rootCategory = rootCategory.ParentCategory;
+                model.type = rootCategory.id == refCategory.id ? null : categoryService.Find(rootCategory.id).ListType;
             }
 
             return ModelState.IsValid;
@@ -289,7 +294,8 @@ namespace App.Ads.Controllers
             MenuItem menuItem = new MenuItem();
 
             menuItem.Id = category.id;
-            menuItem.Name = category.Name;
+            menuItem.Name = category.DisplayName;
+            menuItem.ActionName = category.Name;
             menuItem.ParentId = category.ParentID;
 
             if (showItems)
@@ -314,7 +320,8 @@ namespace App.Ads.Controllers
                 MenuItem menuItem = new MenuItem();
 
                 menuItem.Id = cat.id;
-                menuItem.Name = cat.Name;
+                menuItem.Name = cat.DisplayName;
+                menuItem.ActionName = cat.Name;
                 menuItem.ParentId = cat.ParentID;
 
                 menu.MenuItems.Add(menuItem);

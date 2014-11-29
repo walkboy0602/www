@@ -80,7 +80,11 @@
                                     <i class="@category.FaIcon"></i>
                                 </div>
                                 <div class="col-sm-9">
-                                    <h4>@category.Name</h4>
+                                    <h4><a href="@Url.Action("Index", "Search", new RouteValueDictionary
+                                                                {
+                                                                    { "locationText", "malaysia" },
+                                                                    { "categoryText", category.Name.ToSeoUrl() }
+                                                                })" class="link-info">@category.DisplayName</a></h4>
                                     <p>
                                         @{
                         int count = 0;
@@ -93,7 +97,7 @@
                                                                 {
                                                                     { "locationText", "malaysia" },
                                                                     { "categoryText", subCategory.Name.ToSeoUrl() }
-                                                                })">@subCategory.Name</a><br />
+                                                                })">@subCategory.DisplayName</a><br />
                                 if (++count == 5)
                                 {
                                     <a href="@Url.Action("Index", "Search", new RouteValueDictionary

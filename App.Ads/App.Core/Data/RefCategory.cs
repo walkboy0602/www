@@ -23,12 +23,11 @@ namespace App.Core.Data
         public int id { get; set; }
         public string Name { get; set; }
         public Nullable<int> ParentID { get; set; }
-        public string MetaDescription { get; set; }
-        public string MetaKeyword { get; set; }
-        public string Description { get; set; }
         public Nullable<int> Sort { get; set; }
         public Nullable<bool> isActive { get; set; }
         public string FaIcon { get; set; }
+        public string DisplayName { get; set; }
+        public string ListType { get; set; }
     
         public virtual ICollection<RefCategory> SubCategories { get; set; }
         public virtual RefCategory ParentCategory { get; set; }

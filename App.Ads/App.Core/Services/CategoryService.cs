@@ -77,7 +77,9 @@ namespace App.Core.Services
 
         RefCategory ICategoryService.Find(int id)
         {
-            return db.RefCategories.Find(id);
+            IEnumerable<RefCategory> refCategories = (this as ICategoryService).Get().Where(r => r.id == id);
+
+            return refCategories.FirstOrDefault();
         }
 
         RefCategory ICategoryService.FindByName(string name)
@@ -97,7 +99,7 @@ namespace App.Core.Services
             }
             else
             {
-                refCategories = db.RefCategories.Where(x => x.isActive == true).ToList();
+                refCategories = db.RefCategories.Where(x => x.isActive == true).OrderBy(o => o.Sort).ToList();
 
                 HttpRuntime.Cache.Insert(cacheKey, refCategories, null, DateTime.Now.AddMinutes(60), Cache.NoSlidingExpiration);
             }
@@ -129,7 +131,7 @@ namespace App.Core.Services
                                .SelectMany(x => GetNodeAndChildren(x))
                                .Select(t => new SelectListItem
                                {
-                                   Text = t.Value.Name,
+                                   Text = t.Value.DisplayName,
                                    Value = t.Value.id.ToString(),
                                    Selected = false
                                }).ToList();
@@ -159,7 +161,7 @@ namespace App.Core.Services
                         .SelectMany(x => GetNodeAndChildren(x))
                         .Select(t => new SelectListItem
                         {
-                            Text = t.Value.Name,
+                            Text = t.Value.DisplayName,
                             Value = t.Value.id.ToString(),
                             Selected = false
                         }).ToList();
@@ -205,8 +207,8 @@ namespace App.Core.Services
                         .Select(t => new DropDownModel
                         {
                             Id = t.id.ToString(),
-                            Name = t.Name,
-                            Category = t.ParentCategory == null ? null : t.ParentCategory.Name
+                            Name = t.DisplayName,
+                            Category = t.ParentCategory == null ? null : t.ParentCategory.DisplayName
                         }).ToList();
 
             return list;
@@ -227,7 +229,7 @@ namespace App.Core.Services
                                                     Name = "\xA0\xA0" + i.Value.Name,
                                                     //Name = "\xA0›\xA0" + i.Value.Name,
                                                     isActive = i.Value.isActive,
-                                                    Description = i.Value.Description
+                                                    DisplayName = "\xA0\xA0" + i.Value.DisplayName
                                                 }
                                             })
                                             .SelectMany(x => GetNodeAndChildren(x)
@@ -241,7 +243,7 @@ namespace App.Core.Services
                                                         Name = "\xA0\xA0" + i.Value.Name,
                                                         //Name = "\xA0\xA0" + i.Value.Name,
                                                         isActive = i.Value.isActive,
-                                                        Description = i.Value.Description
+                                                        DisplayName = "\xA0\xA0" + i.Value.DisplayName
                                                     }
                                                 })
                                             ));
@@ -249,8 +251,7 @@ namespace App.Core.Services
 
         IEnumerable<CategoryGroup> Grouping(IEnumerable<RefCategory> allCategories)
         {
-            var allNodes = allCategories.Select(team => new CategoryGroup() { Value = team })
-                            .ToList();
+            var allNodes = allCategories.Select(team => new CategoryGroup() { Value = team }).ToList();
             var lookup = allNodes.ToLookup(team => team.Value.ParentID);
             foreach (var node in allNodes)
                 node.Children = lookup[node.Value.id];

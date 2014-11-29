@@ -23,6 +23,7 @@ namespace App.Core.Services
         public static readonly ConfigName EmailPort = new ConfigName("EmailPort");
         public static readonly ConfigName EmailEnableSSL = new ConfigName("EmailEnableSSL");
         public static readonly ConfigName EmailFrom = new ConfigName("EmailFrom");
+        public static readonly ConfigName EmailSubject = new ConfigName("EmailSubject");
 
         public static readonly ConfigName S3AccessKey = new ConfigName("S3AccessKey");
         public static readonly ConfigName S3SecretKey = new ConfigName("S3SecretKey");

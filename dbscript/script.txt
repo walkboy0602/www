@@ -1,0 +1,17 @@
+
+alter table RefCategory
+drop column MetaDescription
+
+
+alter table RefCategory
+drop column MetaKeyword
+
+
+EXEC sp_RENAME 'RefCategory.Description', 'DisplayName', 'COLUMN'
+
+
+ALTER TABLE RefCategory
+ADD ListType char(3)
+
+
+update RefTable set IsActive = 0 where Code in('WR')
