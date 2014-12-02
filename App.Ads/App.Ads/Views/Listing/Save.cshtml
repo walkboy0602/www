@@ -34,27 +34,6 @@
                                 @Html.ValidationMessageFor(m => m.CategoryId)
                             </div>
                         </div>
-                        <div class="row">
-                            <br />
-                            <div class="control-group col-xs-12 col-sm-offset-3">
-                                @{
-    List<App.Core.Data.RefTable> rbValues = (List<App.Core.Data.RefTable>)ViewBag.ListingTypeList;
-                                }
-                                @foreach (var item in rbValues)
-                                {
-                                    <div class="col-xs-12 col-sm-2">
-                                        <label class="radio-inline">
-                                            @Html.RadioButtonFor(m => m.ListingTypeCode, item.Code) @item.Name
-                                        </label>
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="control-group col-xs-12 col-sm-offset-3">
-                                @Html.ValidationMessageFor(model => model.ListingTypeCode)
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -157,7 +136,6 @@
                             <div class="col-sm-9">
                                 @Html.TextBoxFor(m => m.Price, new { @class = "form-control", placeholder = "How much do you want it to be listed for?" })
                                 @Html.ValidationMessageFor(m => m.Price)
-                                <p><small>You can adjust your price anytime you like, even after your listing is published.</small></p>
                             </div>
                             <div class="col-sm-3">
                                 <div class="checkbox">

@@ -21,9 +21,6 @@ namespace App.Core.ViewModel
         [Required(ErrorMessage = "Please select a Category")]
         public int CategoryId { get; set; }
 
-        [Required(ErrorMessage = "Please select how you want to publish your ad.")]
-        public string ListingTypeCode { get; set; }
-
         [Required(ErrorMessage = "Please enter Title.")]
         [StringLength(50, ErrorMessage = "Maximum {1} charaters.")]
         public string Title { get; set; }

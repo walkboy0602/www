@@ -28,7 +28,7 @@ namespace App.Ads.Controllers
 
             ViewBag.OG_Title = "Malaysia Free Classified Ads";
             ViewBag.OG_Desc = "Search thousands of stores, brands, products and user classifieds all in one place!";
-            ViewBag.OG_Image = "https://bazaarstorage.blob.core.windows.net/image/common/fblogo.jpg";
+            ViewBag.OG_Image = "https://bazaarstorage.blob.core.windows.net/image/common/fblogo2.jpg";
         }
 
         protected override void OnAuthorization(AuthorizationContext filterContext)

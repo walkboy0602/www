@@ -2,10 +2,8 @@
 TODO
 ---------
 
--Revamp Category
--Remove "Liting Type Code"
--Set server currency
 -clear cache page
+
 
 
 
@@ -15,6 +13,9 @@ Done
 -Email Title and Subject
 -Publish to www.9street.my!
 -Live configuration
+-Revamp Category
+-Remove "Liting Type Code"
+-Set server currency
 -Clear cache after verification
 
 Bugs

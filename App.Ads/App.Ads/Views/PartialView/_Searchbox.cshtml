@@ -45,7 +45,7 @@
     </div>
 
     <!-- Modal - Filter Box -->
-    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" data-backdrop="static" data-ng-controller="RegionCtrl">
+    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" data-ng-controller="RegionCtrl">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -53,26 +53,6 @@
                     <h4 class="modal-title">Search Options</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-xs-6 col-sm-2">
-                                <label class="radio-inline">
-                                    <input type="radio" name="type" value="" checked=""> All
-                                </label>
-                            </div>
-                            @*@{
-    List<App.Core.Data.RefTable> rbValues = (List<App.Core.Data.RefTable>)ViewBag.ListingTypeList;
-                            }
-                            @foreach (var item in rbValues)
-                            {
-                                <div class="col-xs-6 col-sm-3">
-                                    <label class="radio-inline">
-                                        @Html.RadioButtonFor(m => m.type, item.Code) @item.Name
-                                    </label>
-                                </div>
-                            }*@
-                        </div>
-                    </div>
                     <div class="form-group">
                         <label>Keyword</label>
                         @Html.TextBoxFor(m => m.Keyword, new { @class = "form-control", @id = "keyword2", placeholder = "e.g. Rooms, cars, iphone" })
