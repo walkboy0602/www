@@ -763,6 +763,11 @@ p.muted {
         color: #FF0000;
     }
 
+.cover-image {
+    max-height: 252px;
+    width: 100%;
+} 
+
 #gallery .thumbnail img {
     height: 66px;
 }

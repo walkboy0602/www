@@ -300,8 +300,8 @@ namespace App.Ads.Controllers
 
             }
 
-            //TODO: Temp HardCode 60 days
-            int duration = 60;
+            //TODO: Temp HardCode 30 days
+            int duration = 30;
 
             // Update Listing
             listing.IsTNCAccept = true;
