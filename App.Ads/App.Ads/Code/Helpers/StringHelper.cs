@@ -36,7 +36,7 @@ namespace App.Ads.Code.Helpers
             string decodedUrl = (url ?? "").ToLower();
 
             // replace & with and
-            decodedUrl = decodedUrl.Replace("and", "&");
+            decodedUrl = Regex.Replace(decodedUrl, @"\band\b", "&");
 
             decodedUrl = decodedUrl.Replace("-", " ");
 

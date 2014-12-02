@@ -276,6 +276,7 @@
     <Compile Include="Areas\Account\Models\RegisterModel.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ListingController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ServiceController.cs" />
     <Compile Include="Areas\Admin\Models\ApprovalActionModel.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Code\Constant\CacheConstant.cs" />
@@ -725,6 +726,7 @@
     <Content Include="Areas\Account\Views\Verification\Confirmation.cshtml" />
     <Content Include="Areas\Account\Views\Verification\Index.cshtml" />
     <Content Include="Areas\Account\Views\Verification\success.cshtml" />
+    <Content Include="Areas\Admin\Views\Service\ClearCache.cshtml" />
     <None Include="MvcSiteMapSchema.xsd" />
     <None Include="Properties\PublishProfiles\ohmybazzar - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\ohmybazzar - Web Deploy.pubxml" />

@@ -93,13 +93,23 @@
         <div class="col-md-8 listings">
             @if (Model.Item1.Count == 0)
             {
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h2 style="text-align:center">No ads were found.</h2>
-                        <div style="text-align:center">Sorry, we could not find any ads matching your search.</div>
-                        <h3>@Html.ValidationSummary()</h3>
+                if(!Html.ViewData.ModelState.IsValid)
+                {
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3>@Html.ValidationSummary()</h3>
+                        </div>
                     </div>
-                </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2 style="text-align:center">No ads were found.</h2>
+                            <div style="text-align:center">Sorry, we could not find any ads matching your search.</div>
+                        </div>
+                    </div>
+                }
             }
             else
             {
