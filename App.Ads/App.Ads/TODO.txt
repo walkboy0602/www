@@ -2,7 +2,7 @@
 TODO
 ---------
 -- Read error page
-
+-- Mobile verification remove "-"
 
 
 

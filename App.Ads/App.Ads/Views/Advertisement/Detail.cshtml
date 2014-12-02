@@ -119,12 +119,9 @@
                         <div class="col-sm-12">
                             @if (Model.ListingImages.Count > 0)
                             {
-
-                                <a class="fancybox" rel="group" href="@Url.Content(Model.UrlDomain + Model.CoverImage)">
-                                    <img alt="Cover Image" class="cover-image" src="@Url.Content(Model.UrlDomain + Model.CoverImage)">
+                                <a class="img-responsive fancybox thumbnail" rel="group" href="@Url.Content(Model.UrlDomain + Model.CoverImage)">
+                                    <img alt="Cover Image"src="@Url.Content(Model.UrlDomain + Model.CoverImage)">
                                 </a>
-                                <br>
-                                <br>
                                 <div class="row" id="gallery">
                                     @foreach (var item in Model.ListingImages)
                                     {
