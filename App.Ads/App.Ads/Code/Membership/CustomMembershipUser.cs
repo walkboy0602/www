@@ -12,6 +12,7 @@ namespace App.Ads.Code.Membership
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public bool IsEmailConfirmed { get; set; }
+        public string Mobile { get; set; }
         public string[] roles { get; set; }
         public ICollection<UserRole> UserRoles { get; set; }
 
@@ -35,6 +36,7 @@ namespace App.Ads.Code.Membership
             LastName = user.UserProfile.LastName;
             IsEmailConfirmed = user.IsEmailConfirmed;
             UserRoles = user.UserRoles;
+            Mobile = user.UserProfile.Mobile;
         }
     }
 }

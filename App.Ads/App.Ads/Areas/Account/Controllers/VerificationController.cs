@@ -55,31 +55,42 @@ namespace App.Ads.Areas.Account.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Success(string type = null)
-        {
-            ViewBag.Message = "Your email is successfully verified.";
-            return View();
-        }
-
-
-        [AllowAnonymous]
         public ActionResult Confirmation(Guid? guid)
         {
             if (!guid.HasValue)
             {
                 ViewBag.Message = "Activation code is invalid.";
-                //return RedirectToAction("Index", "Error", new { area = "" });
+                return View();
             }
 
-            WebSecurity.ConfirmAccount(guid.Value.ToString());
-            cacheService.Clear(string.Format(CacheConstant.USERDATA + "{0}", CurrentUser.Identity.Name));
+            if (Request.IsAuthenticated)
+            {
+                cacheService.Clear(string.Format(CacheConstant.USERDATA + "{0}", CurrentUser.Identity.Name));
+            }
+
+            try
+            {
+                WebSecurity.ConfirmAccount(guid.Value.ToString());
+                WebSecurity.Logout();
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException == null)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View();
+                }
+                throw ex;
+            }
 
             return RedirectToAction("Success", "Verification", new { area = "Account" });
+        }
 
-            //var membership = this.userService.GetMembershipByConfirmToken(guid.Value.ToString(), withUserProfile: true);
-            //WebSecurity.Login(membership.UserProfile.UserName, membership.EmailConfirmationToken);
-
-            //return RedirectToAction("Index", "Verification", new { area = "Account" });
+        [AllowAnonymous]
+        public ActionResult Success(string type = null)
+        {
+            ViewBag.Message = "Your email is successfully verified.";
+            return View();
         }
     }
 }

@@ -434,8 +434,9 @@ function RegionCtrl($scope, CommonFactory) {
                 $('select[id=AreaId]').html(opt);
 
                 var aid = getParameterByName('aid');
-                $('select[id=AreaId] option[value=' + aid + ']').prop('selected', true);
-
+                if (aid != '') {
+                    $('select[id="AreaId"] option[value=' + aid + ']').prop('selected', true);
+                }
             })
             .error(function (data, status) {
                 Console.log('error occured while populating area');

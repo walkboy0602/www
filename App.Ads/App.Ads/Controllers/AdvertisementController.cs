@@ -45,7 +45,7 @@ namespace App.Ads.Controllers
             var listing = listingService.GetListingById(id);
 
             //Valiate listing status
-            if (listing.Status != (int)XtEnum.ListingStatus.Live)
+            if (listing.Status != (int)XtEnum.ListingStatus.Live || listing.PostingEndDate <= DateTime.Now)
             {
                 if (CurrentUser == null || listing.CreateBy != CurrentUser.CustomIdentity.UserId)
                 {

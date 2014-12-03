@@ -1,9 +1,10 @@
 ﻿@model App.Core.Models.SendEnquiryModel
+@using App.Ads.Code.Helpers;
 
 @{ 
-    var sendEmailModel = (App.Core.Models.SendEmailModel)ViewBag.SendEmailModel; 
-    
-    var adLink = sendEmailModel.WebsiteURL + Url.Action("Index", "Advertisement", new { id = @Model.ListingId });
+    var sendEmailModel = (App.Core.Models.SendEmailModel)ViewBag.SendEmailModel;
+
+    var adLink = sendEmailModel.WebsiteURL + "/ad/" + @Model.ListingId + "/" + @Model.ListingTitle.ToSeoUrl();
 }
 
 <p>

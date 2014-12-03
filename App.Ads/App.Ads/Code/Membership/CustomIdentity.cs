@@ -23,6 +23,8 @@ namespace App.Ads.Code.Membership
 
         public string Email { get; set; }
 
+        public string Mobile { get; set; }
+
         public ICollection<UserRole> UserRoles { get; set; }
 
         #endregion
@@ -80,6 +82,7 @@ namespace App.Ads.Code.Membership
                 Email = customMembershipUser.Email;
                 isEmailConfirmed = customMembershipUser.IsEmailConfirmed;
                 UserRoles = customMembershipUser.UserRoles;
+                Mobile = customMembershipUser.Mobile;
             }
         }
 

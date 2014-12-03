@@ -5,27 +5,29 @@ using System.Web;
 using System.Web.Mvc;
 using WebMatrix.WebData;
 using App.Ads.Code.Membership;
+using App.Ads.Controllers;
+using App.Core.Services;
 
 namespace App.Ads.Areas.Account.Controllers
 {
-    public class LogoffController : Controller
+    public class LogoffController : BaseController
     {
-        //
-        // POST: /Account/LogOff
-        CustomIdentity identity;
+        private readonly ICacheService cacheService;
 
+        public LogoffController(ICacheService cacheService)
+        {
+            this.cacheService = DependencyResolver.Current.GetService<ICacheService>();
+        }
+
+        // POST: /Account/LogOff
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Index()
         {
-            WebSecurity.Logout();
-
-            var cacheKey = string.Format("UserData_{0}", User.ToCustomPrincipal().CustomIdentity.Name);
-
-            if (HttpRuntime.Cache[cacheKey] != null)
+            if (Request.IsAuthenticated)
             {
-                HttpRuntime.Cache.Remove(cacheKey);
+                cacheService.Clear(string.Format(CacheConstant.USERDATA + "{0}", CurrentUser.Identity.Name));
+                WebSecurity.Logout();
             }
-
             return RedirectToAction("Index", "Login", new { area = "Account" });
         }
     }
