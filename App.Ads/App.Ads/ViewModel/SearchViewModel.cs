@@ -16,7 +16,7 @@ namespace App.Ads.ViewModel
         public string Keywords { get; set; }
         public Nullable<decimal> Price { get; set; }
         public bool IsNegotiable { get; set; }
-        public Nullable<int> ContactMethod { get; set; }
+        public string ContactMethod { get; set; }
         public Nullable<int> LocationId { get; set; }
         public int Status { get; set; }
         public string ConditionCode { get; set; }

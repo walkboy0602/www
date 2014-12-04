@@ -180,7 +180,7 @@
                                 <label>Contact Method</label>
                             </div>
                             <div class="col-sm-6">
-                                @Html.DropDownListFor(m => m.ContactMethod, ViewBag.Contacts as IEnumerable<SelectListItem>, new { @class = "form-control" })
+                                @Html.DropDownListFor(m => m.ContactMethod, ViewBag.ContactList as IEnumerable<SelectListItem>, new { @class = "form-control" })
                                 @Html.ValidationMessageFor(m => m.ContactMethod)
                             </div>
                         </div>

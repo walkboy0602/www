@@ -253,9 +253,12 @@
       <DependentUpon>AdsModel.edmx</DependentUpon>
       <LastGenOutput>AdsModel.Context.cs</LastGenOutput>
     </None>
+    <None Include="Data\AdsModel.csdl" />
     <None Include="Data\AdsModel.edmx.diagram">
       <DependentUpon>AdsModel.edmx</DependentUpon>
     </None>
+    <None Include="Data\AdsModel.msl" />
+    <None Include="Data\AdsModel.ssdl" />
     <None Include="Data\AdsModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>AdsModel.edmx</DependentUpon>

@@ -21,3 +21,9 @@
 .center-text {
     text-align: center;
 }
+
+.contact-phoneno {
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}

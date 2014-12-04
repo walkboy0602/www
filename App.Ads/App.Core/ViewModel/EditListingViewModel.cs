@@ -41,7 +41,7 @@ namespace App.Core.ViewModel
         public bool IsNegotiable { get; set; }
 
         [Required(ErrorMessage = "Please select Contact method.")]
-        public int ContactMethod { get; set; }
+        public string ContactMethod { get; set; }
 
         [Required(ErrorMessage = "Please select Location.")]
         public int LocationId { get; set; }

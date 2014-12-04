@@ -344,7 +344,13 @@ namespace App.Ads.Controllers
 
         private void RebindForm(int locationId = 0)
         {
-            ViewBag.Contacts = listingService.GetContactMethods();
+            ViewBag.ContactList = referenceService.GetByType("CM")
+                                    .Select(r => new SelectListItem
+                                    {
+                                        Text = r.Name,
+                                        Value = r.Code.ToString()
+                                    });
+
             //ViewBag.Categories = categoryService.GetCategories();
 
             ViewBag.LocationList = regionService.Get()

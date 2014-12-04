@@ -139,11 +139,17 @@
                         </div>
                     </div>
                     <br>
-                    <br>
                     <div class="col-sm-12" style="text-align: center; margin: 0 auto">
-                        <button data-toggle="modal" data-target="#myModal" class="btn btn-glow success" style="text-align: center;width: 180px; " type="button">Reply to ad</button>
-                        <br>
-                        <p>or call @Model.UserProfile.FirstName on @Model.UserProfile.Mobile</p>
+                        @if (Model.ContactMethod != "P")
+                        {
+                            <button data-toggle="modal" data-target="#myModal" class="btn btn-glow success" style="text-align: center;width: 180px; " type="button">Reply to ad</button>
+                        }
+                        @if (Model.ContactMethod != "E")
+                        {
+                            <div id="phoneno" data-number="@Model.UserProfile.Mobile">
+                                Call @Model.UserProfile.FirstName on <span class="contact-phoneno">@Model.UserProfile.Mobile.Substring(0, 7)xxxx</span>
+                            </div>
+                        }
                     </div>
                     <br>
                 </div>
@@ -154,6 +160,10 @@
     </div>
 </div>
 
-@*@Html.Partial("_enquiry", new Tuple<AdDetailViewModel, SendEnquiryModel>(Model, new SendEnquiryModel()))*@
-
 @Html.Partial("_Enquiry", ViewData["EnquiryViewData"])
+
+<script>
+    $('#phoneno').click(function () {
+        $(this).find('span').text($(this).data('number'));
+    });
+</script>

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0fc8f646197d41daad7d37863c2d9961" Name="Diagram1" ZoomLevel="85">
+      <Diagram DiagramId="0fc8f646197d41daad7d37863c2d9961" Name="Diagram1" ZoomLevel="87">
         <EntityTypeShape EntityType="AdsDBModel.Membership" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AdsDBModel.UserProfile" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AdsDBModel.Config" Width="1.5" PointX="2.875" PointY="4.375" />
@@ -27,6 +27,7 @@
         <AssociationConnector Association="AdsDBModel.FK__ListingLo__Actio__7E02B4CC" />
         <EntityTypeShape EntityType="AdsDBModel.ListingFeatureType" Width="1.5" PointX="11.375" PointY="11.125" />
         <AssociationConnector Association="AdsDBModel.FK__ListingPu__Listi__6166761E1" />
+        <EntityTypeShape EntityType="AdsDBModel.Article" Width="1.5" PointX="5.375" PointY="12.125" />
         <EntityTypeShape EntityType="AdsDBModel.Listing" Width="1.5" PointX="7.75" PointY="3.625" />
         <AssociationConnector Association="AdsDBModel.FK_Enquiry_ListingId" />
         <AssociationConnector Association="AdsDBModel.FK__Listing__AreaId__10216507" />
@@ -37,7 +38,6 @@
         <AssociationConnector Association="AdsDBModel.FK_ListingLog_ListingID" />
         <AssociationConnector Association="AdsDBModel.FK_ListingPurchaseLog_ListingID" />
         <AssociationConnector Association="AdsDBModel.FS_Listing_UserId" />
-        <EntityTypeShape EntityType="AdsDBModel.Article" Width="1.5" PointX="5.375" PointY="12.125" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

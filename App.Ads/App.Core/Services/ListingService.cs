@@ -18,7 +18,6 @@ namespace App.Core.Services
         Listing GetListingById(int ListingId, int UserId = 0);
         IEnumerable<Listing> GetAll();
         IEnumerable<Listing> GetAllByUserId(int UserId);
-        IList<SelectListItem> GetContactMethods(string selected = null);
 
         void InsertLog(ListingLog listingLog);
 
@@ -89,27 +88,6 @@ namespace App.Core.Services
                             .Where(l => l.CreateBy == UserId);
 
             return listing;
-        }
-
-        IList<SelectListItem> IListingService.GetContactMethods(string selected = null)
-        {
-            List<SelectListItem> list = new List<SelectListItem>();
-
-            list.Add(new SelectListItem { Text = "Email and Phone", Value = "0", Selected = true });
-            list.Add(new SelectListItem { Text = "Phone only", Value = "1" });
-            list.Add(new SelectListItem { Text = "Email only", Value = "2" });
-
-            if (selected != null)
-            {
-                list = list.Select(l => new SelectListItem
-                {
-                    Selected = (l.Value == selected),
-                    Text = l.Text,
-                    Value = l.Value
-                }).ToList();
-            }
-
-            return list;
         }
 
 

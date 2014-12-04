@@ -53,7 +53,7 @@
           <Property Name="Keywords" Type="nvarchar" MaxLength="50" />
           <Property Name="Price" Type="decimal" Precision="10" Scale="2" />
           <Property Name="IsNegotiable" Type="bit" Nullable="false" />
-          <Property Name="ContactMethod" Type="int" />
+          <Property Name="ContactMethod" Type="varchar" MaxLength="10" />
           <Property Name="LocationId" Type="int" />
           <Property Name="AreaId" Type="int" />
           <Property Name="Status" Type="int" Nullable="false" />
@@ -586,6 +586,7 @@
             <End Role="ListingFeatureType" EntitySet="ListingFeatureTypes" />
             <End Role="ListingPurchaseLog" EntitySet="ListingPurchaseLogs" />
           </AssociationSet>
+          <EntitySet Name="Articles" EntityType="AdsDBModel.Article" />
           <EntitySet Name="Listings" EntityType="AdsDBModel.Listing" />
           <AssociationSet Name="FK_Enquiry_ListingId" Association="AdsDBModel.FK_Enquiry_ListingId">
             <End Role="Listing" EntitySet="Listings" />
@@ -623,7 +624,6 @@
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="Listing" EntitySet="Listings" />
           </AssociationSet>
-          <EntitySet Name="Articles" EntityType="AdsDBModel.Article" />
           </EntityContainer>
         <EntityType Name="Config">
           <Key>
@@ -643,10 +643,10 @@
           <Property Name="isActive" Type="Boolean" />
           <NavigationProperty Name="SubCategories" Relationship="AdsDBModel.FK_RefCategory_ParentId" FromRole="RefCategory" ToRole="RefCategory1" />
           <NavigationProperty Name="ParentCategory" Relationship="AdsDBModel.FK_RefCategory_ParentId" FromRole="RefCategory1" ToRole="RefCategory" />
-          <NavigationProperty Name="Listings" Relationship="AdsDBModel.FK_Listing_CategoryId" FromRole="RefCategory" ToRole="Listing" />
           <Property Name="FaIcon" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="DisplayName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="ListType" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Listings" Relationship="AdsDBModel.FK_Listing_CategoryId" FromRole="RefCategory" ToRole="Listing" />
         </EntityType>
         <EntityType Name="Region">
           <Key>
@@ -869,6 +869,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Article">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InlineTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreateBy" Type="Int32" Nullable="false" />
+          <Property Name="UpdateBy" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="LastUpdate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
         <EntityType Name="Listing">
           <Key>
             <PropertyRef Name="Id" />
@@ -882,7 +896,7 @@
           <Property Name="Keywords" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Price" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="IsNegotiable" Type="Boolean" Nullable="false" />
-          <Property Name="ContactMethod" Type="Int32" />
+          <Property Name="ContactMethod" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="LocationId" Type="Int32" />
           <Property Name="AreaId" Type="Int32" />
           <Property Name="Status" Type="Int32" Nullable="false" />
@@ -1015,20 +1029,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Article">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="InlineTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="CreateBy" Type="Int32" Nullable="false" />
-          <Property Name="UpdateBy" Type="Int32" />
-          <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="LastUpdate" Type="DateTime" Precision="3" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1242,6 +1242,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Articles">
+            <EntityTypeMapping TypeName="AdsDBModel.Article">
+              <MappingFragment StoreEntitySet="Article">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="LastUpdate" ColumnName="LastUpdate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="InlineTitle" ColumnName="InlineTitle" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Listings">
             <EntityTypeMapping TypeName="AdsDBModel.Listing">
               <MappingFragment StoreEntitySet="Listing">
@@ -1268,21 +1283,6 @@
                 <ScalarProperty Name="ListingTypeCode" ColumnName="ListingTypeCode" />
                 <ScalarProperty Name="ConditionCode" ColumnName="ConditionCode" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Articles">
-            <EntityTypeMapping TypeName="AdsDBModel.Article">
-              <MappingFragment StoreEntitySet="Article">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="LastUpdate" ColumnName="LastUpdate" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
-                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
-                <ScalarProperty Name="InlineTitle" ColumnName="InlineTitle" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

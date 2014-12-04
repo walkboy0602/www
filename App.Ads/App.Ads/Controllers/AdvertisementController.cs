@@ -35,9 +35,6 @@ namespace App.Ads.Controllers
         }
 
         // GET: Ad
-        //[MvcSiteMapNode(Title = "Advertisement Details", PreservedRouteParameters = "id")]
-        //[SiteMapTitle("CategoryId", Target = AttributeTarget.ParentNode)]
-        //[MvcSiteMapNode(Title = "Ad Details", Key = "AdDetail", PreservedRouteParameters = "id, adTitle", ParentKey="Home")]
         [HttpGet]
         //[SiteMapCacheRelease()]
         public ActionResult Detail(int id, string adTitle, string a)
