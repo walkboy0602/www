@@ -36,7 +36,6 @@ namespace App.Ads.Controllers
 
         // GET: Ad
         [HttpGet]
-        //[SiteMapCacheRelease()]
         public ActionResult Detail(int id, string adTitle, string a)
         {
             var listing = listingService.GetListingById(id);
@@ -44,9 +43,15 @@ namespace App.Ads.Controllers
             //Valiate listing status
             if (listing.Status != (int)XtEnum.ListingStatus.Live || listing.PostingEndDate <= DateTime.Now)
             {
-                if (CurrentUser == null || listing.CreateBy != CurrentUser.CustomIdentity.UserId)
+                if (CurrentUser == null) return HttpNotFound();
+
+                if (listing.CreateBy != CurrentUser.CustomIdentity.UserId)
                 {
-                    return HttpNotFound();
+                    string roles = "SuperAdmin, Admin";
+                    if (!CurrentUser.IsInRole(roles))
+                    {
+                        return HttpNotFound();
+                    }
                 }
             }
 

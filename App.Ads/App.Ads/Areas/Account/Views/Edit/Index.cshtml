@@ -1,5 +1,5 @@
 ﻿@model App.Ads.ViewModel.AccountEditViewModel
-
+@using App.Ads.Code.Membership
 @{
     ViewBag.Title = "My Account";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -23,10 +23,14 @@
                 <fieldset>
                     @using (Html.BeginForm("SaveDetail", "Edit", new { area = "Account" }, FormMethod.Post))
                     {
+                        var identity = HttpContext.Current.User.ToCustomPrincipal().CustomIdentity;
                         @Html.AntiForgeryToken()
                         <div class="row">
                             <div class="col-sm-12 ">
-
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" class="form-control" placeholder="@identity.Email" disabled>
+                                </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Name</label>
                                     <div class="row">

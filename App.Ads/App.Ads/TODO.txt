@@ -3,13 +3,15 @@ TODO
 ---------
 -- Read error page
 -- Mobile verification remove "-"
-
+-- Show reject reason
+-- Business Logic for Status - Expired, Rejected
 
 
 
 Done
 ----------
--clear cache page
+-- [BUG] Cannot approve other user listing
+
 
 Bugs
 -----------
