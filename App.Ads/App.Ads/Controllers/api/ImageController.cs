@@ -92,7 +92,7 @@ namespace App.Ads.Controllers.api
 
             if (listing == null)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid Id.");
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bad Request.");
             }
 
             int totalImage = _imageService.Count(id);

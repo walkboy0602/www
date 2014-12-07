@@ -150,7 +150,7 @@ namespace App.Ads.Code.Helpers
 
         public static string GetSearchTitle(string keyword, string category, string area, string city, string listType)
         {
-            category = string.IsNullOrEmpty(category) ? "Almost anything" : category;
+            category = string.IsNullOrEmpty(category) ? "Almost anything for sale" : category;
 
             string location = string.IsNullOrEmpty(area) ? city : area + ", " + city;
 

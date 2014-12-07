@@ -45,7 +45,7 @@ namespace App.Ads.Code.Helpers
 
         public static string ToRelativeDate(this DateTime input)
         {
-            if (input == null)
+            if (input == null || input == DateTime.MinValue)
             {
                 return "A while ago";
             }

@@ -1,9 +1,9 @@
 ﻿@*@model App.Core.ViewModel.EditListingViewModel*@
-@Styles.Render("~/Content/bootstrap")
+@*@Styles.Render("~/Content/bootstrap")
 @Styles.Render("~/Content/css")
-@Styles.Render("~/Content/css/form")
+@Styles.Render("~/Content/css/form")*@
 
-<div data-ng-app="shopApp" class="gallery" data-ng-controller="ListingImageCtrl">
+<div class="gallery" data-ng-controller="ListingImageCtrl">
     <!-- Alert -->
     <div class="alert alert-{{alert.type}} alert-dismissable" data-ng-show="alert.display">
         <a class="close" data-ng-click="alert.display=false" href="#">&times;</a>
@@ -27,44 +27,45 @@
         <div class="gallery-wrapper" data-ng-show="files.length || draftFiles.length">
             <div class="row gallery-row">
                 <!-- Image -->
-                <div class="col-xs-4 col-md-6 img-container {{file.CoverCss}}" data-ng-repeat="file in files">
-                    <div class="img-box">
+                <div class="col-xs-6 col-md-4 img-container" data-ng-repeat="file in files">
+                    <div class="img-box thumbnail {{file.CoverCss}}">
                         <span class="icon edit" data-ng-click="edit(file)">
                             <a><i class="gallery-edit"></i></a>
                         </span>
                         <span class="icon trash" data-ng-click="delete(file)">
                             <i class="gallery-trash"></i>
                         </span>
-                        <img data-ng-src="{{file.Url}}" class="img-responsive thumbnail" alt="picture">
-                        <span class="cover-image" data-ng-show="file.IsCover">
-                            <strong>Cover Image</strong>
-                        </span>
-                        @*<p class="title" data-ng-show="file.Description">
-                                {{file.Description}}
-                            </p>
-                            <p class="title" data-ng-show="!file.Description">
-                                &lt;No Description&gt;
-                            </p>*@
+                        <img data-ng-src="{{file.Url}}" class="img-responsive" alt="picture">
+                        <strong class="clearfix label-cover" data-ng-show="file.IsCover">
+                            <span>Cover</span>
+                        </strong>
                     </div>
                 </div>
                 <!-- Spinner -->
                 <div data-ng-repeat="file in draftFiles">
-                    <div class="col-xs-4 col-md-6 img-container">
+                    <div class="col-xs-6 col-md-4 img-container">
                         <div class="img-box">
                             <div class="spin-{{$index + 1}} img-spin-box"></div>
                         </div>
                     </div>
                 </div>
                 <!-- new image button -->
-                <div class="col-xs-4 col-md-6 new-img" data-ng-hide="totalFiles >= 8 || files.length >= 8">
-                    <div class="img-box">
+                <div class="col-xs-6 col-md-4 img-container" data-ng-hide="totalFiles >= 8 || files.length >= 8">
+                    <label for="file-input">
+                        <div class="img-box thumbnail new-img">
+                            <i class="fa fa-plus fa-4x"></i>
+                            <input id="file-input" name="image" type="file" multiple="" accept="image/*">
+                        </div>
+                    </label>
+
+                    @*<div class="img-box thumbnail new-img">
                         <label for="file-input">
                             <div class="addnew">
                                 <i class="fa fa-plus fa-4x"></i>
                             </div>
                         </label>
                         <input id="file-input" name="image" type="file" multiple accept="image/*" />
-                    </div>
+                    </div>*@
                 </div>
             </div>
         </div>
@@ -130,12 +131,12 @@
 
 </div>
 
-@Scripts.Render("~/bundles/jquery")
+@*@Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")
 @Scripts.Render("~/bundles/plugin")
 @Scripts.Render("~/bundles/angular")
 @Scripts.Render("~/bundles/validation")
-@Scripts.Render("~/bundles/form")
+@Scripts.Render("~/bundles/fileupload")*@
 <script>
     window.data = {
         id: '@ViewBag.ListingId'

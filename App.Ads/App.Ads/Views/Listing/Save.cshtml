@@ -14,12 +14,19 @@
     @Html.Partial("~/Views/PartialView/_sidepanel.cshtml")
 </div>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    var identity = HttpContext.Current.User.ToCustomPrincipal().CustomIdentity;
+<div class="col-sm-9">
 
-    <div class="col-sm-9">
+    <div class="panel panel-default">
+        <div class="panel-heading">Add photos</div>
+        <div class="panel-body">
+            @Html.Partial("_gallery", new { ListingId = Model.id })
+        </div>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        var identity = HttpContext.Current.User.ToCustomPrincipal().CustomIdentity;
         <div class="form-vertical">
             <div class="panel panel-default">
                 <div class="panel-heading">Choose category</div>
@@ -46,7 +53,7 @@
                             <label class="col-sm-3 control-label">Condition</label>
                             <div class="col-sm-6">
                                 @{
-    List<App.Core.Data.RefTable> rbValues2 = (List<App.Core.Data.RefTable>)ViewBag.ConditionList;
+        List<App.Core.Data.RefTable> rbValues2 = (List<App.Core.Data.RefTable>)ViewBag.ConditionList;
                                 }
                                 @foreach (var item in rbValues2)
                                 {
@@ -68,16 +75,15 @@
                             </div>
                             <div class="col-sm-12">
                                 <br>
-                                <label>Description </label>
-                                @*, placeholder = "Put your product info such as Brand, Model and so on."*@
-                                @Html.TextAreaFor(m => m.Description, new { @rows = "6", @class = "form-control ckEditorMini" })
-                                @Html.ValidationMessageFor(m => m.Description, null, new { @class = "help-inline" })
-                            </div>
-                            <div class="col-sm-12">
-                                <br>
                                 <label>Keywords</label>
                                 @Html.TextBoxFor(m => m.Keywords, new { @class = "form-control", placeholder = "Enter keywords that related to your product, e.g - brands, model" })
                                 @Html.ValidationMessageFor(m => m.Keywords, null, new { @class = "help-inline" })
+                            </div>
+                            <div class="col-sm-12">
+                                <br>
+                                <label>Description </label>
+                                @Html.TextAreaFor(m => m.Description, new { id = "summernote", @rows = "6", @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Description, null, new { @class = "help-inline" })
                             </div>
                         </div>
                     </div>
@@ -219,23 +225,32 @@
 
 
         </div>
-    </div>
-}
+    }
+</div>
+
 
 @section Scripts {
-    @Scripts.Render("~/bundles/form")
+    @Scripts.Render("~/bundles/fileupload")
     <script type="text/javascript">
         $(document).ready(function () {
             $('#ddlCategory').select2({
                 placeholder: "Select a Category"
             });
-            //$('#ddlRegion').select2({
-            //    placeholder: "Select a Location"
-            //});
-            //$('#ddlCondition').select2({
-            //    placeholder: "Select Condition"
-            //});
-            //$('.select2').select2();
+            $('#summernote').summernote({
+                height: 250,
+                focus: true,
+                toolbar: [
+                    //[groupname, [button list]]
+                  ['style', ['bold', 'italic', 'underline', 'clear']],
+                  ['font', ['strikethrough']],
+                  ['fontsize', ['fontsize']],
+                  ['color', ['color']],
+                  ['para', ['ul', 'ol', 'paragraph']],
+                  ['height', ['height']],
+                  ['Insert', ['link', 'hr']],
+                  ['Misc', ['fullscreen', 'undo', 'redo']]
+                ]
+            });
         });
     </script>
 }

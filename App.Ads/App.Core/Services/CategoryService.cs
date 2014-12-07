@@ -99,7 +99,7 @@ namespace App.Core.Services
             }
             else
             {
-                refCategories = db.RefCategories.Where(x => x.isActive == true).OrderBy(o => o.Sort).ToList();
+                refCategories = db.RefCategories.Where(x => x.isActive == true).OrderBy(o => new { o.Sort, o.Name }).ToList();
 
                 HttpRuntime.Cache.Insert(cacheKey, refCategories, null, DateTime.Now.AddMinutes(60), Cache.NoSlidingExpiration);
             }
@@ -159,6 +159,7 @@ namespace App.Core.Services
             var list = Grouping((this as ICategoryService).Get())
                         .Where(r => categoryIds.Any(c => c == r.Value.id))
                         .SelectMany(x => GetNodeAndChildren(x))
+                        .OrderBy(o => o.Value.Sort)
                         .Select(t => new SelectListItem
                         {
                             Text = t.Value.DisplayName,

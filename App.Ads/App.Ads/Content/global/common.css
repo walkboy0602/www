@@ -15,7 +15,7 @@
 }
 
 .underline {
-    text-decoration : underline;
+    text-decoration: underline;
 }
 
 .center-text {
@@ -26,4 +26,40 @@
     cursor: pointer;
     font-size: 14px;
     font-weight: bold;
+}
+
+.label-urgent {
+    background-color: #ef5112;
+    color: #fff;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 4px;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+}
+
+.label-photocount {
+    background-color: #808080;
+    color: #fff;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 12px;
+    padding: 2px 4px;
+    position: absolute;
+    top: 0px;
+    right: 16px;
+}
+
+.hide-visually {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
 }

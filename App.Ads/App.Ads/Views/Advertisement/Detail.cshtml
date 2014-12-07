@@ -9,6 +9,7 @@
     ViewBag.OG_Title = Model.Title;
     ViewBag.OG_Desc = ListingHelper.FormatDescription(Model.Description, 100);
     ViewBag.OG_Image = Model.ListingImages.Count > 0 ? Url.Content(Model.UrlDomain + Model.CoverImage) : ViewBag.OG_Image;
+    CommonHelper common = new CommonHelper();
 }
 
 @if (Model.Action == "appvl")
@@ -26,7 +27,7 @@
             <div class="row">
 
                 <div class="col-sm-8">
-                    <h1>@Model.Title</h1>
+                    <h1> @Model.Title</h1>
                     <p>
                         Location:
                         @if (Model.Area != null)
@@ -51,54 +52,44 @@
                 </div>
 
             </div>
-           
+
             <hr style="margin-top:0px;">
             <div class="row">
 
                 <div class="col-md-7">
                     <h3>Ad details</h3>
 
-                    @*<div class="row">
-                            <div class="col-xs-6">
-                                <table class="table">
-
-                                    <tbody>
-                                        <tr>
-                                            <th>Make</th>
-                                            <td>Porsche</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Model</th>
-                                            <td>Boxster</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Mileage</th>
-                                            <td>80,000 Kms</td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="col-xs-6">
-                                <table class="table">
-
-                                    <tbody>
-                                        <tr>
-                                            <th>Year</th>
-                                            <td>2007</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Type of car:</th>
-                                            <td>4-door</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Body type</th>
-                                            <td>Estate</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>*@
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th>Condition</th>
+                                        <td>                                            
+                                        @{
+                                            string conditionLabel = common.GetReferenceLabel(Model.ConditionCode);
+                                            if (!string.IsNullOrEmpty(conditionLabel))
+                                            {
+                                                <span>
+                                                    @conditionLabel
+                                                </span>
+                                            }
+                                        }</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-xs-6">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th>Posted</th>
+                                        <td>@Model.PostedDate.ToRelativeDate()</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
                     @Html.Raw(Server.HtmlDecode(@Model.Description))
 
@@ -113,14 +104,14 @@
                 </div>
 
                 <div class="col-md-5 center zoom-gallery">
-                    <p class="pull-right">Ad ID: @Model.id | Posted @Html.Raw(Model.PostedDate.ToRelativeDate()) </p>
+                    <p class="pull-right">Ad ID: @Model.id | Advertised by: @Model.UserProfile.FirstName</p>
 
                     <div class="row center">
                         <div class="col-sm-12">
                             @if (Model.ListingImages.Count > 0)
                             {
                                 <a class="img-responsive fancybox thumbnail" rel="group" href="@Url.Content(Model.UrlDomain + Model.CoverImage)">
-                                    <img alt="Cover Image"src="@Url.Content(Model.UrlDomain + Model.CoverImage)">
+                                    <img alt="Cover Image" class="big-image" src="@Url.Content(Model.UrlDomain + Model.CoverImage)">
                                 </a>
                                 <div class="row" id="gallery">
                                     @foreach (var item in Model.ListingImages)

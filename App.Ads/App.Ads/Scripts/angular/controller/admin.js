@@ -1,8 +1,4 @@
 ﻿
-function MainCtrl($scope) {
-
-}
-
 function ApproveCtrl($scope, cfpLoadingBar) {
     
     $('#approveForm').submit(function () {

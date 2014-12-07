@@ -13,6 +13,8 @@ namespace App.Ads
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.LowercaseUrls = true;
+
             routes.MapRoute(
                 "Error - 404",
                 "PageNotFound",

@@ -11,6 +11,7 @@
         display: inline-block;
         position: relative;
         margin-bottom: 15px;
+        width:172px;
     }
 
         .gallery .img-container .img-box:hover span {
@@ -18,19 +19,16 @@
         }
 
     .gallery .img-container img {
-        border: 4px solid #EEE;
+        /*border: 4px solid #EEE;
         border-radius: 3px;
+        max-width: 100%;*/
         cursor: pointer;
-        height: 120px;
-        min-width: 172px;
-        max-width: 182px;
+        height: 120px;  
     }
 
-    .gallery .img-container.cover img {
-        border: 4px solid #EDDA74;
+    .gallery .img-container .cover {
+        border: 1px solid #EDDA74;
         border-radius: 3px;
-        cursor: pointer;
-        height: 120px;
     }
 
     .gallery .img-container .title {
@@ -65,8 +63,15 @@
     }
 
 .gallery .new-img {
-    display: inline-block;
+    border-radius: 10px;
+    cursor: pointer;
+    height: 120px;
+    background: #F7FCFF;
 }
+
+    .gallery .new-img i {
+        margin-top: 30px;
+    }
 
     .gallery .new-img img {
         border: 2px dashed #dee3e8;
@@ -142,8 +147,20 @@ div.addnew {
         position: absolute;
     }
 
-.cover-image {
-    position: absolute;
+.cover-label {
+    position:absolute;
     left: 25%;
     bottom: -8%;
+}
+
+.label-cover {
+    background-color: #EDDA74;
+    color: #fff;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 12px;
+    padding: 2px 4px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
 }

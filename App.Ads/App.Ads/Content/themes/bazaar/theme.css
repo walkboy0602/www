@@ -521,12 +521,7 @@ LISTINGS
 }
 
 .listings .thumbnail img {
-    min-height: 100px;
-    max-height: 130px;
-}
-
-.listing-title {
-    font-size: 16px;
+    height: 100px;
 }
 
 .listing-price {
@@ -546,8 +541,9 @@ LISTINGS
     color: #999999;
 }
 
-.listing-info a {
-    color: #fff;
+.listing-desc {
+    min-height: 35px;
+    margin-top: 5px;
 }
 
 .listing-status {
@@ -766,10 +762,10 @@ p.muted {
 .cover-image {
     max-height: 252px;
     width: 100%;
-} 
+}
 
 #gallery .thumbnail img {
-    height: 66px;
+    height: 80px;
 }
 
 #my-dropzone .dropzone .dz-default.dz-message {
@@ -819,4 +815,8 @@ p.muted {
     top: 10px;
     left: 10px;
     position: fixed;
+}
+
+.zoom-gallery .big-image {
+    max-height: 280px;
 }

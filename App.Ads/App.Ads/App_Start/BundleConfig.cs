@@ -42,6 +42,7 @@ namespace App.Ads
                 "~/Scripts/common/select2.js",
                 "~/Scripts/common/theme.js",
                 "~/Scripts/common/spin.js",
+                "~/Scripts/common/summernote.js",
                 "~/Content/fancybox/jquery.fancybox.js", //http://fancyapps.com/fancybox/
                 "~/Content/fancybox/helpers/jquery.fancybox-buttons.js"
             ));
@@ -54,7 +55,6 @@ namespace App.Ads
 
             //Angular
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
-                 "~/Scripts/kendo/kendo.web.js",
                  "~/Scripts/angular/1.2.26/angular.js",
                  "~/Scripts/angular/1.2.26/angular-resource.js",
                  "~/Scripts/angular/1.2.26/angular-route.js",
@@ -74,8 +74,9 @@ namespace App.Ads
                  "~/Scripts/angular/3rd/angular-strap.tpl.js"
                  ));
 
+
             //File uploader
-            bundles.Add(new ScriptBundle("~/bundles/form").Include(
+            bundles.Add(new ScriptBundle("~/bundles/fileupload").Include(
                 "~/Scripts/fileupload/vendor/jquery.ui.widget.js",
                 "~/Scripts/fileupload/load-image.js",
                 "~/Scripts/fileupload/jquery.iframe-transport.js",
@@ -84,10 +85,13 @@ namespace App.Ads
                 "~/Scripts/fileupload/jquery.fileupload-image.js",
                 "~/Scripts/fileupload/jquery.fileupload-validate.js",
                 "~/Scripts/fileupload/jquery.fileupload-angular.js",
-                "~/Scripts/fileupload/app.js",
-                "~/Scripts/ckeditor/ckeditor.js"
+                "~/Scripts/fileupload/app.js"
                 ));
 
+            //CkEditor
+            bundles.Add(new ScriptBundle("~/bundles/ckeditor").Include(
+                "~/Scripts/ckeditor/ckeditor.js"
+                ));
 
             #endregion
 
@@ -120,13 +124,12 @@ namespace App.Ads
 
             //Form CSS
             bundles.Add(new StyleBundle("~/Content/css/form").Include(
-                            "~/Content/kendo/kendo.common-bootstrap.min.css",
-                            "~/Content/kendo/kendo.bootstrap.min.css",
                             "~/Content/libraries/select2.css",
                             "~/Content/libraries/select2-bootstrap.css",
                             "~/Content/themes/bazaar/gallery.css",
                             "~/Content/fileupload/jquery.fileupload-ui.css",
-                            "~/Content/fileupload/jquery.fileupload.css"
+                            "~/Content/fileupload/jquery.fileupload.css",
+                            "~/Content/libraries/summernote.css"
                 ));
 
             #endregion
