@@ -364,6 +364,9 @@
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\libraries\loading-bar.css" />
+    <Content Include="Content\libraries\summernote-bs2.css" />
+    <Content Include="Content\libraries\summernote-bs3.css" />
+    <Content Include="Content\libraries\summernote.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\themes\bazaar\listing.css" />
     <Content Include="Content\themes\bazaar\theme.css" />
@@ -693,6 +696,8 @@
     <Content Include="Scripts\common\jquery.uniform.js" />
     <Content Include="Scripts\common\select2.js" />
     <Content Include="Scripts\common\spin.js" />
+    <Content Include="Scripts\common\summernote.js" />
+    <Content Include="Scripts\common\summernote.min.js" />
     <Content Include="Scripts\common\theme.js" />
     <Content Include="Scripts\common\wysihtml5-0.3.0.js" />
     <Content Include="Scripts\fileupload\app.js" />
