@@ -6,6 +6,7 @@ TODO
 -- Business Logic for Status - Expired, Rejected
 -- Keyword suggest
 -- Research on Promote modules
+-- Facebook Metatag for Ad Detail page
 
 Done
 ----------

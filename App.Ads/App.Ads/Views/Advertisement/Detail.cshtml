@@ -23,9 +23,7 @@
 <div id="listings-page">
     <div class="row">
         <div class="col-sm-12 listing-wrapper listings-top listings-bottom">
-
             <div class="row">
-
                 <div class="col-sm-8">
                     <h1> @Model.Title</h1>
                     <p>
@@ -40,7 +38,6 @@
                         }
                     </p>
                 </div>
-
                 <div class="col-sm-4">
                     <p class="price">
                         @if(Model.ContactMe)
@@ -56,10 +53,19 @@
                         }
                     </p>
                 </div>
-
             </div>
 
-            <hr style="margin-top:0px;">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
             <div class="row">
 
                 <div class="col-md-7">
