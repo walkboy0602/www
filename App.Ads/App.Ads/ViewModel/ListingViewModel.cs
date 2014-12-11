@@ -24,6 +24,8 @@ namespace App.Ads.ViewModel
 
         public bool IsNegotiable { get; set; }
 
+        public bool ContactMe { get; set; }
+
         public string ContactMethod { get; set; }
 
         public string ConditionCode { get; set; }

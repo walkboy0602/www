@@ -36,10 +36,12 @@ namespace App.Core.ViewModel
 
         [RegularExpression(@"^\$?\d+(\.(\d{2}))?$", ErrorMessage = "e.g price format - 19.99")]
         [Range(0, 99999999.99, ErrorMessage = "Price cannot exceed 8 characters long.")]
-        [Required(ErrorMessage="Please enter your Price.")]
+        [RequiredIf(DependentProperty = "ContactMe", TargetValue = false, ErrorMessage = "Please enter your Price.")]
         public decimal? Price { get; set; }
 
         public bool IsNegotiable { get; set; }
+
+        public bool ContactMe { get; set; }
 
         [Required(ErrorMessage = "Please select Contact method.")]
         public string ContactMethod { get; set; }

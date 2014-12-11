@@ -43,10 +43,16 @@
 
                 <div class="col-sm-4">
                     <p class="price">
-                        @ListingHelper.FormatPrice(Model.Price)
-                        @if (@Model.IsNegotiable)
+                        @if(Model.ContactMe)
                         {
-                            <span>(Negotiable)</span>
+                            <small>Contact me for price</small>
+                        }
+                        else { 
+                            ListingHelper.FormatPrice(Model.Price);
+                            if (Model.IsNegotiable)
+                            {
+                                <span>(Negotiable)</span>
+                            }
                         }
                     </p>
                 </div>

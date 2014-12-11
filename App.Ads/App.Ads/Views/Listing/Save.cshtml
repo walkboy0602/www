@@ -133,7 +133,7 @@
                 <div class="panel-body">
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-sm-9">
+                            <div class="col-sm-9" style="margin-top:14px;">
                                 @Html.TextBoxFor(m => m.Price, new { @class = "form-control", placeholder = "How much do you want it to be listed for?" })
                                 @Html.ValidationMessageFor(m => m.Price)
                             </div>
@@ -142,6 +142,12 @@
                                     <label>
                                         @Html.CheckBoxFor(m => m.IsNegotiable)
                                         Negotiable
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        @Html.CheckBoxFor(m => m.ContactMe)
+                                        Contact me for price
                                     </label>
                                 </div>
                             </div>
@@ -245,6 +251,18 @@
                   ['Misc', ['fullscreen', 'undo', 'redo']]
                 ]
             });
+            
+            $('input[type="checkbox"][id="ContactMe"]').change(function () {
+                if (this.checked) {
+                    $('input[type="text"][name="Price"]').prop('disabled', true);
+                } else {
+                    $('input[type="text"][name="Price"]').prop('disabled', false);
+                }
+            });
+
+            if ($('#ContactMe').is(":checked")) {
+                $('input[type="text"][name="Price"]').prop('disabled', true);
+            }
         });
     </script>
 }

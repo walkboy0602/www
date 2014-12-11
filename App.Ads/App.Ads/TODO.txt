@@ -2,15 +2,15 @@
 TODO
 ---------
 -- Read error page
--- Mobile verification remove "-"
 -- Show reject reason
 -- Business Logic for Status - Expired, Rejected
-
-
+-- Keyword suggest
+-- Research on Promote modules
 
 Done
 ----------
 -- [BUG] Cannot approve other user listing
+-- [Module] ChangePassword
 
 
 Bugs

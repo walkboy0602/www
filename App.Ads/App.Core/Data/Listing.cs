@@ -47,6 +47,7 @@ namespace App.Core.Data
         public Nullable<int> LastActionBy { get; set; }
         public Nullable<int> Duration { get; set; }
         public string RejectCode { get; set; }
+        public Nullable<bool> ContactMe { get; set; }
     
         public virtual ICollection<Enquiry> Enquiries { get; set; }
         public virtual RegionZone Area { get; set; }

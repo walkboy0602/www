@@ -1,0 +1,38 @@
+﻿@model App.Ads.Areas.Account.Models.CreateNewPassword
+@{
+    ViewBag.Title = "Change Password";
+}
+
+@Html.Partial("_ErrorMessage")
+
+<div class="col-sm-12 login-wrapper">
+    <h1>Change Password</h1>
+    @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+    {
+        @Html.AntiForgeryToken()
+        <hr>
+
+        <div class="row">
+            <div class="col-sm-12 col-md-6 box">
+                @Html.ValidationSummary(true)
+                <div class="content-wrap">
+                    <div class="row">
+                        @Html.HiddenFor(m => m.UserId)
+                        @Html.HiddenFor(m => m.PasswordVerificationToken)
+                        <div class="form-group">
+                            <label>Enter your new password</label>
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "New Password" })
+                            @Html.ValidationMessageFor(m => m.Password)
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm your new password</label>
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm New Password" })
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                        </div>
+                        <input type="submit" value="Continue" class="btn-glow primary pull-right" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

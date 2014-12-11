@@ -6,10 +6,11 @@ using System.Web.Mvc;
 using App.Ads.Areas.Account.Models;
 using App.Ads.Areas.Account.BO;
 using App.Core.Services;
+using App.Ads.Controllers;
 
 namespace App.Ads.Areas.Account.Controllers
 {
-    public class ForgotPasswordController : Controller
+    public class ForgotPasswordController : BaseController
     {
         private readonly IAccountBO accountBO;
 

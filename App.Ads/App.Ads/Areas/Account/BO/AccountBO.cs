@@ -17,6 +17,8 @@ namespace App.Ads.Areas.Account.BO
         bool ChangePassword(ChangePassword model);
 
         bool ForgotPassword(ForgotPasswordModel model);
+
+        bool CreateNewPassword(CreateNewPassword model);
     }
 
     public class AccountBO : IAccountBO
@@ -100,5 +102,20 @@ namespace App.Ads.Areas.Account.BO
             return true;
         }
 
+        bool IAccountBO.CreateNewPassword(CreateNewPassword model)
+        {
+            var membership = _userService.GetMembershipByPasswordVerificationToken(model.UserId, model.PasswordVerificationToken.ToString());
+
+            if (membership == null)
+            {
+                model.ModelState.AddModelError("", "Invalid Request");
+                return false;
+            }
+
+            membership.PasswordSalt = _userService.GetHash(model.Password);
+            membership.PasswordChangedDate = DateTime.Now;
+            _userService.Save(membership, false);
+            return true;
+        }
     }
 }

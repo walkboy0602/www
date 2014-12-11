@@ -26,6 +26,7 @@ namespace App.Core.Services
         App.Core.Data.Membership GetMembership(string userName);
         App.Core.Data.Membership GetMembership(int userId);
         App.Core.Data.Membership GetMembershipByConfirmToken(string token, bool withUserProfile);
+        App.Core.Data.Membership GetMembershipByPasswordVerificationToken(int userId, string token);
 
         // UserRoles
 
@@ -118,7 +119,11 @@ namespace App.Core.Services
 
             if (membership != null)
             {
-                membership.UserProfile = db.UserProfiles.Where(x => x.UserId == userId).FirstOrDefault();
+                var userProfile = db.UserProfiles.Where(x => x.UserId == userId).FirstOrDefault();
+                //Force to reload db data else it will cached.
+                db.Entry(userProfile).Reload();
+                db.Entry(membership).Reload();
+                membership.UserProfile = userProfile;
             }
 
             return membership;
@@ -131,6 +136,13 @@ namespace App.Core.Services
             {
                 membership.UserProfile = this.db.UserProfiles.First(x => x.UserId == membership.UserId);
             }
+            return membership;
+        }
+
+        App.Core.Data.Membership IUserService.GetMembershipByPasswordVerificationToken(int userId, string token)
+        {
+            var membership = this.db.Memberships
+                                .Where(x => x.UserId == userId && x.PasswordVerificationToken.Equals(token.ToLower())).FirstOrDefault();
             return membership;
         }
 
