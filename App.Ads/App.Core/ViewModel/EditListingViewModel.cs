@@ -26,7 +26,7 @@ namespace App.Core.ViewModel
         public string Title { get; set; }
 
         [Required]
-        [StringLength(500, MinimumLength=10, ErrorMessage="Minimun {2} charaters, Max {1} characters.")]
+        [StringLength(2000, MinimumLength=10, ErrorMessage="Minimun {2} charaters, Max {1} characters.")]
         [AllowHtml]
         public string Description { get; set; }
 

@@ -239,6 +239,9 @@ namespace App.Ads.Controllers
             }
 
             RebindForm(model.LocationId);
+
+            ViewBag.id = model.id;
+
             return View(model);
 
         }
