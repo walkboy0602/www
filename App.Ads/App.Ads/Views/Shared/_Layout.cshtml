@@ -20,7 +20,9 @@
     @RenderSection("style", required: false)
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     @Scripts.Render("~/bundles/jqHead")
+
 </head>
 <body data-ng-app="shopApp">
     <script>
@@ -94,7 +96,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-4 col-xs-12">
-                            <p><strong>© 9street.my 2014</strong></p>
+                            <p><strong>© 9street.my @DateTime.Now.Year</strong></p>
                             <p>All rights reserved</p>
                         </div>
                         <div class="col-sm-8 col-xs-12">

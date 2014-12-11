@@ -58,8 +58,11 @@
             <div class="row">
                 <div class="col-sm-8">
                     <div class="row">
-                        <div class="col-xs-3">
-                            <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button"></div>
+                        <div class="col-xs-3" style="width: 100px;">
+                            <div class="fb-share-button" data-href="@Request.Url.AbsoluteUri" data-layout="button_count"></div>
+                        </div>
+                        <div class="col-xs-3" style="width: 100px;">
+                            <div class="g-plus" data-action="share" data-annotation="bubble" data-href="@Request.Url.AbsoluteUri"></div>
                         </div>
                     </div>
                 </div>
