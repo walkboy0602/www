@@ -78,7 +78,7 @@ namespace App.Ads.Code.SiteMap
             {
                 db.Configuration.LazyLoadingEnabled = false;
                 // Create a node for each category 
-                var listings = db.Listings.Include("RefCategory").Where(l => l.Status != (int)XtEnum.ListingStatus.New);
+                var listings = db.Listings.Include("RefCategory").Where(l => l.Status == (int)XtEnum.ListingStatus.Live);
 
                 if (listings != null)
                 {

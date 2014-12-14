@@ -74,7 +74,7 @@
                 {
                     <div class="item">
                         <a href="/ad/@ad.id/@ad.Title.ToSeoUrl()" class="thumbnail">
-                            <img class="owl-lazy" src="@Url.Content(ad.UrlDomain + @ListingHelper.FormatImage(ad.ImageSrc, "s2"))" alt="@ad.Title" onerror="imgError(this, '100%', 120)">
+                            <img src="@Url.Content(ad.UrlDomain + @ListingHelper.FormatImage(ad.ImageSrc, "s2"))" alt="@ad.Title" onerror="imgError(this, '100%', 120)">
                             @if (ad.Price != null)
                             {
                                 <strong class="clearfix label-price-tag">
