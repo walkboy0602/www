@@ -11,6 +11,18 @@
     };
 });
 
+//shopApp.directive('owlCarousel', function () {
+//    return {
+//        restrict: 'CA',
+//        link: function (scope, element, attrs) {
+//            scope.data = [];
+//            attrs.$observe("data", function (value) {
+//                scope.data = JSON.parse(value);
+//            });
+//        }
+//    }
+//});
+
 shopApp.directive('fileupload', ['uploadManager', function factory(uploadManager) {
     return {
         restrict: 'A',

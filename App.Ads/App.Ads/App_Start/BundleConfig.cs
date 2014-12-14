@@ -43,6 +43,7 @@ namespace App.Ads
                 "~/Scripts/common/theme.js",
                 "~/Scripts/common/spin.js",
                 "~/Scripts/common/summernote.js",
+                "~/Scripts/common/owl.carousel.js",
                 "~/Content/fancybox/jquery.fancybox.js", //http://fancyapps.com/fancybox/
                 "~/Content/fancybox/helpers/jquery.fancybox-buttons.js"
             ));
@@ -119,7 +120,9 @@ namespace App.Ads
                         "~/Content/fancybox/jquery.fancybox.css",
                         "~/Content/fancybox/helpers/jquery.fancybox-buttons.css",
                         "~/Content/libraries/simple-sidebar.css",
-                        "~/Content/libraries/loading-bar.css"
+                        "~/Content/libraries/loading-bar.css",
+                        "~/Content/libraries/owl.carousel.css",
+                        "~/Content/libraries/owl.theme.css"
                         ));
 
             //Form CSS

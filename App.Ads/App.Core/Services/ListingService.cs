@@ -18,6 +18,7 @@ namespace App.Core.Services
         Listing GetListingById(int ListingId, int UserId = 0);
         IEnumerable<Listing> GetAll();
         IEnumerable<Listing> GetAllByUserId(int UserId);
+        IEnumerable<LatestListingViewModel> GetLatestAds(int PageSize);
 
         void InsertLog(ListingLog listingLog);
 
@@ -88,6 +89,31 @@ namespace App.Core.Services
                             .Where(l => l.CreateBy == UserId);
 
             return listing;
+        }
+
+        IEnumerable<LatestListingViewModel> IListingService.GetLatestAds(int PageSize)
+        {
+            db.Configuration.LazyLoadingEnabled = false;
+
+            var latestAds = (from l in db.Listings
+                             join innerImg in db.ListingImages on l.Id equals innerImg.ListingId into Inners
+                             from img in Inners.DefaultIfEmpty()
+                             where l.Status == (int)XtEnum.ListingStatus.Live
+                             && l.PostingEndDate >= DateTime.Now
+                             select new LatestListingViewModel
+                             {
+                                 id = l.Id,
+                                 Title = l.Title,
+                                 Price = l.Price,
+                                 PostedDate = l.PostedDate,
+                                 CategoryName = l.RefCategory.DisplayName,
+                                 Location = l.Location.Name,
+                                 Area = l.Area.Name,
+                                 ImageSrc = l.ListingImages.Where(lm => lm.IsCover).Select(lm => lm.Src).FirstOrDefault()
+                             }
+                                ).OrderByDescending(o => o.PostedDate).Distinct().Take(10).ToList();
+
+            return latestAds;
         }
 
 

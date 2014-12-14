@@ -222,6 +222,7 @@
     <Compile Include="Services\SearchService.cs" />
     <Compile Include="Utility\CustomAnnotation.cs" />
     <Compile Include="Services\AWSService.cs" />
+    <Compile Include="ViewModel\LatestListingViewModel.cs" />
     <Compile Include="ViewModel\EditListingViewModel.cs" />
     <Compile Include="ViewModel\Enum.cs" />
     <Compile Include="Utility\LinqExtension.cs" />

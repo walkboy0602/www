@@ -6,13 +6,18 @@ TODO
 -- Business Logic for Status - Expired, Rejected
 -- Keyword suggest
 -- Research on Promote modules
--- Facebook Metatag for Ad Detail page
+
+Today TODO list
+----------------
+
 
 Done
 ----------
 -- [BUG] Cannot approve other user listing
 -- [Module] ChangePassword
-
+-- Facebook Metatag for Ad Detail page
+- Complete Latest Ad Carousel
+- Complete GrabThis requirement
 
 Bugs
 -----------

@@ -17,6 +17,7 @@
     <meta name="viewport" content="width=device-width" />
     @Styles.Render("~/Content/bootstrap")
     @Styles.Render("~/Content/css")
+
     @RenderSection("style", required: false)
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -68,7 +69,6 @@
     @if (IsSectionDefined("SearchBox"))
     {
         @RenderSection("SearchBox")
-        <br />
     }
     else
     {

@@ -21,6 +21,13 @@ angular.module('shopAPI', [])
         }
 
     }])
+    .factory('AdsFactory', ['$http', function ($http) {
+        return {
+            get: function (PageSize) {
+                return $http.get('/api/ads', { params: { PageSize: PageSize } });
+            },
+        }
+    }])
     .factory('ImageFactory', ['$http', function ($http) {
         return {
             get: function (ListingId) {

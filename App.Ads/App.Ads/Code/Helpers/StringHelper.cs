@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Text.RegularExpressions;
+using System.Configuration;
 
 namespace App.Ads.Code.Helpers
 {
@@ -50,7 +51,13 @@ namespace App.Ads.Code.Helpers
                 return "A while ago";
             }
 
-            TimeSpan oSpan = DateTime.Now.Subtract(input.AddHours(8));
+            //For Local Time
+            if (ConfigurationManager.AppSettings["env"] == "test")
+            {
+                input = input.AddHours(8);
+            }
+
+            TimeSpan oSpan = DateTime.Now.Subtract(input);
             double TotalMinutes = oSpan.TotalMinutes;
             string Suffix = " ago";
 

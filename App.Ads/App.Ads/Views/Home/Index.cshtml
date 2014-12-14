@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <br>
-                        <p class="main_description">Search thousands of stores, brands, products and user classifieds all in one place</p>
+                        <p class="main_description">What are you looking for ?</p>
                         <br><br>
                         <div class="row">
 
@@ -19,7 +19,7 @@
                                         <div class="input-group">
 
                                             <span class="input-group-addon input-group-addon-text">Find me a</span>
-                                            @Html.TextBoxFor(m => m.Keyword, new { @class = "form-control col-sm-3", placeholder = "e.g. Rooms, cars, iphone" })
+                                            @Html.TextBoxFor(m => m.Keyword, new { @class = "form-control col-sm-3", placeholder = "e.g. room, car, iphone" })
 
                                             <div class="input-group-addon hidden-xs">
                                                 <div class="btn-group">
@@ -58,94 +58,146 @@
 
 }
 
-<div class="container">
-
-    <div class="row">
-
-        <div class="col-sm-12 col-md-8">
-
-            <div class="row directory">
-                <div class="col-sm-12 ">
-                    <h2><span>Directory listings</span></h2>
-                </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="row latest">
+            <div class="col-sm-12">
+                <h2><span>Latest Listings</span></h2>
             </div>
+        </div>
+    </div>
 
-            <div class="row directory">
-                <div class="col-xs-12">
-                    @foreach (App.Core.Data.RefCategory category in ViewBag.ParentCategoryList)
-                    {
-                        <div class="directory-block col-sm-4 col-xs-6">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <i class="@category.FaIcon"></i>
-                                </div>
-                                <div class="col-sm-9">
-                                    <h4><a href="@Url.Action("Index", "Search", new RouteValueDictionary
-                                                                {
-                                                                    { "locationText", "malaysia" },
-                                                                    { "categoryText", category.Name.ToSeoUrl() }
-                                                                })" class="link-info">@category.DisplayName</a></h4>
-                                    <p>
-                                        @{
-                        int count = 0;
-
-                        foreach (App.Core.Data.RefCategory subCategory in ViewBag.CategoryList)
-                        {
-                            if (subCategory.ParentID == category.id)
+    <div class="col-md-12 latest">
+        <div class="col-md-12">
+            <div class="owl-carousel">
+                @foreach (App.Core.ViewModel.LatestListingViewModel ad in ViewBag.LatestAdList)
+                {
+                    <div class="item">
+                        <a href="/ad/@ad.id/@ad.Title.ToSeoUrl()" class="thumbnail">
+                            <img class="owl-lazy" src="@Url.Content(ad.UrlDomain + @ListingHelper.FormatImage(ad.ImageSrc, "s2"))" alt="@ad.Title" onerror="imgError(this, '100%', 120)">
+                            @if (ad.Price != null)
                             {
-                                <a href="@Url.Action("Index", "Search", new RouteValueDictionary
-                                                                {
-                                                                    { "locationText", "malaysia" },
-                                                                    { "categoryText", subCategory.Name.ToSeoUrl() }
-                                                                })">@subCategory.DisplayName</a><br />
-                                if (++count == 5)
-                                {
+                                <strong class="clearfix label-price-tag">
+                                    <span>@ListingHelper.FormatPrice(ad.Price)</span>
+                                </strong>
+                            }
+                        </a>
+                        <div class="caption">
+                            <h3><a href="/ad/@ad.id/@ad.Title.ToSeoUrl()">@ad.Title</a></h3>
+                            <p>@ad.Location</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-8">
+        <div class="row directory">
+            <div class="col-sm-12 ">
+                <h2><span>Directory listings</span></h2>
+            </div>
+        </div>
+        <div class="row directory">
+            <div class="col-xs-12">
+                @foreach (App.Core.Data.RefCategory category in ViewBag.ParentCategoryList)
+                {
+                    <div class="directory-block col-sm-4 col-xs-6">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <i class="@category.FaIcon"></i>
+                            </div>
+                            <div class="col-sm-9">
+                                <h4>
                                     <a href="@Url.Action("Index", "Search", new RouteValueDictionary
                                                                 {
                                                                     { "locationText", "malaysia" },
                                                                     { "categoryText", category.Name.ToSeoUrl() }
+                                                                })" class="link-info">@category.DisplayName</a>
+                                                            </h4>
+                                                            <p>
+                                                                @{
+                    int count = 0;
+
+                    foreach (App.Core.Data.RefCategory subCategory in ViewBag.CategoryList)
+                    {
+                        if (subCategory.ParentID == category.id)
+                        {
+                            <a href="@Url.Action("Index", "Search", new RouteValueDictionary
+                                                                {
+                                                                    { "locationText", "malaysia" },
+                                                                    { "categoryText", subCategory.Name.ToSeoUrl() }
+                                                                })">@subCategory.DisplayName</a><br />
+                            if (++count == 5)
+                            {
+                                <a href="@Url.Action("Index", "Search", new RouteValueDictionary
+                                                                {
+                                                                    { "locationText", "malaysia" },
+                                                                    { "categoryText", category.Name.ToSeoUrl() }
                                                                 })" class="link-info">More...</a>
-                                    break;
-                                }
-
+                                break;
                             }
+
                         }
-                                        }
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
                     }
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="col-xs-12 col-md-4 ">
-            <div class="row">
-                <div class="col-xs-12 col-sm-5 col-md-12  col-lg-11 pull-right">
-                    <br class="hidden-sm hidden-xs">
-                    <br class="hidden-sm hidden-xs">
-                    <br class="hidden-sm hidden-xs">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Connect with us</div>
-                        <div class="panel-body">
-                            <div class="fb-like"
-                                 data-share="true"
-                                 data-width="250"
-                                 data-show-faces="true">
-                            </div>
-                        </div>
-                    </div>
-
-                    @*<p class="main_slogan" style="margin: 28px 0">Currently listing 355,785 classified ads in the United Kingdom.</p>*@
-
-                </div>
+                                                                }
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                }
             </div>
 
         </div>
 
     </div>
 
+    <div class="col-xs-12 col-md-4 ">
+        <div class="row">
+            <div class="col-xs-12 col-sm-5 col-md-12  col-lg-11 pull-right">
+                <br class="hidden-sm hidden-xs">
+                <br class="hidden-sm hidden-xs">
+                <br class="hidden-sm hidden-xs">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Connect with us</div>
+                    <div class="panel-body">
+                        <div class="fb-like"
+                             data-share="true"
+                             data-width="250"
+                             data-show-faces="true">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 </div>
+
+
+@section Scripts {
+    <script type="text/javascript">
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            margin: 10,
+            nav: false,
+            lazyLoad: true,
+            autoplay: true,
+            autoplayTimeout: 5000,
+            autoplayHoverPause: true,
+            stagePadding: 5,
+            responsive: {
+                0: {
+                    items: 2
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 5
+                }
+            }
+        })
+    </script>
+}

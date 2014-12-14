@@ -24,7 +24,7 @@ namespace App.Ads.Controllers
         private readonly IRegionService regionService;
         private readonly IReferenceService referenceService;
 
-        private const int PAGE_SIZE = 15;
+        private const int PAGE_SIZE = 10;
 
         public SearchController()
         {

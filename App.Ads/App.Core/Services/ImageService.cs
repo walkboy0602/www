@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Helpers;
+using App.Core.ViewModel;
 
 namespace App.Core.Services
 {
@@ -28,12 +29,14 @@ namespace App.Core.Services
         private readonly IAWSService awsService;
         private readonly IAzureService azureService;
         private readonly IConfigService configService;
+        private readonly IListingService listingService;
 
-        public ImageService(IAWSService awsService, IConfigService configService, IAzureService azureService)
+        public ImageService(IAWSService awsService, IConfigService configService, IAzureService azureService, IListingService listingService)
         {
             this.awsService = awsService;
             this.azureService = azureService;
             this.configService = configService;
+            this.listingService = listingService;
         }
 
         void IImageService.Save(ListingImage listingImage)
@@ -133,11 +136,11 @@ namespace App.Core.Services
             bool status = false;
 
             byte[] fileBytes = image.GetBytes();
-            
+
             //Thumnbnail
             byte[] s0 = awsService.CreateImage(fileBytes, image.FileName, 200, 150);
             //status = awsService.UploadToS3(s0, imageURL.Replace("####size####", "s0"));
-            
+
             //Standard
             byte[] s1 = awsService.CreateImage(fileBytes, image.FileName, 315, 230);
             //status = awsService.UploadToS3(s1, imageURL.Replace("####size####", "s1"));
@@ -162,6 +165,17 @@ namespace App.Core.Services
             }
 
             db.ListingImages.Add(listingImage);
+
+            var listing = db.Listings.Find(ListingId);
+
+            if (listing.Status == (int)XtEnum.ListingStatus.New)
+            {
+                listing.Status = (int)XtEnum.ListingStatus.Draft;
+            }
+
+            listing.LastUpdate = DateTime.Now;
+            listing.LastActionBy = UserId;
+
             db.SaveChanges();
 
             return listingImage;
@@ -170,8 +184,8 @@ namespace App.Core.Services
         private bool CheckIsFirstImage(int ListingId)
         {
             var count = (from lb in db.ListingImages
-                        where lb.ListingId == ListingId
-                             select lb).Count();
+                         where lb.ListingId == ListingId
+                         select lb).Count();
 
             return count == 0;
         }
