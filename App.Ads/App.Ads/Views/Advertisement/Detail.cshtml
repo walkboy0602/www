@@ -44,8 +44,9 @@
                         {
                             <small>Contact me for price</small>
                         }
-                        else { 
-                            ListingHelper.FormatPrice(Model.Price);
+                        else
+                        {
+                            <span>@ListingHelper.FormatPrice(Model.Price)</span>
                             if (Model.IsNegotiable)
                             {
                                 <span>(Negotiable)</span>

@@ -70,7 +70,7 @@
     <div class="col-md-12 latest">
         <div class="col-md-12">
             <div class="owl-carousel">
-                @foreach (App.Core.ViewModel.LatestListingViewModel ad in ViewBag.LatestAdList)
+                @foreach (App.Core.ViewModel.LatestListingViewModel ad in ViewBag.LatestAd)
                 {
                     <div class="item">
                         <a href="/ad/@ad.id/@ad.Title.ToSeoUrl()" class="thumbnail">

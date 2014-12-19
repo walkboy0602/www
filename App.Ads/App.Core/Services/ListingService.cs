@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Data.Entity;
 using System.Data;
+using LinqKit;
+using System.Linq;
 
 namespace App.Core.Services
 {
@@ -18,6 +20,7 @@ namespace App.Core.Services
         Listing GetListingById(int ListingId, int UserId = 0);
         IEnumerable<Listing> GetAll();
         IEnumerable<Listing> GetAllByUserId(int UserId);
+        IQueryable<Listing> GetLatest(int PageSize);
         IEnumerable<LatestListingViewModel> GetLatestAds(int PageSize);
 
         void InsertLog(ListingLog listingLog);
@@ -91,9 +94,31 @@ namespace App.Core.Services
             return listing;
         }
 
-        IEnumerable<LatestListingViewModel> IListingService.GetLatestAds(int PageSize)
+        IQueryable<Listing> IListingService.GetLatest(int PageSize)
         {
             db.Configuration.LazyLoadingEnabled = false;
+
+            var predicate = PredicateBuilder.True<Listing>();
+
+            predicate = predicate.And(p => p.Status == (int)App.Core.ViewModel.XtEnum.ListingStatus.Live);
+
+            predicate = predicate.And(p => p.PostingEndDate >= DateTime.Now);
+
+            var results = db.Listings
+                            .Include("Location")
+                            .Include("Area")
+                            .Include("RefCategory")
+                            .Include("ListingImages")
+                            .AsExpandable()
+                            .Where(predicate)
+                            .OrderByDescending(o => o.PostedDate).Take(10);
+
+            return results;
+
+        }
+
+        IEnumerable<LatestListingViewModel> IListingService.GetLatestAds(int PageSize)
+        {
 
             var latestAds = (from l in db.Listings
                              join innerImg in db.ListingImages on l.Id equals innerImg.ListingId into Inners
