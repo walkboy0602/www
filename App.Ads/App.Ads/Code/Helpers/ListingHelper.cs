@@ -68,13 +68,13 @@ namespace App.Ads.Code.Helpers
             return date == null ? string.Empty : Convert.ToDateTime(date).ToString(format);
         }
 
-        public static string FormatLocation(string locationName, string locationParentName)
+        public static string FormatLocation(string area, string location)
         {
-            string newLocation = locationName;
+            string newLocation = location;
 
-            if (!string.IsNullOrEmpty(locationParentName))
+            if (!string.IsNullOrEmpty(area))
             {
-                newLocation = locationName + ", " + locationParentName;
+                newLocation = area + ", " + location;
             }
 
             return newLocation;

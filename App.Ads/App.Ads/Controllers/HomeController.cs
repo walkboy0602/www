@@ -31,12 +31,9 @@ namespace App.Ads.Controllers
                                 CategoryName = l.RefCategory.DisplayName,
                                 Location = l.Location.Name,
                                 Area = l.Area.Name,
-                                ImageSrc = l.ListingImages.Where(lm => lm.IsCover).Select(lm => lm.Src).FirstOrDefault()
+                                ImageSrc = l.ListingImages.Where(lm => lm.IsCover).FirstOrDefault() == null ? l.ListingImages.Select(i => i.Src).FirstOrDefault() : 
+                                            l.ListingImages.Where(lm => lm.IsCover).Select(lm => lm.Src).FirstOrDefault()
                             });
-
-
-
-            ViewBag.LatestAdList = _listingService.GetLatestAds(10);
             ViewBag.ParentCategoryList = categoryService.Get().Where(c => c.ParentID == null).OrderBy(c => c.Sort);
             ViewBag.CategoryList = categoryService.Get().OrderBy(c => c.Sort);
             return View();

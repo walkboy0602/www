@@ -107,7 +107,7 @@
                         </div>
                     </div>
 
-                    @Html.Raw(Server.HtmlDecode(@Model.Description))
+                    @Html.Raw(Server.HtmlDecode(@Model.Description).Replace("&nbsp;","");
 
                     @*<p>
                             <span class="classified_links ">
