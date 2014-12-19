@@ -92,6 +92,7 @@ namespace App.Ads.Code.Helpers
             if (!string.IsNullOrEmpty(description))
             {
                 description = Regex.Replace(description, @"<[^>]*>", string.Empty);
+                description = description.Replace("&nbsp;", string.Empty);
 
                 if (description.Length >= maxLength)
                 {
