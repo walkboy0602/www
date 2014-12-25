@@ -60,6 +60,12 @@ namespace App.Ads.ViewModel
 
         public string Action { get; set; }
 
+        public double Lat { get; set; }
+
+        public double Lng { get; set; }
+
+        public string Place { get; set; }
+
     }
 
     public class DisplayListingViewModel : ImageModel

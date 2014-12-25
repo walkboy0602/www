@@ -45,7 +45,8 @@ namespace App.Ads
                 "~/Scripts/common/summernote.js",
                 "~/Scripts/common/owl.carousel.js",
                 "~/Content/fancybox/jquery.fancybox.js", //http://fancyapps.com/fancybox/
-                "~/Content/fancybox/helpers/jquery.fancybox-buttons.js"
+                "~/Content/fancybox/helpers/jquery.fancybox-buttons.js",
+                "~/Content/fancybox/helpers/jquery.fancybox-media.js"
             ));
 
             //Validation

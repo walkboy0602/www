@@ -48,6 +48,9 @@ namespace App.Core.Data
         public Nullable<int> Duration { get; set; }
         public string RejectCode { get; set; }
         public Nullable<bool> ContactMe { get; set; }
+        public Nullable<double> Lat { get; set; }
+        public Nullable<double> Lng { get; set; }
+        public string Place { get; set; }
     
         public virtual ICollection<Enquiry> Enquiries { get; set; }
         public virtual RegionZone Area { get; set; }

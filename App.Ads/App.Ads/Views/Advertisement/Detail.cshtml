@@ -30,26 +30,26 @@
                         Location:
                         @if (Model.Area != null)
                         {
-                            <span>@Model.Area.Name, @Model.Location.Name</span>
+                        <span>@Model.Area.Name, @Model.Location.Name</span>
                         }
                         else
                         {
-                            <span>@Model.Location.Name</span>
+                        <span>@Model.Location.Name</span>
                         }
                     </p>
                 </div>
                 <div class="col-sm-4">
                     <p class="price">
-                        @if(Model.ContactMe)
+                        @if (Model.ContactMe)
                         {
-                            <small>Contact me for price</small>
+                        <small>Contact me for price</small>
                         }
                         else
                         {
-                            <span>@ListingHelper.FormatPrice(Model.Price)</span>
+                        <span>@ListingHelper.FormatPrice(Model.Price)</span>
                             if (Model.IsNegotiable)
                             {
-                                <span>(Negotiable)</span>
+                        <span>(Negotiable)</span>
                             }
                         }
                     </p>
@@ -81,16 +81,17 @@
                                 <tbody>
                                     <tr>
                                         <th>Condition</th>
-                                        <td>                                            
-                                        @{
-                                            string conditionLabel = common.GetReferenceLabel(Model.ConditionCode);
-                                            if (!string.IsNullOrEmpty(conditionLabel))
-                                            {
-                                                <span>
-                                                    @conditionLabel
-                                                </span>
+                                        <td>
+                                            @{
+                                                string conditionLabel = common.GetReferenceLabel(Model.ConditionCode);
+                                                if (!string.IsNullOrEmpty(conditionLabel))
+                                                {
+                                            <span>
+                                                @conditionLabel
+                                            </span>
+                                                }
                                             }
-                                        }</td>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -109,14 +110,23 @@
 
                     @Html.Raw(Server.HtmlDecode(@Model.Description))
 
-                    @*<p>
-                            <span class="classified_links ">
-                                <a class="link-info" href="#"><i class="fa fa-share"></i> Share</a>&nbsp;
-                                <a class="link-info " href="#"><i class="fa fa-star"></i> Add to favorites</a>
-                                &nbsp;<a class="link-info " href="#"><i class="fa fa-envelope-o"></i> Contact</a>
-                                &nbsp;<a class="link-info fancybox-media" href="http://maps.google.com/?ll=48.85796,2.295231&amp;spn=0.003833,0.010568&amp;t=h&amp;z=17"><i class="fa fa-map-marker"></i> Map</a>
-                            </span>
-                        </p>*@
+                    <p>
+                        <span class="classified_links">
+                            &nbsp;
+                            @if (Model.ContactMethod != "P")
+                            {
+                                <a class="link-info" data-toggle="modal" data-target="#myModal" href="#"><i class="fa fa-envelope-o"></i> Contact</a>
+                            } 
+                            &nbsp;
+                            @if (Model.Lat > 0)
+                            {
+                                @Html.HiddenFor(m => m.Lat, new { id = "Lat" })
+                                @Html.HiddenFor(m => m.Lng, new { id = "Lng" })
+                                @Html.HiddenFor(m => m.Place, new { id = "Place" })
+                                <a class="link-info" data-toggle="modal" data-target="#mapModal" href="#"><i class="fa fa-map-marker"></i> Map</a>
+                            }
+                        </span>
+                    </p>
                 </div>
 
                 <div class="col-md-5 center zoom-gallery">
@@ -126,22 +136,22 @@
                         <div class="col-sm-12">
                             @if (Model.ListingImages.Count > 0)
                             {
-                                <a class="img-responsive fancybox thumbnail" rel="group" href="@Url.Content(Model.UrlDomain + Model.CoverImage)">
-                                    <img alt="Cover Image" class="big-image" src="@Url.Content(Model.UrlDomain + Model.CoverImage)">
-                                </a>
-                                <div class="row" id="gallery">
-                                    @foreach (var item in Model.ListingImages)
+                            <a class="img-responsive fancybox thumbnail" rel="group" href="@Url.Content(Model.UrlDomain + Model.CoverImage)">
+                                <img alt="Cover Image" class="big-image" src="@Url.Content(Model.UrlDomain + Model.CoverImage)">
+                            </a>
+                            <div class="row" id="gallery">
+                                @foreach (var item in Model.ListingImages)
                                     {
                                         if (!item.IsCover)
                                         {
-                                            <div class="col-xs-4">
-                                                <a href="@Url.Content(Model.UrlDomain + item.Src)" class="img-responsive fancybox thumbnail" rel="group" title=@item.Description>
-                                                    <img src="@Url.Content(Model.UrlDomain + item.Thumnbnail)" alt="@item.Description">
-                                                </a>
-                                            </div>
+                                    <div class="col-xs-4">
+                                        <a href="@Url.Content(Model.UrlDomain + item.Src)" class="img-responsive fancybox thumbnail" rel="group" title=@item.Description>
+                                            <img src="@Url.Content(Model.UrlDomain + item.Thumnbnail)" alt="@item.Description">
+                                        </a>
+                                    </div>
                                         }
                                     }
-                                </div>
+                            </div>
                             }
                         </div>
                     </div>
@@ -149,13 +159,13 @@
                     <div class="col-sm-12" style="text-align: center; margin: 0 auto">
                         @if (Model.ContactMethod != "P")
                         {
-                            <button data-toggle="modal" data-target="#myModal" class="btn btn-glow success" style="text-align: center;width: 180px; " type="button">Reply to ad</button>
+                        <button data-toggle="modal" data-target="#myModal" class="btn btn-glow success" style="text-align: center;width: 180px; " type="button">Reply to ad</button>
                         }
                         @if (Model.ContactMethod != "E")
                         {
-                            <div id="phoneno" data-number="@Model.UserProfile.Mobile">
-                                Call @Model.UserProfile.FirstName on <span class="contact-phoneno">@Model.UserProfile.Mobile.Substring(0, 7)xxxx</span>
-                            </div>
+                        <div id="phoneno" data-number="@Model.UserProfile.Mobile">
+                            Call @Model.UserProfile.FirstName on <span class="contact-phoneno">@Model.UserProfile.Mobile.Substring(0, 7)xxxx</span>
+                        </div>
                         }
                     </div>
                     <br>
@@ -164,13 +174,64 @@
             </div>
 
         </div>
+
+    </div>
+</div>
+
+
+<!--Map Modal-->
+<div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <p>@Model.Place</p>
+            </div>
+            <div class="modal-body">
+                <div id="map-canvas" style="width: 100%; height: 600px"></div>
+            </div>
+        </div>
     </div>
 </div>
 
 @Html.Partial("_Enquiry", ViewData["EnquiryViewData"])
 
-<script>
-    $('#phoneno').click(function () {
-        $(this).find('span').text($(this).data('number'));
+<script type="text/javascript">
+    var map;
+    $(document).ready(function () {
+
+        $('#phoneno').click(function () {
+            $(this).find('span').text($(this).data('number'));
+        });
+
+        $("#mapModal").on("shown.bs.modal", function () {
+            initialiseMap();
+        });
+
+        function initialiseMap() {
+
+            var mylat = $('#Lat').val();
+            var mylng = $('#Lng').val();
+
+            console.log(mylat);
+
+            var mapOptions = {
+                center: new google.maps.LatLng(mylat, mylng),
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                zoom: 16
+            };
+
+            map = new google.maps.Map(document.getElementById('map-canvas'),
+                mapOptions);
+
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(mylat, mylng),
+                map: map,
+                title: $('#Place').val()
+            });
+        }
+
     });
+
+
 </script>

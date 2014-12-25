@@ -69,6 +69,9 @@
           <Property Name="Duration" Type="int" />
           <Property Name="RejectCode" Type="varchar" MaxLength="10" />
           <Property Name="ContactMe" Type="bit" />
+          <Property Name="Lat" Type="float" />
+          <Property Name="Lng" Type="float" />
+          <Property Name="Place" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="ListingDealMethod">
           <Key>
@@ -922,6 +925,9 @@
           <NavigationProperty Name="ListingPurchaseLogs" Relationship="AdsDBModel.FK_ListingPurchaseLog_ListingID" FromRole="Listing" ToRole="ListingPurchaseLog" />
           <NavigationProperty Name="UserProfile" Relationship="AdsDBModel.FS_Listing_UserId" FromRole="Listing" ToRole="UserProfile" />
           <Property Name="ContactMe" Type="Boolean" />
+          <Property Name="Lat" Type="Double" />
+          <Property Name="Lng" Type="Double" />
+          <Property Name="Place" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Enquiry_ListingId">
           <End Type="AdsDBModel.Listing" Role="Listing" Multiplicity="1" />
@@ -1262,6 +1268,9 @@
           <EntitySetMapping Name="Listings">
             <EntityTypeMapping TypeName="AdsDBModel.Listing">
               <MappingFragment StoreEntitySet="Listing">
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="Lng" ColumnName="Lng" />
+                <ScalarProperty Name="Lat" ColumnName="Lat" />
                 <ScalarProperty Name="ContactMe" ColumnName="ContactMe" />
                 <ScalarProperty Name="RejectCode" ColumnName="RejectCode" />
                 <ScalarProperty Name="Duration" ColumnName="Duration" />

@@ -51,6 +51,12 @@ namespace App.Core.ViewModel
 
         public int? AreaId { get; set; }
 
+        public float Lat { get; set; }
+
+        public float Lng { get; set; }
+
+        public string Place { get; set; }
+
         //[Required(ErrorMessage = "Please select Area.")]
         //private int? _locationId;
         //public int? LocationId

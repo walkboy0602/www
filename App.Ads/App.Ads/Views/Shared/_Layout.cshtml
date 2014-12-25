@@ -23,6 +23,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     @Scripts.Render("~/bundles/jqHead")
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=@System.Configuration.ConfigurationManager.AppSettings["googleApiKey"]&libraries=places"></script>
 
 </head>
 <body data-ng-app="shopApp">

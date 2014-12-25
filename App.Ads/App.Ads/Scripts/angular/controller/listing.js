@@ -452,3 +452,134 @@ function RegionCtrl($scope, CommonFactory) {
     });
 
 }
+
+function ListingMapCtrl($scope, $q) {
+
+
+    function initialize() {
+
+        $scope.map = {};
+
+        if ($('#Lat').val() != undefined)
+        {
+            $scope.map.lat = $('#Lat').val();
+            $scope.map.lng = $('#Lng').val();
+        } else {
+            $scope.map.lat = 3.1357;
+            $scope.map.lng = 101.6880;
+        }
+
+
+        var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            center: new google.maps.LatLng($scope.map.lat, $scope.map.lng),
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            zoom: 16
+        });
+
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng($scope.map.lat, $scope.map.lng),
+            map: map,
+            title: "Your location is here.",
+            draggable: true
+        });
+
+        //var defaultBounds = new google.maps.LatLngBounds(
+        //    new google.maps.LatLng($scope.map.lat, $scope.map.lng));
+        //map.setBounds(defaultBbounds);
+
+        // Create the search box and link it to the UI element.
+        var input = /** @type {HTMLInputElement} */(
+            document.getElementById('map-searchbox'));
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        var searchBox = new google.maps.places.SearchBox(
+          /** @type {HTMLInputElement} */(input));
+
+        // Listen for the event fired when the user selects an item from the
+        // pick list. Retrieve the matching places for that item.
+        google.maps.event.addListener(searchBox, 'places_changed', function () {
+            var places = searchBox.getPlaces();
+
+            if (places.length == 0) {
+                return;
+            }
+
+            // For each place, get the icon, place name, and location.
+            //markers = [];
+            var bounds = new google.maps.LatLngBounds();
+            for (var i = 0, place; place = places[i]; i++) {
+
+                // Clear previous marker
+                marker.setMap(null);
+
+                // Create a marker for each place.
+                marker = new google.maps.Marker({
+                    map: map,
+                    title: place.name,
+                    position: place.geometry.location,
+                    draggable: true,
+                    animation: google.maps.Animation.DROP
+                });
+
+                //markers.push(marker);
+
+                bounds.extend(place.geometry.location);
+                setLocation(place.geometry.location, place.name);
+            }
+
+            map.fitBounds(bounds);
+            map.setZoom(16);
+
+            google.maps.event.addListener(map, 'click', function (event) {
+                marker.setPosition(event.latLng);
+                setLocation(event.latLng);
+            });
+
+            google.maps.event.addListener(marker, 'dragend', function (event) {
+                setLocation(event.latLng);
+            });
+        });
+
+        // Bias the SearchBox results towards places that are within the bounds of the
+        // current map's viewport.
+        google.maps.event.addListener(map, 'bounds_changed', function () {
+            var bounds = map.getBounds();
+            searchBox.setBounds(bounds);
+        });
+
+        google.maps.event.addListener(map, 'click', function (event) {
+            marker.setPosition(event.latLng);
+            setLocation(event.latLng);
+            //$scope.map.lat = marker.getPosition().lat();
+            //$scope.map.lng = marker.getPosition().lng();
+            //$scope.$apply();
+        });
+
+        google.maps.event.addListener(marker, 'dragend', function (event) {
+            setLocation(event.latLng);
+        });
+
+
+    }
+
+    //var map = google.maps.event.addDomListener(window, 'click', initialize);
+    $scope.mapLoaded = false;
+    $scope.loadMap = function () {
+        if ($scope.mapLoaded == false) {
+            initialize();
+        }
+        $scope.mapLoaded = true;
+    }
+
+    function setLocation(location, place)
+    {
+        $scope.map.lat = location.lat();
+        $scope.map.lng = location.lng();
+        $('#Lat').val($scope.map.lat);
+        $('#Lng').val($scope.map.lng);
+        if (place !== undefined) {
+            $('#Place').val(place);
+        }
+        $scope.$apply();
+    }
+}
