@@ -96,16 +96,15 @@
             <div class="footer">
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-4 col-xs-12">
-                            <p><strong>© 9street.my @DateTime.Now.Year</strong></p>
-                            <p>All rights reserved</p>
+                        <div class="col-sm-6 col-xs-12">
+                            <p><strong>© @DateTime.Now.Year 9street.my. All rights reserved.</strong></p>
+                            <p>Need help? Contact us  <a href="mailto:support@9street.my" target="_top">support@9street.my</a> / +60 129044822 (Khoo)</p>
                         </div>
-                        <div class="col-sm-8 col-xs-12">
+                        <div class="col-sm-6 col-xs-12">
                             <p class="footer-links">
                                 <a href="/" class="active">Home</a>
                                 @Html.ActionLink("Terms and Condition", "Detail", "Article", new { id = 1 }, new { target = "_blank" })
                                 @Html.ActionLink("Privacy Policy", "Detail", "Article", new { id = 3 }, new { target = "_blank" })
-                                <a href="#">Contact Us</a>
                             </p>
                         </div>
                     </div>

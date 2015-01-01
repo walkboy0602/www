@@ -57,7 +57,17 @@ namespace App.Ads.Code.Helpers
 
             if (Price != null)
             {
-                newPrice = string.Format("{0:C0}", Price);
+                decimal p = Decimal.Truncate((decimal)Price);
+
+                if(Price.Equals(p))
+                {
+                    newPrice = "RM " + string.Format("{0:0.##}", Price);
+                }
+                else
+                {
+                    newPrice = "RM " + string.Format("{0:0.00}", Price);
+                }
+              
             }
 
             return newPrice;
@@ -137,7 +147,7 @@ namespace App.Ads.Code.Helpers
 
                 case XtEnum.ListingStatus.Live:
                     return "Ad expired on " + endDate.ToString("ddMMMyy");
-                   
+
                 case XtEnum.ListingStatus.Rejected:
                     return "Ad rejected for reasons";
 

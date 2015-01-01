@@ -342,7 +342,7 @@ a.navbar-brand {
 
 .footer {
     padding-top: 19px;
-    font-size: 11px;
+    font-size: 12px;
     text-align: center;
     padding-bottom: 20px;
     margin-top: 40px;
@@ -354,6 +354,7 @@ a.navbar-brand {
 
     .footer p {
         margin-bottom: 0;
+        font-weight: bold;
     }
 
     .footer .footer-links {
