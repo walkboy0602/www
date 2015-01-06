@@ -57,7 +57,17 @@ namespace App.Ads.Code.Helpers
 
             if (Price != null)
             {
-                newPrice = string.Format("{0:C2}", Price);
+                decimal p = Decimal.Truncate((decimal)Price);
+
+                if (Price.Equals(p))
+                {
+                    newPrice = string.Format("{0:C2}", Price);
+                }
+                else
+                {
+                    newPrice = string.Format("{0:C0}", Price);
+                }
+
             }
 
             return newPrice;

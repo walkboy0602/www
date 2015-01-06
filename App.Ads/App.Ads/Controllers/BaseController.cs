@@ -22,6 +22,8 @@ namespace App.Ads.Controllers
             base.Initialize(requestContext);
 
             ViewBag.Title = "Malaysia Free Classified Ads";
+            ViewBag.Keywords = "Property For Sale, Car For Sale, Used Item, Used Stuff, Unwanted Stuff, Free Classified, Furniture For Sale, House Cleaning, Jobs";
+            ViewBag.Description = "Looking to Buy, Sell stuff online? Search 9street.my Malaysia Free Classifieds for Free!";
 
             ViewBag.SiteName = "9street.my";
             ViewBag.SiteTitle = "Malaysia Free Classified Ads";

@@ -5,6 +5,16 @@
 <head>
     <meta charset="utf-8" />
     <title>@ViewBag.Title | @ViewBag.SiteName</title>
+
+    <meta name="title" content="@ViewBag.Title | @ViewBag.SiteName" />
+    <meta name="keywords" content="@ViewBag.Keywords" />
+    <meta name="description" content="@ViewBag.Description" />
+    <meta name="copyright" content="Copyright (c) @DateTime.Now.Year by 9street.my" />
+    <meta name="author" content="9street Malaysia" />
+    <meta name="language" content="english" />
+    <meta name="robots" content="index,follow" />
+    <meta name="revisit-after" content="2 days" />
+
     <meta property="og:title" content="@ViewBag.OG_Title - @ViewBag.SiteName" />
     <meta property="og:description" content="@ViewBag.OG_Desc" />
     <meta property="og:type" content="website" />

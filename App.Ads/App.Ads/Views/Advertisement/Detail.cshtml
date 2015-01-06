@@ -6,6 +6,9 @@
 @model App.Ads.ViewModel.ListingDetailViewModel
 @{
     ViewBag.Title = Model.Title + " | " + Model.Location.Name;
+    ViewBag.Keywords = Model.Title + ", " + Model.RefCategory.Name + ", " + Model.Location.Name;
+    ViewBag.Description = ListingHelper.FormatDescription(Model.Description, 150);
+    
     ViewBag.OG_Title = Model.Title;
     ViewBag.OG_Desc = ListingHelper.FormatDescription(Model.Description, 100);
     ViewBag.OG_Image = Model.ListingImages.Count > 0 ? Url.Content(Model.UrlDomain + Model.CoverImage) : ViewBag.OG_Image;
