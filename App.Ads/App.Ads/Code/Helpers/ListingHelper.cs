@@ -61,11 +61,11 @@ namespace App.Ads.Code.Helpers
 
                 if (Price.Equals(p))
                 {
-                    newPrice = string.Format("{0:C2}", Price);
+                    newPrice = string.Format("{0:C0}", Price);
                 }
                 else
                 {
-                    newPrice = string.Format("{0:C0}", Price);
+                    newPrice = string.Format("{0:C2}", Price);
                 }
 
             }
