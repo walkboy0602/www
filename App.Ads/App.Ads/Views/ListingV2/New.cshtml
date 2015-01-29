@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "Select Category";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+@section Style{
+    @Styles.Render("~/Content/css/form")
+}
+
+<form class="category" ng-submit="submit()" data-ng-controller="CategoryCtrl">
+
+    <!-- Use the simple syntax -->
+    <div cg-busy="myPromise"></div>
+
+    <fieldset>
+        <div class="col-sm-3" data-ng-show="groups.length > 0">
+            <div class="form-vertical">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h4 class="panel-title">Select a group</h4></div>
+                    <table class="table table-hover">
+                        <tr data-ng-repeat="group in groups">
+                            <td data-ng-class="{selected : group.id === selectedGroup.id}" data-ng-click="selectGroup(group.id)">
+                                <i class="{{group.FaIcon}}">&nbsp;</i>
+                                {{group.DisplayName}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3" data-ng-show="categoryLv1.length > 0">
+            <div class="form-vertical">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Select a category</h4>
+                    </div>
+                    <table class="table table-hover">
+                        <tr data-ng-repeat="cat in categoryLv1">
+                            <td data-ng-class="{selected : cat.id == selectedLv1Cat.id}" data-ng-click="selectCategoryLv1(cat.id)">
+                                {{cat.DisplayName}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3" data-ng-show="categoryLv2.length > 0">
+            <div class="form-vertical">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h4 class="panel-title">Select a sub-category</h4></div>
+                    <table class="table table-hover">
+                        <tr data-ng-repeat="cat in categoryLv2">
+                            <td data-ng-class="{selected : cat.id == selectedLv2Cat.id}" data-ng-click="selectCategoryLv2(cat.id)">
+                                {{cat.DisplayName}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3" data-ng-show="options.length > 0">
+            <div class="form-vertical">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h4 class="panel-title">Select an option </h4></div>
+                    <table class="table table-hover">
+                        <tr class="option" data-ng-repeat="opt in options">
+                            <td data-ng-class="{selected : opt.key == selectedOption}" data-ng-click="selectOption(opt.key)">
+                                {{opt.value}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <input type="submit" data-ng-disabled="checkOption() || isSaving" data-loading-text="Loading" class="pull-right btn-glow primary btn-finish" value="Continue">
+        </div>
+    </fieldset>
+
+</form>

@@ -38,6 +38,8 @@
         <AssociationConnector Association="AdsDBModel.FK_ListingLog_ListingID" />
         <AssociationConnector Association="AdsDBModel.FK_ListingPurchaseLog_ListingID" />
         <AssociationConnector Association="AdsDBModel.FS_Listing_UserId" />
+        <EntityTypeShape EntityType="AdsDBModel.TemplateType" Width="1.5" PointX="5.625" PointY="16.375" />
+        <AssociationConnector Association="AdsDBModel.fk_TemplateType_Code" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,7 +1,7 @@
 ﻿//Tutorial of how to use Angular integrate with Web Form
 //http://weblogs.asp.net/dwahlin/archive/2013/08/16/using-an-angularjs-factory-to-interact-with-a-restful-service.aspx
 
-angular.module('shopAPI', [])
+angular.module('adsAPI', [])
     .factory('AccountFactory', ['$http', function ($http) {
         return {
             emailVerification: function () {
@@ -15,11 +15,10 @@ angular.module('shopAPI', [])
     .factory('ReferenceFactory', ['$http', function ($http) {
 
         return {
-            list: function (data) {
-                return $http.get('/reference/get', { params: { ReferenceType: data } });
+            get: function (data) {
+                return $http.get('/reference/', { params: { type: data } });
             }
         }
-
     }])
     .factory('AdsFactory', ['$http', function ($http) {
         return {
@@ -52,44 +51,20 @@ angular.module('shopAPI', [])
         return {
             getArea: function (locationId) {
                 return $http.get('/search/getArea', { params: { locationId: locationId } });
+            },
+            getCategory: function () {
+                return $http.get('/api/category');
+            },
+            getReference: function (data) {
+                return $http.get('/api/reference/' + data);
             }
         }
     }])
     .factory('ListingFactory', ['$http', function ($http) {
 
         return {
-            getImage: function (id) {
-                return $http.get('/listing/getImage', { params: { id: id } });
-            },
-            editImage: function (data) {
-                return $http.post('/listing/editImage', data);
-            },
-            deleteImage: function (data) {
-                return $http.post('/listing/deleteImage', data);
-            },
-            getSpecification: function (id) {
-                return $http.get('/listing/getSpecification', { params: { ListingID: id } });
-            },
-            saveSpecification: function (data) {
-                return $http.post('/listing/saveSpecification', data);
-            },
-            saveDescription: function (data) {
-                return $http.post('/listing/saveDescription', data);
-            },
-            getDescription: function (id) {
-                return $http.get('/listing/getDescription', { params: { ListingID: id } });
-            },
-            saveOption: function (data) {
-                return $http.post('/listing/saveOption', data);
-            },
-            getOption: function (id) {
-                return $http.get('/listing/getOption', { params: { ListingID: id } });
-            },
-            editOption: function (data) {
-                return $http.post('/listing/editOption', data);
-            },
-            deleteOption: function (data) {
-                return $http.post('/listing/deleteOption', data);
+            create: function (data) {
+                return $http.post('/listingv2/create', { param: data })
             }
         }
     }]);

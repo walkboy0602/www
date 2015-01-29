@@ -1,4 +1,4 @@
-﻿shopApp.directive('ngEnter', function () {
+﻿adsApp.directive('ngEnter', function () {
     return function (scope, element, attrs) {
         element.bind("keydown keypress", function (event) {
             if (event.which === 13) {
@@ -23,7 +23,7 @@
 //    }
 //});
 
-shopApp.directive('fileupload', ['uploadManager', function factory(uploadManager) {
+adsApp.directive('fileupload', ['uploadManager', function factory(uploadManager) {
     return {
         restrict: 'A',
         link: function (scope, element, attrs) {
@@ -66,7 +66,7 @@ shopApp.directive('fileupload', ['uploadManager', function factory(uploadManager
     };
 }]);
 
-shopApp.directive('chosen', [function () {
+adsApp.directive('chosen', [function () {
     return {
         restrict: 'A',
         link: function (scope, element, attrs, controller) {
@@ -84,7 +84,7 @@ shopApp.directive('chosen', [function () {
     };
 }]);
 
-shopApp.directive('ckEditor', [function () {
+adsApp.directive('ckEditor', [function () {
     return {
         require: '?ngModel',
         restrict: 'CA',
@@ -136,7 +136,7 @@ shopApp.directive('ckEditor', [function () {
     };
 }]);
 
-shopApp.directive('ckEditorMini', [function () {
+adsApp.directive('ckEditorMini', [function () {
     return {
         require: '?ngModel',
         restrict: 'CA',
@@ -192,7 +192,7 @@ shopApp.directive('ckEditorMini', [function () {
     };
 }]);
 
-shopApp.directive('spinnerClick', function () {
+adsApp.directive('spinnerClick', function () {
     return {
         restrict: 'A',
         link: function (scope, element, attrs) {

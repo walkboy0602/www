@@ -26,7 +26,6 @@ namespace App.Core.Data
         public int Id { get; set; }
         public Nullable<int> CategoryId { get; set; }
         public string ConditionCode { get; set; }
-        public string ListingTypeCode { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string Keywords { get; set; }
@@ -51,6 +50,8 @@ namespace App.Core.Data
         public Nullable<double> Lat { get; set; }
         public Nullable<double> Lng { get; set; }
         public string Place { get; set; }
+        public string ListType { get; set; }
+        public string TemplateName { get; set; }
     
         public virtual ICollection<Enquiry> Enquiries { get; set; }
         public virtual RegionZone Area { get; set; }

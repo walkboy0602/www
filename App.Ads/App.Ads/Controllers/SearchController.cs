@@ -164,7 +164,7 @@ namespace App.Ads.Controllers
                 responseModel = new Ads.Models.ResponseModel
                 {
                     StatusCode = (int)System.Net.HttpStatusCode.OK,
-                    Data = regionZoneList.Select(r => new SelectListItem
+                    Body = regionZoneList.Select(r => new SelectListItem
                     {
                         Text = r.Name,
                         Value = r.id.ToString()

@@ -24,7 +24,7 @@ namespace App.Core.Services
         RefCategory Find(int id);
         RefCategory FindByName(string name);
 
-        IEnumerable<RefCategory> Get();
+        IEnumerable<RefCategory> Get(bool isLazy = true);
         IEnumerable<RefCategory> GetByParentID(int? ParentID);
         List<int> GetSubCategory(int categoryId);
 
@@ -89,19 +89,28 @@ namespace App.Core.Services
             return refCategories.FirstOrDefault();
         }
 
-        IEnumerable<RefCategory> ICategoryService.Get()
+        IEnumerable<RefCategory> ICategoryService.Get(bool isLazy = true)
         {
             IEnumerable<RefCategory> refCategories = null;
 
-            if (HttpRuntime.Cache[cacheKey] != null)
+            db.Configuration.LazyLoadingEnabled = isLazy;
+
+            if (isLazy)
             {
-                refCategories = (IEnumerable<RefCategory>)HttpRuntime.Cache[cacheKey];
+                if (HttpRuntime.Cache[cacheKey] != null)
+                {
+                    refCategories = (IEnumerable<RefCategory>)HttpRuntime.Cache[cacheKey];
+                }
+                else
+                {
+                    refCategories = db.RefCategories.Where(x => x.isActive == true).OrderBy(o => new { o.Sort, o.Name }).ToList();
+
+                    HttpRuntime.Cache.Insert(cacheKey, refCategories, null, DateTime.Now.AddMinutes(60), Cache.NoSlidingExpiration);
+                }
             }
             else
             {
                 refCategories = db.RefCategories.Where(x => x.isActive == true).OrderBy(o => new { o.Sort, o.Name }).ToList();
-
-                HttpRuntime.Cache.Insert(cacheKey, refCategories, null, DateTime.Now.AddMinutes(60), Cache.NoSlidingExpiration);
             }
 
             return refCategories;

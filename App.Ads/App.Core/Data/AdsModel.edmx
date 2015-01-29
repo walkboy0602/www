@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="AdsDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AdsDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Article">
           <Key>
             <PropertyRef Name="Id" />
@@ -47,7 +47,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CategoryId" Type="int" />
           <Property Name="ConditionCode" Type="varchar" MaxLength="3" />
-          <Property Name="ListingTypeCode" Type="varchar" MaxLength="10" />
+          <Property Name="ListType" Type="varchar" MaxLength="10" />
           <Property Name="Title" Type="nvarchar" MaxLength="100" />
           <Property Name="Description" Type="text" />
           <Property Name="Keywords" Type="nvarchar" MaxLength="50" />
@@ -72,6 +72,7 @@
           <Property Name="Lat" Type="float" />
           <Property Name="Lng" Type="float" />
           <Property Name="Place" Type="varchar" MaxLength="200" />
+          <Property Name="TemplateName" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ListingDealMethod">
           <Key>
@@ -163,7 +164,8 @@
           <Property Name="Sort" Type="int" />
           <Property Name="isActive" Type="bit" />
           <Property Name="FaIcon" Type="nvarchar" MaxLength="20" />
-          <Property Name="ListType" Type="char" MaxLength="3" />
+          <Property Name="ListType" Type="varchar" MaxLength="30" />
+          <Property Name="TemplateType" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="RefTable">
           <Key>
@@ -209,6 +211,15 @@
           <Property Name="RoleId" Type="smallint" Nullable="false" />
           <Property Name="RoleName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="RoleDescription" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TemplateType">
+          <Key>
+            <PropertyRef Name="Code" />
+            <PropertyRef Name="ListType" />
+          </Key>
+          <Property Name="Code" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ListType" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="TemplateName" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="UserProfile">
           <Key>
@@ -376,6 +387,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_TemplateType_Code">
+          <End Role="RefTable" Type="Self.RefTable" Multiplicity="1" />
+          <End Role="TemplateType" Type="Self.TemplateType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RefTable">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="TemplateType">
+              <PropertyRef Name="Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserRoles_Roles">
           <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
           <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
@@ -440,6 +463,7 @@
           <EntitySet Name="Region" EntityType="Self.Region" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RegionZone" EntityType="Self.RegionZone" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TemplateType" EntityType="Self.TemplateType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="z_RefCategory" EntityType="Self.z_RefCategory" Schema="dbo" store:Type="Tables" />
@@ -486,6 +510,10 @@
           <AssociationSet Name="FK_RefCategory_ParentId" Association="Self.FK_RefCategory_ParentId">
             <End Role="RefCategory" EntitySet="RefCategory" />
             <End Role="RefCategory1" EntitySet="RefCategory" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TemplateType_Code" Association="Self.fk_TemplateType_Code">
+            <End Role="RefTable" EntitySet="RefTable" />
+            <End Role="TemplateType" EntitySet="TemplateType" />
           </AssociationSet>
           <AssociationSet Name="FK_UserRoles_Roles" Association="Self.FK_UserRoles_Roles">
             <End Role="Roles" EntitySet="Roles" />
@@ -628,6 +656,11 @@
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="Listing" EntitySet="Listings" />
           </AssociationSet>
+          <EntitySet Name="TemplateTypes" EntityType="AdsDBModel.TemplateType" />
+          <AssociationSet Name="fk_TemplateType_Code" Association="AdsDBModel.fk_TemplateType_Code">
+            <End Role="RefTable" EntitySet="RefTables" />
+            <End Role="TemplateType" EntitySet="TemplateTypes" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Config">
           <Key>
@@ -649,8 +682,9 @@
           <NavigationProperty Name="ParentCategory" Relationship="AdsDBModel.FK_RefCategory_ParentId" FromRole="RefCategory1" ToRole="RefCategory" />
           <Property Name="FaIcon" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="DisplayName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="ListType" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="ListType" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Listings" Relationship="AdsDBModel.FK_Listing_CategoryId" FromRole="RefCategory" ToRole="Listing" />
+          <Property Name="TemplateType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Region">
           <Key>
@@ -823,6 +857,7 @@
           <Property Name="ParentCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="Sort" Type="Int32" />
+          <NavigationProperty Name="TemplateTypes" Relationship="AdsDBModel.fk_TemplateType_Code" FromRole="RefTable" ToRole="TemplateType" />
         </EntityType>
         <EntityType Name="ListingLog">
           <Key>
@@ -894,7 +929,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CategoryId" Type="Int32" />
           <Property Name="ConditionCode" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="ListingTypeCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Keywords" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -928,6 +962,8 @@
           <Property Name="Lat" Type="Double" />
           <Property Name="Lng" Type="Double" />
           <Property Name="Place" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ListType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TemplateName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Enquiry_ListingId">
           <End Type="AdsDBModel.Listing" Role="Listing" Multiplicity="1" />
@@ -1037,6 +1073,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TemplateType">
+          <Key>
+            <PropertyRef Name="Code" />
+            <PropertyRef Name="ListType" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ListType" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TemplateName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RefTable" Relationship="AdsDBModel.fk_TemplateType_Code" FromRole="TemplateType" ToRole="RefTable" />
+        </EntityType>
+        <Association Name="fk_TemplateType_Code">
+          <End Type="AdsDBModel.RefTable" Role="RefTable" Multiplicity="1" />
+          <End Type="AdsDBModel.TemplateType" Role="TemplateType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RefTable">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="TemplateType">
+              <PropertyRef Name="Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1093,6 +1151,7 @@
           <EntitySetMapping Name="RefCategories">
             <EntityTypeMapping TypeName="AdsDBModel.RefCategory">
               <MappingFragment StoreEntitySet="RefCategory">
+                <ScalarProperty Name="TemplateType" ColumnName="TemplateType" />
                 <ScalarProperty Name="ListType" ColumnName="ListType" />
                 <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
                 <ScalarProperty Name="FaIcon" ColumnName="FaIcon" />
@@ -1268,6 +1327,8 @@
           <EntitySetMapping Name="Listings">
             <EntityTypeMapping TypeName="AdsDBModel.Listing">
               <MappingFragment StoreEntitySet="Listing">
+                <ScalarProperty Name="TemplateName" ColumnName="TemplateName" />
+                <ScalarProperty Name="ListType" ColumnName="ListType" />
                 <ScalarProperty Name="Place" ColumnName="Place" />
                 <ScalarProperty Name="Lng" ColumnName="Lng" />
                 <ScalarProperty Name="Lat" ColumnName="Lat" />
@@ -1292,10 +1353,18 @@
                 <ScalarProperty Name="Keywords" ColumnName="Keywords" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="ListingTypeCode" ColumnName="ListingTypeCode" />
                 <ScalarProperty Name="ConditionCode" ColumnName="ConditionCode" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TemplateTypes">
+            <EntityTypeMapping TypeName="AdsDBModel.TemplateType">
+              <MappingFragment StoreEntitySet="TemplateType">
+                <ScalarProperty Name="TemplateName" ColumnName="TemplateName" />
+                <ScalarProperty Name="ListType" ColumnName="ListType" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

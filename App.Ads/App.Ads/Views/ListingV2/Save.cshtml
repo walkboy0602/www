@@ -1,0 +1,134 @@
+﻿@model App.Ads.ViewModel.ListingCreateViewModel
+@{
+    ViewBag.Title = "Post ad";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+@section Style{
+    @Styles.Render("~/Content/css/form")
+}
+
+<form id="adForm">
+
+    <!-- Use the simple syntax -->
+    <div cg-busy="myPromise"></div>
+
+    <div class="row col-md-12">
+        <fieldset>
+            <legend>Photo</legend>
+            <div class="form-horizontal well">
+                @Html.Partial("../listing/_gallery", new { ListingId = "12" })
+            </div>
+        </fieldset>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(false)
+        @Html.AntiForgeryToken()
+        <div class="row col-md-12">
+
+            <fieldset>
+                <legend>Ad details</legend>
+                <div class="form-horizontal well" data-ng-controller="RegionCtrl">
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Ad Title</label>
+                        <div class="col-sm-6">
+                            @Html.TextBoxFor(m => m.GeneralInfo.Title, new { @class = "form-control", placeholder = "Ad Title" })
+                            @Html.ValidationMessageFor(m => m.GeneralInfo.Title, null, new { @class = "help-inline" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Description</label>
+                        <div class="col-sm-6">
+                            @Html.TextAreaFor(m => m.GeneralInfo.Description, new { id = "summernote", @rows = "8", @class = "form-control", @maxlength = "5000" })
+                            @Html.ValidationMessageFor(m => m.GeneralInfo.Description, null, new { @class = "help-inline" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Price</label>
+                        <div class="col-sm-6">
+                            <span class="input-group">
+                                <span class="input-group-addon">RM</span>
+                                @Html.TextBoxFor(m => m.GeneralInfo.Price, new { @class = "form-control", placeholder = "" })
+                            </span>
+                            @Html.ValidationMessageFor(m => m.GeneralInfo.Price)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Location</label>
+                        <div class="col-sm-6">
+                            @Html.DropDownListFor(m => m.GeneralInfo.LocationId, ViewBag.LocationList as IEnumerable<SelectListItem>, "Select a Location", new { id = "LocationId", @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.GeneralInfo.LocationId)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Area</label>
+                        <div class="col-sm-6">
+                            @Html.DropDownListFor(m => m.GeneralInfo.AreaId, ViewBag.AreaList as IEnumerable<SelectListItem>, "--- All Area ---", new { id = "AreaId", @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.GeneralInfo.AreaId)
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            @*@Html.Partial("_property", @Model)*@
+            @{Html.RenderAction("Property", "ListingV2", new { model = @Model });}
+
+            <fieldset>
+                <legend>Your details</legend>
+                <div class="form-horizontal well">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Name</label>
+                        <div class="col-sm-6">
+                            <p class="form-control-static">email@example.com</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-6">
+                            <p class="form-control-static">email@example.com</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Phone Number</label>
+                        <div class="col-sm-6">
+                            <p class="form-control-static">012-3456789</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 control-label">
+                            <label>Contact Method</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <select class="form-control">
+                                <option>Email only</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="pull-right">
+                <div class="btn-group">
+                    <input type="submit" class="btn-glow primary btn-finish" value="Continue" />
+                </div>
+            </div>
+        </div>
+    }
+
+</form>
+
+@section scripts{
+    @Scripts.Render("~/bundles/validation")
+}
+

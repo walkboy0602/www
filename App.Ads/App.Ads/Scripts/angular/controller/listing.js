@@ -1,4 +1,123 @@
-﻿
+﻿function ListingCtrl($scope, $q) {
+
+
+    $scope.submit = function () {
+        $("#adForm").validationEngine();
+        console.log('d');
+    }
+}
+
+function CategoryCtrl($scope, $q, $filter, $location, CommonFactory, ListingFactory) {
+    $scope.groups = [];
+    $scope.categoryLv1 = [];
+    $scope.categoryLv2 = [];
+    $scope.listTypes = [];
+    $scope.refenceListType = [];
+
+    $scope.myPromise = $q.all([CommonFactory.getCategory(), CommonFactory.getReference("LT")]).then(function (result) {
+
+        $scope.categories = result[0].data || [];
+        $scope.refenceListType = result[1].data || [];
+
+        angular.forEach($scope.categories, function (v, k) {
+
+            if (angular.isUndefinedOrNull(v.ParentID)) {
+                $scope.groups.push(v);
+            }
+
+        });
+    });
+
+    $scope.selectGroup = function (id) {
+
+        $scope.reset();
+
+        angular.forEach($scope.categories, function (v, k) {
+
+            if (v.id === id) {
+                $scope.selectedGroup = v;
+            }
+
+            if (v.ParentID === id) {
+                $scope.categoryLv1.push(v);
+            }
+        });
+    }
+
+    $scope.selectCategoryLv1 = function (id) {
+        $scope.categoryLv2.length = 0;
+        $scope.options = [];
+
+        angular.forEach($scope.categories, function (v, k) {
+            $scope.selectedOption = null;
+            if (v.id === id) {
+                $scope.selectedLv1Cat = v;
+                var arrListType = v.ListType.split(',');
+
+                if (arrListType.length > 0) {
+                    $scope.listTypes.length = 0;
+                    angular.forEach(arrListType, function (v, k) {
+                        $scope.option = {};
+                        $scope.option.key = v;
+                        $scope.option.value = $filter('filter')($scope.refenceListType, { Code: v }, true)[0].Name;
+                        $scope.options.push($scope.option);
+                    });
+
+                }
+            }
+
+            if (v.ParentID === id) {
+                $scope.categoryLv2.push(v);
+            }
+        });
+    }
+
+    $scope.selectCategoryLv2 = function (id) {
+        $scope.selectedOption = null;
+        angular.forEach($scope.categories, function (v, k) {
+            if (v.id === id) {
+                $scope.selectedLv2Cat = v;
+                $scope.listType = v.ListType.split(',');
+            }
+
+        });
+    }
+
+    $scope.selectOption = function (key) {
+        $scope.selectedOption = key;
+    }
+
+    $scope.checkOption = function () {
+        return angular.isUndefinedOrNull($scope.selectedOption);
+    }
+
+    $scope.reset = function () {
+        $scope.categoryLv1.length = 0;
+        $scope.categoryLv2.length = 0;
+        $scope.options = [];
+        $scope.selectedOption = null;
+    }
+
+    $scope.submit = function () {
+        $scope.form = {};
+        $scope.form.CategoryId = angular.isUndefinedOrNull($scope.selectedLv2Cat) ? $scope.selectedLv1Cat.id : $scope.selectedLv2Cat.id;
+        $scope.form.ListType = $scope.selectedOption;
+
+        console.log($scope.form);
+
+        $scope.myPromise = $q.all([ListingFactory.create()])
+            .then(function (result) {
+                data = result[0].data;
+                console.log(data);
+                //window.location = data.Body.RedirectUrl;
+            });
+    }
+
+}
+
+angular.isUndefinedOrNull = function (val) {
+    return angular.isUndefined(val) || val === null
+}
 
 function ListingImageCtrl($scope, $q, ImageFactory, $filter, uploadManager, $route, $routeParams, $window) {
 
@@ -9,6 +128,8 @@ function ListingImageCtrl($scope, $q, ImageFactory, $filter, uploadManager, $rou
     $scope.file = {};
 
     $scope.form.id = $scope.id;
+
+    $scope.id = "12";
 
     //Retrieve Imge
     $q.all([ImageFactory.get($scope.id)]).then(function (results) {
@@ -425,12 +546,13 @@ function RegionCtrl($scope, CommonFactory) {
     $scope.getArea = function () {
         CommonFactory.getArea($('#LocationId').val())
             .success(function (result, status) {
-                var data = result.Data;
+                var data = result.Body;
                 var opt = '<option value="">--- All Area ---</option>';
                 angular.forEach(data, function (v, k) {
                     opt += '<option value="' + v.Value + '">' + v.Text + '</option>';
                 });
 
+                console.log(result);
                 $('select[id=AreaId]').html(opt);
 
                 var aid = getParameterByName('aid');
@@ -460,8 +582,7 @@ function ListingMapCtrl($scope, $q) {
 
         $scope.map = {};
 
-        if ($('#Lat').val() != undefined)
-        {
+        if ($('#Lat').val() != undefined) {
             $scope.map.lat = $('#Lat').val();
             $scope.map.lng = $('#Lng').val();
         } else {
@@ -571,8 +692,7 @@ function ListingMapCtrl($scope, $q) {
         $scope.mapLoaded = true;
     }
 
-    function setLocation(location, place)
-    {
+    function setLocation(location, place) {
         $scope.map.lat = location.lat();
         $scope.map.lng = location.lng();
         $('#Lat').val($scope.map.lat);

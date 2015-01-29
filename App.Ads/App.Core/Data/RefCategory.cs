@@ -28,6 +28,7 @@ namespace App.Core.Data
         public string FaIcon { get; set; }
         public string DisplayName { get; set; }
         public string ListType { get; set; }
+        public string TemplateType { get; set; }
     
         public virtual ICollection<RefCategory> SubCategories { get; set; }
         public virtual RefCategory ParentCategory { get; set; }

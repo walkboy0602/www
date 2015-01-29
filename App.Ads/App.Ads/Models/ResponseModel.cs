@@ -10,6 +10,6 @@ namespace App.Ads.Models
         public int StatusCode { get; set; }
         public string Message { get; set; }
         public string[] Errors { get; set; }
-        public object Data { get; set; }
+        public object Body { get; set; }
     }
 }

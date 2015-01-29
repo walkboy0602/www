@@ -40,6 +40,9 @@ namespace App.Ads
                 Mapper.CreateMap<EditUserProfile, App.Core.Data.UserProfile>();
 
                 Mapper.CreateMap<SendEnquiryModel, Enquiry>();
+
+                // Category
+                Mapper.CreateMap<RefCategory, CategoryViewModel>();
             });
         }
     }

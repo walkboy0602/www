@@ -20,7 +20,12 @@ namespace App.Ads
         {
             AreaRegistration.RegisterAllAreas();
 
-            WebApiConfig.Register(GlobalConfiguration.Configuration);
+            // WARNING - Not compatible with attribute routing.
+            //WebApiConfig.Register(GlobalConfiguration.Configuration);
+
+            // Pass a delegate to the Configure method.
+            GlobalConfiguration.Configure(WebApiConfig.Register);
+
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             UnityConfig.RegisterComponents();

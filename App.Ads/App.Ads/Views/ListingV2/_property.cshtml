@@ -1,0 +1,105 @@
+﻿@model App.Ads.ViewModel.ListingCreateViewModel
+
+<fieldset>
+    <legend>Property details</legend>
+
+    <div class="form-horizontal well">
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Property Type</label>
+            <div class="col-sm-4">
+                <select class="form-control">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-12 col-sm-6">
+                <div class="row">
+                    <label class="col-sm-6 control-label">Bedroom</label>
+                    <div class="col-sm-6">
+                        <select class="form-control">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <div class="row">
+                    <label class="col-sm-3 control-label">Bathroom</label>
+                    <div class="col-sm-6">
+                        <select class="form-control">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-12 col-sm-6">
+                <div class="row">
+                    <label class="col-sm-6 control-label">Size</label>
+                    <div class="col-sm-6">
+                        <span class="input-group">
+                            @Html.TextBoxFor(m => m.PropertyDetail.Size, new { @class = "form-control", placeholder = "" })
+                            <span class="input-group-addon">sq.ft.</span>
+                        </span>
+                        @Html.ValidationMessageFor(m => m.PropertyDetail.Size)
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <div class="row">
+                    <label class="col-sm-3 control-label">Others info</label>
+                    <div class="col-sm-6">
+                        <select class="form-control">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Facilities</label>
+            <div class="col-sm-9">
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox1" value="option1"> Swimming Pool
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox2" value="option2"> Gyn
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox3" value="option3"> Tennis Court
+                </label><label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox1" value="option1"> Swimming Pool
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox2" value="option2"> Playground
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox3" value="option3"> Tennis Court
+                </label>
+            </div>
+        </div>
+    </div>
+
+</fieldset>

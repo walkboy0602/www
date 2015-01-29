@@ -3,6 +3,7 @@ using System.Web.Http;
 using Unity.WebApi;
 using System.Net.Mail;
 using App.Core.Services;
+using App.Ads.Code.BO;
 
 namespace App.Ads
 {
@@ -18,10 +19,19 @@ namespace App.Ads
             
             // e.g. container.RegisterType<ITestService, TestService>();
 
+
+            // BO layer
+
+            container.RegisterType<IListingBO, ListingBO>();
+
+
+            // Service layer
+
             container.RegisterType<IUserService, UserService>();
             container.RegisterType<IConfigService, ConfigService>();
             container.RegisterType<IImageService, ImageService>();
             container.RegisterType<IEmailService, EmailService>();
+            container.RegisterType<IReferenceService, ReferenceService>();
             container.RegisterType<ICategoryService, CategoryService>();
             container.RegisterType<IRegionService, RegionService>();
             container.RegisterType<IListingService, ListingService>();
@@ -29,6 +39,7 @@ namespace App.Ads
             container.RegisterType<IAzureService, AzureService>();
             container.RegisterType<IEnquiryService, EnquiryService>();
             container.RegisterType<SmtpClient>(new InjectionConstructor());
+
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
 

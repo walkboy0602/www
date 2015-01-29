@@ -1,8 +1,4 @@
-﻿@*@model App.Core.ViewModel.EditListingViewModel*@
-@*@Styles.Render("~/Content/bootstrap")
-@Styles.Render("~/Content/css")
-@Styles.Render("~/Content/css/form")*@
-
+﻿
 <div class="gallery" data-ng-controller="ListingImageCtrl">
     <!-- Alert -->
     <div class="alert alert-{{alert.type}} alert-dismissable" data-ng-show="alert.display">
@@ -27,7 +23,7 @@
         <div class="gallery-wrapper" data-ng-show="files.length || draftFiles.length">
             <div class="row gallery-row">
                 <!-- Image -->
-                <div class="col-xs-6 col-md-4 img-container" data-ng-repeat="file in files">
+                <div class="col-xs-6 col-md-3 img-container" data-ng-repeat="file in files">
                     <div class="img-box thumbnail {{file.CoverCss}}">
                         <span class="icon edit" data-ng-click="edit(file)">
                             <a><i class="gallery-edit"></i></a>
@@ -131,12 +127,6 @@
 
 </div>
 
-@*@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/jqueryval")
-@Scripts.Render("~/bundles/plugin")
-@Scripts.Render("~/bundles/angular")
-@Scripts.Render("~/bundles/validation")
-@Scripts.Render("~/bundles/fileupload")*@
 <script>
     window.data = {
         id: '@ViewBag.ListingId'

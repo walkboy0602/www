@@ -5,6 +5,7 @@ using System.Net.Mail;
 using App.Core.Services;
 using System.Linq;
 using System.Web.Http;
+using App.Ads.Code.BO;
 
 namespace App.Ads
 {
@@ -27,6 +28,14 @@ namespace App.Ads
             // it is NOT necessary to register your controllers
 
             // e.g. container.RegisterType<ITestService, TestService>();    
+
+
+            // BO layer
+
+            container.RegisterType<IListingBO, ListingBO>();
+            container.RegisterType<ICommonBO, CommonBo>();
+
+            // Service layer
 
             container.RegisterInstance<IUnityContainer>(container);
             container.RegisterType<IUserService, UserService>();

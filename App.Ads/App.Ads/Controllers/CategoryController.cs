@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using App.Core.Data;
 using App.Core.Services;
 using App.Ads.Code.Security;
+using App.Ads.Code.BO;
 
 namespace App.Ads.Controllers
 {
@@ -18,11 +19,13 @@ namespace App.Ads.Controllers
         private AdsDBEntities db = new AdsDBEntities();
         private readonly ICategoryService categoryService;
         private readonly IReferenceService referenceService;
+        private readonly ICommonBO commonBO;
 
         public CategoryController()
         {
             this.categoryService = DependencyResolver.Current.GetService<ICategoryService>();
             this.referenceService = DependencyResolver.Current.GetService<ReferenceService>();
+            this.commonBO = DependencyResolver.Current.GetService<ICommonBO>();
         }
 
         // GET: RefCategories
@@ -55,6 +58,7 @@ namespace App.Ads.Controllers
                                              Text = r.Name,
                                              Value = r.Code
                                          });
+            ViewBag.TemplateTypeList = commonBO.GetSelectListByRefType("TEMPLATE");
             ViewBag.Categories = categoryService.GetCategories();
             return View();
         }
@@ -80,6 +84,7 @@ namespace App.Ads.Controllers
                                            Value = r.Code,
                                            Selected = r.Code == refCategory.ListType
                                        });
+            ViewBag.TemplateTypeList = commonBO.GetSelectListByRefType("TEMPLATE", refCategory.TemplateType);
             ViewBag.Categories = categoryService.GetCategories();
             return View(refCategory);
         }
@@ -103,6 +108,9 @@ namespace App.Ads.Controllers
                                             Value = r.Code,
                                             Selected = r.Code == refCategory.ListType
                                         });
+
+            ViewBag.TemplateTypeList = commonBO.GetSelectListByRefType("TEMPLATE", refCategory.TemplateType);
+
             ViewBag.Categories = categoryService.GetCategories();
             return View(refCategory);
         }
@@ -127,6 +135,7 @@ namespace App.Ads.Controllers
                                             Value = r.Code,
                                              Selected = r.Code == refCategory.ListType
                                         });
+            ViewBag.TemplateTypeList = commonBO.GetSelectListByRefType("TEMPLATE", refCategory.TemplateType);
             ViewBag.Categories = categoryService.GetCategories();
 
             return View(refCategory);

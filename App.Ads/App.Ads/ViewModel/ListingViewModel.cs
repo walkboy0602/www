@@ -7,9 +7,24 @@ using App.Core.Data;
 using App.Core.Models;
 using App.Core.ViewModel;
 using App.Ads.Code.Helpers;
+using System.ComponentModel.DataAnnotations;
+using System.Security.Policy;
 
 namespace App.Ads.ViewModel
 {
+    public class SelectCategoryVO
+    {
+        [Required]
+        public int CategoryId { get; set; }
+        [Required]
+        public string ListType { get; set; }
+    }
+
+    public class SelectCategoryResponseVO
+    {
+        public string RedirectUrl { get; set; }
+    }
+
     public class ListingDetailViewModel : ImageModel
     {
         public int id { get; set; }

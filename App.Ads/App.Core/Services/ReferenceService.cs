@@ -56,7 +56,7 @@ namespace App.Core.Services
 
         IEnumerable<RefTable> IReferenceService.GetByType(string type)
         {
-            IEnumerable<RefTable> refTables = (this as IReferenceService).Get().Where(r => r.Type == type).Where(r => r.IsActive == true).OrderBy(s => s.Sort);
+            IEnumerable<RefTable> refTables = (this as IReferenceService).Get().Where(r => r.Type == type.ToUpper()).Where(r => r.IsActive == true).OrderBy(s => s.Sort);
 
             return refTables;
         }

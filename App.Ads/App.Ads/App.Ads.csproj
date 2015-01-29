@@ -281,6 +281,8 @@
     <Compile Include="Areas\Admin\Controllers\ServiceController.cs" />
     <Compile Include="Areas\Admin\Models\ApprovalActionModel.cs" />
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Code\BO\CommonBo.cs" />
+    <Compile Include="Code\BO\ListingBO.cs" />
     <Compile Include="Code\Constant\CacheConstant.cs" />
     <Compile Include="Code\Constant\ErrorConstant.cs" />
     <Compile Include="Code\Constant\MessageConstant.cs" />
@@ -302,12 +304,15 @@
     <Compile Include="Code\SiteMap\SiteMapProvider.cs" />
     <Compile Include="Controllers\AdvertisementController.cs" />
     <Compile Include="Controllers\AlertController.cs" />
+    <Compile Include="Controllers\api\CategoryController.cs" />
     <Compile Include="Controllers\api\ImageController.cs" />
+    <Compile Include="Controllers\api\ListingController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\EnquiryController.cs" />
     <Compile Include="Controllers\ExceptionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ListingV2Controller.cs" />
     <Compile Include="Controllers\ListingController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -324,6 +329,8 @@
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\AccountViewModel.cs" />
+    <Compile Include="ViewModel\CategoryViewModel.cs" />
+    <Compile Include="ViewModel\ListingV2ViewModel.cs" />
     <Compile Include="ViewModel\ListingViewModel.cs" />
     <Compile Include="ViewModel\SearchViewModel.cs" />
   </ItemGroup>
@@ -836,11 +843,17 @@
     <Content Include="Views\Article\Detail.cshtml" />
     <Content Include="Views\ServerSetting\Index.cshtml" />
     <Content Include="Views\Alert\Error.cshtml" />
+    <Content Include="Views\ListingV2\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutNew.cshtml" />
+    <Content Include="Views\ListingV2\New.cshtml" />
+    <Content Include="Views\ListingV2\Save.cshtml" />
+    <Content Include="Views\ListingV2\_property.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Account\Views\Shared\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Code\Services\" />
     <Folder Include="Views\Ads\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
@@ -867,7 +880,16 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://local.9street.my:83/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>

@@ -43,5 +43,6 @@ namespace App.Core.Data
         public virtual DbSet<ListingFeatureType> ListingFeatureTypes { get; set; }
         public virtual DbSet<Article> Articles { get; set; }
         public virtual DbSet<Listing> Listings { get; set; }
+        public virtual DbSet<TemplateType> TemplateTypes { get; set; }
     }
 }

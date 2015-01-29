@@ -1,0 +1,135 @@
+﻿@using MvcSiteMapProvider;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title | @ViewBag.SiteName</title>
+
+    <meta name="title" content="@ViewBag.Title | @ViewBag.SiteName" />
+    <meta name="keywords" content="@ViewBag.Keywords" />
+    <meta name="description" content="@ViewBag.Description" />
+    <meta name="copyright" content="Copyright (c) @DateTime.Now.Year by 9street.my" />
+    <meta name="author" content="9street Malaysia" />
+    <meta name="language" content="english" />
+    <meta name="robots" content="index,follow" />
+    <meta name="revisit-after" content="2 days" />
+
+    <meta property="og:title" content="@ViewBag.OG_Title - @ViewBag.SiteName" />
+    <meta property="og:description" content="@ViewBag.OG_Desc" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="@ViewBag.OG_URL" />
+    <meta property="og:site_name" content="@ViewBag.SiteName" />
+    <meta property="og:image" content="@ViewBag.OG_Image" />
+    <meta property="fb:app_id" content="@System.Configuration.ConfigurationManager.AppSettings["fbId"]" />
+
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/bootstrap3.3")
+    @Styles.Render("~/Content/css")
+
+    @RenderSection("style", required: false)
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    @Scripts.Render("~/bundles/jqHead")
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=@System.Configuration.ConfigurationManager.AppSettings["googleApiKey"]&libraries=places"></script>
+
+</head>
+<body class="ad" data-ng-app="adsApp">
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '@System.Configuration.ConfigurationManager.AppSettings["fbId"]',
+                xfbml: true,
+                version: 'v2.2'
+            });
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/" class="navbar-brand ">
+                    <span class="logo">
+                        <strong style="float:left;">9</strong>
+                        <span class="handwriting">street.my</span><br>
+                        <small>@ViewBag.SiteTitle</small>
+                    </span>
+                </a>
+            </div>
+            <section id="login">
+                <div class="pull-right">
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </section>
+        </div>
+    </nav>
+    @if (IsSectionDefined("SearchBox"))
+    {
+        @RenderSection("SearchBox")
+    }
+    else
+    {
+        <hr class="topbar">
+    }
+    <div id="wrapper">
+
+        <div id="page-content-wrapper">
+            @RenderSection("AjaxError", required: false)
+            <div class="container">
+                <div class="row">
+                    @*@Html.MvcSiteMap().Menu(false, true, true)*@
+                    <div class="col-sm-12">
+                        @RenderSection("PageTitle", required: false)
+                        @if (SiteMaps.Current.CurrentNode != null && (SiteMaps.Current.CurrentNode != SiteMaps.Current.CurrentNode.RootNode))
+                        {
+                            @Html.MvcSiteMap().SiteMapPath()
+                        }
+                    </div>
+                </div>
+                @RenderBody()
+            </div>
+
+            <div class="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-12">
+                            <p><strong>© @DateTime.Now.Year 9street.my. All rights reserved.</strong></p>
+                            <p>Need help? Contact us  <a href="mailto:support@9street.my" target="_top">support@9street.my</a> / +60 129044822 (Khoo)</p>
+                        </div>
+                        <div class="col-sm-6 col-xs-12">
+                            <p class="footer-links">
+                                <a href="/" class="active">Home</a>
+                                @Html.ActionLink("Terms and Condition", "Detail", "Article", new { id = 1 }, new { target = "_blank" })
+                                @Html.ActionLink("Privacy Policy", "Detail", "Article", new { id = 3 }, new { target = "_blank" })
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/plugin")
+    @Scripts.Render("~/bundles/angular")
+    <script>
+        window.data = {
+            id: '@ViewBag.id'
+        }
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

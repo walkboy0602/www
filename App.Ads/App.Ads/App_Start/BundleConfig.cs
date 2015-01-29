@@ -73,7 +73,8 @@ namespace App.Ads
                  "~/Scripts/angular/3rd/ui-bootstrap-tpls-0.6.0.js",
                  "~/Scripts/angular/3rd/loading-bar.js",
                  "~/Scripts/angular/3rd/angular-strap.js",
-                 "~/Scripts/angular/3rd/angular-strap.tpl.js"
+                 "~/Scripts/angular/3rd/angular-strap.tpl.js",
+                 "~/Scripts/angular/3rd/angular-busy.js"
                  ));
 
 
@@ -100,6 +101,12 @@ namespace App.Ads
             #region CSS
 
             //Bootstrap
+            bundles.Add(new StyleBundle("~/Content/bootstrap3.3").Include(
+                         "~/Content/bootstrap/3.3.1/bootstrap.css",
+                         "~/Content/bootstrap/3.3.1/bootstrap-theme.css"
+                         ).Include("~/Content/bootstrap/font-awesome.css", new CssRewriteUrlTransform()));
+
+            //Bootstrap-Additional
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
                          "~/Content/bootstrap/bootstrap.css",
                          "~/Content/bootstrap/bootstrap-bazaar.css",
@@ -118,12 +125,14 @@ namespace App.Ads
                         "~/Content/global/table.css",
                         "~/Content/global/icons.css",
                         "~/Content/themes/bazaar/signin.css",
+                        "~/Content/themes/bazaar/listing.css",
                         "~/Content/fancybox/jquery.fancybox.css",
                         "~/Content/fancybox/helpers/jquery.fancybox-buttons.css",
                         "~/Content/libraries/simple-sidebar.css",
                         "~/Content/libraries/loading-bar.css",
                         "~/Content/libraries/owl.carousel.css",
-                        "~/Content/libraries/owl.theme.css"
+                        "~/Content/libraries/owl.theme.css",
+                        "~/Content/angular/angular-busy.css"
                         ));
 
             //Form CSS
@@ -133,7 +142,8 @@ namespace App.Ads
                             "~/Content/themes/bazaar/gallery.css",
                             "~/Content/fileupload/jquery.fileupload-ui.css",
                             "~/Content/fileupload/jquery.fileupload.css",
-                            "~/Content/libraries/summernote.css"
+                            "~/Content/libraries/summernote.css",
+                            "~/Content/libraries/validationEngine.jquery.css"
                 ));
 
             #endregion

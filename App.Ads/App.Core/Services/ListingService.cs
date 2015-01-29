@@ -15,6 +15,7 @@ namespace App.Core.Services
 {
     public interface IListingService
     {
+        int Create(Listing listing);
         int CreateNew(int UserId);
         int GetNewListing(int UserId);
         Listing GetListingById(int ListingId, int UserId = 0);
@@ -34,6 +35,14 @@ namespace App.Core.Services
         public ListingService()
         {
             db = new AdsDBEntities();
+        }
+
+        int IListingService.Create(Listing listing)
+        {
+            db.Listings.Add(listing);
+            db.SaveChanges();
+
+            return listing.Id;
         }
 
         void IListingService.Save(Listing listing)

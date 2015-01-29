@@ -1,4 +1,4 @@
-﻿shopApp.service('uploadManager', ['$rootScope', function ($rootScope) {
+﻿adsApp.service('uploadManager', ['$rootScope', function ($rootScope) {
     var _files = [];
     return {
         add: function (file) {
@@ -39,7 +39,7 @@
     };
 }])
 
-shopApp.service('ListingManager', ['$rootScope', '$q', 'ListingFactory', 'ReferenceFactory',
+adsApp.service('ListingManager', ['$rootScope', '$q', 'ListingFactory', 'ReferenceFactory',
     function ($rootScope, $q, ListingFactory, ReferenceFactory) {
 
         //Get listing info
@@ -62,12 +62,6 @@ shopApp.service('ListingManager', ['$rootScope', '$q', 'ListingFactory', 'Refere
             });
             return q.promise;
         }
-
-
-    }])
-
-shopApp.service('ImageManager', ['$rootScope', '$q', 'imageFactory',
-    function ($rootScope, $q, imageFactory) {
 
 
     }])

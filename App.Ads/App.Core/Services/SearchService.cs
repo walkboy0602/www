@@ -42,7 +42,7 @@ namespace App.Core.Services
             // Type
             if (!string.IsNullOrEmpty(model.type))
             {
-                predicate = predicate.And(p => p.ListingTypeCode == model.type);
+                predicate = predicate.And(p => p.ListType == model.type);
             }
 
             // Location

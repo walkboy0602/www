@@ -1,6 +1,6 @@
 ﻿
 //declare a module
-var shopApp = angular.module("shopApp", ['shopAPI', 'ui.bootstrap', 'ngRoute', 'ngSanitize', 'ngResource', 'mgcrea.ngStrap', 'chieffancypants.loadingBar'])
+var adsApp = angular.module("adsApp", ['adsAPI', 'ui.bootstrap', 'ngRoute', 'ngSanitize', 'ngResource', 'mgcrea.ngStrap', 'cgBusy'])
                     .config(function ($locationProvider, $routeProvider) {
                         $routeProvider.when('/listing/image/:id', {
                             controller: ListingImageCtrl
@@ -8,7 +8,7 @@ var shopApp = angular.module("shopApp", ['shopAPI', 'ui.bootstrap', 'ngRoute', '
 
                     });
 
-shopApp.run(['$rootScope', '$window', '$http', '$location', '$route', '$routeParams', 
+adsApp.run(['$rootScope', '$window', '$http', '$location', '$route', '$routeParams',
     function ($rootScope, $window, $http, $location, $route, $routeParams) {
         //add this so server side will recognise as ajax request
         $http.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -87,7 +87,7 @@ shopApp.run(['$rootScope', '$window', '$http', '$location', '$route', '$routePar
                 left: '50%' // Left position relative to parent in px
             },
             start: function (index) {
-               
+
                 var target = $("div.spin-" + index)[0];
                 //var target3 = $("div[class*=spin-")[0];
 
@@ -97,7 +97,7 @@ shopApp.run(['$rootScope', '$window', '$http', '$location', '$route', '$routePar
 
                 console.log(target);
                 this.spinner = new Spinner(this.opts).spin(target);
-               
+
 
             },
             end: function () {
