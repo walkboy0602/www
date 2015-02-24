@@ -22,11 +22,11 @@ namespace App.Core.ViewModel
         public int CategoryId { get; set; }
 
         [Required(ErrorMessage = "Please enter Title.")]
-        [StringLength(50, MinimumLength = 10, ErrorMessage = "Minimun {2} charaters, Max {1} characters.")]
+        [StringLength(50, ErrorMessage = "Max {1} characters.")]
         public string Title { get; set; }
 
         [Required]
-        [StringLength(2000, MinimumLength=10, ErrorMessage="Minimun {2} charaters, Max {1} characters.")]
+        [StringLength(15000, MinimumLength=10, ErrorMessage="Minimun {2} charaters, Max {1} characters.")]
         [AllowHtml]
         public string Description { get; set; }
 
