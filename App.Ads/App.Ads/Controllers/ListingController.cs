@@ -39,22 +39,34 @@ namespace App.Ads.Controllers
         #region GET
 
         [HttpGet]
-        public ActionResult Manage()
+        public ActionResult Manage(int? status = (int)XtEnum.ListingStatus.Online)
         {
             List<int> filterStatus = new List<int>{
                 (int)XtEnum.ListingStatus.New,
                 (int)XtEnum.ListingStatus.Deleted
             };
 
+            List<int> includeStatus = new List<int>
+            {
+                Convert.ToInt32(status)
+            };
+
+            if (status == (int)XtEnum.ListingStatus.Processing)
+            {
+                includeStatus.Add((int)XtEnum.ListingStatus.Rejected);
+            }
+
             var listings = listingService.GetAllByUserId(CurrentUser.CustomIdentity.UserId)
                             .Where(l => !filterStatus.Contains(l.Status))
+                            .Where(l => includeStatus.Contains(l.Status))
                             .OrderByDescending(l => l.LastUpdate)
                             .ToList();
 
-            listings.ForEach(x =>
-            {
-                x.Status = x.PostingEndDate < DateTime.Now ? (int)XtEnum.ListingStatus.Expired : x.Status;
-            });
+            //Temporary take off expired checking
+            //listings.ForEach(x =>
+            //{
+            //    x.Status = x.PostingEndDate < DateTime.Now ? (int)XtEnum.ListingStatus.Expired : x.Status;
+            //});
 
             var model = Mapper.Map<List<Listing>, List<DisplayListingViewModel>>(listings);
 
@@ -229,7 +241,7 @@ namespace App.Ads.Controllers
                     listingService.Save(listing);
 
                     TempData["ListingDetail"] = listing;
-                    TempData["Message"] = "You have successful updating your ad '<b>" +  listing.Title + "</b>' (Ad ID <b>" + listing.Id + "</b>). " +
+                    TempData["Message"] = "You have successful updating your ad '<b>" + listing.Title + "</b>' (Ad ID <b>" + listing.Id + "</b>). " +
                         "<br/>It can sometimes take a few hours for your ad to appear in the listings however, you can view your ad <a href='/ad/" + listing.Id + "/" +
                         listing.Title.ToSeoUrl() + "'>here</a> straight away.";
 
@@ -321,7 +333,7 @@ namespace App.Ads.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete (int id)
+        public ActionResult Delete(int id)
         {
             Listing listing = listingService.GetListingById(id, CurrentUser.CustomIdentity.UserId);
 
@@ -340,6 +352,49 @@ namespace App.Ads.Controllers
             return RedirectToAction("Manage");
         }
 
+
+        [HttpPost, ActionName("Deactivate")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Deactivate(int id)
+        {
+            Listing listing = listingService.GetListingById(id, CurrentUser.CustomIdentity.UserId);
+
+            if (listing == null)
+            {
+                return HttpNotFound();
+            }
+
+            listing.Status = (int)XtEnum.ListingStatus.Offline;
+            listing.LastAction = "Deactivate";
+            listing.LastActionBy = CurrentUser.CustomIdentity.UserId;
+
+            listingService.Save(listing);
+
+            TempData["Message"] = "Your ad ''" + listing.Title + "'' has been successfully deactivated.";
+            return RedirectToAction("Manage");
+
+        }
+
+        [HttpPost, ActionName("Reactivate")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Reactivate(int id)
+        {
+            Listing listing = listingService.GetListingById(id, CurrentUser.CustomIdentity.UserId);
+
+            if (listing == null)
+            {
+                return HttpNotFound();
+            }
+
+            listing.Status = (int)XtEnum.ListingStatus.Online;
+            listing.LastAction = "Reactivate";
+            listing.LastActionBy = CurrentUser.CustomIdentity.UserId;
+
+            listingService.Save(listing);
+
+            TempData["Message"] = "Your ad ''" + listing.Title + "'' has been successfully reactivated.";
+            return RedirectToAction("Manage");
+        }
 
         #endregion
 

@@ -127,7 +127,7 @@ namespace App.Ads.Code.Helpers
                 case XtEnum.ListingStatus.Processing:
                     return "label label-warning";
 
-                case XtEnum.ListingStatus.Live:
+                case XtEnum.ListingStatus.Online:
                     return "label label-success";
 
                 case XtEnum.ListingStatus.Rejected:
@@ -145,8 +145,8 @@ namespace App.Ads.Code.Helpers
                 case XtEnum.ListingStatus.Processing:
                     return "Pending for review";
 
-                case XtEnum.ListingStatus.Live:
-                    return "Ad expired on " + endDate.ToString("ddMMMyy");
+                //case XtEnum.ListingStatus.Online:
+                //    return "Ad expired on " + endDate.ToString("ddMMMyy");
 
                 case XtEnum.ListingStatus.Rejected:
                     return "Ad rejected for reasons";

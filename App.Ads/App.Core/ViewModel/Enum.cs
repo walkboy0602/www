@@ -12,10 +12,11 @@ namespace App.Core.ViewModel
         {
             New = 0,
             Draft = 100,
-            Live = 200,
+            Online = 200,
             Processing = 300,
             Rejected = 400,
             Expired = 500,
+            Offline = 600,
             Deleted = 999
         }
 
