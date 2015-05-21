@@ -85,7 +85,7 @@ namespace App.Core.Services
                 predicate = predicate.And(predKeyword.Expand());
             }
 
-            predicate = predicate.And(p => p.Status == (int)App.Core.ViewModel.XtEnum.ListingStatus.Live);
+            predicate = predicate.And(p => p.Status == (int)App.Core.ViewModel.XtEnum.ListingStatus.Online);
     
             predicate = predicate.And(p => p.PostingEndDate >= DateTime.Now);
 

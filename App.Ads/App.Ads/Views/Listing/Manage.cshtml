@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<App.Ads.ViewModel.DisplayListingViewModel>
+@using App.Core.ViewModel         
 @using App.Ads.Code.Helpers
 @{
     ViewBag.Title = "Manage ads";
@@ -7,7 +8,7 @@
 @if (TempData["Message"] != null)
 {
     <div class="col-sm-12">
-        <div class="alert alert-info" role="alert">
+        <div class="alert alert-success" role="alert">
             <button type="button" class="close" data-dismiss="alert">
                 <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
             </button>
@@ -28,6 +29,21 @@
         </div>
         <div class="panel-body">
             <div class="listings">
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="@(Request.QueryString["Status"] == "200" || Request.QueryString["Status"] == null ? "active" : "")"><a href="/listing/manage">Online</a></li>
+                    <li role="presentation" class="@(Request.QueryString["Status"] == "300" ? "active" : "")"><a href="/listing/manage?status=300">Processing</a></li>
+                    <li role="presentation" class="@(Request.QueryString["Status"] == "600" ? "active" : "")"><a href="/listing/manage?status=600">Offline</a></li>
+                    <li role="presentation" class="@(Request.QueryString["Status"] == "100" ? "active" : "")"><a href="/listing/manage?status=100">Draft</a></li>
+                </ul>
+                @if (Model.Count() == 0)
+                {
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <br />
+                            <h3><i>You have no listing with this status </i></h3>
+                        </div>
+                    </div>
+                }
                 @foreach (var item in Model)
                 {
                     <div class="row listing-row">
@@ -64,18 +80,25 @@
                                 <div class="col-sm-4">
 
                                     <div class="@ListingHelper.FormatListingStatusCss(item.Status)" data-toggle="tooltip" data-original-title="@ListingHelper.FormatListingStatusToolTip(item.Status, item.PostingEndDate)">
-                                        <i class="fa fa-info-circle"></i>
-                                        @Enum.GetName(typeof(App.Core.ViewModel.XtEnum.ListingStatus), item.Status)
+                                        @Enum.GetName(typeof(XtEnum.ListingStatus), item.Status)
                                     </div>
                                 </div>
 
                                 <div class="col-sm-8">
-                                    <span class="classified_links pull-right">
-                                        <span>
-                                            <a class="link-info underline" href="/ad/@item.id/@item.Title.ToSeoUrl()" target="_blank">View</a>&nbsp;&nbsp;
-                                        </span>
-                                        <a class="link-info underline" href="#" data-toggle="modal" data-target="#deleteModal" data-listing-id="@item.id">Delete</a>
-                                    </span>
+                                    <div class="dropdown pull-right">
+                                        <button class="btn-glow btn-finish dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                                            Action
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu3">
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="/ad/@item.id/@item.Title.ToSeoUrl()" target="_blank">View</a></li>
+                                            <li role="presentation" class="divider"></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="@Url.Action("Save", new { id = item.id })">Edit</a></li>
+                                            @if(item.Status == (int)XtEnum.ListingStatus.Online){<li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#deactivateModal" data-listing-id="@item.id">Deactivate</a></li>}
+                                            @if(item.Status == (int)XtEnum.ListingStatus.Offline){<li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#reactivateModal" data-listing-id="@item.id">Reactivate</a></li>}
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#deleteModal" data-listing-id="@item.id">Delete</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
 
@@ -96,17 +119,74 @@
             @Html.AntiForgeryToken()
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header bg-danger">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title">Remove Listing</h4>
                     </div>
                     <div class="modal-body">
                         <h4 class="modal-title">Are you sure you want to remove this listing ?</h4>
+                        <small>(Cannot be recover)</small>
                     </div>
                     <div class="modal-footer">
                         <div class="pull-right">
                             <button type="button" class="btn-glow" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn-glow inverse" data-ng-click="test(form.id)">Delete</button>
+                            <button type="submit" class="btn-glow inverse" data-ng-click="">Delete</button>
+                        </div>
+                    </div>
+
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        }
+    </div><!-- /.modal -->
+
+    <!-- Modal - Deactivate Listing -->
+    <div class="modal fade" id="deactivateModal" tabindex="-1" role="dialog">
+        @using (Html.BeginForm("Deactivate", "Listing", FormMethod.Post))
+        {
+            @Html.Hidden("id", null, new { ng_value = "model.id" })
+
+            @Html.AntiForgeryToken()
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Deactivate Listing</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4 class="modal-title">Are you sure you want to <b>deactivate</b> this listing ?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="pull-right">
+                            <button type="button" class="btn-glow" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn-glow" data-ng-click="">Deactivate</button>
+                        </div>
+                    </div>
+
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        }
+    </div><!-- /.modal -->
+
+    <!-- Modal - Reactivate Listing -->
+    <div class="modal fade" id="reactivateModal" tabindex="-1" role="dialog">
+        @using (Html.BeginForm("Reactivate", "Listing", FormMethod.Post))
+        {
+            @Html.Hidden("id", null, new { ng_value = "model.id" })
+
+            @Html.AntiForgeryToken()
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Reactivate Listing</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4 class="modal-title"><b>Reactivate</b> this listing ?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="pull-right">
+                            <button type="button" class="btn-glow" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn-glow" data-ng-click="">Reactivate</button>
                         </div>
                     </div>
 

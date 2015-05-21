@@ -41,7 +41,7 @@ namespace App.Ads.Controllers
             var listing = listingService.GetListingById(id);
 
             //Valiate listing status
-            if (listing.Status != (int)XtEnum.ListingStatus.Live || listing.PostingEndDate <= DateTime.Now)
+            if (listing.Status != (int)XtEnum.ListingStatus.Online)
             {
                 if (CurrentUser == null) return HttpNotFound();
 

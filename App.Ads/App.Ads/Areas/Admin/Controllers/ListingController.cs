@@ -74,7 +74,7 @@ namespace App.Ads.Areas.Admin.Controllers
                 return Json(responseModel);
             }
 
-            if (listing.Status == (int)XtEnum.ListingStatus.Live)
+            if (listing.Status == (int)XtEnum.ListingStatus.Online)
             {
                 responseModel = new Ads.Models.ResponseModel
                 {
@@ -86,7 +86,7 @@ namespace App.Ads.Areas.Admin.Controllers
 
             listing.PostedDate = listing.PostedDate == null ? DateTime.Now : listing.PostedDate;
             listing.PostingEndDate = listing.PostingEndDate == null ? DateTime.Now.AddDays((int)listing.Duration) : listing.PostingEndDate;
-            listing.Status = (int)XtEnum.ListingStatus.Live;
+            listing.Status = (int)XtEnum.ListingStatus.Online;
             listing.LastAction = "Posted";
             listing.LastActionBy = CurrentUser.CustomIdentity.UserId;
             _listingService.Save(listing);
