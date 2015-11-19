@@ -742,6 +742,7 @@
     <Content Include="Areas\Account\Views\ChangePassword\Index.cshtml" />
     <Content Include="Areas\Account\Views\ChangePassword\Success.cshtml" />
     <None Include="MvcSiteMapSchema.xsd" />
+    <None Include="Properties\PublishProfiles\9street.pubxml" />
     <None Include="Properties\PublishProfiles\ohmybazzar - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\ohmybazzar - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\ohmybazzar.pubxml" />
